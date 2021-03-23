@@ -17,9 +17,15 @@ struct ContentView: View {
     private var items: FetchedResults<Item>
 
     var body: some View {
+        
         List {
             ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                let key = Bundle.main.infoDictionary?["API_KEY"] as? String
+                if let apikey = key{
+                    Text(apikey)
+                }
+                
+//                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
             }
             .onDelete(perform: deleteItems)
         }

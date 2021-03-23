@@ -17,6 +17,7 @@
 		DD045489260A171D00DFEFE6 /* WatchlistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045488260A171D00DFEFE6 /* WatchlistTests.swift */; };
 		DD045494260A171D00DFEFE6 /* WatchlistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */; };
 		DD0454A9260A1F8600DFEFE6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0454A8260A1F8600DFEFE6 /* Constants.swift */; };
+		DD2A6410260A3154002345AA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A640F260A3154002345AA /* OnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +55,8 @@
 		DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistUITests.swift; sourceTree = "<group>"; };
 		DD045495260A171D00DFEFE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD0454A8260A1F8600DFEFE6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		DD0454B5260A20CB00DFEFE6 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		DD2A640F260A3154002345AA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		DD9C88B1260A2B22002E10E8 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		E4A1799C8870748BF2F279AD /* Pods-Watchlist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watchlist.debug.xcconfig"; path = "Target Support Files/Pods-Watchlist/Pods-Watchlist.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +128,7 @@
 		DD045470260A171900DFEFE6 /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
+				DD2A640D260A3135002345AA /* Onboarding */,
 				DD0454A7260A1E3800DFEFE6 /* Core */,
 				DD045471260A171900DFEFE6 /* WatchlistApp.swift */,
 				DD045473260A171900DFEFE6 /* ContentView.swift */,
@@ -168,9 +171,25 @@
 			isa = PBXGroup;
 			children = (
 				DD0454A8260A1F8600DFEFE6 /* Constants.swift */,
-				DD0454B5260A20CB00DFEFE6 /* Config.xcconfig */,
+				DD9C88B1260A2B22002E10E8 /* Config.xcconfig */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		DD2A640D260A3135002345AA /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				DD2A640E260A313E002345AA /* View */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		DD2A640E260A313E002345AA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DD2A640F260A3154002345AA /* OnboardingView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,6 +368,7 @@
 				DD0454A9260A1F8600DFEFE6 /* Constants.swift in Sources */,
 				DD04547B260A171C00DFEFE6 /* Persistence.swift in Sources */,
 				DD04547E260A171C00DFEFE6 /* Watchlist.xcdatamodeld in Sources */,
+				DD2A6410260A3154002345AA /* OnboardingView.swift in Sources */,
 				DD045474260A171900DFEFE6 /* ContentView.swift in Sources */,
 				DD045472260A171900DFEFE6 /* WatchlistApp.swift in Sources */,
 			);
@@ -388,6 +408,7 @@
 /* Begin XCBuildConfiguration section */
 		DD045496260A171D00DFEFE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD9C88B1260A2B22002E10E8 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -449,6 +470,7 @@
 		};
 		DD045497260A171D00DFEFE6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD9C88B1260A2B22002E10E8 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
