@@ -6,7 +6,8 @@
 //
 
 import Foundation
+import TMDBSwift
 
-struct Constants {
-    
+enum Constants {
+//    let api_key = "43103292afecd22342eba92e93b8c479"
 }

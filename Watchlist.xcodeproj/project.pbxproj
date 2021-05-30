@@ -18,6 +18,23 @@
 		DD045494260A171D00DFEFE6 /* WatchlistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */; };
 		DD0454A9260A1F8600DFEFE6 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0454A8260A1F8600DFEFE6 /* Constants.swift */; };
 		DD2A6410260A3154002345AA /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2A640F260A3154002345AA /* OnboardingView.swift */; };
+		DD4BB78A264A0FD500E07C5F /* OnboardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB789264A0FD500E07C5F /* OnboardingPresenter.swift */; };
+		DD4BB78F264A0FF600E07C5F /* OnboardingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB78E264A0FF600E07C5F /* OnboardingInteractor.swift */; };
+		DD4BB794264BE68F00E07C5F /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB793264BE68F00E07C5F /* PagingView.swift */; };
+		DD4BB79A264C02F600E07C5F /* ColorExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB799264C02F600E07C5F /* ColorExtentions.swift */; };
+		DD4BB7A5264C534A00E07C5F /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7A4264C534A00E07C5F /* OnboardingCoordinator.swift */; };
+		DD4BB7AF264C54AD00E07C5F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */; };
+		DD4BB7B6264C67D300E07C5F /* DashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */; };
+		DD4BB7BB264C6B0F00E07C5F /* DashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7BA264C6B0F00E07C5F /* DashboardPresenter.swift */; };
+		DD4BB7CC264CA21C00E07C5F /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7CB264CA21C00E07C5F /* DiscoverView.swift */; };
+		DD4BB7D1264CA5B300E07C5F /* GenresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7D0264CA5B300E07C5F /* GenresView.swift */; };
+		DD4BB7D6264CA5C400E07C5F /* ArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7D5264CA5C400E07C5F /* ArtistsView.swift */; };
+		DD4BB7DB264CAF2300E07C5F /* DiscoverInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7DA264CAF2300E07C5F /* DiscoverInteractor.swift */; };
+		DD4BB7E0264CAF4400E07C5F /* DiscoverPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7DF264CAF4400E07C5F /* DiscoverPresenter.swift */; };
+		DD5DE039265D901C00E06B4B /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DE038265D901C00E06B4B /* ImageLoader.swift */; };
+		DD5DE03E265D94B600E06B4B /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DE03D265D94B600E06B4B /* RemoteImage.swift */; };
+		DD5DE043265D96D500E06B4B /* DiscoverSectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DE042265D96D500E06B4B /* DiscoverSectionItem.swift */; };
+		DD5DE058265EDD3800E06B4B /* DiscoverSectionItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DE057265EDD3800E06B4B /* DiscoverSectionItemEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +73,23 @@
 		DD045495260A171D00DFEFE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD0454A8260A1F8600DFEFE6 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DD2A640F260A3154002345AA /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		DD4BB789264A0FD500E07C5F /* OnboardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPresenter.swift; sourceTree = "<group>"; };
+		DD4BB78E264A0FF600E07C5F /* OnboardingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingInteractor.swift; sourceTree = "<group>"; };
+		DD4BB793264BE68F00E07C5F /* PagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingView.swift; sourceTree = "<group>"; };
+		DD4BB799264C02F600E07C5F /* ColorExtentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtentions.swift; sourceTree = "<group>"; };
+		DD4BB7A4264C534A00E07C5F /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
+		DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInteractor.swift; sourceTree = "<group>"; };
+		DD4BB7BA264C6B0F00E07C5F /* DashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPresenter.swift; sourceTree = "<group>"; };
+		DD4BB7CB264CA21C00E07C5F /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
+		DD4BB7D0264CA5B300E07C5F /* GenresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenresView.swift; sourceTree = "<group>"; };
+		DD4BB7D5264CA5C400E07C5F /* ArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsView.swift; sourceTree = "<group>"; };
+		DD4BB7DA264CAF2300E07C5F /* DiscoverInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInteractor.swift; sourceTree = "<group>"; };
+		DD4BB7DF264CAF4400E07C5F /* DiscoverPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverPresenter.swift; sourceTree = "<group>"; };
+		DD5DE038265D901C00E06B4B /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		DD5DE03D265D94B600E06B4B /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
+		DD5DE042265D96D500E06B4B /* DiscoverSectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSectionItem.swift; sourceTree = "<group>"; };
+		DD5DE057265EDD3800E06B4B /* DiscoverSectionItemEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSectionItemEntity.swift; sourceTree = "<group>"; };
 		DD9C88B1260A2B22002E10E8 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		E4A1799C8870748BF2F279AD /* Pods-Watchlist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watchlist.debug.xcconfig"; path = "Target Support Files/Pods-Watchlist/Pods-Watchlist.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +162,8 @@
 		DD045470260A171900DFEFE6 /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
+				DD4BB7AC264C547D00E07C5F /* Dashboard */,
+				DD4BB798264C02BC00E07C5F /* Extentions */,
 				DD2A640D260A3135002345AA /* Onboarding */,
 				DD0454A7260A1E3800DFEFE6 /* Core */,
 				DD045471260A171900DFEFE6 /* WatchlistApp.swift */,
@@ -172,6 +208,9 @@
 			children = (
 				DD0454A8260A1F8600DFEFE6 /* Constants.swift */,
 				DD9C88B1260A2B22002E10E8 /* Config.xcconfig */,
+				DD4BB793264BE68F00E07C5F /* PagingView.swift */,
+				DD5DE038265D901C00E06B4B /* ImageLoader.swift */,
+				DD5DE03D265D94B600E06B4B /* RemoteImage.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -179,6 +218,9 @@
 		DD2A640D260A3135002345AA /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				DD4BB7A3264C531E00E07C5F /* Coordinator */,
+				DD4BB7A2264C531700E07C5F /* Interactor */,
+				DD4BB7A1264C530E00E07C5F /* Presenter */,
 				DD2A640E260A313E002345AA /* View */,
 			);
 			path = Onboarding;
@@ -190,6 +232,95 @@
 				DD2A640F260A3154002345AA /* OnboardingView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		DD4BB798264C02BC00E07C5F /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				DD4BB799264C02F600E07C5F /* ColorExtentions.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		DD4BB7A1264C530E00E07C5F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				DD4BB789264A0FD500E07C5F /* OnboardingPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		DD4BB7A2264C531700E07C5F /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				DD4BB78E264A0FF600E07C5F /* OnboardingInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		DD4BB7A3264C531E00E07C5F /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				DD4BB7A4264C534A00E07C5F /* OnboardingCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		DD4BB7AC264C547D00E07C5F /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				DD5DE053265ED67300E06B4B /* Entity */,
+				DD4BB7BF264C9EEE00E07C5F /* ViewModel */,
+				DD4BB7B4264C67C200E07C5F /* Presenter */,
+				DD4BB7B3264C67BB00E07C5F /* Interactor */,
+				DD4BB7AD264C548300E07C5F /* View */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		DD4BB7AD264C548300E07C5F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */,
+				DD4BB7CB264CA21C00E07C5F /* DiscoverView.swift */,
+				DD4BB7D0264CA5B300E07C5F /* GenresView.swift */,
+				DD4BB7D5264CA5C400E07C5F /* ArtistsView.swift */,
+				DD5DE042265D96D500E06B4B /* DiscoverSectionItem.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DD4BB7B3264C67BB00E07C5F /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */,
+				DD4BB7DA264CAF2300E07C5F /* DiscoverInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		DD4BB7B4264C67C200E07C5F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				DD4BB7BA264C6B0F00E07C5F /* DashboardPresenter.swift */,
+				DD4BB7DF264CAF4400E07C5F /* DiscoverPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		DD4BB7BF264C9EEE00E07C5F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DD5DE053265ED67300E06B4B /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				DD5DE057265EDD3800E06B4B /* DiscoverSectionItemEntity.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,10 +496,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD4BB794264BE68F00E07C5F /* PagingView.swift in Sources */,
+				DD4BB7E0264CAF4400E07C5F /* DiscoverPresenter.swift in Sources */,
+				DD5DE039265D901C00E06B4B /* ImageLoader.swift in Sources */,
+				DD4BB7AF264C54AD00E07C5F /* DashboardView.swift in Sources */,
+				DD4BB7CC264CA21C00E07C5F /* DiscoverView.swift in Sources */,
+				DD4BB7D6264CA5C400E07C5F /* ArtistsView.swift in Sources */,
 				DD0454A9260A1F8600DFEFE6 /* Constants.swift in Sources */,
 				DD04547B260A171C00DFEFE6 /* Persistence.swift in Sources */,
 				DD04547E260A171C00DFEFE6 /* Watchlist.xcdatamodeld in Sources */,
+				DD5DE03E265D94B600E06B4B /* RemoteImage.swift in Sources */,
+				DD4BB78F264A0FF600E07C5F /* OnboardingInteractor.swift in Sources */,
 				DD2A6410260A3154002345AA /* OnboardingView.swift in Sources */,
+				DD4BB79A264C02F600E07C5F /* ColorExtentions.swift in Sources */,
+				DD5DE058265EDD3800E06B4B /* DiscoverSectionItemEntity.swift in Sources */,
+				DD5DE043265D96D500E06B4B /* DiscoverSectionItem.swift in Sources */,
+				DD4BB7B6264C67D300E07C5F /* DashboardInteractor.swift in Sources */,
+				DD4BB7D1264CA5B300E07C5F /* GenresView.swift in Sources */,
+				DD4BB78A264A0FD500E07C5F /* OnboardingPresenter.swift in Sources */,
+				DD4BB7A5264C534A00E07C5F /* OnboardingCoordinator.swift in Sources */,
+				DD4BB7BB264C6B0F00E07C5F /* DashboardPresenter.swift in Sources */,
+				DD4BB7DB264CAF2300E07C5F /* DiscoverInteractor.swift in Sources */,
 				DD045474260A171900DFEFE6 /* ContentView.swift in Sources */,
 				DD045472260A171900DFEFE6 /* WatchlistApp.swift in Sources */,
 			);
@@ -458,7 +606,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -514,7 +662,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -532,6 +680,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Watchlist/Preview Content\"";
+				DEVELOPMENT_TEAM = K8CQ9C2992;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Watchlist/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -554,6 +703,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Watchlist/Preview Content\"";
+				DEVELOPMENT_TEAM = K8CQ9C2992;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Watchlist/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

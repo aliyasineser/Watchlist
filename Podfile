@@ -4,6 +4,7 @@ target 'Watchlist' do
   pod 'Alamofire'
   pod 'RxSwift'  
   pod 'RxCocoa'    
+  pod 'SDWebImageSwiftUI'
   pod 'SDWebImage'
   pod 'Cosmos' 
 end

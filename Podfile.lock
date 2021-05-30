@@ -10,6 +10,8 @@ PODS:
   - SDWebImage (5.10.4):
     - SDWebImage/Core (= 5.10.4)
   - SDWebImage/Core (5.10.4)
+  - SDWebImageSwiftUI (2.0.2):
+    - SDWebImage (~> 5.10)
   - TMDBSwift (0.5.1)
 
 DEPENDENCIES:
@@ -18,6 +20,7 @@ DEPENDENCIES:
   - RxCocoa
   - RxSwift
   - SDWebImage
+  - SDWebImageSwiftUI
   - TMDBSwift
 
 SPEC REPOS:
@@ -28,6 +31,7 @@ SPEC REPOS:
     - RxRelay
     - RxSwift
     - SDWebImage
+    - SDWebImageSwiftUI
     - TMDBSwift
 
 SPEC CHECKSUMS:
@@ -37,8 +41,9 @@ SPEC CHECKSUMS:
   RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
   RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+  SDWebImageSwiftUI: 8a3923c95108312b03a599ec1498754af55a6819
   TMDBSwift: 9220f3dcee23372c05b92f8c111f5f4c37185aee
 
-PODFILE CHECKSUM: 2ee4389ce3be5739f24fdf3a9163d03bfc007e14
+PODFILE CHECKSUM: bdf13971d10a4caa51004ab51f5fe1239e02e52a
 
 COCOAPODS: 1.10.1
