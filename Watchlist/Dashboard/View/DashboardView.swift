@@ -16,11 +16,10 @@ struct DashboardView: View {
     
     var body: some View {
         
-        NavigationView{
+        NavigationView {
 
             TabView {
                 DiscoverView()
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
                     .tabItem {
                         Image(systemName: "square.grid.2x2.fill")
                             .renderingMode(.template)
@@ -29,9 +28,9 @@ struct DashboardView: View {
                     }.onAppear(perform: {
                         self.navTitle = "Discover"
                     })
+                    .background(Color.veryLightPink)
 
                 GenresView()
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
                     .tabItem {
                         Image(systemName: "paintpalette.fill")
                             .renderingMode(.template)
@@ -40,9 +39,9 @@ struct DashboardView: View {
                     }.onAppear(perform: {
                         self.navTitle = "Genres"
                     })
+                    .background(Color.veryLightPink)
 
                 ArtistsView()
-                    .font(.system(size: 30, weight: .bold, design: .rounded))
                     .tabItem {
                         Image(systemName: "person.crop.circle")
                             .renderingMode(.template)
@@ -50,13 +49,16 @@ struct DashboardView: View {
                         Text("Artists")
                     }.onAppear(perform: {
                         self.navTitle = "Artists"
-                        
                     })
+                    .background(Color.veryLightPink)
             }
-
+            .navigationTitle(self.navTitle)
+            .navigationBarTitleDisplayMode(.inline)
         }
         .navigationBarBackButtonHidden(true)
-        .navigationTitle(self.navTitle)
+        
+        
+        
     }
 }
 

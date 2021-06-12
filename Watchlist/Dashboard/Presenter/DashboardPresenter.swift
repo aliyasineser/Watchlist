@@ -8,12 +8,5 @@
 import Foundation
 
 class DashboardPresenter {
-    
-    
-
-    
-    func fetchPopular() -> Void {
-        
-    }
-    
+   
 }

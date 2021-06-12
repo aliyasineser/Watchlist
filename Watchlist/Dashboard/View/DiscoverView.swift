@@ -10,8 +10,6 @@ import TMDBSwift
 
 struct DiscoverView: View {
     
-    @ObservedObject var imageLoader: ImageLoader
-//    @State var image:UIImage = UIImage()
     
     private var interactor: DiscoverInteractor
     @ObservedObject var presenter: DiscoverPresenter
@@ -19,17 +17,20 @@ struct DiscoverView: View {
     init() {
         self.interactor = DiscoverInteractor()
         self.presenter = DiscoverPresenter(self.interactor)
-        self.imageLoader = ImageLoader()
         
         presenter.loadPopularMovies()
+        presenter.loadUpcomingMovies()
+        presenter.loadMostRecentMovies()
     }
     
     var body: some View {
-        List(self.presenter.popularMovies, id: \.id) { item in
-            if let title = item.title, let year = item.release_date, let imgUrl = item.backdrop_path {
-                DiscoverSectionItem(item: DiscoverSectionItemEntity(title: title, year: year, imgUrl: imgUrl ))
-            }
+        ScrollView (.vertical, showsIndicators: false){
+            DiscoverSlice(sliceTitle: "Most Popular", sliceItems: self.presenter.popularMovies)
+            DiscoverSlice(sliceTitle: "Most Recent", sliceItems: self.presenter.mostRecentMovies)
+            DiscoverSlice(sliceTitle: "Coming Soon", sliceItems: self.presenter.upcomingMovies)
         }
+        .padding(EdgeInsets(top: 10, leading: 0, bottom: 0, trailing: 0))
+        .background(Color.veryLightPink)
     }
 }
 
