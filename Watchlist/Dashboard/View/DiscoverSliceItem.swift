@@ -31,16 +31,16 @@ struct DiscoverSliceItem: View {
                 
         
             Text(self.item.title)
-                .font(.custom("AppleGothic", size: 19) )
+                .font(.custom("AppleGothic", size: 16) )
                 .bold()
-                .allowsTightening(true)
-                .minimumScaleFactor(0.7)
+                .lineLimit(2)
+                
             
             Text(self.item.year)
-                .font(.custom("AppleGothic", size: 14))
+                .font(.custom("AppleGothic", size: 12))
         }
         .background(Color.white)
-        .scaledToFit()
+        
         
     }
 }
@@ -51,10 +51,11 @@ struct DiscoverSectionItem_Previews: PreviewProvider {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack {
                 ForEach((1..<10)) {id in
-                    DiscoverSliceItem(item: DiscoverSectionItemEntity(id: id, title: "Preview Movie Title ", year: "31 - 07 - 2021", imgUrl: "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_UX182_CR0,0,182,268_AL_.jpg"))
+                    DiscoverSliceItem(item: DiscoverSectionItemEntity(id: id, title: "Very Very  Movie Title ", year: "31 - 07 - 2021", imgUrl: "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_UX182_CR0,0,182,268_AL_.jpg"))
+                        .frame(width: 136, height: 227, alignment: .center)
                 }
             }
         })
-        .background(Color.gray)
+        .background(Color.veryLightPink)
     }
 }

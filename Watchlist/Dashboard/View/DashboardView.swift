@@ -12,52 +12,44 @@ struct DashboardView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @State var navTitle: String = ""
+    @State private var selectedTab = 0
     private var presenter = DashboardPresenter()
     
     var body: some View {
         
-        NavigationView {
-
-            TabView {
+        TabView {
+            NavigationView {
                 DiscoverView()
-                    .tabItem {
-                        Image(systemName: "square.grid.2x2.fill")
-                            .renderingMode(.template)
-                            .foregroundColor(.teal)
-                        Text("Discover")
-                    }.onAppear(perform: {
-                        self.navTitle = "Discover"
-                    })
-                    .background(Color.veryLightPink)
-
-                GenresView()
-                    .tabItem {
-                        Image(systemName: "paintpalette.fill")
-                            .renderingMode(.template)
-                            .foregroundColor(.teal)
-                        Text("Genres")
-                    }.onAppear(perform: {
-                        self.navTitle = "Genres"
-                    })
-                    .background(Color.veryLightPink)
-
-                ArtistsView()
-                    .tabItem {
-                        Image(systemName: "person.crop.circle")
-                            .renderingMode(.template)
-                            .foregroundColor(.teal)
-                        Text("Artists")
-                    }.onAppear(perform: {
-                        self.navTitle = "Artists"
-                    })
-                    .background(Color.veryLightPink)
             }
-            .navigationTitle(self.navTitle)
-            .navigationBarTitleDisplayMode(.inline)
+            .tabItem {
+                Image(systemName: "square.grid.2x2.fill")
+                    .renderingMode(.template)
+                    .foregroundColor(.teal)
+                Text("Discover")
+            }
+            
+            NavigationView {
+                GenresView()
+            }
+            .tabItem {
+                Image(systemName: "paintpalette.fill")
+                    .renderingMode(.template)
+                    .foregroundColor(.teal)
+                Text("Genres")
+            }
+            
+            NavigationView {
+                ArtistsView()
+            }
+            .tabItem {
+                Image(systemName: "person.crop.circle")
+                    .renderingMode(.template)
+                    .foregroundColor(.teal)
+                Text("Artists")
+            }
+            
         }
-        .navigationBarBackButtonHidden(true)
-        
-        
+    
         
     }
 }

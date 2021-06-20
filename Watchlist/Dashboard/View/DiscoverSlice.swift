@@ -12,33 +12,40 @@ struct DiscoverSlice: View {
     
     var sliceTitle: String
     var sliceItems: [DiscoverSectionItemEntity]
+    var section: MediaSection
     
-    internal init(sliceTitle: String, sliceItems: [DiscoverSectionItemEntity]) {
+    internal init(sliceTitle: String, sliceItems: [DiscoverSectionItemEntity], section: MediaSection) {
         self.sliceTitle = sliceTitle
         self.sliceItems = sliceItems
+        self.section = section
     }
     
     var body: some View {
+        
         VStack(alignment: .center, spacing: 0) {
             HStack(alignment: .center, spacing: 0) {
                 Text(self.sliceTitle)
                     .font(.custom("AppleGothic", size: 20) )
                     .bold()
                 Spacer()
-                HStack(alignment: .center, spacing: 1.0) {
-                    Text("See All")
-                        .foregroundColor(.blue)
-                        .font(.custom("AppleGothic", size: 20) )
-                        .bold()
-                    Image(systemName: "chevron.right")
-                        .foregroundColor(.blue)
-                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 4, trailing: 0))
-                }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                NavigationLink(destination: MovieListView(section: self.section)) {
+                    HStack(alignment: .center, spacing: 1.0) {
+                        Text("See All")
+                            .foregroundColor(.blue)
+                            .font(.custom("AppleGothic", size: 20) )
+                            .bold()
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.blue)
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 4, trailing: 0))
+                    }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                    .navigationBarTitle("")
+                    .navigationBarHidden(true)
+                }
+            
+                
                 
             }
-            .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 0))
-            
-            
+            .padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 5))
             
             ScrollView (.horizontal, showsIndicators: false){
                 HStack(alignment: .center, spacing: 10, content: {
@@ -50,6 +57,9 @@ struct DiscoverSlice: View {
             }
             
         }.background(Color.veryLightPink)
+        
+        
+        
     }
     
 }
@@ -59,6 +69,6 @@ struct DiscoverSlice_Previews: PreviewProvider {
     static let movie: MovieMDB = MovieMDB(results: "")
     
     static var previews: some View {
-        DiscoverSlice(sliceTitle: "Title", sliceItems: [DiscoverSectionItemEntity(id: 1, title: "Movie Title", year: "21 - 05 - 2021", imgUrl: "")])
+        DiscoverSlice(sliceTitle: "Title", sliceItems: [DiscoverSectionItemEntity(id: 1, title: "Very Very Long Movie Title", year: "21 - 05 - 2021", imgUrl: "")], section: MediaSection.popularMovies)
     }
 }

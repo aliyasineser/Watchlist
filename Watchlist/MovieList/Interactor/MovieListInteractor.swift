@@ -1,17 +1,16 @@
 //
-//  DiscoverInteractor.swift
+//  MovieListInteractor.swift
 //  Watchlist
 //
-//  Created by Ali Yasin Eser on 13.05.2021.
+//  Created by ali.yasin.eser on 13.06.2021.
 //
 
 import Foundation
 import TMDBSwift
 
-class DiscoverInteractor {
+class MovieListInteractor {
     
-    private var mediaFetcher: MediaFetcher
-    
+    var mediaFetcher: MediaFetcher
     
     init() {
         self.mediaFetcher = MediaFetcher()
@@ -49,4 +48,5 @@ class DiscoverInteractor {
     
     
 }
+
 
