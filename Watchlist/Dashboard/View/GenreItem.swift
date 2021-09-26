@@ -19,7 +19,7 @@ struct GenreItem: View {
         GeometryReader{
             geo in
             ZStack {
-                Image("onboarding1")
+                Placeholder.posterPlaceholder
                     .resizable()
                     .scaledToFill()
                     .frame(width: geo.size.width, height: 200, alignment: .top)

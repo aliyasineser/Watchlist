@@ -16,14 +16,16 @@ struct MovieListItemEntity: Identifiable {
     var imgUrl: String
     var rating: Double
     var genres: String
+    var mediaType: MediaType
     
-    internal init(id: Int, title: String, year: String, imgUrl: String, rating: Double, genres: String) {
+    internal init(id: Int, title: String, year: String, imgUrl: String, rating: Double, genres: String, mediaType: MediaType) {
         self.id = id
         self.title = title
         self.year = year
         self.imgUrl = imgUrl
         self.rating = rating
         self.genres = genres
+        self.mediaType = mediaType
     }
 
 }

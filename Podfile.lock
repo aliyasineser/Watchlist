@@ -1,15 +1,15 @@
 PODS:
-  - Alamofire (5.4.1)
+  - Alamofire (5.4.3)
   - Cosmos (23.0.0)
-  - RxCocoa (6.1.0):
-    - RxRelay (= 6.1.0)
-    - RxSwift (= 6.1.0)
-  - RxRelay (6.1.0):
-    - RxSwift (= 6.1.0)
-  - RxSwift (6.1.0)
-  - SDWebImage (5.10.4):
-    - SDWebImage/Core (= 5.10.4)
-  - SDWebImage/Core (5.10.4)
+  - RxCocoa (6.2.0):
+    - RxRelay (= 6.2.0)
+    - RxSwift (= 6.2.0)
+  - RxRelay (6.2.0):
+    - RxSwift (= 6.2.0)
+  - RxSwift (6.2.0)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
   - SDWebImageSwiftUI (2.0.2):
     - SDWebImage (~> 5.10)
   - TMDBSwift (0.5.1)
@@ -35,12 +35,12 @@ SPEC REPOS:
     - TMDBSwift
 
 SPEC CHECKSUMS:
-  Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
-  RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
-  RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
-  RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
-  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
+  RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
+  RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
+  RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageSwiftUI: 8a3923c95108312b03a599ec1498754af55a6819
   TMDBSwift: 9220f3dcee23372c05b92f8c111f5f4c37185aee
 

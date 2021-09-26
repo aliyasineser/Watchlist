@@ -9,12 +9,14 @@ import Foundation
 
 struct ArtistEntity: Identifiable {
     
-    var id = UUID()
+    var id =  UUID()
+    var artistId: Int
     var name: String
     var imageUrl: String
     
     
-    internal init(imageUrl: String, name: String) {
+    internal init(artistId: Int, imageUrl: String, name: String) {
+        self.artistId = artistId
         self.imageUrl = imageUrl
         self.name = name
     }

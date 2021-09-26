@@ -13,15 +13,18 @@ struct DiscoverSlice: View {
     var sliceTitle: String
     var sliceItems: [DiscoverSectionItemEntity]
     var section: MediaSection
+    var type: MediaType
+    @Environment(\.colorScheme) var colorScheme
+
     
-    internal init(sliceTitle: String, sliceItems: [DiscoverSectionItemEntity], section: MediaSection) {
+    internal init(sliceTitle: String, sliceItems: [DiscoverSectionItemEntity], section: MediaSection, type: MediaType) {
         self.sliceTitle = sliceTitle
         self.sliceItems = sliceItems
         self.section = section
+        self.type = type
     }
     
     var body: some View {
-        
         VStack(alignment: .center, spacing: 0) {
             HStack(alignment: .center, spacing: 0) {
                 Text(self.sliceTitle)
@@ -56,7 +59,7 @@ struct DiscoverSlice: View {
                 }).padding()
             }
             
-        }.background(Color.veryLightPink)
+        }
         
         
         
@@ -69,6 +72,6 @@ struct DiscoverSlice_Previews: PreviewProvider {
     static let movie: MovieMDB = MovieMDB(results: "")
     
     static var previews: some View {
-        DiscoverSlice(sliceTitle: "Title", sliceItems: [DiscoverSectionItemEntity(id: 1, title: "Very Very Long Movie Title", year: "21 - 05 - 2021", imgUrl: "")], section: MediaSection.popularMovies)
+        DiscoverSlice(sliceTitle: "Title", sliceItems: [DiscoverSectionItemEntity(id: 1, title: "Very Very Long Movie Title", year: "21 - 05 - 2021", imgUrl: "", genre: "Comedy", mediaType: .movie)], section: MediaSection.popularMovies, type: .movie)
     }
 }

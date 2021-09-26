@@ -7,11 +7,13 @@
 
 import Foundation
 import TMDBSwift
+import SwiftUI
 
 class MovieListPresenter {
     private let interactor: MovieListInteractor
     private let section: MediaSection
     @Published var mediaList: [MovieListItemEntity]
+    
     
     init(_ interactor: MovieListInteractor, section: MediaSection) {
         self.interactor = interactor
@@ -40,7 +42,9 @@ class MovieListPresenter {
         interactor.fetchNextPopularPageAsFullList(updater: { (movies) in
             movies.forEach { (movie) in
                 if let id = movie.id, let title = movie.title, let releaseDate = movie.release_date, let rating = movie.vote_average {
-                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate, imgUrl: movie.getPosterUrl(), rating: rating, genres: movie.getGenresAsString() ))
+                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate,
+                                                              imgUrl: movie.getPosterUrl(), rating: rating, genres: movie.genresAsString(), mediaType: .movie))
+                    
                 }
             }
         })
@@ -50,7 +54,8 @@ class MovieListPresenter {
         interactor.fetchNextMostRecentPageAsFullList(updater: { (movies) in
             movies.forEach { (movie) in
                 if let id = movie.id, let title = movie.title, let releaseDate = movie.release_date, let rating = movie.vote_average {
-                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate, imgUrl: movie.getPosterUrl(), rating: rating, genres: movie.getGenresAsString() ))
+                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate, imgUrl: movie.getPosterUrl(), rating: rating, genres: movie.genresAsString(), mediaType: .movie ))
+                    
                 }
             }
         })
@@ -60,7 +65,8 @@ class MovieListPresenter {
         interactor.fetchNextUpcomingPageAsFullList(updater: { (movies) in
             movies.forEach { (movie) in
                 if let id = movie.id, let title = movie.title, let releaseDate = movie.release_date, let rating = movie.vote_average {
-                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate, imgUrl: movie.getPosterUrl(), rating: rating, genres: movie.getGenresAsString()))
+                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate, imgUrl: movie.getPosterUrl(), rating: rating, genres: movie.genresAsString(), mediaType: .movie))
+                    
                 }
             }
         })
@@ -70,7 +76,8 @@ class MovieListPresenter {
         interactor.fetcthAiringTodayPageAsFullList(updater: { (series) in
             series.forEach { (serie) in
                 if let id = serie.id, let title = serie.name, let releaseDate = serie.first_air_date, let rating = serie.vote_average {
-                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate, imgUrl: serie.getPosterUrl(), rating: rating, genres: serie.getGenresAsString()))
+                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate, imgUrl: serie.getPosterUrl(), rating: rating, genres: serie.genresAsString(), mediaType: .tv))
+                    
                 }
             }
         })
@@ -80,7 +87,8 @@ class MovieListPresenter {
         interactor.fetcthOnTheAirPageAsFullList(updater: { (series) in
             series.forEach { (serie) in
                 if let id = serie.id, let title = serie.name, let releaseDate = serie.first_air_date, let rating = serie.vote_average {
-                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate, imgUrl: serie.getPosterUrl(), rating: rating, genres: serie.getGenresAsString()))
+                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate, imgUrl: serie.getPosterUrl(), rating: rating, genres: serie.genresAsString(), mediaType: .tv))
+                    
                 }
             }
         })
@@ -90,7 +98,8 @@ class MovieListPresenter {
         interactor.fetcthTopRatedPageAsFullList(updater: { (series) in
             series.forEach { (serie) in
                 if let id = serie.id, let title = serie.name, let releaseDate = serie.first_air_date, let rating = serie.vote_average {
-                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate, imgUrl: serie.getPosterUrl(), rating: rating, genres: serie.getGenresAsString()))
+                    self.mediaList.append(MovieListItemEntity(id: id, title: title, year: releaseDate, imgUrl: serie.getPosterUrl(), rating: rating, genres: serie.genresAsString(), mediaType: .tv))
+                    
                 }
             }
         })

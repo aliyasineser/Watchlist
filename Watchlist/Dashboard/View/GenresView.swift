@@ -26,9 +26,8 @@ struct GenresView: View {
                 }
             }
         }
-        .navigationBarTitle("Genres", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
-        .background(Color.veryLightPink)
+        .navigationBarHidden(false)
         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
        
     }

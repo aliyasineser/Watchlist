@@ -7,18 +7,18 @@
 
 import SwiftUI
 
-struct ArtistsView: View {
+struct MediaCastView: View {
     
-    private var interactor: ArtistInteractor
-    @ObservedObject var presenter: ArtistPresenter
+    private var interactor: MediaCastInteractor
+    @ObservedObject var presenter: MovieCastPresenter
     
     let columns = [
             GridItem(.adaptive(minimum: 100))
         ]
     
     init() {
-        self.interactor = ArtistInteractor()
-        self.presenter = ArtistPresenter(self.interactor)
+        self.interactor = MediaCastInteractor()
+        self.presenter = MovieCastPresenter(self.interactor)
         
         presenter.loadArtists()
     }
@@ -27,25 +27,31 @@ struct ArtistsView: View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                 ForEach(self.presenter.artists) { (artist) in
-                    NavigationLink(destination: ArtistDetailView(artistId: artist.artistId)){
+                    
+                    NavigationLink(destination: ArtistDetailView(artistId: artist.artistId)) {
                         ArtistItemView(id: artist.artistId, imageUrl: artist.imageUrl, name: artist.name)
                     }
+                    
                 }
-                Spacer() // Spacer is at the and invisible, when we "see" it we load more.
-                .onAppear(perform: {
+                Spacer()
+                    .onAppear(perform: {
                         presenter.loadArtists()
                 })
             }
         }
+        .navigationBarTitle("Artists", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(false)
+        .background(Color.veryLightPink)
         .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
         
     }
 }
 
-struct ArtistsView_Previews: PreviewProvider {
+struct MovieCastView_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistsView()
+        NavigationView {
+            MediaCastView()
+                .background(Color.veryLightPink)
+        }
     }
 }

@@ -12,11 +12,15 @@ struct DiscoverSectionItemEntity: Identifiable {
     var title: String
     var year: String
     var imgUrl: String
+    var genre: String
+    var mediaType: MediaType
     
-    init(id: Int, title: String, year: String, imgUrl: String) {
+    init(id: Int, title: String, year: String, imgUrl: String, genre: String, mediaType: MediaType) {
         self.id = id
         self.title = title
         self.year = year
         self.imgUrl = imgUrl
+        self.genre = genre
+        self.mediaType = mediaType
     }
 }

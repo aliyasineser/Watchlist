@@ -45,7 +45,7 @@ struct OnboardingView: View {
                         })
                         Spacer().frame(height: geometry.size.height/3.65)
                         
-                        NavigationLink(destination: DashboardView()) {
+                        NavigationLink(destination: DashboardView() ) {
                             Text("Explore Collection")
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
@@ -62,9 +62,10 @@ struct OnboardingView: View {
                 }
             }
             .edgesIgnoringSafeArea(.vertical)
-            .navigationBarTitleDisplayMode(.inline)
             .navigationBarHidden(true)
+            .hideNavigationBar()
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

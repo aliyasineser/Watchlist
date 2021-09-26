@@ -8,11 +8,11 @@
 import Foundation
 import TMDBSwift
 
-class ArtistPresenter: ObservableObject {
-    private let interactor: ArtistInteractor
+class MovieCastPresenter: ObservableObject {
+    private let interactor: MediaCastInteractor
     @Published var artists: [ArtistEntity]
     
-    init(_ interactor: ArtistInteractor) {
+    init(_ interactor: MediaCastInteractor) {
         self.interactor = interactor
         self.artists = [ArtistEntity]()
     }

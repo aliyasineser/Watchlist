@@ -11,11 +11,13 @@ import SDWebImageSwiftUI
 
 struct ArtistItemView: View {
     
-    internal init(imageUrl: String, name: String) {
+    internal init(id: Int, imageUrl: String, name: String) {
+        self.id = id
         self.imageUrl = imageUrl
         self.name = name
     }
     
+    var id: Int
     var imageUrl: String
     var name: String
     
@@ -23,16 +25,17 @@ struct ArtistItemView: View {
         VStack(alignment: .center) {
             WebImage(url: URL(string: self.imageUrl))
                 .placeholder(
-                    Image("onboarding1")
+                    Image(systemName: "person.fill")
                         .resizable()
                 )
                 .resizable()
                 .scaledToFill()
                 .frame(width: 105, height: 160)
-            
+                .clipped()
             
             Text(self.name)
                 .font(.custom("AppleGothic", size: 15))
+                .foregroundColor(.primary)
                 .fontWeight(.regular)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
@@ -41,16 +44,15 @@ struct ArtistItemView: View {
                 
         }
         .frame(width: 105, height: 190)
-        .background(Color.init(.white))
+        .border(Color.primary, width: 1)
     }
 }
 
 struct ArtistItemView_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
-            ArtistItemView(imageUrl: "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_UX182_CR0,0,182,268_AL_.jpg", name: "Artist_Name Artist_Surname")
+            ArtistItemView(id: 1, imageUrl: "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_UX182_CR0,0,182,268_AL_.jpg", name: "Artist_Name Artist_Surname")
         }
         .padding()
-        .background(Color.init(.gray))
     }
 }

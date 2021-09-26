@@ -27,19 +27,35 @@ struct DiscoverView: View {
     }
     
     var body: some View {
+    
+    
         ScrollView (.vertical, showsIndicators: false){
-            DiscoverSlice(sliceTitle: "Most Popular", sliceItems: self.presenter.popularMovies, section: MediaSection.popularMovies)
-            DiscoverSlice(sliceTitle: "Most Recent", sliceItems: self.presenter.mostRecentMovies, section: MediaSection.mostRecentMovies)
-            DiscoverSlice(sliceTitle: "Coming Soon", sliceItems: self.presenter.upcomingMovies, section: MediaSection.comingSoonMovies)
-            DiscoverSlice(sliceTitle: "Airing Today", sliceItems: self.presenter.airingTodaySeries, section: MediaSection.airingTodaySeries)
-            DiscoverSlice(sliceTitle: "On The Air", sliceItems: self.presenter.onTheAirSeries, section: MediaSection.onTheAirSeries)
-            DiscoverSlice(sliceTitle: "Top Rated", sliceItems: self.presenter.topRatedSeries, section: MediaSection.topRatedSeries)
+            
+            if self.presenter.isPopularMoviesLoaded {
+                DiscoverSlice(sliceTitle: "Most Popular", sliceItems: self.presenter.popularMovies, section: MediaSection.popularMovies, type: .movie)
+            } else { ProgressView() }
+            if self.presenter.isMostRecentMoviesLoaded {
+                DiscoverSlice(sliceTitle: "Most Recent", sliceItems: self.presenter.mostRecentMovies, section: MediaSection.mostRecentMovies, type: .movie)
+            } else { ProgressView() }
+            if self.presenter.isUpcomingMoviesLoaded {
+                DiscoverSlice(sliceTitle: "Coming Soon", sliceItems: self.presenter.upcomingMovies, section: MediaSection.comingSoonMovies, type: .movie)
+            } else { ProgressView() }
+            if self.presenter.isAiringTodaySeriesLoaded {
+                DiscoverSlice(sliceTitle: "Airing Today", sliceItems: self.presenter.airingTodaySeries, section: MediaSection.airingTodaySeries, type: .tv)
+            } else { ProgressView() }
+            if self.presenter.isOnTheAirSeriesLoaded {
+                DiscoverSlice(sliceTitle: "On The Air", sliceItems: self.presenter.onTheAirSeries, section: MediaSection.onTheAirSeries, type: .tv)
+            } else { ProgressView() }
+            if self.presenter.isTopRatedSeriesLoaded {
+                DiscoverSlice(sliceTitle: "Top Rated", sliceItems: self.presenter.topRatedSeries, section: MediaSection.topRatedSeries, type: .tv)
+            } else { ProgressView() }
         }
-        .navigationBarTitle("Discover", displayMode: .inline)
         .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(false)
         .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))
-        .background(Color.veryLightPink)
+        
     }
+
 }
 
 struct DiscoverView_Previews: PreviewProvider {
