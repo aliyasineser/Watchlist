@@ -132,6 +132,11 @@ iOSInjectionProject/
 
 ## Gcc Patch
 /*.gcno
+.DS_Store
+
+
+xcuserdata/
+
 
 ### Xcode Patch ###
 *.xcodeproj/*
