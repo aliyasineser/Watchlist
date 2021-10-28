@@ -32,7 +32,7 @@ struct ArtistDetailView: View {
                     )
                     .resizable()
                     .scaledToFill()
-        //            .frame(width: 300, height: 300, alignment: .center)
+                    .frame(width: 300, height: 300, alignment: .center)
                     .clipped()
             }
             HStack {
@@ -41,11 +41,15 @@ struct ArtistDetailView: View {
             ArtistDetailTabView(self.presenter.artistDetail)
                 .padding(10)
         }
+        .clipped()
     }
 }
 
 struct ArtistDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistDetailView(artistId: 10)
+        NavigationView {
+            ArtistDetailView(artistId: 10)
+                .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }

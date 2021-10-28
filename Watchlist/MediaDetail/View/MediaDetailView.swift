@@ -127,7 +127,7 @@ struct MediaDetailView: View {
                 }
             }
         }
-        .ignoresSafeArea()
+//        .ignoresSafeArea()
         .navigationBarBackButtonHidden(false)
         .navigationTitle(self.presenter.media.title)
         
@@ -137,8 +137,11 @@ struct MediaDetailView: View {
 
 struct MovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MediaDetailView(1825, mediaType: .movie)
-            .preferredColorScheme(.dark)
+        NavigationView {
+            MediaDetailView(1825, mediaType: .movie)
+                .preferredColorScheme(.dark)
+                .navigationBarTitleDisplayMode(.inline)
+        }
             
     }
 }

@@ -63,9 +63,7 @@ struct OnboardingView: View {
             }
             .edgesIgnoringSafeArea(.vertical)
             .navigationBarHidden(true)
-            .hideNavigationBar()
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

@@ -9,32 +9,37 @@ import SwiftUI
 
 struct GenresView: View {
     
-    var interactor: GenresInteractor
     @ObservedObject var presenter: GenresPresenter
     
-    init() {
-        self.interactor = GenresInteractor()
-        self.presenter = GenresPresenter(self.interactor)
+    init(_ presenter: GenresPresenter) {
+        self.presenter = presenter
         self.presenter.fetchGenres()
     }
     
     var body: some View {
-        ScrollView(showsIndicators: true) {
-            VStack(spacing: 10) {
-                ForEach(self.presenter.genres, id: \.id) { item in
-                    GenreItem(genre: item.name)
+        
+        NavigationView {
+            ScrollView(showsIndicators: true) {
+                VStack(spacing: 10) {
+                    ForEach(self.presenter.genres, id: \.id) { item in
+                        GenreItem(genre: item.name)
+                    }
                 }
             }
+            .navigationBarTitle("Genres")
+            .navigationBarHidden(false)
+            .navigationBarBackButtonHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
+            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
         }
-        .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(false)
-        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
        
     }
 }
 
 struct GenresView_Previews: PreviewProvider {
     static var previews: some View {
-        GenresView()
+        let interactor = GenresInteractor()
+        let presenter = GenresPresenter(interactor)
+        GenresView(presenter)
     }
 }

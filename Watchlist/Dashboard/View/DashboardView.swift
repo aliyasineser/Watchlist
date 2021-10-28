@@ -8,64 +8,51 @@
 import SwiftUI
 import TMDBSwift
 
-enum Tabs: String {
-    case discover = "Discover"
-    case genres = "Genres"
-    case artists = "Artists"
-}
-
 struct DashboardView: View {
-    
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-    @State var navTitle: String = ""
-    @State var selectedTab: Tabs = .discover
-    private var presenter = DashboardPresenter()
-    
     var body: some View {
     
-        TabView(selection: $selectedTab) {
-            DiscoverView()
-                .onAppear {
-                    self.navTitle = "Discover"
-                }
-                .tabItem {
+        TabView {
+            DiscoverView(presenter: DiscoverPresenter(DiscoverInteractor()))
+            .tabItem {
+                VStack {
                     Image(systemName: "square.grid.2x2.fill")
                         .renderingMode(.template)
                         .foregroundColor(.teal)
                     Text("Discover")
                 }
-                .tag(Tabs.discover)
+            }
+            .tag(0)
         
-            GenresView()
-                .onAppear {
-                    self.navTitle = "Genres"
-                }
-                .tabItem {
+            GenresView(GenresPresenter(GenresInteractor()))
+            .tabItem {
+                VStack {
                     Image(systemName: "paintpalette.fill")
                         .renderingMode(.template)
                         .foregroundColor(.teal)
                     Text("Genres")
                 }
-                .tag(Tabs.genres)
+            }
+            .tag(1)
         
-            ArtistsView()
-                .onAppear {
-                    self.navTitle = "Artists"
-                }
-                .tabItem {
+            ArtistsView(presenter: ArtistPresenter(ArtistInteractor()))
+            .tabItem {
+                VStack {
                     Image(systemName: "person.crop.circle")
                         .renderingMode(.template)
                         .foregroundColor(.teal)
                     Text("Artists")
                 }
-                .tag(Tabs.artists)
+            }
+            .tag(2)
         }
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitle("Dashboard")
+        .navigationBarHidden(false)
         .navigationBarBackButtonHidden(true)
-        .navigationTitle(selectedTab.rawValue)
+        .navigationBarTitleDisplayMode(.inline)
+        
 
     }
+    
 }
 
 struct DashboardView_Previews: PreviewProvider {
