@@ -27,7 +27,7 @@ struct MovieListItemView: View {
                     )
                     .resizable()
                     .scaledToFill()
-                    .frame(height: 160)
+                    .frame(height: 210)
                     .clipped()
                 
                 HStack {
@@ -50,8 +50,9 @@ struct MovieListItemView: View {
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
                 }
             }
-            .frame(height: 250)
-            
+            .frame(width: 400, height: 250)
+            .cornerRadius(10)
+            .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 0)
         }
     
     }

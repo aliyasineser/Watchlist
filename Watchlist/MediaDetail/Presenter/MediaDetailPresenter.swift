@@ -35,10 +35,10 @@ class MediaDetailPresenter: ObservableObject {
         interactor.getMovieDetail(id) { movieDetail in
             if let detail = movieDetail, let title = detail.title, let time = detail.runtime,
                let point = detail.vote_average, let summary = detail.overview, let lang = detail.original_language, let date = detail.release_date {
-                self.media = MediaDetailEntity(title: title, genres: "",
+                self.media = MediaDetailEntity(id: detail.id, title: title, genres: "",
                                                point: point, language: OriginalLanguage(language: lang)?.language ?? lang,
                                                date: date, time: String(format: "%dh %dm", time/60, time%60),
-                                               summary: summary, image_path: detail.getPosterUrl())
+                                               summary: summary, image_path: detail.getPosterUrl(), mediaType: .movie)
                 self.media.genres = movieDetail?.genresAsString() ?? ""
             }
         }
@@ -48,10 +48,10 @@ class MediaDetailPresenter: ObservableObject {
         interactor.getTvDetail(id) { tvDetail in
             if let detail = tvDetail, let title = detail.original_name, let time = detail.episode_run_time,
                let point = detail.vote_average, let summary = detail.overview, let lang = detail.original_language, let date = detail.first_air_date {
-                self.media = MediaDetailEntity(title: title, genres: "",
+                self.media = MediaDetailEntity(id: detail.id, title: title, genres: "",
                                                point: point, language: OriginalLanguage(language: lang)?.language ?? lang,
                                                date: date, time: String(format: "%dh %dm", (time.first ?? 0)/60, (time.first ?? 0)%60),
-                                               summary: summary, image_path: detail.getPosterUrl())
+                                               summary: summary, image_path: detail.getPosterUrl(), mediaType: .tv)
 
                 self.media.genres = tvDetail?.genresAsString() ?? ""
             }

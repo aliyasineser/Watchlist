@@ -21,8 +21,8 @@ struct ArtistDetailEntity {
         self.id = 0
         self.name = "Artist Name"
         self.biography = "Artist Biography"
-        self.birthday = "21 06 1970"
-        self.deathday = "21 06 2021"
+        self.birthday = "21-06-1970"
+        self.deathday = "21-06-2021"
         self.as_known_as = ["Artist Alias"]
         self.place_of_birth = "Artist Birthplace"
         self.imgUrl = "ArtistURL"
@@ -32,10 +32,11 @@ struct ArtistDetailEntity {
         self.id = id
         self.name = name
         self.biography = biography
-        self.birthday = birthday
         self.deathday = deathday
         self.as_known_as = as_known_as
         self.place_of_birth = place_of_birth
         self.imgUrl = imgUrl
+        self.birthday = birthday
+        
     }
 }
