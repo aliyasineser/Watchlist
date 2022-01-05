@@ -39,7 +39,7 @@ struct MediaCastView: View {
                 })
             }
         }
-        .navigationBarTitle("Artists", displayMode: .inline)
+        .navigationBarTitle(ConstantTexts.artistsScreenNavBarTitle, displayMode: .inline)
         .navigationBarBackButtonHidden(true)
         .background(Color.veryLightPink)
         .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))

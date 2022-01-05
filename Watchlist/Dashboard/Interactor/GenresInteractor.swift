@@ -17,7 +17,7 @@ class GenresInteractor {
     }
     
     func fetchGenres(_ completion: @escaping (([GenresMDB])-> Void)) -> Void {
-        GenresMDB.genres(listType: .movie, language: "en") { (ret, genres) in
+        GenresMDB.genres(listType: .movie, language: OriginalLanguage.en.rawValue) { (ret, genres) in
             if let genreList = genres {
                 self.genres = genreList
                 completion(self.genres)

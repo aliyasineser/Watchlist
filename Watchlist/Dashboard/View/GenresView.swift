@@ -26,7 +26,7 @@ struct GenresView: View {
                     }
                 }
             }
-            .navigationBarTitle("Genres")
+            .navigationBarTitle(ConstantTexts.genresScreenNavBarTitle)
             .navigationBarHidden(false)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)

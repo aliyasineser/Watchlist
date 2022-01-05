@@ -33,7 +33,7 @@ struct DiscoverSlice: View {
                 Spacer()
                 NavigationLink(destination: MovieListView(section: self.section)) {
                     HStack(alignment: .center, spacing: 1.0) {
-                        Text("See All")
+                        Text(ConstantTexts.sliceSeeAllButtonText)
                             .foregroundColor(.blue)
                             .font(.custom("AppleGothic", size: 20) )
                             .bold()

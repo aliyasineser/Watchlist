@@ -54,12 +54,15 @@ struct ArtistDetailView: View {
                             .minimumScaleFactor(0.7)
                         .lineLimit(1)
                         
-                        Text(self.presenter.artistDetail.birthday ?? "")
-                            .foregroundColor(.white)
-                            .font(.custom("AppleGothic", size: 16) )
-                            .bold()
-                            .minimumScaleFactor(0.7)
-                        .lineLimit(1)
+                        if let birthday = self.presenter.artistDetail.birthday {
+                            Text(birthday)
+                                .foregroundColor(.white)
+                                .font(.custom("AppleGothic", size: 16) )
+                                .bold()
+                                .minimumScaleFactor(0.7)
+                                .lineLimit(1)
+                        }
+                        
                     }
                     .padding()
                 }

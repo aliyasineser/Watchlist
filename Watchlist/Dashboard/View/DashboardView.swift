@@ -8,51 +8,57 @@
 import SwiftUI
 import TMDBSwift
 
+
+
+
 struct DashboardView: View {
     var body: some View {
     
         TabView {
             DiscoverView(presenter: DiscoverPresenter(DiscoverInteractor()))
             .tabItem {
-                VStack {
-                    Image(systemName: "square.grid.2x2.fill")
-                        .renderingMode(.template)
-                        .foregroundColor(.teal)
-                    Text("Discover")
-                }
+                TabItemView(systemName: "square.grid.2x2.fill", text: ConstantTexts.discoverScreenTabBarItemText)
             }
             .tag(0)
         
             GenresView(GenresPresenter(GenresInteractor()))
             .tabItem {
-                VStack {
-                    Image(systemName: "paintpalette.fill")
-                        .renderingMode(.template)
-                        .foregroundColor(.teal)
-                    Text("Genres")
-                }
+                TabItemView(systemName: "paintpalette.fill", text: ConstantTexts.genresScreenTabBarItemText)
             }
             .tag(1)
         
             ArtistsView(presenter: ArtistPresenter(ArtistInteractor()))
             .tabItem {
-                VStack {
-                    Image(systemName: "person.crop.circle")
-                        .renderingMode(.template)
-                        .foregroundColor(.teal)
-                    Text("Artists")
-                }
+                TabItemView(systemName: "person.crop.circle", text: ConstantTexts.artistsScreenTabBarItemText)
             }
             .tag(2)
         }
-        .navigationBarTitle("Dashboard")
+        .navigationBarTitle(ConstantTexts.dashboardScreenNavBarTitle)
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
-        
-
     }
     
+}
+
+struct TabItemView: View {
+    
+    private let systemName: String
+    private let text: String
+    
+    init(systemName: String, text: String) {
+        self.systemName = systemName
+        self.text = text
+    }
+    
+    var body: some View {
+        VStack {
+            Image(systemName: self.systemName)
+                .renderingMode(.template)
+                .foregroundColor(.teal)
+            Text(self.text)
+        }
+    }
 }
 
 struct DashboardView_Previews: PreviewProvider {

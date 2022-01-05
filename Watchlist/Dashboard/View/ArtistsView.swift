@@ -45,7 +45,7 @@ struct ArtistsView: View {
                     }
                 }
             }
-            .navigationBarTitle("Artists")
+            .navigationBarTitle(ConstantTexts.artistsScreenNavBarTitle)
             .navigationBarHidden(false)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
