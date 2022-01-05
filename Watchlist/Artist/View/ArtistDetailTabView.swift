@@ -9,7 +9,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ArtistDetailTabView: View {
-    @Environment(\.colorScheme) var colorScheme
 
     @State var tabIndex = 0
     
@@ -49,14 +48,12 @@ struct ArtistDetailTabView: View {
                                         
                                         VStack {
                                             Text(showCredit.title)
-                                                .foregroundColor(.white)
                                                 .font(.custom("AppleGothic", size: 18) )
                                                 .bold()
                                                 .minimumScaleFactor(0.7)
                                                 .lineLimit(1)
                                             
                                             Text(showCredit.role)
-                                                .foregroundColor(.white)
                                                 .font(.custom("AppleGothic", size: 13) )
                                                 .bold()
                                                 .minimumScaleFactor(0.7)
@@ -73,13 +70,11 @@ struct ArtistDetailTabView: View {
             }
             .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
             .padding(.horizontal, 12)
-        .background(colorScheme != .dark ? Color.white : Color.black)
         
     }
 }
 
 struct ArtistDetailTopTabBar: View {
-    @Environment(\.colorScheme) var colorScheme
 
     
     @Binding var tabIndex: Int

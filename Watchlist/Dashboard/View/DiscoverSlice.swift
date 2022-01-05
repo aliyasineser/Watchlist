@@ -14,7 +14,7 @@ struct DiscoverSlice: View {
     var sliceItems: [DiscoverSectionItemEntity]
     var section: MediaSection
     var type: MediaType
-    @Environment(\.colorScheme) var colorScheme
+    
 
     
     internal init(sliceTitle: String, sliceItems: [DiscoverSectionItemEntity], section: MediaSection, type: MediaType) {

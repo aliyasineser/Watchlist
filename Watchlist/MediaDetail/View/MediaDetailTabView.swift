@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MediaDetailTabView: View {
-    @Environment(\.colorScheme) var colorScheme
+    
 
     @State var tabIndex = 0
     
@@ -36,12 +36,10 @@ struct MediaDetailTabView: View {
         }
         .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
         .padding(.horizontal, 12)
-        .background(colorScheme != .dark ? Color.white : Color.black)
     }
 }
 
 struct CustomTopTabBar: View {
-    @Environment(\.colorScheme) var colorScheme
 
     
     @Binding var tabIndex: Int
@@ -67,7 +65,6 @@ struct CustomTopTabBar: View {
 }
 
 struct TabBarButton: View {
-    @Environment(\.colorScheme) var colorScheme
 
     let text: String
     @Binding var isSelected: Bool
@@ -75,7 +72,6 @@ struct TabBarButton: View {
         Text(text)
             .fontWeight(isSelected ? .heavy : .regular)
             .font(.custom("AppleGothic", size: 16))
-            .foregroundColor(colorScheme == .dark ? .white : .black)
             .padding(.bottom,10)
             .border(width: isSelected ? 2 : 1, edges: [.bottom], color: .secondary)
     }

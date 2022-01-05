@@ -33,6 +33,7 @@ struct ConstantTexts {
     
     static let sliceSeeAllButtonText: String = "See All"
     
-    
+    // MARK: Artist Detail Screen
+    static let artistDetailScreenPhotoAlbumsButtonText = "Photo Albums"
 }
  

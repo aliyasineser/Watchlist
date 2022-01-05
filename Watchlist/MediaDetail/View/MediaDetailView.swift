@@ -16,8 +16,6 @@ struct MediaDetailView: View {
     var mediaID: Int
     var mediaType: MediaType
     
-    @Environment(\.colorScheme) var colorScheme
-    
     init(_ id: Int, mediaType: MediaType) {
         self.mediaID = id
         self.mediaType = mediaType

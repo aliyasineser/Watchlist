@@ -48,7 +48,6 @@ struct ArtistDetailView: View {
                     
                     VStack(alignment: .leading) {
                         Text(self.presenter.artistDetail.name)
-                            .foregroundColor(.white)
                             .font(.custom("AppleGothic", size: 30) )
                             .bold()
                             .minimumScaleFactor(0.7)
@@ -56,7 +55,6 @@ struct ArtistDetailView: View {
                         
                         if let birthday = self.presenter.artistDetail.birthday {
                             Text(birthday)
-                                .foregroundColor(.white)
                                 .font(.custom("AppleGothic", size: 16) )
                                 .bold()
                                 .minimumScaleFactor(0.7)
@@ -108,14 +106,12 @@ struct PhotoGrid: View {
                         
                         VStack {
                             Text("\(presenter.artistImages.count)+")
-                                .foregroundColor(.white)
                                 .font(.custom("AppleGothic", size: 25) )
                                 .bold()
                                 .minimumScaleFactor(0.7)
                                 .lineLimit(1)
                             
-                            Text("Photo Albums")
-                                .foregroundColor(.white)
+                            Text(ConstantTexts.artistDetailScreenPhotoAlbumsButtonText)
                                 .font(.custom("AppleGothic", size: 15) )
                                 .bold()
                                 .minimumScaleFactor(0.7)
