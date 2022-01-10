@@ -11,19 +11,15 @@ import SDWebImageSwiftUI
 
 struct ArtistItemView: View {
     
-    internal init(id: Int, imageUrl: String, name: String) {
-        self.id = id
-        self.imageUrl = imageUrl
-        self.name = name
-    }
+    private var artistEntity: ArtistEntity
     
-    var id: Int
-    var imageUrl: String
-    var name: String
+    internal init(artistEntity: ArtistEntity) {
+        self.artistEntity = artistEntity
+    }
     
     var body: some View {
         VStack(alignment: .center) {
-            WebImage(url: URL(string: self.imageUrl))
+            WebImage(url: URL(string: self.artistEntity.imageUrl))
                 .placeholder(
                     Image(systemName: "person.fill")
                         .resizable()
@@ -33,7 +29,7 @@ struct ArtistItemView: View {
                 .frame(width: 105, height: 160)
                 .clipped()
             
-            Text(self.name)
+            Text(self.artistEntity.name)
                 .font(.custom("AppleGothic", size: 15))
                 .foregroundColor(.primary)
                 .fontWeight(.regular)
@@ -51,7 +47,7 @@ struct ArtistItemView: View {
 struct ArtistItemView_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
-            ArtistItemView(id: 1, imageUrl: "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_UX182_CR0,0,182,268_AL_.jpg", name: "Artist_Name Artist_Surname")
+            ArtistItemView(artistEntity: CastMocks.artistEntity)
         }
         .padding()
     }

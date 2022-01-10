@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1E09E4A226C876290015574C /* NavigationConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E09E4A126C876290015574C /* NavigationConfigurator.swift */; };
-		1E09E4A426C88BC30015574C /* Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E09E4A326C88BC30015574C /* Placeholder.swift */; };
 		1E0AA5A726C41DDD00B3C7F5 /* MediaCastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0AA5A626C41DDD00B3C7F5 /* MediaCastView.swift */; };
 		1E0AA5A926C41E3D00B3C7F5 /* MediaCastInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0AA5A826C41E3D00B3C7F5 /* MediaCastInteractor.swift */; };
 		1E0AA5AB26C41E5100B3C7F5 /* MovieCastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E0AA5AA26C41E5100B3C7F5 /* MovieCastPresenter.swift */; };
@@ -78,6 +77,9 @@
 		DD5DE043265D96D500E06B4B /* DiscoverSliceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DE042265D96D500E06B4B /* DiscoverSliceItem.swift */; };
 		DD5DE058265EDD3800E06B4B /* DiscoverSectionItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DE057265EDD3800E06B4B /* DiscoverSectionItemEntity.swift */; };
 		DDD9513E278123AA009695C2 /* ConstantTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD9513D278123AA009695C2 /* ConstantTexts.swift */; };
+		DDD9517A278CADAA009695C2 /* MovieMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD95179278CADAA009695C2 /* MovieMocks.swift */; };
+		DDD9517C278CB4B2009695C2 /* CommonMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD9517B278CB4B2009695C2 /* CommonMocks.swift */; };
+		DDD9517E278CEBEA009695C2 /* CastMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD9517D278CEBEA009695C2 /* CastMocks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,7 +101,6 @@
 
 /* Begin PBXFileReference section */
 		1E09E4A126C876290015574C /* NavigationConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationConfigurator.swift; sourceTree = "<group>"; };
-		1E09E4A326C88BC30015574C /* Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placeholder.swift; sourceTree = "<group>"; };
 		1E0AA5A626C41DDD00B3C7F5 /* MediaCastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCastView.swift; sourceTree = "<group>"; };
 		1E0AA5A826C41E3D00B3C7F5 /* MediaCastInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCastInteractor.swift; sourceTree = "<group>"; };
 		1E0AA5AA26C41E5100B3C7F5 /* MovieCastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCastPresenter.swift; sourceTree = "<group>"; };
@@ -177,6 +178,9 @@
 		DD5DE057265EDD3800E06B4B /* DiscoverSectionItemEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSectionItemEntity.swift; sourceTree = "<group>"; };
 		DD9C88B1260A2B22002E10E8 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		DDD9513D278123AA009695C2 /* ConstantTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantTexts.swift; sourceTree = "<group>"; };
+		DDD95179278CADAA009695C2 /* MovieMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieMocks.swift; sourceTree = "<group>"; };
+		DDD9517B278CB4B2009695C2 /* CommonMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMocks.swift; sourceTree = "<group>"; };
+		DDD9517D278CEBEA009695C2 /* CastMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastMocks.swift; sourceTree = "<group>"; };
 		E4A1799C8870748BF2F279AD /* Pods-Watchlist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watchlist.debug.xcconfig"; path = "Target Support Files/Pods-Watchlist/Pods-Watchlist.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -413,6 +417,9 @@
 			isa = PBXGroup;
 			children = (
 				DD045478260A171C00DFEFE6 /* Preview Assets.xcassets */,
+				DDD95179278CADAA009695C2 /* MovieMocks.swift */,
+				DDD9517B278CB4B2009695C2 /* CommonMocks.swift */,
+				DDD9517D278CEBEA009695C2 /* CastMocks.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -449,7 +456,6 @@
 				1E8CF8192680044D003BDB35 /* HideNavigationBarModifier.swift */,
 				1EB8DE5A26C05F5500DE2522 /* ExpandableText.swift */,
 				1E09E4A126C876290015574C /* NavigationConfigurator.swift */,
-				1E09E4A326C88BC30015574C /* Placeholder.swift */,
 				1E8BA16726E80DCB0027CBD3 /* MediaType.swift */,
 				DDD9513D278123AA009695C2 /* ConstantTexts.swift */,
 			);
@@ -701,8 +707,10 @@
 				1E632C6D26ECF5C5005780FD /* ArtistDetailInteractor.swift in Sources */,
 				DD4BB794264BE68F00E07C5F /* PagingView.swift in Sources */,
 				1EB545D12673E48C008BDE2A /* ArtistInteractor.swift in Sources */,
+				DDD9517E278CEBEA009695C2 /* CastMocks.swift in Sources */,
 				1E2AD90926ED0D3C00EBB78D /* ArtistDetailEntity.swift in Sources */,
 				1ED9C3AB267571660030A62B /* MovieListPresenter.swift in Sources */,
+				DDD9517C278CB4B2009695C2 /* CommonMocks.swift in Sources */,
 				1E88CF3326755A410066D6AB /* MovieListView.swift in Sources */,
 				1EB545DB2673E930008BDE2A /* AritstEntity.swift in Sources */,
 				DD4BB7E0264CAF4400E07C5F /* DiscoverPresenter.swift in Sources */,
@@ -715,6 +723,7 @@
 				1E85F0A8266C4207003B1166 /* GenresInteractor.swift in Sources */,
 				DD4BB7D6264CA5C400E07C5F /* ArtistsView.swift in Sources */,
 				1EB545CC2673DF4B008BDE2A /* ArtistItemView.swift in Sources */,
+				DDD9517A278CADAA009695C2 /* MovieMocks.swift in Sources */,
 				1ED9C3A626756DC90030A62B /* MovieListItemView.swift in Sources */,
 				1E8CF81F26800482003BDB35 /* View+Extensions.swift in Sources */,
 				1E7F64EC26699FAF00FCFFDC /* TMDBSwift+Extensions.swift in Sources */,
@@ -762,7 +771,6 @@
 				DD045472260A171900DFEFE6 /* WatchlistApp.swift in Sources */,
 				1E632C6B26ECF58D005780FD /* ArtistDetailView.swift in Sources */,
 				1EB545D62673E497008BDE2A /* ArtistPresenter.swift in Sources */,
-				1E09E4A426C88BC30015574C /* Placeholder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

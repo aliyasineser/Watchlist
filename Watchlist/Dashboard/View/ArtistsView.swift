@@ -31,7 +31,7 @@ struct ArtistsView: View {
                     LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                         ForEach(self.presenter.artists, id:\.id) { (artist) in
                             NavigationLink(destination: ArtistDetailView(artistId: artist.artistId)) {
-                                ArtistItemView(id: artist.artistId, imageUrl: artist.imageUrl, name: artist.name)
+                                ArtistItemView(artistEntity: ArtistEntity(artistId: artist.artistId, imageUrl: artist.imageUrl, name: artist.name))
                             }
                         }
                         Spacer() // Spacer is at the and invisible, when we "see" it we load more.

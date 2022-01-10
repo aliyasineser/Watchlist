@@ -19,18 +19,18 @@ struct DiscoverSliceItem: View {
     
     var body: some View {
     
-        NavigationLink(destination: MediaDetailView(item.id, mediaType: item.mediaType)) {
+        NavigationLink(destination: MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractor(), movieId: item.id, mediaType: item.mediaType))) {
             VStack{
                 WebImage(url: URL(string: self.item.imgUrl))
                     .placeholder(
-                        Placeholder.posterPlaceholder
+                        CommonMocks.posterPlaceholder
                             .resizable()
                     )
                     .resizable()
                     .frame(width: 136, height: 181)
                     .scaledToFit()
                     
-            
+    
                 Text(self.item.title)
                     .font(.custom("AppleGothic", size: 16) )
                     .foregroundColor(.primary)
@@ -56,7 +56,7 @@ struct DiscoverSectionItem_Previews: PreviewProvider {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack {
                 ForEach((1..<10)) {id in
-                    DiscoverSliceItem(item: DiscoverSectionItemEntity(id: id, title: "Very Very  Movie Title ", year: "31 - 07 - 2021", imgUrl: "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_UX182_CR0,0,182,268_AL_.jpg", genre: "Comedy", mediaType: .movie))
+                    DiscoverSliceItem(item: MovieMocks.discoverSectionItemListItem)
                         .frame(width: 136, height: 227, alignment: .center)
                 }
             }

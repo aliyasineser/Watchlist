@@ -10,13 +10,13 @@ import TMDBSwift
 
 class ArtistDetailPresenter: ObservableObject {
     var interactor: ArtistDetailInteractor
-    @Published var artistDetail: ArtistDetailEntity
+    @Published var artistDetail: ArtistDetailEntity?
     @Published var artistImages: [ArtistImageEntity]
     @Published var artistCredits: [MediaCreditEntity]
     
     init(interactor: ArtistDetailInteractor) {
         self.interactor = interactor
-        self.artistDetail = ArtistDetailEntity()
+        self.artistDetail = nil
         self.artistImages = [ArtistImageEntity]()
         self.artistCredits = [MediaCreditEntity]()
     }

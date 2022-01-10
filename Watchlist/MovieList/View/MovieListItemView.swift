@@ -18,11 +18,11 @@ struct MovieListItemView: View {
     
     var body: some View {
     
-        NavigationLink(destination: MediaDetailView(self.movieListItem.id, mediaType: self.movieListItem.mediaType)) {
+        NavigationLink(destination: MediaDetailView(presenter:  MediaDetailPresenter(interactor: MediaDetailInteractor(), movieId: self.movieListItem.id, mediaType: self.movieListItem.mediaType))) {
             VStack(alignment: .center, spacing: 5) {
                 WebImage(url: URL(string: self.movieListItem.imgUrl))
                     .placeholder(
-                        Placeholder.posterPlaceholder
+                        CommonMocks.posterPlaceholder
                             .resizable()
                     )
                     .resizable()
@@ -60,6 +60,6 @@ struct MovieListItemView: View {
 
 struct MovieListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListItemView(movieListItem: MovieListItemEntity(id: 1, title: "Long Long Movie Title", year: "2021", imgUrl: "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_UX182_CR0,0,182,268_AL_.jpg", rating: 3.3, genres: "Genre | Genre | Genre ", mediaType: .movie ))
+        MovieListItemView(movieListItem: MovieMocks.movieListItem)
     }
 }

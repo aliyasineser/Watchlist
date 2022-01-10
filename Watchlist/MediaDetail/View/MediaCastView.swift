@@ -9,18 +9,14 @@ import SwiftUI
 
 struct MediaCastView: View {
     
-    private var interactor: MediaCastInteractor
     @ObservedObject var presenter: MovieCastPresenter
     
     let columns = [
             GridItem(.adaptive(minimum: 100))
         ]
     
-    init() {
-        self.interactor = MediaCastInteractor()
-        self.presenter = MovieCastPresenter(self.interactor)
-        
-        presenter.loadArtists()
+    init(presenter: MovieCastPresenter) {
+        self.presenter = presenter
     }
     
     var body: some View {
@@ -29,7 +25,7 @@ struct MediaCastView: View {
                 ForEach(self.presenter.artists) { (artist) in
                     
                     NavigationLink(destination: ArtistDetailView(artistId: artist.artistId)) {
-                        ArtistItemView(id: artist.artistId, imageUrl: artist.imageUrl, name: artist.name)
+                        ArtistItemView(artistEntity: ArtistEntity(artistId: artist.artistId, imageUrl: artist.imageUrl, name: artist.name))
                     }
                     
                 }
@@ -39,6 +35,9 @@ struct MediaCastView: View {
                 })
             }
         }
+        .onAppear(perform: {
+            presenter.loadArtists()
+        })
         .navigationBarTitle(ConstantTexts.artistsScreenNavBarTitle, displayMode: .inline)
         .navigationBarBackButtonHidden(true)
         .background(Color.veryLightPink)
@@ -50,7 +49,7 @@ struct MediaCastView: View {
 struct MovieCastView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MediaCastView()
+            MediaCastView(presenter: MovieCastPresenter(MediaCastInteractor()))
                 .background(Color.veryLightPink)
         }
     }

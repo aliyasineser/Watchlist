@@ -1,13 +1,14 @@
 //
-//  Placeholder.swift
+//  CommonMocks.swift
 //  Watchlist
 //
-//  Created by ali.yasin.eser on 15.08.2021.
+//  Created by Ali Yasin Eser on 10.01.2022.
 //
 
 import Foundation
 import SwiftUI
 
-class Placeholder {
+struct CommonMocks {
+    
     static var posterPlaceholder: Image = Image("onboarding1")
 }

@@ -8,30 +8,21 @@
 import SwiftUI
 
 struct CastView: View {
-    private var interactor: CastInteractor
-    @ObservedObject var presenter: CastPresenter
+    @ObservedObject private var presenter: CastPresenter
     
     let columns = [
             GridItem(.adaptive(minimum: 100))
         ]
     
-    var id: Int
-    var mediaType: MediaType
-    
-    init(_ id: Int, mediaType: MediaType) {
-        self.id = id
-        self.mediaType = mediaType
-        self.interactor = CastInteractor()
-        self.presenter = CastPresenter(self.interactor, id: self.id, mediaType: mediaType)
-        
-        presenter.loadArtists()
+    init(presenter: CastPresenter) {
+        self.presenter = presenter
     }
     
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                 ForEach(self.presenter.artists) { (artist) -> CastItemView in
-                    CastItemView(imageUrl: artist.imageUrl, name: artist.name, character: artist.character)
+                    CastItemView(castEntity: CastEntity(imageUrl: artist.imageUrl, name: artist.name, character: artist.character))
                 }
                 Spacer()
                     .onAppear(perform: {
@@ -39,7 +30,9 @@ struct CastView: View {
                 })
             }
         }
-//        .navigationBarBackButtonHidden(true)
+        .onAppear(perform: {
+            presenter.loadArtists()
+        })
         .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
         
     }
@@ -47,6 +40,6 @@ struct CastView: View {
 
 struct CastView_Previews: PreviewProvider {
     static var previews: some View {
-        CastView(134, mediaType: .movie)
+        CastView(presenter: CastPresenter(CastInteractor(), id: 1, mediaType: .movie))
     }
 }

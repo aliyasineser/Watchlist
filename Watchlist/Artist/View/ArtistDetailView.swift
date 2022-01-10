@@ -18,62 +18,66 @@ struct ArtistDetailView: View {
         self.interactor = ArtistDetailInteractor()
         self.presenter = ArtistDetailPresenter(interactor: interactor)
         self.artistId = artistId
-        
-        self.presenter.fetchArtist(artistId: artistId)
     }
     
     var body: some View {
         ScrollView(.vertical) {
-            VStack(spacing: 0) {
-                ZStack(alignment: .bottomLeading) {
-                    WebImage(url: URL(string: self.presenter.artistDetail.imgUrl))
-                        .placeholder(
-                            Placeholder.posterPlaceholder
-                                .resizable()
-                        )
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 400, alignment: .center)
-                        .clipped()
+            if let artist = self.presenter.artistDetail {
+                VStack(spacing: 0) {
+                    ZStack(alignment: .bottomLeading) {
+                        WebImage(url: URL(string: artist.imgUrl))
+                            .placeholder(
+                                CommonMocks.posterPlaceholder
+                                    .resizable()
+                            )
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 400, alignment: .center)
+                            .clipped()
                     
-                    Rectangle()
-                        .fill(
-                            LinearGradient(gradient: Gradient(stops: [
-                                .init(color: Color(UIColor.gray).opacity(0.01), location: 0),
-                                .init(color: Color(UIColor.gray).opacity(0.8), location: 1)
-                            ]), startPoint: .top, endPoint: .bottom)
-                        )
-                        .frame(height: 200)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                    
-                    VStack(alignment: .leading) {
-                        Text(self.presenter.artistDetail.name)
-                            .font(.custom("AppleGothic", size: 30) )
-                            .bold()
-                            .minimumScaleFactor(0.7)
-                        .lineLimit(1)
+                        Rectangle()
+                            .fill(
+                                LinearGradient(gradient: Gradient(stops: [
+                                    .init(color: Color(UIColor.gray).opacity(0.01), location: 0),
+                                    .init(color: Color(UIColor.gray).opacity(0.8), location: 1)
+                                ]), startPoint: .top, endPoint: .bottom)
+                            )
+                            .frame(height: 200)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                         
-                        if let birthday = self.presenter.artistDetail.birthday {
-                            Text(birthday)
-                                .font(.custom("AppleGothic", size: 16) )
+                        VStack(alignment: .leading) {
+                            Text(artist.name)
+                                .font(.custom("AppleGothic", size: 30) )
                                 .bold()
                                 .minimumScaleFactor(0.7)
-                                .lineLimit(1)
+                            .lineLimit(1)
+                            
+                            if let birthday = artist.birthday {
+                                Text(birthday)
+                                    .font(.custom("AppleGothic", size: 16) )
+                                    .bold()
+                                    .minimumScaleFactor(0.7)
+                                    .lineLimit(1)
+                            }
+                            
                         }
-                        
+                        .padding()
                     }
-                    .padding()
+                    HStack(spacing: 0) {
+                        PhotoGrid(presenter: self.presenter)
+                    }
+                    .frame(height: 120)
+                    ArtistDetailTabView(artist, artistCredits: self.presenter.artistCredits)
+                        .padding(10)
+                        .ignoresSafeArea()
                 }
-                HStack(spacing: 0) {
-                    PhotoGrid(presenter: self.presenter)
-                }
-                .frame(height: 120)
-                ArtistDetailTabView(self.presenter.artistDetail, artistCredits: self.presenter.artistCredits)
-                    .padding(10)
-                    .ignoresSafeArea()
+                .clipped()
             }
-            .clipped()
-        }.ignoresSafeArea()
+        }
+        .onAppear(perform: {
+            self.presenter.fetchArtist(artistId: artistId)
+        })
+        .ignoresSafeArea()
     }
 }
 
@@ -91,9 +95,9 @@ struct PhotoGrid: View {
             ScrollView(.horizontal){
                 HStack(spacing: 0) {
                     ZStack {
-                        WebImage(url: URL(string: self.presenter.artistDetail.imgUrl))
+                        WebImage(url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""))
                             .placeholder(
-                                Placeholder.posterPlaceholder
+                                CommonMocks.posterPlaceholder
                                     .resizable()
                             )
                             .resizable()
@@ -125,7 +129,7 @@ struct PhotoGrid: View {
                     ForEach(self.presenter.artistImages[1..<self.presenter.artistImages.count]) { imageEntity in
                         WebImage(url: URL(string: imageEntity.getPosterUrl()))
                         .placeholder(
-                            Placeholder.posterPlaceholder
+                            CommonMocks.posterPlaceholder
                                 .resizable()
                         )
                         .resizable()

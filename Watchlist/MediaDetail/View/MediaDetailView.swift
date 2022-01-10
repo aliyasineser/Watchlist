@@ -11,17 +11,10 @@ import TMDBSwift
 
 struct MediaDetailView: View {
     
-    private let interactor: MediaDetailInteractor
     @ObservedObject var presenter: MediaDetailPresenter
-    var mediaID: Int
-    var mediaType: MediaType
     
-    init(_ id: Int, mediaType: MediaType) {
-        self.mediaID = id
-        self.mediaType = mediaType
-        self.interactor = MediaDetailInteractor()
-        self.presenter = MediaDetailPresenter(interactor: self.interactor, movieId: self.mediaID)
-        presenter.getMediaDetail(self.mediaID, type: self.mediaType)
+    init(presenter: MediaDetailPresenter) {
+        self.presenter = presenter
     }
     
     var body: some View {
@@ -32,7 +25,7 @@ struct MediaDetailView: View {
                         ZStack(alignment: .bottom) {
                             WebImage(url: URL(string: presenter.media.image_path))
                                 .placeholder(
-                                    Placeholder.posterPlaceholder
+                                    CommonMocks.posterPlaceholder
                                         .resizable()
                                 )
                                 .resizable()
@@ -55,7 +48,7 @@ struct MediaDetailView: View {
                         HStack(alignment: .top) {
                             WebImage(url: URL(string: presenter.media.image_path))
                                 .placeholder(
-                                    Placeholder.posterPlaceholder
+                                    CommonMocks.posterPlaceholder
                                         .resizable()
                                 )
                                 .resizable()
@@ -117,7 +110,7 @@ struct MediaDetailView: View {
                         .padding(.horizontal, 10)
                         .padding(.top, 25)
                         
-                        MediaDetailTabView(self.mediaID, mediaType: self.mediaType)
+                        MediaDetailTabView(self.presenter.mediaId, mediaType: self.presenter.mediaType)
                             .padding(.top, 20)
                         
                     }
@@ -125,9 +118,11 @@ struct MediaDetailView: View {
                 }
             }
         }
-//        .ignoresSafeArea()
         .navigationBarBackButtonHidden(false)
         .navigationTitle(self.presenter.media.title)
+        .onAppear {
+            presenter.getMediaDetail()
+        }
         
     }
     
@@ -136,7 +131,7 @@ struct MediaDetailView: View {
 struct MovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MediaDetailView(1825, mediaType: .movie)
+            MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractor(), movieId: 1285, mediaType: .movie))
                 .preferredColorScheme(.dark)
                 .navigationBarTitleDisplayMode(.inline)
         }

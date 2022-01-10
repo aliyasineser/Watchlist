@@ -38,7 +38,7 @@ struct ArtistDetailTabView: View {
                                     HStack(spacing: 10) {
                                         WebImage(url: URL(string: TMDBUrl.imageBaseUrl + showCredit.image_path))
                                             .placeholder(
-                                                Placeholder.posterPlaceholder
+                                                CommonMocks.posterPlaceholder
                                                     .resizable()
                                             )
                                             .resizable()
@@ -99,6 +99,6 @@ struct ArtistDetailTopTabBar: View {
 
 struct ArtistDetailTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistDetailTabView(ArtistDetailEntity(), artistCredits: [])
+        ArtistDetailTabView(CastMocks.artistDetailEntity, artistCredits: [])
     }
 }

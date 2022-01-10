@@ -10,19 +10,15 @@ import SDWebImageSwiftUI
 
 struct CastItemView: View {
     
-    internal init(imageUrl: String, name: String, character: String) {
-        self.imageUrl = imageUrl
-        self.name = name
-        self.character = character
-    }
+    private var castEntity: CastEntity
     
-    var imageUrl: String
-    var name: String
-    var character: String
+    internal init(castEntity: CastEntity) {
+        self.castEntity = castEntity
+    }
     
     var body: some View {
         VStack(alignment: .center) {
-            WebImage(url: URL(string: self.imageUrl))
+            WebImage(url: URL(string: self.castEntity.imageUrl))
                 .placeholder(
                     Image(systemName: "person.fill")
                         .resizable()
@@ -32,7 +28,7 @@ struct CastItemView: View {
                 .frame(width: 100, height: 120)
                 .clipped()
             
-            Text(self.name)
+            Text(self.castEntity.name)
                 .font(.custom("AppleGothic", size: 15))
                 .fontWeight(.regular)
                 .multilineTextAlignment(.center)
@@ -40,7 +36,7 @@ struct CastItemView: View {
                 .minimumScaleFactor(0.7)
                 .padding(EdgeInsets(top: 0, leading: 2, bottom: 4, trailing: 2))
             
-            Text(self.character)
+            Text(self.castEntity.character)
                 .font(.custom("AppleGothic", size: 13))
                 .fontWeight(.regular)
                 .multilineTextAlignment(.center)
@@ -57,7 +53,7 @@ struct CastItemView: View {
 struct CastItemView_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
-            CastItemView(imageUrl: "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_UX182_CR0,0,182,268_AL_.jpg", name: "Artist_Name Artist_Surname", character: "Character")
+            CastItemView(castEntity: CastMocks.castEntity)
         }
         .padding()
     }

@@ -17,17 +17,6 @@ struct ArtistDetailEntity {
     var place_of_birth: String?
     var imgUrl: String
     
-    init() {
-        self.id = 0
-        self.name = "Artist Name"
-        self.biography = "Artist Biography"
-        self.birthday = "21-06-1970"
-        self.deathday = "21-06-2021"
-        self.as_known_as = ["Artist Alias"]
-        self.place_of_birth = "Artist Birthplace"
-        self.imgUrl = "ArtistURL"
-    }
-    
     init(id: Int, name: String, biography: String?, birthday: String?, deathday: String?, as_known_as: [String]?, place_of_birth: String?, imgUrl: String) {
         self.id = id
         self.name = name

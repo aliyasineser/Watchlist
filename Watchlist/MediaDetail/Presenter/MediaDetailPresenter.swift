@@ -13,21 +13,21 @@ import TMDBSwift
 class MediaDetailPresenter: ObservableObject {
     let interactor: MediaDetailInteractor
     @Published var media: MediaDetailEntity = MediaDetailEntity()
-    var movieId: Int
+    public let mediaId: Int
+    public let mediaType: MediaType
     
-    
-    init(interactor: MediaDetailInteractor, movieId: Int) {
+    init(interactor: MediaDetailInteractor, movieId: Int, mediaType: MediaType) {
         self.interactor = interactor
-        self.movieId = movieId
-        getMediaDetail(movieId, type: .movie)
+        self.mediaId = movieId
+        self.mediaType = mediaType
     }
     
-    func getMediaDetail(_ id: Int, type: MediaType ) -> Void {
-        switch type {
+    func getMediaDetail() -> Void {
+        switch self.mediaType {
         case .movie:
-            getMovieDetail(id)
+            getMovieDetail(self.mediaId)
         case .tv:
-            getTvDetail(id)
+            getTvDetail(self.mediaId)
         }
     }
     
