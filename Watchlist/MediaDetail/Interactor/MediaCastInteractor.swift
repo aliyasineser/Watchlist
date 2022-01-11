@@ -16,17 +16,7 @@ class MediaCastInteractor {
         self.artists = []
         self.artistsPageCount = 0
     }
-    
-//    func fetchArtists(_ completion: @escaping (([PersonResults])-> Void)) -> Void {
-//        self.artistsPageCount += 1
-//        PersonMDB.popular(page: self.artistsPageCount) { (ret, artistResults) in
-//            if let artists = artistResults {
-//                self.artists.append(contentsOf: artists)
-//                completion(artists)
-//            }
-//        }
-//    }
-//
+
     func fetchCast(_ id: Int, mediaType: MediaType, completion: @escaping (([CastMemberEntity])-> Void)) -> Void {
         self.artists.removeAll()
         if mediaType == .movie {

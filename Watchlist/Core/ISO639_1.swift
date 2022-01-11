@@ -400,4 +400,16 @@ extension OriginalLanguage {
             
         return nil
     }
+    
+    /// Create a new code instance from a language name
+    init?(isoCode: String) {
+        for code in OriginalLanguage.allCases {
+            if isoCode.lowercased() == code.rawValue {
+                self = code
+                return
+            }
+        }
+            
+        return nil
+    }
 }

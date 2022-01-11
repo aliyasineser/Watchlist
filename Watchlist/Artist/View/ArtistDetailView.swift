@@ -134,7 +134,6 @@ struct PhotoGrid: View {
                         )
                         .resizable()
                         .scaledToFill()
-//                        .frame(width: 120, height: 120, alignment: .center)
                         .clipped()
                     }
                 }

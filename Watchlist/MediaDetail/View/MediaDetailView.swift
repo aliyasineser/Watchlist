@@ -82,12 +82,14 @@ struct MediaDetailView: View {
                                         .clipped()
                                 }
                                 
-                                // TODO: Movie Language, add later
-//                                Text(presenter.media.language)
-//                                    .font(.custom("AppleGothic", size: 18) )
-//                                    .bold()
-//                                    .foregroundColor(.primary)
-//                                    .minimumScaleFactor(0.8)
+                                if let lang = OriginalLanguage(isoCode: presenter.media.language)?.language {
+                                    Text(lang)
+                                        .font(.custom("AppleGothic", size: 18) )
+                                        .bold()
+                                        .foregroundColor(.primary)
+                                        .minimumScaleFactor(0.8)
+                                }
+                                
                                 
                                 Text(presenter.media.date + " " + presenter.media.time)
                                     .font(.custom("AppleGothic", size: 17) )
@@ -110,13 +112,6 @@ struct MediaDetailView: View {
                         }
                         .padding(.horizontal, 10)
                         .padding(.top, 25)
-                        
-//                        ExpandableText(presenter.media.summary,
-//                           lineLimit: 10,
-//                           font: UIFont(name: "AppleGothic", size: 16) ?? UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title1)
-//                           )
-//                        .padding(.horizontal, 10)
-//                        .padding(.top, 25)
                         
                         MediaDetailTabView(self.presenter.mediaId, mediaType: self.presenter.mediaType)
                             .padding(.top, 20)
