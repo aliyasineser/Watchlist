@@ -63,10 +63,10 @@ struct ArtistDetailView: View {
                         }
                         .padding()
                     }
-                    HStack(spacing: 0) {
-                        PhotoGrid(presenter: self.presenter)
-                    }
-                    .frame(height: 120)
+                    
+                    PhotoGrid(presenter: self.presenter)
+                        .frame(height: 150)
+                    
                     ArtistDetailTabView(artist, artistCredits: self.presenter.artistCredits)
                         .padding(10)
                         .ignoresSafeArea()
@@ -102,31 +102,31 @@ struct PhotoGrid: View {
                             )
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 120, height: 120, alignment: .center)
                             .clipped()
                         
                         Rectangle()
                             .foregroundColor(.teal).opacity(0.7)
                         
                         VStack {
-                            Text("\(presenter.artistImages.count)+")
+                            Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
                                 .font(.custom("AppleGothic", size: 25) )
                                 .bold()
                                 .minimumScaleFactor(0.7)
                                 .lineLimit(1)
                             
                             Text(ConstantTexts.artistDetailScreenPhotoAlbumsButtonText)
-                                .font(.custom("AppleGothic", size: 15) )
+                                .font(.custom("AppleGothic", size: 14) )
                                 .bold()
-                                .minimumScaleFactor(0.7)
-                                .lineLimit(1)
+                                .minimumScaleFactor(0.5)
+                        }
+                        .onTapGesture {
+                            // Navigation to artist images
                         }
                         
                     }
-                    .frame(width: 120, height: 120, alignment: .center)
                     
                 HStack{
-                    ForEach(self.presenter.artistImages[1..<self.presenter.artistImages.count]) { imageEntity in
+                    ForEach(self.presenter.artistImages.reversed()) { imageEntity in
                         WebImage(url: URL(string: imageEntity.getPosterUrl()))
                         .placeholder(
                             CommonMocks.posterPlaceholder
@@ -134,13 +134,14 @@ struct PhotoGrid: View {
                         )
                         .resizable()
                         .scaledToFill()
-                        .frame(width: 120, height: 120, alignment: .center)
+//                        .frame(width: 120, height: 120, alignment: .center)
                         .clipped()
                     }
                 }
             }
             Spacer()
         }
+            .padding(.leading)
         
     }
 }

@@ -103,12 +103,20 @@ struct MediaDetailView: View {
                         .padding(.horizontal, 10)
                         .frame(width: gp.size.width, height: 200, alignment: .top)
                         
-                        ExpandableText(presenter.media.summary,
-                           lineLimit: 10,
-                           font: UIFont(name: "AppleGothic", size: 16) ?? UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title1)
-                           )
+                        ScrollView {
+                            Text(presenter.media.summary)
+                                .font(.custom("AppleGothic", size: 16))
+                                
+                        }
                         .padding(.horizontal, 10)
                         .padding(.top, 25)
+                        
+//                        ExpandableText(presenter.media.summary,
+//                           lineLimit: 10,
+//                           font: UIFont(name: "AppleGothic", size: 16) ?? UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title1)
+//                           )
+//                        .padding(.horizontal, 10)
+//                        .padding(.top, 25)
                         
                         MediaDetailTabView(self.presenter.mediaId, mediaType: self.presenter.mediaType)
                             .padding(.top, 20)

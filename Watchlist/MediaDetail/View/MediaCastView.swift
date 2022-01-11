@@ -9,13 +9,13 @@ import SwiftUI
 
 struct MediaCastView: View {
     
-    @ObservedObject var presenter: MovieCastPresenter
+    @ObservedObject var presenter: MediaCastPresenter
     
     let columns = [
             GridItem(.adaptive(minimum: 100))
         ]
     
-    init(presenter: MovieCastPresenter) {
+    init(presenter: MediaCastPresenter) {
         self.presenter = presenter
     }
     
@@ -23,11 +23,9 @@ struct MediaCastView: View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                 ForEach(self.presenter.artists) { (artist) in
-                    
-                    NavigationLink(destination: ArtistDetailView(artistId: artist.artistId)) {
-                        ArtistItemView(artistEntity: ArtistEntity(artistId: artist.artistId, imageUrl: artist.imageUrl, name: artist.name))
+                    NavigationLink(destination: ArtistDetailView(artistId: artist.id)) {
+                        ArtistItemView(artistEntity: ArtistEntity(artistId: artist.id, imageUrl: artist.imageUrl, name: artist.name))
                     }
-                    
                 }
                 Spacer()
                     .onAppear(perform: {
@@ -35,12 +33,8 @@ struct MediaCastView: View {
                 })
             }
         }
-        .onAppear(perform: {
-            presenter.loadArtists()
-        })
         .navigationBarTitle(ConstantTexts.artistsScreenNavBarTitle, displayMode: .inline)
         .navigationBarBackButtonHidden(true)
-        .background(Color.veryLightPink)
         .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
         
     }
@@ -49,8 +43,7 @@ struct MediaCastView: View {
 struct MovieCastView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MediaCastView(presenter: MovieCastPresenter(MediaCastInteractor()))
-                .background(Color.veryLightPink)
+            MediaCastView(presenter: MediaCastPresenter(MediaCastInteractor(),id: 1, mediaType: .movie))
         }
     }
 }

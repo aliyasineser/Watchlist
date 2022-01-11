@@ -8,7 +8,7 @@
 import Foundation
 
 
-class CastMemberEntity {
+class CastMemberEntity: Identifiable {
    
     var id: Int
     var cast_id: Int?
