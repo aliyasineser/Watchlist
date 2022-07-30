@@ -9,7 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct ArtistDetailTabView: View {
-
+    
     @State var tabIndex = 0
     
     var artistDetail: ArtistDetailEntity
@@ -21,61 +21,62 @@ struct ArtistDetailTabView: View {
         self.artistCredits = artistCredits
     }
     
+    func mediaCard(credit: MediaCreditEntity) -> some View {
+        return VStack(alignment: .leading, spacing: 10) {
+            Text(credit.title)
+                .font(.title2)
+                .lineLimit(3)
+                .minimumScaleFactor(0.8)
+                .multilineTextAlignment(.leading)
+            Text(credit.role)
+                .font(.subheadline)
+                .lineLimit(2)
+                .multilineTextAlignment(.leading)
+        }
+    }
+    
     var body: some View {
-        
-            VStack{
-                ArtistDetailTopTabBar(tabIndex: $tabIndex)
-                ScrollView(.vertical) {
-                    if tabIndex == 0 {
-                        ScrollView {
-                            Text(self.artistDetail.biography!)
-                        }
+        VStack{
+            ArtistDetailTopTabBar(tabIndex: $tabIndex)
+            ScrollView(.vertical) {
+                if tabIndex == 0 {
+                    ScrollView {
+                        Text(self.artistDetail.biography!)
                     }
-                    else if tabIndex == 1 {
-                        ScrollView(.vertical) {
-                            VStack(alignment: .leading) {
-                                ForEach(self.artistCredits) { showCredit in
-                                    HStack(spacing: 10) {
-                                        WebImage(url: URL(string: TMDBUrl.imageBaseUrl + showCredit.image_path))
-                                            .placeholder(
-                                                CommonMocks.posterPlaceholder
-                                                    .resizable()
-                                            )
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 150, height: 270, alignment: .center)
-                                            .clipped()
-                                        
-                                        VStack {
-                                            Text(showCredit.title)
-                                                .font(.custom("AppleGothic", size: 18) )
-                                                .bold()
-                                                .minimumScaleFactor(0.7)
-                                                .lineLimit(1)
-                                            
-                                            Text(showCredit.role)
-                                                .font(.custom("AppleGothic", size: 13) )
-                                                .bold()
-                                                .minimumScaleFactor(0.7)
-                                                .lineLimit(1)
-                                        }
-                                        
-                                    }
+                }
+                else if tabIndex == 1 {
+                    ScrollView(.vertical) {
+                        VStack(alignment: .leading) {
+                            ForEach(self.artistCredits) { showCredit in
+                                HStack {
+                                    WebImage(url: URL(string: TMDBUrl.imageBaseUrl + showCredit.image_path))
+                                        .placeholder(
+                                            CommonMocks.posterPlaceholder
+                                                .resizable()
+                                        )
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 130, height: 200, alignment: .center)
+                                        .border(width: 1, edges: Edge.allCases, color: .black)
+                                        .clipped()
+                                    mediaCard(credit: showCredit)
+                                    
                                 }
                             }
                         }
                     }
-                    Spacer()
                 }
+                Spacer()
             }
-            .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
-            .padding(.horizontal, 12)
+        }
+        .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
+        .padding(.horizontal, 12)
         
     }
 }
 
 struct ArtistDetailTopTabBar: View {
-
+    
     
     @Binding var tabIndex: Int
     var body: some View {

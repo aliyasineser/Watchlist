@@ -26,6 +26,5 @@ struct ArtistDetailEntity {
         self.place_of_birth = place_of_birth
         self.imgUrl = imgUrl
         self.birthday = birthday
-        
     }
 }

@@ -32,7 +32,7 @@ struct MediaDetailView: View {
                                 .scaledToFill()
                                 .frame(height: 300)
                                 .clipped()
-
+                            
                             Rectangle()
                                 .fill(
                                     LinearGradient(gradient: Gradient(stops: [
@@ -44,7 +44,7 @@ struct MediaDetailView: View {
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                         }
                         .frame(width: gp.size.width, height: 300, alignment: .center)
-                
+                        
                         HStack(alignment: .top) {
                             WebImage(url: URL(string: presenter.media.image_path))
                                 .placeholder(
@@ -108,7 +108,7 @@ struct MediaDetailView: View {
                         ScrollView {
                             Text(presenter.media.summary)
                                 .font(.custom("AppleGothic", size: 16))
-                                
+                            
                         }
                         .padding(.horizontal, 10)
                         .padding(.top, 25)
@@ -138,6 +138,6 @@ struct MovieDetailView_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
                 .navigationBarTitleDisplayMode(.inline)
         }
-            
+        
     }
 }

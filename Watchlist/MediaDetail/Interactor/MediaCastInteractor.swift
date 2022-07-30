@@ -16,13 +16,13 @@ class MediaCastInteractor {
         self.artists = []
         self.artistsPageCount = 0
     }
-
+    
     func fetchCast(_ id: Int, mediaType: MediaType, completion: @escaping (([CastMemberEntity])-> Void)) -> Void {
         self.artists.removeAll()
         if mediaType == .movie {
             MovieMDB.credits(movieID: id) { ret, movieCredits in
                 movieCredits?.cast.forEach({ cast in
-                        self.artists.append(CastMemberEntity(id: cast.id, cast_id: cast.cast_id, character: cast.character, order: cast.order, name: cast.name, imageUrl: cast.getPosterUrl()))
+                    self.artists.append(CastMemberEntity(id: cast.id, cast_id: cast.cast_id, character: cast.character, order: cast.order, name: cast.name, imageUrl: cast.getPosterUrl()))
                 })
                 completion(self.artists)
             }

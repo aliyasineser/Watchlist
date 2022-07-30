@@ -20,22 +20,8 @@ class MediaCastPresenter: ObservableObject {
         self.mediaType = mediaType
         self.interactor = interactor
         self.artists = [CastMemberEntity]()
-    
     }
     
-    
-//
-//    func loadArtists() -> Void {
-//        interactor.fetchArtists({ (artists) in
-//            artists.forEach { (artist) in
-//                if let name = artist.name {
-//                    self.artists.append(ArtistEntity(artistId: artist.id, imageUrl: artist.getPosterUrl(), name: name))
-//                }
-//            }
-//        })
-//    }
-//
-//
     func loadArtists() -> Void {
         interactor.fetchCast(self.id, mediaType: self.mediaType, completion: { (artists) in
             self.artists = artists

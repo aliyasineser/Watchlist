@@ -8,37 +8,27 @@
 import SwiftUI
 import TMDBSwift
 
-
-
-
 struct DashboardView: View {
     var body: some View {
-    
+        
         TabView {
             DiscoverView(presenter: DiscoverPresenter(DiscoverInteractor()))
-            .tabItem {
-                TabItemView(systemName: "square.grid.2x2.fill", text: ConstantTexts.discoverScreenTabBarItemText)
-            }
-            .tag(0)
-        
-            GenresView(GenresPresenter(GenresInteractor()))
-            .tabItem {
-                TabItemView(systemName: "paintpalette.fill", text: ConstantTexts.genresScreenTabBarItemText)
-            }
-            .tag(1)
-        
+                .tabItem {
+                    TabItemView(systemName: "square.grid.2x2.fill", text: ConstantTexts.discoverScreenTabBarItemText)
+                }
+                .tag(0)
+            
             ArtistsView(presenter: ArtistPresenter(ArtistInteractor()))
-            .tabItem {
-                TabItemView(systemName: "person.crop.circle", text: ConstantTexts.artistsScreenTabBarItemText)
-            }
-            .tag(2)
+                .tabItem {
+                    TabItemView(systemName: "person.crop.circle", text: ConstantTexts.artistsScreenTabBarItemText)
+                }
+                .tag(1)
         }
         .navigationBarTitle(ConstantTexts.dashboardScreenNavBarTitle)
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
     }
-    
 }
 
 struct TabItemView: View {

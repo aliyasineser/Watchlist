@@ -34,7 +34,7 @@ struct ArtistDetailView: View {
                             .scaledToFill()
                             .frame(height: 400, alignment: .center)
                             .clipped()
-                    
+                        
                         Rectangle()
                             .fill(
                                 LinearGradient(gradient: Gradient(stops: [
@@ -50,7 +50,7 @@ struct ArtistDetailView: View {
                                 .font(.custom("AppleGothic", size: 30) )
                                 .bold()
                                 .minimumScaleFactor(0.7)
-                            .lineLimit(1)
+                                .lineLimit(1)
                             
                             if let birthday = artist.birthday {
                                 Text(birthday)
@@ -92,42 +92,10 @@ struct PhotoGrid: View {
     
     var body: some View {
         
-            ScrollView(.horizontal){
-                HStack(spacing: 0) {
-                    ZStack {
-                        WebImage(url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""))
-                            .placeholder(
-                                CommonMocks.posterPlaceholder
-                                    .resizable()
-                            )
-                            .resizable()
-                            .scaledToFill()
-                            .clipped()
-                        
-                        Rectangle()
-                            .foregroundColor(.teal).opacity(0.7)
-                        
-                        VStack {
-                            Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
-                                .font(.custom("AppleGothic", size: 25) )
-                                .bold()
-                                .minimumScaleFactor(0.7)
-                                .lineLimit(1)
-                            
-                            Text(ConstantTexts.artistDetailScreenPhotoAlbumsButtonText)
-                                .font(.custom("AppleGothic", size: 14) )
-                                .bold()
-                                .minimumScaleFactor(0.5)
-                        }
-                        .onTapGesture {
-                            // Navigation to artist images
-                        }
-                        
-                    }
-                    
-                HStack{
-                    ForEach(self.presenter.artistImages.reversed()) { imageEntity in
-                        WebImage(url: URL(string: imageEntity.getPosterUrl()))
+        ScrollView(.horizontal){
+            HStack(spacing: 0) {
+                ZStack {
+                    WebImage(url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""))
                         .placeholder(
                             CommonMocks.posterPlaceholder
                                 .resizable()
@@ -135,12 +103,44 @@ struct PhotoGrid: View {
                         .resizable()
                         .scaledToFill()
                         .clipped()
+                    
+                    Rectangle()
+                        .foregroundColor(.teal).opacity(0.7)
+                    
+                    VStack {
+                        Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
+                            .font(.custom("AppleGothic", size: 25) )
+                            .bold()
+                            .minimumScaleFactor(0.7)
+                            .lineLimit(1)
+                        
+                        Text(ConstantTexts.artistDetailScreenPhotoAlbumsButtonText)
+                            .font(.custom("AppleGothic", size: 14) )
+                            .bold()
+                            .minimumScaleFactor(0.5)
+                    }
+                    .onTapGesture {
+                        // Navigation to artist images
+                    }
+                    
+                }
+                
+                HStack{
+                    ForEach(self.presenter.artistImages.reversed()) { imageEntity in
+                        WebImage(url: URL(string: imageEntity.getPosterUrl()))
+                            .placeholder(
+                                CommonMocks.posterPlaceholder
+                                    .resizable()
+                            )
+                            .resizable()
+                            .scaledToFill()
+                            .clipped()
                     }
                 }
             }
             Spacer()
         }
-            .padding(.leading)
+        .padding(.leading)
         
     }
 }

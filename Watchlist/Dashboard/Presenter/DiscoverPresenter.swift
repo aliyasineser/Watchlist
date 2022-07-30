@@ -7,6 +7,7 @@
 
 import Foundation
 import TMDBSwift
+import SwiftUI
 
 class DiscoverPresenter: ObservableObject {
     

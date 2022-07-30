@@ -15,8 +15,6 @@ struct DiscoverSlice: View {
     var section: MediaSection
     var type: MediaType
     
-
-    
     internal init(sliceTitle: String, sliceItems: [DiscoverSectionItemEntity], section: MediaSection, type: MediaType) {
         self.sliceTitle = sliceTitle
         self.sliceItems = sliceItems
@@ -42,8 +40,6 @@ struct DiscoverSlice: View {
                             .padding(EdgeInsets(top: 0, leading: 0, bottom: 4, trailing: 0))
                     }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
                 }
-            
-                
                 
             }
             .padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 5))
@@ -51,8 +47,8 @@ struct DiscoverSlice: View {
             ScrollView (.horizontal, showsIndicators: false){
                 HStack(alignment: .center, spacing: 10, content: {
                     ForEach(self.sliceItems, id: \.id) { item in
-                            DiscoverSliceItem(item: item)
-                                .frame(width: 136, height: 227, alignment: .center)
+                        DiscoverSliceItem(item: item)
+                            .frame(width: 136, height: 227, alignment: .center)
                     }
                 }).padding()
             }
@@ -68,8 +64,10 @@ struct DiscoverSlice: View {
 struct DiscoverSlice_Previews: PreviewProvider {
     
     static let movie: MovieMDB = MovieMDB(results: "")
-    
     static var previews: some View {
-        DiscoverSlice(sliceTitle: "Title", sliceItems: [DiscoverSectionItemEntity(id: 1, title: "Very Very Long Movie Title", year: "21 - 05 - 2021", imgUrl: "", genre: "Comedy", mediaType: .movie)], section: MediaSection.popularMovies, type: .movie)
+        DiscoverSlice(sliceTitle: "Title", sliceItems: [DiscoverSectionItemEntity(id: 1,
+                                                                                  title: "Very Very Long Movie Title", year: "21 - 05 - 2021",
+                                                                                  imgUrl: "", genre: "Comedy", mediaType: .movie)],
+                      section: MediaSection.popularMovies, type: .movie)
     }
 }

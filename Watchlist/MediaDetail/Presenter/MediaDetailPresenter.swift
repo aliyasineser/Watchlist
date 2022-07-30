@@ -52,7 +52,6 @@ class MediaDetailPresenter: ObservableObject {
                                                point: point, language: OriginalLanguage(language: lang)?.language ?? lang,
                                                date: date, time: String(format: "%dh %dm", (time.first ?? 0)/60, (time.first ?? 0)%60),
                                                summary: summary, image_path: detail.getPosterUrl(), mediaType: .tv)
-
                 self.media.genres = tvDetail?.genresAsString() ?? ""
             }
         }
