@@ -12,127 +12,55 @@ class DiscoverInteractor {
     let movieService = MovieService(requestManager: RequestManager())
     let tvService = TVService(requestManager: RequestManager())
     
-    private var popularPageCount: Int
-    var popularMoviesList: [Movie]
+    let popularMoviesFetcher: MovieFetcher = MovieFetcher(for: .popular)
+    let comingSoonMoviesFetcher: MovieFetcher = MovieFetcher(for: .comingSoonMovies)
+    let mostRecentMoviesFetcher: MovieFetcher = MovieFetcher(for: .mostRecentMovies)
     
-    private var mostRecentPageCount: Int
-    var mostRecentList: [Movie]
+    let popularSeriesFetcher: TVSerieFetcher = TVSerieFetcher(for: .popular)
+    let airingTodaySeriesFetcher: TVSerieFetcher = TVSerieFetcher(for: .airingTodaySeries)
+    let onTheAirSeriesFetcher: TVSerieFetcher = TVSerieFetcher(for: .onTheAirSeries)
     
-    private var comingSoonPageCount: Int
-    var comingSoonList: [Movie]
-    
-    private var airingTodayPageCount: Int
-    var airingTodayList: [TVSerie]
-    
-    private var onTheAirPageCount: Int
-    var OnTheAirList: [TVSerie]
-    
-    private var topRatedPageCount: Int
-    var topRatedList: [TVSerie]
-    
-    
-    init() {
-        self.popularPageCount = 0
-        self.popularMoviesList = []
-        
-        self.mostRecentPageCount = 0
-        self.mostRecentList = []
-        
-        self.comingSoonPageCount = 0
-        self.comingSoonList = []
-        
-        self.airingTodayPageCount = 0
-        self.airingTodayList = []
-        
-        self.onTheAirPageCount = 0
-        self.OnTheAirList = []
-        
-        self.topRatedPageCount = 0
-        self.topRatedList = []
-    }
-    
-    /// Popular Page
-    // Update
-    private func fetchNextPopularPage() async -> [Movie] {
-        popularPageCount += 1
-        return await movieService.fetchPopularMovies(page: popularPageCount)
-    }
     
     /// Starts from the first page
     func fetchNextPopularPageAsFullList() async -> [Movie] {
-        let movies = await fetchNextPopularPage()
-        self.popularMoviesList.append(contentsOf: movies)
-        return self.popularMoviesList
-    }
-    
-    /// Most Recent Page
-    // Updates
-    func fetchNextMostRecentPage() async -> [Movie] {
-        mostRecentPageCount += 1
-        return await movieService.fetchNowPlayingMovies(page: mostRecentPageCount)
+        let watchables = await popularMoviesFetcher.fetchWithNextPage()
+        if let movies = watchables as? [Movie] { return movies}
+        else { return [] }
     }
     
     /// Starts from the first page
     func fetchNextMostRecentPageAsFullList() async -> [Movie] {
-        let movies = await fetchNextMostRecentPage()
-        self.mostRecentList.append(contentsOf: movies)
-        return self.mostRecentList
+        let watchables = await mostRecentMoviesFetcher.fetchWithNextPage()
+        if let movies = watchables as? [Movie] { return movies}
+        else { return [] }
     }
     
-    /// Upcoming Page
-    // Updates
-    func fetchUpcomingPage() async -> [Movie] {
-        self.comingSoonPageCount += 1
-        return await movieService.fetchUpcomingMovies(page: comingSoonPageCount)
-    }
     
     /// Starts from the first page
     func fetchNextUpcomingPageAsFullList() async -> [Movie] {
-        let movies = await fetchUpcomingPage()
-        self.comingSoonList.append(contentsOf: movies)
-        return self.comingSoonList
-    }
-    
-    /// Airing Today
-    // Updates
-    func fetcthAiringTodayPage() async -> [TVSerie] {
-        airingTodayPageCount += 1
-        return await tvService.fetchAiringTodaySeries(page: airingTodayPageCount)
+        let watchables = await comingSoonMoviesFetcher.fetchWithNextPage()
+        if let movies = watchables as? [Movie] { return movies}
+        else { return [] }
     }
     
     /// Starts from the first page
     func fetcthAiringTodayPageAsFullList() async -> [TVSerie] {
-        let series = await fetcthAiringTodayPage()
-        self.airingTodayList.append(contentsOf: series)
-        return self.airingTodayList
-    }
-    
-    /// On The Air
-    // Updates
-    func fetcthOnTheAirPage() async -> [TVSerie] {
-        self.onTheAirPageCount += 1
-        return await tvService.fetchOnTheAirSeries(page: onTheAirPageCount)
+        let watchables = await airingTodaySeriesFetcher.fetchWithNextPage()
+        if let series = watchables as? [TVSerie] { return series}
+        else { return [] }
     }
     
     /// Starts from the first page
     func fetcthOnTheAirPageAsFullList() async -> [TVSerie] {
-        let series = await fetcthOnTheAirPage()
-        self.OnTheAirList.append(contentsOf: series)
-        return self.OnTheAirList
+        let watchables = await onTheAirSeriesFetcher.fetchWithNextPage()
+        if let series = watchables as? [TVSerie] { return series}
+        else { return [] }
     }
-    
-    /// Airing Today
-    // Updates
-    func fetcthTopRatedPage() async -> [TVSerie] {
-        self.topRatedPageCount += 1
-        return await tvService.fetchPopularSeries(page: topRatedPageCount)
-    }
-    
     /// Starts from the first page
     func fetcthTopRatedPageAsFullList() async -> [TVSerie] {
-        let series = await fetcthTopRatedPage()
-        self.topRatedList.append(contentsOf: series)
-        return self.topRatedList
+        let watchables = await popularSeriesFetcher.fetchWithNextPage()
+        if let series = watchables as? [TVSerie] { return series}
+        else { return [] }
     }
     
     
