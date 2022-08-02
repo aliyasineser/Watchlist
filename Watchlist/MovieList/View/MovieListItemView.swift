@@ -6,39 +6,46 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct MovieListItemView: View {
+    
+    var movieListItem: MovieListItemEntity
     
     internal init(movieListItem: MovieListItemEntity) {
         self.movieListItem = movieListItem
     }
     
-    var movieListItem: MovieListItemEntity
-    
     var body: some View {
-    
+        
         NavigationLink(destination: MediaDetailView(presenter:  MediaDetailPresenter(interactor: MediaDetailInteractor(), movieId: self.movieListItem.id, mediaType: self.movieListItem.mediaType))) {
             VStack(alignment: .center, spacing: 5) {
-                WebImage(url: URL(string: self.movieListItem.imgUrl))
-                    .placeholder(
+                
+                AsyncImage(
+                    url: URL(string: self.movieListItem.imgUrl),
+                    content: { image in
+                        image.resizable()
+                            .scaledToFill()
+                            .frame(height: 210)
+                            .clipped()
+                    },
+                    placeholder: {
                         CommonMocks.posterPlaceholder
                             .resizable()
-                    )
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 210)
-                    .clipped()
+                            .scaledToFill()
+                            .frame(height: 210)
+                            .clipped()
+                    }
+                )
                 
                 HStack {
                     VStack {
                         Text(self.movieListItem.title)
-                            .font(.custom("AppleGothic", size: 20) )
+                            .font(.system(size: 20))
                             .bold()
                             .foregroundColor(.primary)
                             .minimumScaleFactor(0.8)
                         Text(self.movieListItem.genres)
-                            .font(.custom("AppleGothic", size: 14) )
+                            .font(.system(size: 14))
                             .bold()
                             .foregroundColor(.primary)
                             .minimumScaleFactor(0.8)
@@ -54,7 +61,7 @@ struct MovieListItemView: View {
             .cornerRadius(10)
             .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 0)
         }
-    
+        
     }
 }
 

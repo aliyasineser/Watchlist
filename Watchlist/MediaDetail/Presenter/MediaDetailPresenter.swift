@@ -8,8 +8,8 @@
 import Foundation
 import Combine
 import SwiftUI
-import TMDBSwift
 
+@MainActor
 class MediaDetailPresenter: ObservableObject {
     let interactor: MediaDetailInteractor
     @Published var media: MediaDetailEntity = MediaDetailEntity()
@@ -23,38 +23,39 @@ class MediaDetailPresenter: ObservableObject {
     }
     
     func getMediaDetail() -> Void {
-        switch self.mediaType {
-        case .movie:
-            getMovieDetail(self.mediaId)
-        case .tv:
-            getTvDetail(self.mediaId)
-        }
-    }
-    
-    func getMovieDetail(_ id: Int) {
-        interactor.getMovieDetail(id) { movieDetail in
-            if let detail = movieDetail, let title = detail.title, let time = detail.runtime,
-               let point = detail.vote_average, let summary = detail.overview, let lang = detail.original_language, let date = detail.release_date {
-                self.media = MediaDetailEntity(id: detail.id, title: title, genres: "",
-                                               point: point, language: OriginalLanguage(language: lang)?.language ?? lang,
-                                               date: date, time: String(format: "%dh %dm", time/60, time%60),
-                                               summary: summary, image_path: detail.getPosterUrl(), mediaType: .movie)
-                self.media.genres = movieDetail?.genresAsString() ?? ""
+        Task {
+            switch self.mediaType {
+            case .movie:
+                await getMovieDetail(self.mediaId)
+            case .tv:
+                await getTvDetail(self.mediaId)
             }
         }
     }
     
-    func getTvDetail(_ id: Int) {
-        interactor.getTvDetail(id) { tvDetail in
-            if let detail = tvDetail, let title = detail.original_name, let time = detail.episode_run_time,
-               let point = detail.vote_average, let summary = detail.overview, let lang = detail.original_language, let date = detail.first_air_date {
-                self.media = MediaDetailEntity(id: detail.id, title: title, genres: "",
-                                               point: point, language: OriginalLanguage(language: lang)?.language ?? lang,
-                                               date: date, time: String(format: "%dh %dm", (time.first ?? 0)/60, (time.first ?? 0)%60),
-                                               summary: summary, image_path: detail.getPosterUrl(), mediaType: .tv)
-                self.media.genres = tvDetail?.genresAsString() ?? ""
+    func getMovieDetail(_ id: Int) async {
+        let movieDetail = await interactor.getMovieDetail(id)
+        if let detail = movieDetail, let time = detail.runtime, let summary = detail.overview {
+            DispatchQueue.main.async { [weak self] in
+                self?.media = MediaDetailEntity(id: detail.id, title: detail.title, genres: "",
+                                                point: detail.voteAverage, language: detail.originalLanguage,
+                                                date: detail.releaseDate, time: String(format: "%dh %dm", time/60, time%60),
+                                                summary: summary, image_path: detail.getPosterUrl(), mediaType: .movie)
+#warning("Do not forget to get genres and update")
+                //                self?.media.genres = movieDetail?.genresAsString() ?? ""
             }
         }
+        
     }
     
+    func getTvDetail(_ id: Int) async {
+        let tvDetail = await interactor.getTvDetail(id)
+        if let detail = tvDetail, let time = detail.episodeRunTime {
+            self.media = MediaDetailEntity(id: detail.id, title: detail.originalName, genres: "",
+                                           point: detail.voteAverage, language: detail.originalLanguage,
+                                           date: detail.firstAirDate, time: String(format: "%dh %dm", (time.first ?? 0)/60, (time.first ?? 0)%60),
+                                           summary: detail.overview, image_path: detail.getPosterUrl(), mediaType: .tv)
+            //            self.media.genres = tvDetail?.genresAsString() ?? ""
+        }
+    }
 }

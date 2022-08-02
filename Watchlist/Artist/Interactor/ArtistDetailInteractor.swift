@@ -6,67 +6,69 @@
 //
 
 import Foundation
-import TMDBSwift
 
 class ArtistDetailInteractor {
     
-    func fetchArtist(_ id: Int, completion: @escaping (ArtistDetailEntity) -> Void) -> Void {
-        PersonMDB.person_id(personID: id){
-            data, personData in
-            if let person = personData{
-                let artistData = ArtistDetailEntity(id: person.id, name: person.name, biography: person.biography, birthday: person.birthday, deathday: person.deathday, as_known_as: person.also_known_as, place_of_birth: person.place_of_birth, imgUrl: person.getPosterUrl())
-                completion(artistData)
-            }
+    let movieService = MovieService(requestManager: RequestManager())
+    let tvService = TVService(requestManager: RequestManager())
+    let artistService = ArtistService(requestManager: RequestManager())
+    
+    
+    func fetchArtist(_ id: Int) async -> ArtistDetailEntity? {
+        let person = await artistService.fetchArtistDetail(id: id)
+        if let person = person{
+            let artistData = ArtistDetailEntity(id: person.id, name: person.name, biography: person.biography, birthday: person.birthday, deathday: person.deathday, as_known_as: person.alsoKnownAs, place_of_birth: person.placeOfBirth, imgUrl: person.getPosterUrl())
+            return artistData
         }
-        
-        
+        return nil
     }
     
-    func fetchArtistImages (_ id: Int, completion: @escaping ([ArtistImageEntity]) -> Void) -> Void {
+    func fetchArtistImages (_ id: Int) async -> [ArtistImageEntity] {
         var artistImages: [ArtistImageEntity] = [ArtistImageEntity]()
-        PersonMDB.images(personID: id) { client, data in
-            if let images = data {
-                for img in images {
-                    artistImages.append(ArtistImageEntity(aspect_ratio: img.aspect_ratio ?? 0.8, file_path: img.file_path ?? "", height: img.height ?? 100, iso_639_1: img.iso_639_1 ?? "", vote_average: img.vote_average ?? 1, vote_count: img.vote_count ?? 1, width: img.width ?? 100))
-                }
-                completion(artistImages)
-            }
+        let images = await artistService.fetchImages(id: id)
+        for img in images {
+            artistImages.append(ArtistImageEntity(aspect_ratio: img.aspectRatio, file_path: img.filePath, height: img.height, iso_639_1: img.iso639_1 ?? APIConstants.language, vote_average: img.voteAverage, vote_count: img.voteCount, width: img.width))
         }
+        return artistImages
     }
     
-    func fetchArtistMovies(_ id: Int, completion: @escaping ([MediaCreditEntity]) -> Void) -> Void {
+    func fetchArtistMovies(_ id: Int) async -> [MediaCreditEntity] {
         var artistMovies: [MediaCreditEntity] = [MediaCreditEntity]()
-        
-        PersonMDB.movie_credits(personID: id, language: "en") { clientReturn, data in
-            if let movies = data {
-                movies.crew.forEach { crewCredit in
-                    if let character = crewCredit.job {
-                        artistMovies.append(MediaCreditEntity(id: crewCredit.id, creditId: crewCredit.credit_id ?? "", title: crewCredit.title, role: character, image_path: crewCredit.poster_path ?? ""))
-                    }
+        let data = await movieService.fetchMovieCredits(id: id)
+        if let movies = data {
+            movies.crew.forEach { crewCredit in
+                if let character = crewCredit.job {
+                    artistMovies.append(MediaCreditEntity(id: crewCredit.id, creditId: crewCredit.creditID, title: crewCredit.originalName, role: character, image_path: crewCredit.getPosterUrl()))
                 }
-                movies.cast.forEach { castCredit in
-                    if let character = castCredit.character {
-                        artistMovies.append(MediaCreditEntity(id: castCredit.id, creditId: castCredit.credit_id ?? "", title: castCredit.title, role: character, image_path: castCredit.poster_path ?? ""))
-                    }
-                    
-                }
-                completion(artistMovies)
             }
+            movies.cast.forEach { castCredit in
+                if let character = castCredit.character {
+                    artistMovies.append(MediaCreditEntity(id: castCredit.id, creditId: castCredit.creditID, title: castCredit.originalName, role: character, image_path: castCredit.getPosterUrl()))
+                }
+                
+            }
+            return artistMovies
         }
+        return []
     }
     
-    func fetchArtistTV(_ id: Int, completion: @escaping ([MediaCreditEntity]) -> Void) -> Void {
+    func fetchArtistTV(_ id: Int) async -> [MediaCreditEntity] {
         var artistShows: [MediaCreditEntity] = [MediaCreditEntity]()
-        PersonMDB.tv_credits(personID: id, language: "en") { clientReturn, data in
-            if let shows = data {
-                shows.crew.forEach { crewCredit in
-                    artistShows.append(MediaCreditEntity(id: crewCredit.id, creditId: crewCredit.credit_id ?? "", title: crewCredit.name, role: crewCredit.department, image_path: crewCredit.poster_path ?? ""))
+        
+        let data = await tvService.fetchTVCredits(id: id)
+        if let shows = data {
+            shows.crew.forEach { crewCredit in
+                if let department = crewCredit.department {
+                    artistShows.append(MediaCreditEntity(id: crewCredit.id, creditId: crewCredit.creditID, title: crewCredit.name, role: department.rawValue, image_path: crewCredit.getPosterUrl()))
                 }
-                shows.cast.forEach { castCredit in
-                    artistShows.append(MediaCreditEntity(id: castCredit.id, creditId: castCredit.credit_id ?? "", title: castCredit.name, role: castCredit.character, image_path: castCredit.poster_path ?? ""))
-                }
-                completion(artistShows)
             }
+            shows.cast.forEach { castCredit in
+                if let character = castCredit.character {
+                    artistShows.append(MediaCreditEntity(id: castCredit.id, creditId: castCredit.creditID, title: castCredit.name, role: character, image_path: castCredit.getPosterUrl()))
+                }
+            }
+            return artistShows
         }
+        return []
     }
 }

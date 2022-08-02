@@ -9,7 +9,7 @@ import Foundation
 
 
 import Foundation
-import TMDBSwift
+
 
 struct MediaCreditEntity: Identifiable {
     
@@ -24,6 +24,6 @@ struct MediaCreditEntity: Identifiable {
         self.creditId = creditId
         self.title = title
         self.role = role
-        self.image_path = image_path
+        self.image_path = "https://" + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + image_path
     }
 }

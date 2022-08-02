@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+
 
 struct CastItemView: View {
     
@@ -18,18 +18,25 @@ struct CastItemView: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            WebImage(url: URL(string: self.castEntity.imageUrl))
-                .placeholder(
+            AsyncImage(
+                url: URL(string: self.castEntity.imageUrl),
+                content: { image in
+                    image.resizable()
+                        .scaledToFill()
+                        .frame(width: 100, height: 120)
+                        .clipped()
+                },
+                placeholder: {
                     Image(systemName: "person.fill")
                         .resizable()
-                )
-                .resizable()
-                .scaledToFill()
-                .frame(width: 100, height: 120)
-                .clipped()
+                        .scaledToFill()
+                        .frame(width: 100, height: 120)
+                        .clipped()
+                }
+            )
             
             Text(self.castEntity.name)
-                .font(.custom("AppleGothic", size: 15))
+                .font(.system(size: 15))
                 .fontWeight(.regular)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
@@ -37,13 +44,13 @@ struct CastItemView: View {
                 .padding(EdgeInsets(top: 0, leading: 2, bottom: 4, trailing: 2))
             
             Text(self.castEntity.character)
-                .font(.custom("AppleGothic", size: 13))
+                .font(.system(size: 13))
                 .fontWeight(.regular)
                 .multilineTextAlignment(.center)
                 .lineLimit(2)
                 .minimumScaleFactor(0.7)
                 .padding(EdgeInsets(top: 0, leading: 2, bottom: 4, trailing: 2))
-                
+            
         }
         .frame(width: 100, height: 175)
         .border(Color.primary, width: 1)

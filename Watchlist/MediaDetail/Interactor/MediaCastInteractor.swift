@@ -6,37 +6,40 @@
 //
 
 import Foundation
-import TMDBSwift
 
 class MediaCastInteractor {
     var artists: [CastMemberEntity]
     private var artistsPageCount: Int
+    
+    let movieService = MovieService(requestManager: RequestManager())
+    let tvService = TVService(requestManager: RequestManager())
     
     init() {
         self.artists = []
         self.artistsPageCount = 0
     }
     
-    func fetchCast(_ id: Int, mediaType: MediaType, completion: @escaping (([CastMemberEntity])-> Void)) -> Void {
+    func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
         self.artists.removeAll()
         if mediaType == .movie {
-            MovieMDB.credits(movieID: id) { ret, movieCredits in
-                movieCredits?.cast.forEach({ cast in
-                    self.artists.append(CastMemberEntity(id: cast.id, cast_id: cast.cast_id, character: cast.character, order: cast.order, name: cast.name, imageUrl: cast.getPosterUrl()))
-                })
-                completion(self.artists)
-            }
-        } else {
-            TVMDB.credits(tvShowID: id) { ret, movieCredits in
-                movieCredits?.cast.forEach({ cast in
-                    self.artists.append(CastMemberEntity(id: cast.id, cast_id: nil, character: cast.character, order: cast.order, name: cast.name, imageUrl: cast.getPosterUrl()))
-                })
-                completion(self.artists)
-            }
+            let movieCredits = await movieService.fetchMovieCredits(id: id)
+            movieCredits?.cast.forEach({ cast in
+                if let character = cast.character {
+                    self.artists.append(CastMemberEntity(id: cast.id, cast_id: cast.castID, character: character, order: cast.order, name: cast.name, imageUrl: cast.getPosterUrl()))
+                }
+            })
+            return self.artists
             
+        } else {
+            let serieCredits = await tvService.fetchTVCredits(id: id)
+            serieCredits?.cast.forEach({ cast in
+                if let character = cast.character {
+                    self.artists.append(CastMemberEntity(id: cast.id, cast_id: nil, character: character, order: cast.order, name: cast.name, imageUrl: cast.getPosterUrl()))
+                }
+                
+            })
+            return self.artists
         }
-        
     }
-    
     
 }

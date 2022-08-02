@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct ArtistDetailTabView: View {
     
@@ -49,18 +48,24 @@ struct ArtistDetailTabView: View {
                         VStack(alignment: .leading) {
                             ForEach(self.artistCredits) { showCredit in
                                 HStack {
-                                    WebImage(url: URL(string: TMDBUrl.imageBaseUrl + showCredit.image_path))
-                                        .placeholder(
+                                    AsyncImage(
+                                        url: URL(string: showCredit.image_path),
+                                        content: { image in
+                                            image.resizable()
+                                                .scaledToFill()
+                                                .frame(width: 130, height: 200, alignment: .center)
+                                                .border(width: 1, edges: Edge.allCases, color: .black)
+                                                .clipped()
+                                        },
+                                        placeholder: {
                                             CommonMocks.posterPlaceholder
                                                 .resizable()
-                                        )
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(width: 130, height: 200, alignment: .center)
-                                        .border(width: 1, edges: Edge.allCases, color: .black)
-                                        .clipped()
+                                                .frame(width: 130, height: 200, alignment: .center)
+                                                .border(width: 1, edges: Edge.allCases, color: .black)
+                                                .clipped()
+                                        }
+                                    )
                                     mediaCard(credit: showCredit)
-                                    
                                 }
                             }
                         }

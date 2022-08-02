@@ -19,7 +19,7 @@ struct DiscoverSectionItemEntity: Identifiable {
         self.id = id
         self.title = title
         self.year = year
-        self.imgUrl = imgUrl
+        self.imgUrl = "https://" + imgUrl
         self.genre = genre
         self.mediaType = mediaType
     }

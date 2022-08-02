@@ -14,9 +14,8 @@ class CastEntity: Identifiable {
     var imageUrl: String
     var character: String
     
-    
     internal init(imageUrl: String, name: String, character: String) {
-        self.imageUrl = imageUrl
+        self.imageUrl = "https://" + imageUrl
         self.name = name
         self.character = character
     }

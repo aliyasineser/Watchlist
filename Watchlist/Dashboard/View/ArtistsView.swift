@@ -9,18 +9,16 @@ import SwiftUI
 
 struct ArtistsView: View {
     
-    
     @ObservedObject var presenter: ArtistPresenter
     @State private var position = 0
     
     let columns = [
-            GridItem(.adaptive(minimum: 120))
-        ]
+        GridItem(.adaptive(minimum: 120))
+    ]
     
     init(presenter: ArtistPresenter) {
         
         self.presenter = presenter
-        
         presenter.loadArtists()
     }
     
@@ -34,10 +32,10 @@ struct ArtistsView: View {
                                 ArtistItemView(artistEntity: ArtistEntity(artistId: artist.artistId, imageUrl: artist.imageUrl, name: artist.name))
                             }
                         }
-                        Spacer() // Spacer is at the and invisible, when we "see" it we load more.
-                        .onAppear(perform: {
+                        Spacer()
+                            .onAppear(perform: {
                                 presenter.loadArtists()
-                        })
+                            })
                     }.onChange(of: position) { value in
                         withAnimation {
                             proxy.scrollTo(150, anchor: .center)
@@ -51,7 +49,6 @@ struct ArtistsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
         }
-        
     }
 }
 

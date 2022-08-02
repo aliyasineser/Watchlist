@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import TMDBSwift
 
 
 enum MediaSection: CaseIterable {
@@ -17,21 +16,20 @@ enum MediaSection: CaseIterable {
     case onTheAirSeries
     case topRatedSeries
 
-
-    var type: DiscoverMDB.Type {
+    var type: MediaType {
         switch self {
         case .popularMovies:
-            return MovieMDB.self
+            return .movie
         case .mostRecentMovies:
-            return MovieMDB.self
+            return .movie
         case .comingSoonMovies:
-            return MovieMDB.self
+            return .movie
         case .airingTodaySeries:
-            return TVMDB.self
+            return .tv
         case .onTheAirSeries:
-            return TVMDB.self
+            return .tv
         case .topRatedSeries:
-            return TVMDB.self
+            return .tv
         }
     }
 

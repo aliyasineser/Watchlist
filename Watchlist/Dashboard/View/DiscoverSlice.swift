@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import TMDBSwift
+
 
 struct DiscoverSlice: View {
     
@@ -26,14 +26,14 @@ struct DiscoverSlice: View {
         VStack(alignment: .center, spacing: 0) {
             HStack(alignment: .center, spacing: 0) {
                 Text(self.sliceTitle)
-                    .font(.custom("AppleGothic", size: 20) )
+                    .font(.system(size: 20))
                     .bold()
                 Spacer()
                 NavigationLink(destination: MovieListView(section: self.section)) {
                     HStack(alignment: .center, spacing: 1.0) {
                         Text(ConstantTexts.sliceSeeAllButtonText)
                             .foregroundColor(.blue)
-                            .font(.custom("AppleGothic", size: 20) )
+                            .font(.system(size: 20))
                             .bold()
                         Image(systemName: "chevron.right")
                             .foregroundColor(.blue)
@@ -48,22 +48,16 @@ struct DiscoverSlice: View {
                 HStack(alignment: .center, spacing: 10, content: {
                     ForEach(self.sliceItems, id: \.id) { item in
                         DiscoverSliceItem(item: item)
-                            .frame(width: 136, height: 227, alignment: .center)
+                            .frame(width: 140, height: 227, alignment: .center)
                     }
                 }).padding()
             }
-            
         }
-        
-        
-        
     }
-    
 }
 
 struct DiscoverSlice_Previews: PreviewProvider {
     
-    static let movie: MovieMDB = MovieMDB(results: "")
     static var previews: some View {
         DiscoverSlice(sliceTitle: "Title", sliceItems: [DiscoverSectionItemEntity(id: 1,
                                                                                   title: "Very Very Long Movie Title", year: "21 - 05 - 2021",

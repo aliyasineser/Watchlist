@@ -6,27 +6,39 @@
 //
 
 import Foundation
-import TMDBSwift
+
+protocol MediaFetchManager {
+    
+    var pageCounter: Int { get set }
+    
+    func fetchSignlePage() async -> [Watchable]
+    func fetchWithLastPage() async -> [Watchable]
+    
+}
+
 
 class MediaFetcher {
     
+    let movieService = MovieService(requestManager: RequestManager())
+    let tvService = TVService(requestManager: RequestManager())
+    
     private var popularPageCount: Int
-    var popularMoviesList: [MovieMDB]
+    var popularMoviesList: [Movie]
     
     private var mostRecentPageCount: Int
-    var mostRecentList: [MovieMDB]
+    var mostRecentList: [Movie]
     
     private var comingSoonPageCount: Int
-    var comingSoonList: [MovieMDB]
+    var comingSoonList: [Movie]
     
     private var airingTodayPageCount: Int
-    var airingTodayList: [TVMDB]
+    var airingTodayList: [TVSerie]
     
     private var onTheAirPageCount: Int
-    var OnTheAirList: [TVMDB]
+    var OnTheAirList: [TVSerie]
     
     private var topRatedPageCount: Int
-    var topRatedList: [TVMDB]
+    var topRatedList: [TVSerie]
     
     init() {
         self.popularPageCount = 0
@@ -50,117 +62,86 @@ class MediaFetcher {
     
     /// Popular Page
     // Update
-    private func fetchNextPopularPage(_ completion: @escaping ([MovieMDB]) -> Void ) -> Void {
-        
+    private func fetchNextPopularPage() async -> [Movie] {
         popularPageCount += 1
-        MovieMDB.popular(page: popularPageCount) { (data, movies) in
-            if let movieList = movies {
-                completion(movieList)
-            }
-        }
+        return await movieService.fetchPopularMovies(page: popularPageCount)
     }
     
     /// Starts from the first page
-    func fetchNextPopularPageAsFullList(updater completion: @escaping ([MovieMDB]) -> Void ) -> Void {
-        fetchNextPopularPage { (movies) in
-            self.popularMoviesList.append(contentsOf: movies)
-            completion(self.popularMoviesList)
-        }
+    func fetchNextPopularPageAsFullList() async -> [Movie] {
+        let movies = await fetchNextPopularPage()
+        self.popularMoviesList.append(contentsOf: movies)
+        return self.popularMoviesList
     }
-
+    
     /// Most Recent Page
     // Updates
-    func fetchNextMostRecentPage(_ completion: @escaping ([MovieMDB]) -> Void ) -> Void {
-        self.mostRecentPageCount += 1
-        MovieMDB.nowplaying(page: mostRecentPageCount) { (data, movies) in
-            if let movieList = movies {
-                completion(movieList)
-            }
-        }
+    func fetchNextMostRecentPage() async -> [Movie] {
+        mostRecentPageCount += 1
+        return await movieService.fetchNowPlayingMovies(page: mostRecentPageCount)
     }
     
     /// Starts from the first page
-    func fetchNextMostRecentPageAsFullList(updater completion: @escaping ([MovieMDB]) -> Void ) -> Void {
-        fetchNextMostRecentPage { (movies) in
-            self.mostRecentList.append(contentsOf: movies)
-            completion(self.mostRecentList)
-        }
+    func fetchNextMostRecentPageAsFullList() async -> [Movie] {
+        let movies = await fetchNextMostRecentPage()
+        self.mostRecentList.append(contentsOf: movies)
+        return self.mostRecentList
     }
     
     /// Upcoming Page
     // Updates
-    func fetchUpcomingPage(_ completion: @escaping ([MovieMDB]) -> Void ) -> Void {
+    func fetchUpcomingPage() async -> [Movie] {
         self.comingSoonPageCount += 1
-        MovieMDB.upcoming(page: comingSoonPageCount) { (data, movies) in
-            if let movieList = movies {
-                completion(movieList)
-            }
-        }
+        return await movieService.fetchUpcomingMovies(page: comingSoonPageCount)
     }
     
     /// Starts from the first page
-    func fetchNextUpcomingPageAsFullList(updater completion: @escaping ([MovieMDB]) -> Void ) -> Void {
-        fetchUpcomingPage { (movies) in
-            self.comingSoonList.append(contentsOf: movies)
-            completion(self.comingSoonList)
-        }
+    func fetchNextUpcomingPageAsFullList() async -> [Movie] {
+        let movies = await fetchUpcomingPage()
+        self.comingSoonList.append(contentsOf: movies)
+        return self.comingSoonList
     }
     
     /// Airing Today
     // Updates
-    func fetcthAiringTodayPage(_ completion: @escaping ([TVMDB]) -> Void ) -> Void {
-        self.airingTodayPageCount += 1
-        TVMDB.airingtoday(page: self.airingTodayPageCount, language: "end", timezone: nil) { (data, series) in
-            if let tvList = series {
-                completion(tvList)
-            }
-        }
+    func fetcthAiringTodayPage() async -> [TVSerie] {
+        airingTodayPageCount += 1
+        return await tvService.fetchAiringTodaySeries(page: airingTodayPageCount)
     }
     
     /// Starts from the first page
-    func fetcthAiringTodayPageAsFullList(updater completion: @escaping ([TVMDB]) -> Void ) -> Void {
-        fetcthAiringTodayPage { (series) in
-            self.airingTodayList.append(contentsOf: series)
-            completion(self.airingTodayList)
-        }
+    func fetcthAiringTodayPageAsFullList() async -> [TVSerie] {
+        let series = await fetcthAiringTodayPage()
+        self.airingTodayList.append(contentsOf: series)
+        return self.airingTodayList
     }
     
     /// On The Air
     // Updates
-    func fetcthOnTheAirPage(_ completion: @escaping ([TVMDB]) -> Void ) -> Void {
+    func fetcthOnTheAirPage() async -> [TVSerie] {
         self.onTheAirPageCount += 1
-        TVMDB.ontheair(page: self.onTheAirPageCount, language: "en") { (data, series) in
-            if let tvList = series {
-                completion(tvList)
-            }
-        }
+        return await tvService.fetchOnTheAirSeries(page: onTheAirPageCount)
     }
     
     /// Starts from the first page
-    func fetcthOnTheAirPageAsFullList(updater completion: @escaping ([TVMDB]) -> Void ) -> Void {
-        fetcthOnTheAirPage { (series) in
-            self.OnTheAirList.append(contentsOf: series)
-            completion(self.OnTheAirList)
-        }
+    func fetcthOnTheAirPageAsFullList() async -> [TVSerie] {
+        let series = await fetcthOnTheAirPage()
+        self.OnTheAirList.append(contentsOf: series)
+        return self.OnTheAirList
     }
     
     /// Airing Today
     // Updates
-    func fetcthTopRatedPage(_ completion: @escaping ([TVMDB]) -> Void ) -> Void {
+    func fetcthTopRatedPage() async -> [TVSerie] {
         self.topRatedPageCount += 1
-        TVMDB.toprated(page: self.topRatedPageCount, language: "en") { (data, series) in
-            if let tvList = series {
-                completion(tvList)
-            }
-        }
+        return await tvService.fetchPopularSeries(page: topRatedPageCount)
     }
     
     /// Starts from the first page
-    func fetcthTopRatedPageAsFullList(updater completion: @escaping ([TVMDB]) -> Void ) -> Void {
-        fetcthTopRatedPage { (series) in
-            self.topRatedList.append(contentsOf: series)
-            completion(self.topRatedList)
-        }
+    func fetcthTopRatedPageAsFullList() async -> [TVSerie] {
+        let series = await fetcthTopRatedPage()
+        self.topRatedList.append(contentsOf: series)
+        return self.topRatedList
     }
     
     

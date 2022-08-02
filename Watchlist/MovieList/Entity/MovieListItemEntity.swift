@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import TMDBSwift
+
 
 struct MovieListItemEntity: Identifiable {
-       
+    
     var id: Int
     var title: String
     var year: String
@@ -22,10 +22,9 @@ struct MovieListItemEntity: Identifiable {
         self.id = id
         self.title = title
         self.year = year
-        self.imgUrl = imgUrl
+        self.imgUrl = "https://" + imgUrl
         self.rating = rating
         self.genres = genres
         self.mediaType = mediaType
     }
-
 }

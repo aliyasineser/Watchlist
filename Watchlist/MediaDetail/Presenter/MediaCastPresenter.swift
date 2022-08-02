@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import TMDBSwift
 
+@MainActor
 class MediaCastPresenter: ObservableObject {
     private let interactor: MediaCastInteractor
     @Published var artists: [CastMemberEntity]
@@ -23,10 +23,9 @@ class MediaCastPresenter: ObservableObject {
     }
     
     func loadArtists() -> Void {
-        interactor.fetchCast(self.id, mediaType: self.mediaType, completion: { (artists) in
-            self.artists = artists
-            
-        })
+        Task {
+            self.artists = await interactor.fetchCast(self.id, mediaType: self.mediaType)
+        }
     }
     
 }

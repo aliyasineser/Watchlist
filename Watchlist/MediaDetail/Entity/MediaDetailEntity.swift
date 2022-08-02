@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import TMDBSwift
 
 struct MediaDetailEntity: Identifiable {
     var id: Int
@@ -33,8 +32,7 @@ struct MediaDetailEntity: Identifiable {
         self.date = date
         self.time = time
         self.summary = summary
-        self.image_path = image_path
+        self.image_path = "https://" + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + image_path
         self.mediaType = mediaType
     }
-    
 }

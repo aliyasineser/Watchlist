@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import TMDBSwift
 import SwiftUI
 
+@MainActor
 class DiscoverPresenter: ObservableObject {
     
     private let interactor: DiscoverInteractor
@@ -19,13 +19,7 @@ class DiscoverPresenter: ObservableObject {
     @Published var onTheAirSeries: [DiscoverSectionItemEntity]
     @Published var topRatedSeries: [DiscoverSectionItemEntity]
     
-    @Published var isPopularMoviesLoaded: Bool
-    @Published var isMostRecentMoviesLoaded: Bool
-    @Published var isUpcomingMoviesLoaded: Bool
-    @Published var isAiringTodaySeriesLoaded: Bool
-    @Published var isOnTheAirSeriesLoaded: Bool
-    @Published var isTopRatedSeriesLoaded: Bool
-    
+    @Published var isLoading: Bool = false
     
     init(_ interactor: DiscoverInteractor) {
         self.interactor = interactor
@@ -36,85 +30,76 @@ class DiscoverPresenter: ObservableObject {
         self.onTheAirSeries = [DiscoverSectionItemEntity]()
         self.topRatedSeries = [DiscoverSectionItemEntity]()
         
-        self.isPopularMoviesLoaded = false
-        self.isMostRecentMoviesLoaded = false
-        self.isUpcomingMoviesLoaded = false
-        self.isAiringTodaySeriesLoaded = false
-        self.isOnTheAirSeriesLoaded = false
-        self.isTopRatedSeriesLoaded = false
+        self.isLoading = false
     }
     
     
-    func loadPopularMovies() -> Void {
-        interactor.fetchNextPopularPageAsFullList(updater: { (movies) in
-            movies.forEach { (movie) in
-                if let id = movie.id, let title = movie.title, let releaseDate = movie.release_date {
-                    self.popularMovies.append(DiscoverSectionItemEntity(id: id, title: title, year: releaseDate, imgUrl: movie.getPosterUrl() , genre: movie.genresAsString(), mediaType: .movie))
-                }
+    func loadPopularMovies() async -> Void {
+        let movies = await interactor.fetchNextPopularPageAsFullList()
+        movies.forEach { (movie) in
+            if let releaseDate = movie.releaseDate {
+                self.popularMovies.append(DiscoverSectionItemEntity(id: movie.id, title: movie.title, year: releaseDate, imgUrl: movie.getPosterUrl(), genre: "", mediaType: .movie))
             }
-            self.isPopularMoviesLoaded = true
-        })
-        
+        }
     }
     
-    func loadMostRecentMovies() -> Void {
-        interactor.fetchNextMostRecentPageAsFullList(updater: { (movies) in
-            movies.forEach { (movie) in
-                if let id = movie.id, let title = movie.title, let releaseDate = movie.release_date {
-                    self.mostRecentMovies.append(DiscoverSectionItemEntity(id: id, title: title, year: releaseDate, imgUrl: movie.getPosterUrl() , genre: movie.genresAsString(), mediaType: .movie))
-                }
+    func loadMostRecentMovies() async -> Void {
+        
+        let movies = await interactor.fetchNextMostRecentPageAsFullList()
+        movies.forEach { (movie) in
+            if let releaseDate = movie.releaseDate {
+                self.mostRecentMovies.append(DiscoverSectionItemEntity(id: movie.id, title: movie.title, year: releaseDate, imgUrl: movie.getPosterUrl() , genre: "", mediaType: .movie))
             }
-            self.isMostRecentMoviesLoaded = true
-        })
-        
+        }
     }
     
-    func loadUpcomingMovies() -> Void {
-        interactor.fetchNextUpcomingPageAsFullList(updater: { (movies) in
-            movies.forEach { (movie) in
-                if let id = movie.id, let title = movie.title, let releaseDate = movie.release_date {
-                    self.upcomingMovies.append(DiscoverSectionItemEntity(id: id, title: title, year: releaseDate, imgUrl: movie.getPosterUrl() , genre: movie.genresAsString(), mediaType: .movie))
-                }
+    func loadUpcomingMovies() async -> Void {
+        
+        let movies = await interactor.fetchNextUpcomingPageAsFullList()
+        movies.forEach { (movie) in
+            if let releaseDate = movie.releaseDate {
+                self.upcomingMovies.append(DiscoverSectionItemEntity(id: movie.id, title: movie.title, year: releaseDate, imgUrl: movie.getPosterUrl() , genre: "", mediaType: .movie))
             }
-            self.isUpcomingMoviesLoaded = true
-        })
-        
+        }
     }
     
-    func loadAiringToday() -> Void {
-        interactor.fetcthAiringTodayPageAsFullList(updater: { (series) in
-            series.forEach { (serie) in
-                if let id = serie.id, let title = serie.name, let releaseDate = serie.first_air_date {
-                    self.airingTodaySeries.append(DiscoverSectionItemEntity(id: id, title: title, year: releaseDate, imgUrl: serie.getPosterUrl() , genre: serie.genresAsString(), mediaType: .tv))
-                }
+    func loadAiringToday() async -> Void {
+        let series = await interactor.fetcthAiringTodayPageAsFullList()
+        series.forEach { (serie) in
+            if let firstAirDate = serie.firstAirDate {
+                self.airingTodaySeries.append(DiscoverSectionItemEntity(id: serie.id, title: serie.name, year: firstAirDate , imgUrl: serie.getPosterUrl() , genre: "", mediaType: .tv))
             }
-            self.isAiringTodaySeriesLoaded = true
-        })
-        
+        }
     }
     
-    func loadOnTheAir() -> Void {
-        interactor.fetcthOnTheAirPageAsFullList(updater: { (series) in
-            series.forEach { (serie) in
-                if let id = serie.id, let title = serie.name, let releaseDate = serie.first_air_date {
-                    self.onTheAirSeries.append(DiscoverSectionItemEntity(id: id, title: title, year: releaseDate, imgUrl: serie.getPosterUrl() , genre: serie.genresAsString(), mediaType: .tv))
-                }
+    func loadOnTheAir() async -> Void {
+        let series = await interactor.fetcthOnTheAirPageAsFullList()
+        series.forEach { (serie) in
+            if let firstAirDate = serie.firstAirDate {
+                self.onTheAirSeries.append(DiscoverSectionItemEntity(id: serie.id, title: serie.name, year: firstAirDate , imgUrl: serie.getPosterUrl() , genre: "", mediaType: .tv))
             }
-            self.isOnTheAirSeriesLoaded = true
-        })
-        
+        }
     }
     
-    func loadTopRated() -> Void {
-        interactor.fetcthTopRatedPageAsFullList(updater: { (series) in
-            series.forEach { (serie) in
-                if let id = serie.id, let title = serie.name, let releaseDate = serie.first_air_date {
-                    self.topRatedSeries.append(DiscoverSectionItemEntity(id: id, title: title, year: releaseDate, imgUrl: serie.getPosterUrl() , genre: serie.genresAsString(), mediaType: .tv))
-                }
+    func loadTopRated() async -> Void {
+        let series = await interactor.fetcthTopRatedPageAsFullList()
+        series.forEach { (serie) in
+            if let firstAirDate = serie.firstAirDate {
+                self.topRatedSeries.append(DiscoverSectionItemEntity(id: serie.id, title: serie.name, year: firstAirDate, imgUrl: serie.getPosterUrl() , genre: "", mediaType: .tv))
             }
-            self.isTopRatedSeriesLoaded = true
-        })
-        
+        }
     }
     
+    func fetchMedia() async {
+        isLoading = false
+        Task {
+            await loadPopularMovies()
+            await loadUpcomingMovies()
+            await loadMostRecentMovies()
+            await loadAiringToday()
+            await loadOnTheAir()
+            await loadTopRated()
+        }
+        isLoading = true
+    }
 }

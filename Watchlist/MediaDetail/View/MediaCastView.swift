@@ -12,8 +12,8 @@ struct MediaCastView: View {
     @ObservedObject var presenter: MediaCastPresenter
     
     let columns = [
-            GridItem(.adaptive(minimum: 100))
-        ]
+        GridItem(.adaptive(minimum: 100))
+    ]
     
     init(presenter: MediaCastPresenter) {
         self.presenter = presenter
@@ -30,7 +30,7 @@ struct MediaCastView: View {
                 Spacer()
                     .onAppear(perform: {
                         presenter.loadArtists()
-                })
+                    })
             }
         }
         .navigationBarTitle(ConstantTexts.artistsScreenNavBarTitle, displayMode: .inline)

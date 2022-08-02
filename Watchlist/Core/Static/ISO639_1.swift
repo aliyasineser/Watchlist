@@ -397,7 +397,7 @@ extension OriginalLanguage {
                 return
             }
         }
-            
+        
         return nil
     }
     
@@ -409,7 +409,7 @@ extension OriginalLanguage {
                 return
             }
         }
-            
+        
         return nil
     }
 }

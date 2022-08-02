@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import TMDBSwift
 
+@MainActor
 class CastPresenter: ObservableObject {
     
     private let interactor: CastInteractor
@@ -24,13 +24,13 @@ class CastPresenter: ObservableObject {
     }
     
     // TODO: Change how it works, depends on what asked from the view
-    func loadArtists() -> Void {
-        interactor.fetchCast(self.id, mediaType: self.mediaType, completion: { (artists) in
-            self.artists = artists.map { (artist) -> CastEntity in
-                return CastEntity( imageUrl: artist.imageUrl, name: artist.name, character: artist.character)
-            }
-            
-        })
-    }
+    //    func loadArtists() -> Void {
+    //        interactor.fetchCast(self.id, mediaType: self.mediaType, completion: { (artists) in
+    //            self.artists = artists.map { (artist) -> CastEntity in
+    //                return CastEntity( imageUrl: artist.imageUrl, name: artist.name, character: artist.character)
+    //            }
+    //
+    //        })
+    //    }
     
 }

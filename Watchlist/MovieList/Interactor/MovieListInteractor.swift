@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import TMDBSwift
 
 class MovieListInteractor {
     
@@ -17,33 +16,33 @@ class MovieListInteractor {
     }
     
     /// Starts from the first page
-    func fetchNextPopularPageAsFullList(updater completion: @escaping ([MovieMDB]) -> Void ) -> Void {
-        mediaFetcher.fetchNextPopularPageAsFullList(updater: completion)
-    }
-
-    /// Starts from the first page
-    func fetchNextMostRecentPageAsFullList(updater completion: @escaping ([MovieMDB]) -> Void ) -> Void {
-        mediaFetcher.fetchNextMostRecentPageAsFullList(updater: completion)
-    }
-
-    /// Starts from the first page
-    func fetchNextUpcomingPageAsFullList(updater completion: @escaping ([MovieMDB]) -> Void ) -> Void {
-        mediaFetcher.fetchNextUpcomingPageAsFullList(updater: completion)
+    func fetchNextPopularPageAsFullList() async -> [Movie] {
+        return await mediaFetcher.fetchNextPopularPageAsFullList()
     }
     
     /// Starts from the first page
-    func fetcthAiringTodayPageAsFullList(updater completion: @escaping ([TVMDB]) -> Void ) -> Void {
-        mediaFetcher.fetcthAiringTodayPageAsFullList(updater: completion)
+    func fetchNextMostRecentPageAsFullList() async -> [Movie] {
+        return await mediaFetcher.fetchNextMostRecentPageAsFullList()
     }
     
     /// Starts from the first page
-    func fetcthOnTheAirPageAsFullList(updater completion: @escaping ([TVMDB]) -> Void ) -> Void {
-        mediaFetcher.fetcthOnTheAirPageAsFullList(updater: completion)
+    func fetchNextUpcomingPageAsFullList() async  -> [Movie] {
+        return await mediaFetcher.fetchNextUpcomingPageAsFullList()
     }
     
     /// Starts from the first page
-    func fetcthTopRatedPageAsFullList(updater completion: @escaping ([TVMDB]) -> Void ) -> Void {
-        mediaFetcher.fetcthTopRatedPageAsFullList(updater: completion)
+    func fetcthAiringTodayPageAsFullList() async-> [TVSerie] {
+        return await mediaFetcher.fetcthAiringTodayPageAsFullList()
+    }
+    
+    /// Starts from the first page
+    func fetcthOnTheAirPageAsFullList() async -> [TVSerie] {
+        return await mediaFetcher.fetcthOnTheAirPageAsFullList()
+    }
+    
+    /// Starts from the first page
+    func fetcthTopRatedPageAsFullList() async -> [TVSerie] {
+        return await mediaFetcher.fetcthTopRatedPageAsFullList()
     }
     
     

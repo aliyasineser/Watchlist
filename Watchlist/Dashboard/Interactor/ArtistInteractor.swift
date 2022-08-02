@@ -6,25 +6,28 @@
 //
 
 import Foundation
-import TMDBSwift
 
 class ArtistInteractor {
-    var artists: [PersonResults]
+    var artists: [Artist]
     private var artistsPageCount: Int
+    
+    let artistService = ArtistService(requestManager: RequestManager())
     
     init() {
         self.artists = []
         self.artistsPageCount = 0
     }
     
-    func fetchArtists(_ completion: @escaping (([PersonResults])-> Void)) -> Void {
+    func fetchArtists() async -> [Artist] {
         self.artistsPageCount += 1
-        PersonMDB.popular(page: self.artistsPageCount) { (ret, artistResults) in
-            if let artists = artistResults {
-                self.artists.append(contentsOf: artists)
-                completion(artists)
-            }
+        let artstResults = await artistService.fetchArtists(page: artistsPageCount)
+        if let artists = artstResults?.results {
+            self.artists.append(contentsOf: artists)
+            return artists
+        } else {
+            return []
         }
+        
     }
     
 }

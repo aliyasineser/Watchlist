@@ -25,7 +25,7 @@ struct ConstantTexts {
     static let artistsScreenNavBarTitle: String = "Artists"
     static let dashboardScreenNavBarTitle: String = "Dashboard"
     
-
+    
     // MARK: TabBarItemName
     static let discoverScreenTabBarItemText: String = "Discover"
     static let genresScreenTabBarItemText: String = "Genres"
@@ -36,4 +36,4 @@ struct ConstantTexts {
     // MARK: Artist Detail Screen
     static let artistDetailScreenPhotoAlbumsButtonText = "Photo Albums"
 }
- 
+

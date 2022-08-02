@@ -9,7 +9,7 @@ import Foundation
 
 
 class CastMemberEntity: Identifiable {
-   
+    
     var id: Int
     var cast_id: Int?
     var character: String!
@@ -25,5 +25,5 @@ class CastMemberEntity: Identifiable {
         self.imageUrl = imageUrl
         self.id = id
     }
-
+    
 }

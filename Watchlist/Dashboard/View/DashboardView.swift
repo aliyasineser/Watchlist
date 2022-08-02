@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import TMDBSwift
 
 struct DashboardView: View {
     var body: some View {

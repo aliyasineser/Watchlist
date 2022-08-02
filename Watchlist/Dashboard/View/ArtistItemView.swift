@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 
 struct ArtistItemView: View {
@@ -19,15 +18,22 @@ struct ArtistItemView: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            WebImage(url: URL(string: self.artistEntity.imageUrl))
-                .placeholder(
+            AsyncImage(
+                url: URL(string: self.artistEntity.imageUrl),
+                content: { image in
+                    image.resizable()
+                        .scaledToFill()
+                        .frame(width: 105, height: 160)
+                        .clipped()
+                },
+                placeholder: {
                     Image(systemName: "person.fill")
                         .resizable()
-                )
-                .resizable()
-                .scaledToFill()
-                .frame(width: 105, height: 160)
-                .clipped()
+                        .scaledToFill()
+                        .frame(width: 105, height: 160)
+                        .clipped()
+                }
+            )
             
             Text(self.artistEntity.name)
                 .font(.custom("AppleGothic", size: 15))
@@ -37,7 +43,6 @@ struct ArtistItemView: View {
                 .lineLimit(2)
                 .minimumScaleFactor(0.7)
                 .padding(EdgeInsets(top: 4, leading: 2, bottom: 4, trailing: 2))
-                
         }
         .frame(width: 105, height: 190)
         .border(Color.primary, width: 1)

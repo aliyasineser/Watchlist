@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 struct MovieListView: View {
     
     init(section: MediaSection) {

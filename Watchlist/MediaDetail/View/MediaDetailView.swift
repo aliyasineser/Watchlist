@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
-import TMDBSwift
 
 struct MediaDetailView: View {
     
@@ -15,6 +13,7 @@ struct MediaDetailView: View {
     
     init(presenter: MediaDetailPresenter) {
         self.presenter = presenter
+        presenter.getMediaDetail()
     }
     
     var body: some View {
@@ -23,15 +22,21 @@ struct MediaDetailView: View {
                 ScrollView {
                     VStack {
                         ZStack(alignment: .bottom) {
-                            WebImage(url: URL(string: presenter.media.image_path))
-                                .placeholder(
+                            AsyncImage(
+                                url: URL(string: presenter.media.image_path),
+                                content: { image in
+                                    image.resizable()
+                                        .scaledToFill()
+                                        .frame(height: 300)
+                                        .clipped()
+                                },
+                                placeholder: {
                                     CommonMocks.posterPlaceholder
                                         .resizable()
-                                )
-                                .resizable()
-                                .scaledToFill()
-                                .frame(height: 300)
-                                .clipped()
+                                        .frame(height: 300)
+                                        .clipped()
+                                }
+                            )
                             
                             Rectangle()
                                 .fill(
@@ -46,26 +51,32 @@ struct MediaDetailView: View {
                         .frame(width: gp.size.width, height: 300, alignment: .center)
                         
                         HStack(alignment: .top) {
-                            WebImage(url: URL(string: presenter.media.image_path))
-                                .placeholder(
+                            AsyncImage(
+                                url: URL(string: presenter.media.image_path),
+                                content: { image in
+                                    image.resizable()
+                                        .scaledToFill()
+                                        .scaledToFill()
+                                        .clipped()
+                                },
+                                placeholder: {
                                     CommonMocks.posterPlaceholder
                                         .resizable()
-                                )
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 160, height: 220, alignment: .center)
-                                .clipped()
+                                        .scaledToFill()
+                                        .clipped()
+                                }
+                            )
                             
                             VStack(alignment: .leading) {
                                 Text(presenter.media.title)
-                                    .font(.custom("AppleGothic", size: 25) )
+                                    .font(.system(size: 25))
                                     .bold()
                                     .minimumScaleFactor(0.65)
                                     .lineLimit(2)
                                     .padding(.bottom, 2)
                                 
                                 Text(presenter.media.genres)
-                                    .font(.custom("AppleGothic", size: 17) )
+                                    .font(.system(size: 17))
                                     .foregroundColor(.primary)
                                     .bold()
                                     .minimumScaleFactor(0.7)
@@ -75,7 +86,7 @@ struct MediaDetailView: View {
                                     StarsView(rating: CGFloat(presenter.media.point/2.0), maxRating: 5)
                                         .frame(width: 110, alignment: .center)
                                     Text(String(format: "%.1f / 10", presenter.media.point))
-                                        .font(.custom("AppleGothic", size: 14) )
+                                        .font(.system(size: 14))
                                         .bold()
                                         .foregroundColor(.primary)
                                         .minimumScaleFactor(0.7)
@@ -84,7 +95,7 @@ struct MediaDetailView: View {
                                 
                                 if let lang = OriginalLanguage(isoCode: presenter.media.language)?.language {
                                     Text(lang)
-                                        .font(.custom("AppleGothic", size: 18) )
+                                        .font(.system(size: 18))
                                         .bold()
                                         .foregroundColor(.primary)
                                         .minimumScaleFactor(0.8)
@@ -92,7 +103,7 @@ struct MediaDetailView: View {
                                 
                                 
                                 Text(presenter.media.date + " " + presenter.media.time)
-                                    .font(.custom("AppleGothic", size: 17) )
+                                    .font(.system(size: 17))
                                     .bold()
                                     .foregroundColor(.primary)
                                     .minimumScaleFactor(0.8)
@@ -107,17 +118,14 @@ struct MediaDetailView: View {
                         
                         ScrollView {
                             Text(presenter.media.summary)
-                                .font(.custom("AppleGothic", size: 16))
-                            
+                                .font(.system(size: 16))
                         }
                         .padding(.horizontal, 10)
                         .padding(.top, 25)
                         
                         MediaDetailTabView(self.presenter.mediaId, mediaType: self.presenter.mediaType)
                             .padding(.top, 20)
-                        
                     }
-                    
                 }
             }
         }

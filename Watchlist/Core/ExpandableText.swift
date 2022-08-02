@@ -35,13 +35,13 @@ struct ExpandableText: View {
         
         ZStack(alignment: .bottomLeading) {
             Group {
-                        Text(self.expanded ? text : shrinkText)
-                        + Text(moreLessText)
-                        .bold()
-                        .foregroundColor(.blue)
+                Text(self.expanded ? text : shrinkText)
+                + Text(moreLessText)
+                    .bold()
+                    .foregroundColor(.blue)
                 
             }.animation(.easeInOut)
-            .lineLimit(expanded ? nil : lineLimit)
+                .lineLimit(expanded ? nil : lineLimit)
                 .background(
                     // Render the limited text and measure its size
                     Text(text).lineLimit(lineLimit)
@@ -77,8 +77,8 @@ struct ExpandableText: View {
                             }
                         })
                         .hidden() // Hide the background
-            )
-            .font(Font(font)) ///set default font
+                )
+                .font(Font(font)) ///set default font
             if truncated {
                 Button(action: {
                     expanded.toggle()
@@ -91,17 +91,17 @@ struct ExpandableText: View {
             }
         }
     }
-
+    
     struct ContentView_Previews: PreviewProvider {
-      static var previews: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            ExpandableText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut laborum", lineLimit: 6)
-            ExpandableText("Small text", lineLimit: 3)
-            ExpandableText("Render the limited text and measure its size, R", lineLimit: 1)
-            ExpandableText("Create a ZStack with unbounded height to allow the inner Text as much, Render the limited text and measure its size, Hide the background Indicates whether the text has been truncated in its display.", lineLimit: 3)
-            
-            
-        }.padding()
-      }
+        static var previews: some View {
+            VStack(alignment: .leading, spacing: 10) {
+                ExpandableText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut laborum", lineLimit: 6)
+                ExpandableText("Small text", lineLimit: 3)
+                ExpandableText("Render the limited text and measure its size, R", lineLimit: 1)
+                ExpandableText("Create a ZStack with unbounded height to allow the inner Text as much, Render the limited text and measure its size, Hide the background Indicates whether the text has been truncated in its display.", lineLimit: 3)
+                
+                
+            }.padding()
+        }
     }
 }

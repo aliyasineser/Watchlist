@@ -11,8 +11,8 @@ struct CastView: View {
     @ObservedObject private var presenter: CastPresenter
     
     let columns = [
-            GridItem(.adaptive(minimum: 100))
-        ]
+        GridItem(.adaptive(minimum: 100))
+    ]
     
     init(presenter: CastPresenter) {
         self.presenter = presenter
@@ -26,12 +26,13 @@ struct CastView: View {
                 }
                 Spacer()
                     .onAppear(perform: {
-                        presenter.loadArtists()
-                })
+#warning("load artist")
+//                        presenter.loadArtists()
+                    })
             }
         }
         .onAppear(perform: {
-            presenter.loadArtists()
+//            presenter.loadArtists()
         })
         .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
         

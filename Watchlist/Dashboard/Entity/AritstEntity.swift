@@ -17,8 +17,7 @@ struct ArtistEntity: Identifiable {
     
     internal init(artistId: Int, imageUrl: String, name: String) {
         self.artistId = artistId
-        self.imageUrl = imageUrl
+        self.imageUrl = "https://" + imageUrl
         self.name = name
     }
-    
 }

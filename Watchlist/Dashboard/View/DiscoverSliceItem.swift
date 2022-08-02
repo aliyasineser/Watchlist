@@ -6,8 +6,6 @@
 //
 
 import SwiftUI
-import TMDBSwift
-import SDWebImageSwiftUI
 
 struct DiscoverSliceItem: View {
     
@@ -18,35 +16,37 @@ struct DiscoverSliceItem: View {
     }
     
     var body: some View {
-    
+        
         NavigationLink(destination: MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractor(), movieId: item.id, mediaType: item.mediaType))) {
             VStack{
-                WebImage(url: URL(string: self.item.imgUrl))
-                    .placeholder(
+                AsyncImage(
+                    url: URL(string: self.item.imgUrl),
+                    content: { image in
+                        image.resizable()
+                            .scaledToFit()
+                            .frame(width: 140, height: 181)
+                    },
+                    placeholder: {
                         CommonMocks.posterPlaceholder
                             .resizable()
-                    )
-                    .resizable()
-                    .frame(width: 136, height: 181)
-                    .scaledToFit()
-                    
-    
+                            .scaledToFit()
+                            .frame(width: 140, height: 181)
+                    }
+                )
+                
                 Text(self.item.title)
-                    .font(.custom("AppleGothic", size: 16) )
+                    .font(.system(size: 16))
                     .foregroundColor(.primary)
                     .bold()
                     .lineLimit(2)
-                    
+                
                 
                 Text(self.item.year)
-                    .font(.custom("AppleGothic", size: 12))
+                    .font(.system(size: 12))
                     .foregroundColor(.primary)
             }
             .border(Color.primary, width: 1)
-            
         }
-    
-        
     }
 }
 

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import TMDBSwift
 
 class DashboardInteractor {
 }

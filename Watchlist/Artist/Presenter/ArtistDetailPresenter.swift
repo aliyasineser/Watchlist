@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import TMDBSwift
 
+@MainActor
 class ArtistDetailPresenter: ObservableObject {
     var interactor: ArtistDetailInteractor
     @Published var artistDetail: ArtistDetailEntity?
@@ -22,16 +22,15 @@ class ArtistDetailPresenter: ObservableObject {
     }
     
     func fetchArtist(artistId: Int) -> Void {
-        interactor.fetchArtist(artistId) { artistData in
-            self.artistDetail = artistData
-        }
-        interactor.fetchArtistImages(artistId) { images in
-            self.artistImages = images
-        }
-        interactor.fetchArtistMovies(artistId) { movies in
+        Task {
+            self.artistDetail = await interactor.fetchArtist(artistId)
+            
+            self.artistImages = await interactor.fetchArtistImages(artistId)
+            
+            let movies = await interactor.fetchArtistMovies(artistId)
             self.artistCredits.append(contentsOf: movies)
-        }
-        interactor.fetchArtistTV(artistId) { shows in
+            
+            let shows = await interactor.fetchArtistTV(artistId)
             self.artistCredits.append(contentsOf: shows)
         }
     }

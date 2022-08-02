@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MediaDetailTabView: View {
     
-
+    
     @State var tabIndex = 0
     
     var id: Int
@@ -40,7 +40,6 @@ struct MediaDetailTabView: View {
 }
 
 struct CustomTopTabBar: View {
-
     
     @Binding var tabIndex: Int
     var body: some View {
@@ -65,7 +64,7 @@ struct CustomTopTabBar: View {
 }
 
 struct TabBarButton: View {
-
+    
     let text: String
     @Binding var isSelected: Bool
     var body: some View {
@@ -78,10 +77,10 @@ struct TabBarButton: View {
 }
 
 struct EdgeBorder: Shape {
-
+    
     var width: CGFloat
     var edges: [Edge]
-
+    
     func path(in rect: CGRect) -> Path {
         var path = Path()
         for edge in edges {
@@ -91,21 +90,21 @@ struct EdgeBorder: Shape {
                 case .trailing: return rect.maxX - width
                 }
             }
-
+            
             var y: CGFloat {
                 switch edge {
                 case .top, .leading, .trailing: return rect.minY
                 case .bottom: return rect.maxY - width
                 }
             }
-
+            
             var w: CGFloat {
                 switch edge {
                 case .top, .bottom: return rect.width
                 case .leading, .trailing: return self.width
                 }
             }
-
+            
             var h: CGFloat {
                 switch edge {
                 case .top, .bottom: return self.width

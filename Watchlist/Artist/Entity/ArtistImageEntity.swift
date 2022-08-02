@@ -18,8 +18,6 @@ struct ArtistImageEntity: Identifiable {
     var width: Int
     
     func getPosterUrl() -> String {
-        var url = ""
-        url = TMDBUrl.imageBaseUrl + file_path
-        return url
+        return "https://" + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + file_path
     }
 }

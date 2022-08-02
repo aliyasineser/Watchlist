@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
+
 
 struct ArtistDetailView: View {
     
@@ -25,15 +25,22 @@ struct ArtistDetailView: View {
             if let artist = self.presenter.artistDetail {
                 VStack(spacing: 0) {
                     ZStack(alignment: .bottomLeading) {
-                        WebImage(url: URL(string: artist.imgUrl))
-                            .placeholder(
+                        
+                        AsyncImage(
+                            url: URL(string: artist.imgUrl),
+                            content: { image in
+                                image.resizable()
+                                    .scaledToFill()
+                                    .frame(height: 400, alignment: .center)
+                                    .clipped()
+                            },
+                            placeholder: {
                                 CommonMocks.posterPlaceholder
                                     .resizable()
-                            )
-                            .resizable()
-                            .scaledToFill()
-                            .frame(height: 400, alignment: .center)
-                            .clipped()
+                                    .frame(height: 400, alignment: .center)
+                                    .clipped()
+                            }
+                        )
                         
                         Rectangle()
                             .fill(
@@ -95,53 +102,57 @@ struct PhotoGrid: View {
         ScrollView(.horizontal){
             HStack(spacing: 0) {
                 ZStack {
-                    WebImage(url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""))
-                        .placeholder(
+                    AsyncImage(
+                        url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""),
+                        content: { image in
+                            image.resizable()
+                                .scaledToFill()
+                                .clipped()
+                        },
+                        placeholder: {
                             CommonMocks.posterPlaceholder
                                 .resizable()
-                        )
-                        .resizable()
-                        .scaledToFill()
-                        .clipped()
-                    
+                        }
+                    )
                     Rectangle()
                         .foregroundColor(.teal).opacity(0.7)
                     
                     VStack {
                         Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
-                            .font(.custom("AppleGothic", size: 25) )
+                            .font(.system(size: 25))
                             .bold()
                             .minimumScaleFactor(0.7)
                             .lineLimit(1)
                         
                         Text(ConstantTexts.artistDetailScreenPhotoAlbumsButtonText)
-                            .font(.custom("AppleGothic", size: 14) )
+                            .font(.system(size: 14))
                             .bold()
                             .minimumScaleFactor(0.5)
                     }
                     .onTapGesture {
                         // Navigation to artist images
                     }
-                    
                 }
-                
                 HStack{
                     ForEach(self.presenter.artistImages.reversed()) { imageEntity in
-                        WebImage(url: URL(string: imageEntity.getPosterUrl()))
-                            .placeholder(
+                        AsyncImage(
+                            url: URL(string: imageEntity.getPosterUrl()),
+                            content: { image in
+                                image.resizable()
+                                    .scaledToFill()
+                                    .clipped()
+                            },
+                            placeholder: {
                                 CommonMocks.posterPlaceholder
                                     .resizable()
-                            )
-                            .resizable()
-                            .scaledToFill()
-                            .clipped()
+                            }
+                        )
                     }
                 }
             }
             Spacer()
         }
         .padding(.leading)
-        
     }
 }
 

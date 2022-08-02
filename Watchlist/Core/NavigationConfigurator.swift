@@ -11,7 +11,7 @@ import SwiftUI
 
 struct NavigationConfigurator: UIViewControllerRepresentable {
     var configure: (UINavigationController) -> Void = { _ in }
-
+    
     func makeUIViewController(context: UIViewControllerRepresentableContext<NavigationConfigurator>) -> UIViewController {
         UIViewController()
     }
@@ -20,5 +20,5 @@ struct NavigationConfigurator: UIViewControllerRepresentable {
             self.configure(nc)
         }
     }
-
+    
 }
