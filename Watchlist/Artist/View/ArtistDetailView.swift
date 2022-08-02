@@ -54,14 +54,14 @@ struct ArtistDetailView: View {
                         
                         VStack(alignment: .leading) {
                             Text(artist.name)
-                                .font(.custom("AppleGothic", size: 30) )
+                                .font(.system(size: 30))
                                 .bold()
                                 .minimumScaleFactor(0.7)
                                 .lineLimit(1)
                             
                             if let birthday = artist.birthday {
                                 Text(birthday)
-                                    .font(.custom("AppleGothic", size: 16) )
+                                    .font(.system(size: 16))
                                     .bold()
                                     .minimumScaleFactor(0.7)
                                     .lineLimit(1)
@@ -108,10 +108,14 @@ struct PhotoGrid: View {
                             image.resizable()
                                 .scaledToFill()
                                 .clipped()
+                                .frame(width: 100)
                         },
                         placeholder: {
                             CommonMocks.posterPlaceholder
                                 .resizable()
+                                .scaledToFill()
+                                .clipped()
+                                .frame(width: 100)
                         }
                     )
                     Rectangle()
@@ -133,7 +137,8 @@ struct PhotoGrid: View {
                         // Navigation to artist images
                     }
                 }
-                HStack{
+                
+                LazyHStack{
                     ForEach(self.presenter.artistImages.reversed()) { imageEntity in
                         AsyncImage(
                             url: URL(string: imageEntity.getPosterUrl()),
@@ -141,10 +146,14 @@ struct PhotoGrid: View {
                                 image.resizable()
                                     .scaledToFill()
                                     .clipped()
+                                    .frame(width: 100)
                             },
                             placeholder: {
                                 CommonMocks.posterPlaceholder
                                     .resizable()
+                                    .scaledToFill()
+                                    .clipped()
+                                    .frame(width: 100)
                             }
                         )
                     }

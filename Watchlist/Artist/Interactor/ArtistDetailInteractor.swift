@@ -36,20 +36,12 @@ class ArtistDetailInteractor {
         var artistMovies: [MediaCreditEntity] = [MediaCreditEntity]()
         let data = await movieService.fetchMovieCredits(id: id)
         if let movies = data {
-            movies.crew.forEach { crewCredit in
-                if let character = crewCredit.job {
-                    artistMovies.append(MediaCreditEntity(id: crewCredit.id, creditId: crewCredit.creditID, title: crewCredit.originalName, role: character, image_path: crewCredit.getPosterUrl()))
-                }
+            let allCast = movies.cast + movies.crew
+            allCast.forEach { credit in
+                artistMovies.append(MediaCreditEntity(id: credit.id, creditId: credit.creditID, title: credit.name, role: credit.job ?? credit.character ?? "Unknown", image_path: credit.getPosterUrl()))
             }
-            movies.cast.forEach { castCredit in
-                if let character = castCredit.character {
-                    artistMovies.append(MediaCreditEntity(id: castCredit.id, creditId: castCredit.creditID, title: castCredit.originalName, role: character, image_path: castCredit.getPosterUrl()))
-                }
-                
-            }
-            return artistMovies
         }
-        return []
+        return artistMovies
     }
     
     func fetchArtistTV(_ id: Int) async -> [MediaCreditEntity] {
@@ -57,18 +49,11 @@ class ArtistDetailInteractor {
         
         let data = await tvService.fetchTVCredits(id: id)
         if let shows = data {
-            shows.crew.forEach { crewCredit in
-                if let department = crewCredit.department {
-                    artistShows.append(MediaCreditEntity(id: crewCredit.id, creditId: crewCredit.creditID, title: crewCredit.name, role: department.rawValue, image_path: crewCredit.getPosterUrl()))
-                }
+            let allCast = shows.cast + shows.crew
+            allCast.forEach { credit in
+                artistShows.append(MediaCreditEntity(id: credit.id, creditId: credit.creditID, title: credit.name, role: credit.character ?? credit.department?.rawValue ?? "Unknown", image_path: credit.getPosterUrl()))
             }
-            shows.cast.forEach { castCredit in
-                if let character = castCredit.character {
-                    artistShows.append(MediaCreditEntity(id: castCredit.id, creditId: castCredit.creditID, title: castCredit.name, role: character, image_path: castCredit.getPosterUrl()))
-                }
-            }
-            return artistShows
         }
-        return []
+        return artistShows
     }
 }

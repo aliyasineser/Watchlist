@@ -36,7 +36,7 @@ struct ArtistItemView: View {
             )
             
             Text(self.artistEntity.name)
-                .font(.custom("AppleGothic", size: 15))
+                .font(.system(size: 15))
                 .foregroundColor(.primary)
                 .fontWeight(.regular)
                 .multilineTextAlignment(.center)
