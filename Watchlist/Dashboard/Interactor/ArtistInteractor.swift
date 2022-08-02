@@ -8,26 +8,11 @@
 import Foundation
 
 class ArtistInteractor {
-    var artists: [Artist]
-    private var artistsPageCount: Int
     
-    let artistService = ArtistService(requestManager: RequestManager())
-    
-    init() {
-        self.artists = []
-        self.artistsPageCount = 0
-    }
-    
+    let artistFetcher: ArtistFetcher = ArtistFetcher()
+   
     func fetchArtists() async -> [Artist] {
-        self.artistsPageCount += 1
-        let artstResults = await artistService.fetchArtists(page: artistsPageCount)
-        if let artists = artstResults?.results {
-            self.artists.append(contentsOf: artists)
-            return artists
-        } else {
-            return []
-        }
-        
+        return await artistFetcher.fetchWithNextPage()
     }
     
 }
