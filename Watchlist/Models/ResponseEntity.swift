@@ -70,18 +70,9 @@ struct Profile: Codable {
     }
 }
 
-struct PopularArtist: Codable {
-    let page: Int
-    let results: [Artist]
-    let totalResults, totalPages: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case page, results
-        case totalResults = "total_results"
-        case totalPages = "total_pages"
-    }
+struct Dates: Codable {
+    let maximum, minimum: String
 }
-
 
 struct MovieResponse : Codable {
     let dates: Dates?
