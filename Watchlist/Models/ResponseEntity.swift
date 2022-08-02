@@ -81,3 +81,30 @@ struct PopularArtist: Codable {
         case totalPages = "total_pages"
     }
 }
+
+
+struct MovieResponse : Codable {
+    let dates: Dates?
+    let page: Int
+    var results: [Movie]
+    let totalPages, totalResults: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case dates
+        case page, results
+        case totalPages = "total_pages"
+        case totalResults = "total_results"
+    }
+}
+
+struct TVSerieResponse : Codable {
+    let page: Int
+    var results: [TVSerie]
+    let totalPages, totalResults: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case page, results
+        case totalPages = "total_pages"
+        case totalResults = "total_results"
+    }
+}

@@ -10,12 +10,6 @@ import Foundation
 struct Credits: Codable {
     let cast, crew: [Cast]
     let id: Int?
-    
-    init() {
-        cast = []
-        crew = []
-        id = 0
-    }
 }
 
 struct SpokenLanguage: Codable {
@@ -140,131 +134,55 @@ struct Artist: Codable {
     }
 }
 
-struct TVSerie: Codable, Watchable {
-    let posterPath: String?
-    let popularity: Double
-    let id: Int
-    let backdropPath: String?
-    let voteAverage: Double?
-    let overview: String
-    let firstAirDate: String?
-    let originCountry: [OriginCountry]?
-    let genreIDS: [Int]?
-    let originalLanguage: OriginalLanguage?
-    let voteCount: Int?
-    let name: String
-    let originalName: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case posterPath = "poster_path"
-        case popularity, id
-        case backdropPath = "backdrop_path"
-        case voteAverage = "vote_average"
-        case overview
-        case firstAirDate = "first_air_date"
-        case originCountry = "origin_country"
-        case genreIDS = "genre_ids"
-        case originalLanguage = "original_language"
-        case voteCount = "vote_count"
-        case name
-        case originalName = "original_name"
-    }
-    
-    func getTitle() -> String {
-        return name
-    }
-    
-    func getImagePath() -> String {
-        return posterPath ?? backdropPath ?? ""
-    }
-}
 
-struct Movie: Codable, Watchable {
-    let posterPath: String?
+struct Cast: Codable {
     let adult: Bool
-    let overview: String
-    let releaseDate: String?
-    let genreIDS: [Int]?
-    let id: Int
-    let originalTitle: String?
-    let originalLanguage: OriginalLanguage?
-    let title: String
-    let backdropPath: String?
+    let gender, id: Int
+    let knownForDepartment: Department?
+    let name, originalName: String
     let popularity: Double
-    let voteCount: Int?
-    let video: Bool
-    let voteAverage: Double?
+    let profilePath: String?
+    let castID: Int?
+    let character: String?
+    let creditID: String
+    let order: Int?
+    let department: Department?
+    let job: String?
     
     enum CodingKeys: String, CodingKey {
-        case posterPath = "poster_path"
-        case adult, overview
-        case releaseDate = "release_date"
-        case genreIDS = "genre_ids"
-        case id
-        case originalTitle = "original_title"
-        case originalLanguage = "original_language"
-        case title
-        case backdropPath = "backdrop_path"
+        case adult, gender, id
+        case knownForDepartment = "known_for_department"
+        case name
+        case originalName = "original_name"
         case popularity
-        case voteCount = "vote_count"
-        case video
-        case voteAverage = "vote_average"
-    }
-    
-    func getTitle() -> String {
-        return title
-    }
-    
-    func getImagePath() -> String {
-        return posterPath ?? backdropPath ?? ""
+        case profilePath = "profile_path"
+        case castID = "cast_id"
+        case character
+        case creditID = "credit_id"
+        case order, department, job
     }
 }
 
-struct Media: Watchable, Codable {
-    let adult: Bool?
+struct PopularPeople : Codable {
+    var page: Int
+    var total_results: Int
+    var total_pages: Int?
+    var results: [Media]?
+}
+
+
+struct Collection : Codable {
     let backdropPath: String?
-    let genreIDS: [Int]?
     var id: Int
-    var mediaType: MediaType?
-    let originalLanguage: OriginalLanguage?
-    let originalTitle: String?
+    let name: String
     let posterPath: String?
-    let overview: String
-    let releaseDate, title: String?
-    let video: Bool?
-    let voteAverage: Double
-    let voteCount: Int?
-    let firstAirDate, name: String
-    let originCountry: [String]
-    let originalName: String?
-    let popularity: Double
+    let overview: String?
     
     enum CodingKeys: String, CodingKey {
-        case adult
         case backdropPath = "backdrop_path"
-        case genreIDS = "genre_ids"
         case id
-        case mediaType = "media_type"
-        case originalLanguage = "original_language"
-        case originalTitle = "original_title"
         case overview
         case posterPath = "poster_path"
-        case releaseDate = "release_date"
-        case title, video
-        case voteAverage = "vote_average"
-        case voteCount = "vote_count"
-        case firstAirDate = "first_air_date"
         case name
-        case popularity
-        case originCountry = "origin_country"
-        case originalName = "original_name"
-    }
-    
-    func getTitle() -> String {
-        return originalTitle ?? name
-    }
-    
-    func getImagePath() -> String {
-        return posterPath ?? backdropPath ?? ""
     }
 }
