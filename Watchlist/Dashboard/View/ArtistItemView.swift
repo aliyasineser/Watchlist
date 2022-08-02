@@ -22,18 +22,14 @@ struct ArtistItemView: View {
                 url: URL(string: self.artistEntity.imageUrl),
                 content: { image in
                     image.resizable()
-                        .scaledToFill()
-                        .frame(width: 105, height: 160)
-                        .clipped()
                 },
                 placeholder: {
                     Image(systemName: "person.fill")
                         .resizable()
-                        .scaledToFill()
-                        .frame(width: 105, height: 160)
-                        .clipped()
                 }
-            )
+            ).scaledToFill()
+                .frame(width: 105, height: 160)
+                .clipped()
             
             Text(self.artistEntity.name)
                 .font(.system(size: 15))

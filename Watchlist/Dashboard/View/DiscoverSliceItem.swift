@@ -23,16 +23,14 @@ struct DiscoverSliceItem: View {
                     url: URL(string: self.item.imgUrl),
                     content: { image in
                         image.resizable()
-                            .scaledToFit()
-                            .frame(width: 140, height: 181)
                     },
                     placeholder: {
                         CommonMocks.posterPlaceholder
                             .resizable()
-                            .scaledToFit()
-                            .frame(width: 140, height: 181)
                     }
                 )
+                .scaledToFit()
+                .frame(width: 140, height: 181)
                 
                 Text(self.item.title)
                     .font(.system(size: 16))

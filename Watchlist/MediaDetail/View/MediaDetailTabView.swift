@@ -70,7 +70,7 @@ struct TabBarButton: View {
     var body: some View {
         Text(text)
             .fontWeight(isSelected ? .heavy : .regular)
-            .font(.custom("AppleGothic", size: 16))
+            .font(.system(size: 16))
             .padding(.bottom,10)
             .border(width: isSelected ? 2 : 1, edges: [.bottom], color: .secondary)
     }
