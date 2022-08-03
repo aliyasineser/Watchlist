@@ -9,7 +9,7 @@ import Foundation
 
 class ArtistFetcher {
     
-    private var artists: [Artist] = []
+    private var artists: [Creditable] = []
     private var pageCounter: Int = 0
     
     let artistService = ArtistService(requestManager: RequestManager())
@@ -21,13 +21,13 @@ class ArtistFetcher {
         else { return [] }
     }
     
-    func fetchWithNextPage() async -> [Artist] {
+    func fetchWithNextPage() async -> [Creditable] {
         let artistsPage = await fetchSinglePage()
         self.artists.append(contentsOf: artistsPage)
         return self.artists
     }
     
-    func getFetched() -> [Artist] {
+    func getFetched() -> [Creditable] {
         return artists
     }
 }
