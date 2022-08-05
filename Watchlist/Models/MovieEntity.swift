@@ -9,19 +9,15 @@ import Foundation
 
 struct Movie: Codable, Watchable {
     let id: Int
-    let adult: Bool
+    let adult: Bool?
     let posterPath: String?
     let backdropPath: String?
     let overview: String
     let releaseDate: String?
-    
-    
-    let genreIDS: [Int]?
-    
+    let genreIDS: [Int]
     let originalTitle: String?
     let originalLanguage: OriginalLanguage?
     let title: String
-    
     let popularity: Double
     let voteCount: Int?
     let video: Bool
@@ -43,12 +39,18 @@ struct Movie: Codable, Watchable {
         case voteAverage = "vote_average"
     }
     
-    func getTitle() -> String {
-        return title
-    }
+    func getTitle() -> String { return title }
     
-    func getImagePath() -> String {
-        return posterPath ?? backdropPath ?? ""
+    func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
+        
+    func getVoteAverage() -> Double? { return voteAverage }
+
+    func getReleaseDate() -> String? { return releaseDate ?? nil }
+    
+    func getOverview() -> String { return overview }
+    
+    func getID() -> Int {
+        return id
     }
 }
 

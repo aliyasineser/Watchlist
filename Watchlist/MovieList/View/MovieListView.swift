@@ -25,7 +25,7 @@ struct MovieListView: View {
         
         ScrollView {
             VStack(alignment: .center, spacing: 10) {
-                ForEach(self.presenter.mediaList) { (media: MovieListItemEntity) -> MovieListItemView in
+                ForEach(self.presenter.mediaList) { media in
                     MovieListItemView(movieListItem: media)
                 }
             }

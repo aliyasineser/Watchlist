@@ -22,6 +22,18 @@ struct DiscoverSlice: View {
         self.type = type
     }
     
+    var seeAllView: some View {
+        HStack(alignment: .center, spacing: 1.0) {
+            Text(ConstantTexts.sliceSeeAllButtonText)
+                .foregroundColor(.blue)
+                .font(.system(size: 20))
+                .bold()
+            Image(systemName: "chevron.right")
+                .foregroundColor(.blue)
+                .padding(EdgeInsets(top: 0, leading: 0, bottom: 4, trailing: 0))
+        }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+    }
+    
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             HStack(alignment: .center, spacing: 0) {
@@ -30,15 +42,7 @@ struct DiscoverSlice: View {
                     .bold()
                 Spacer()
                 NavigationLink(destination: MovieListView(section: self.section)) {
-                    HStack(alignment: .center, spacing: 1.0) {
-                        Text(ConstantTexts.sliceSeeAllButtonText)
-                            .foregroundColor(.blue)
-                            .font(.system(size: 20))
-                            .bold()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.blue)
-                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 4, trailing: 0))
-                    }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                    seeAllView
                 }
                 
             }
@@ -48,7 +52,7 @@ struct DiscoverSlice: View {
                 HStack(alignment: .center, spacing: 10, content: {
                     ForEach(self.sliceItems, id: \.id) { item in
                         DiscoverSliceItem(item: item)
-                            .frame(width: 140, height: 227, alignment: .center)
+                            .frame(width: 140, height: 240, alignment: .center)
                     }
                 }).padding()
             }

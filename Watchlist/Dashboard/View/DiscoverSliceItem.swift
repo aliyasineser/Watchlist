@@ -25,12 +25,11 @@ struct DiscoverSliceItem: View {
                         image.resizable()
                     },
                     placeholder: {
-                        CommonMocks.posterPlaceholder
-                            .resizable()
+                        ProgressView()
                     }
                 )
                 .scaledToFit()
-                .frame(width: 140, height: 181)
+                .frame(width: 140, height: 210)
                 
                 Text(self.item.title)
                     .font(.system(size: 16))
@@ -54,7 +53,7 @@ struct DiscoverSectionItem_Previews: PreviewProvider {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack {
                 ForEach((1..<10)) {id in
-                    DiscoverSliceItem(item: MovieMocks.discoverSectionItemListItem)
+                    DiscoverSliceItem(item: MovieMocks.discoverSectionItemListItemStub)
                         .frame(width: 136, height: 227, alignment: .center)
                 }
             }

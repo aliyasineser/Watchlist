@@ -19,45 +19,33 @@ class MovieListInteractor {
     
     
     /// Starts from the first page
-    func fetchNextPopularPageAsFullList() async -> [Movie] {
-        let watchables = await popularMoviesFetcher.fetchWithNextPage()
-        if let movies = watchables as? [Movie] { return movies}
-        else { return [] }
+    func fetchNextPopularPageAsFullList() async -> [Media] {
+        return await popularMoviesFetcher.fetchWithNextPage()
     }
     
     /// Starts from the first page
-    func fetchNextMostRecentPageAsFullList() async -> [Movie] {
-        let watchables = await mostRecentMoviesFetcher.fetchWithNextPage()
-        if let movies = watchables as? [Movie] { return movies}
-        else { return [] }
+    func fetchNextMostRecentPageAsFullList() async -> [Media] {
+        return await mostRecentMoviesFetcher.fetchWithNextPage()
     }
     
     
     /// Starts from the first page
-    func fetchNextUpcomingPageAsFullList() async -> [Movie] {
-        let watchables = await comingSoonMoviesFetcher.fetchWithNextPage()
-        if let movies = watchables as? [Movie] { return movies}
-        else { return [] }
+    func fetchNextUpcomingPageAsFullList() async -> [Media] {
+        return await comingSoonMoviesFetcher.fetchWithNextPage()
     }
     
     /// Starts from the first page
-    func fetcthAiringTodayPageAsFullList() async -> [TVSerie] {
-        let watchables = await airingTodaySeriesFetcher.fetchWithNextPage()
-        if let series = watchables as? [TVSerie] { return series}
-        else { return [] }
+    func fetcthAiringTodayPageAsFullList() async -> [Media] {
+        return await airingTodaySeriesFetcher.fetchWithNextPage()
     }
     
     /// Starts from the first page
-    func fetcthOnTheAirPageAsFullList() async -> [TVSerie] {
-        let watchables = await onTheAirSeriesFetcher.fetchWithNextPage()
-        if let series = watchables as? [TVSerie] { return series}
-        else { return [] }
+    func fetcthOnTheAirPageAsFullList() async -> [Media] {
+        return await onTheAirSeriesFetcher.fetchWithNextPage()
     }
     /// Starts from the first page
-    func fetcthTopRatedPageAsFullList() async -> [TVSerie] {
-        let watchables = await popularSeriesFetcher.fetchWithNextPage()
-        if let series = watchables as? [TVSerie] { return series}
-        else { return [] }
+    func fetcthTopRatedPageAsFullList() async -> [Media] {
+        return await popularSeriesFetcher.fetchWithNextPage()
     }
     
 }

@@ -150,12 +150,18 @@ struct TVSerie: Codable, Watchable {
         case originalName = "original_name"
     }
     
-    func getTitle() -> String {
-        return name
+    func getTitle() -> String { return name }
+    
+    func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
+    
+    func getVoteAverage() -> Double? { return voteAverage }
+    
+    func getID() -> Int {
+        return id
     }
     
-    func getImagePath() -> String {
-        return posterPath ?? backdropPath ?? ""
-    }
+    func getReleaseDate() -> String? { return firstAirDate }
+    
+    func getOverview() -> String { return overview }
 }
 

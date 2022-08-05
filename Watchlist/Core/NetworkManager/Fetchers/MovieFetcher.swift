@@ -16,7 +16,7 @@ enum MovieSection {
 
 class MovieFetcher: Fetchable {
     
-    private var movies: [Watchable] = []
+    private var movies: [Media] = []
     private var pageCounter: Int = 0
     private var section: MovieSection
     
@@ -26,25 +26,27 @@ class MovieFetcher: Fetchable {
         self.section = section
     }
     
-    func fetchSinglePage() async -> [Watchable] {
+    func fetchSinglePage() async -> [Media] {
         pageCounter += 1
+        var watchables: [Watchable] = []
         switch section {
         case .popular:
-            return await movieService.fetchPopularMovies(page: pageCounter)
+            watchables =  await movieService.fetchPopularMovies(page: pageCounter)
         case .mostRecentMovies:
-            return await movieService.fetchNowPlayingMovies(page: pageCounter)
+            watchables =  await movieService.fetchNowPlayingMovies(page: pageCounter)
         case .comingSoonMovies:
-            return await movieService.fetchUpcomingMovies(page: pageCounter)
+            watchables =  await movieService.fetchUpcomingMovies(page: pageCounter)
         }
+        return watchables.compactMap{ WatchableToMediaMapper.convert(from: $0, type: .movie) }
     }
     
-    func fetchWithNextPage() async -> [Watchable] {
+    func fetchWithNextPage() async -> [Media] {
         let moviesPage = await fetchSinglePage()
         self.movies.append(contentsOf: moviesPage)
         return self.movies
     }
     
-    func getFetched() -> [Watchable] {
+    func getFetched() -> [Media] {
         return movies
     }
 }

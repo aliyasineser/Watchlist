@@ -38,7 +38,7 @@ class DiscoverPresenter: ObservableObject {
         let movies = await interactor.fetchNextPopularPageAsFullList()
         movies.forEach { (movie) in
             if let releaseDate = movie.releaseDate {
-                self.popularMovies.append(DiscoverSectionItemEntity(id: movie.id, title: movie.title, year: releaseDate, imgUrl: movie.getPosterUrl(), genre: "", mediaType: .movie))
+                self.popularMovies.append(DiscoverSectionItemEntity(id: movie.id, title: movie.getTitle(), year: releaseDate, imgUrl: movie.getPosterUrl(), genre: "", mediaType: .movie))
             }
         }
     }
@@ -48,7 +48,7 @@ class DiscoverPresenter: ObservableObject {
         let movies = await interactor.fetchNextMostRecentPageAsFullList()
         movies.forEach { (movie) in
             if let releaseDate = movie.releaseDate {
-                self.mostRecentMovies.append(DiscoverSectionItemEntity(id: movie.id, title: movie.title, year: releaseDate, imgUrl: movie.getPosterUrl() , genre: "", mediaType: .movie))
+                self.mostRecentMovies.append(DiscoverSectionItemEntity(id: movie.id, title: movie.getTitle(), year: releaseDate, imgUrl: movie.getPosterUrl() , genre: "", mediaType: .movie))
             }
         }
     }
@@ -58,7 +58,7 @@ class DiscoverPresenter: ObservableObject {
         let movies = await interactor.fetchNextUpcomingPageAsFullList()
         movies.forEach { (movie) in
             if let releaseDate = movie.releaseDate {
-                self.upcomingMovies.append(DiscoverSectionItemEntity(id: movie.id, title: movie.title, year: releaseDate, imgUrl: movie.getPosterUrl() , genre: "", mediaType: .movie))
+                self.upcomingMovies.append(DiscoverSectionItemEntity(id: movie.id, title: movie.getTitle(), year: releaseDate, imgUrl: movie.getPosterUrl() , genre: "", mediaType: .movie))
             }
         }
     }
@@ -66,27 +66,21 @@ class DiscoverPresenter: ObservableObject {
     func loadAiringToday() async -> Void {
         let series = await interactor.fetcthAiringTodayPageAsFullList()
         series.forEach { (serie) in
-            if let firstAirDate = serie.firstAirDate {
-                self.airingTodaySeries.append(DiscoverSectionItemEntity(id: serie.id, title: serie.name, year: firstAirDate , imgUrl: serie.getPosterUrl() , genre: "", mediaType: .tv))
-            }
+            self.airingTodaySeries.append(DiscoverSectionItemEntity(id: serie.id, title: serie.name, year: serie.firstAirDate , imgUrl: serie.getPosterUrl() , genre: "", mediaType: .tv))
         }
     }
     
     func loadOnTheAir() async -> Void {
         let series = await interactor.fetcthOnTheAirPageAsFullList()
         series.forEach { (serie) in
-            if let firstAirDate = serie.firstAirDate {
-                self.onTheAirSeries.append(DiscoverSectionItemEntity(id: serie.id, title: serie.name, year: firstAirDate , imgUrl: serie.getPosterUrl() , genre: "", mediaType: .tv))
-            }
+            self.onTheAirSeries.append(DiscoverSectionItemEntity(id: serie.id, title: serie.name, year: serie.firstAirDate , imgUrl: serie.getPosterUrl() , genre: "", mediaType: .tv))
         }
     }
     
     func loadTopRated() async -> Void {
         let series = await interactor.fetcthTopRatedPageAsFullList()
         series.forEach { (serie) in
-            if let firstAirDate = serie.firstAirDate {
-                self.topRatedSeries.append(DiscoverSectionItemEntity(id: serie.id, title: serie.name, year: firstAirDate, imgUrl: serie.getPosterUrl() , genre: "", mediaType: .tv))
-            }
+            self.topRatedSeries.append(DiscoverSectionItemEntity(id: serie.id, title: serie.name, year: serie.firstAirDate, imgUrl: serie.getPosterUrl() , genre: "", mediaType: .tv))
         }
     }
     

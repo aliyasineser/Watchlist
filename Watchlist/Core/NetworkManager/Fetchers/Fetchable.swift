@@ -8,7 +8,7 @@
 import Foundation
 
 protocol Fetchable {
-    func fetchSinglePage() async -> [Watchable]
-    func fetchWithNextPage() async -> [Watchable]
-    func getFetched() -> [Watchable]
+    func fetchSinglePage() async -> [Media]
+    func fetchWithNextPage() async -> [Media]
+    func getFetched() -> [Media]
 }

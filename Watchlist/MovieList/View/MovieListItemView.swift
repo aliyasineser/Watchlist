@@ -9,19 +9,18 @@ import SwiftUI
 
 struct MovieListItemView: View {
     
-    var movieListItem: MovieListItemEntity
+    var mediaListItem: Media
     
-    internal init(movieListItem: MovieListItemEntity) {
-        self.movieListItem = movieListItem
+    internal init(movieListItem: Media) {
+        self.mediaListItem = movieListItem
     }
     
     var body: some View {
-        
-        NavigationLink(destination: MediaDetailView(presenter:  MediaDetailPresenter(interactor: MediaDetailInteractor(), movieId: self.movieListItem.id, mediaType: self.movieListItem.mediaType))) {
+        NavigationLink(destination: MediaDetailView(presenter:  MediaDetailPresenter(interactor: MediaDetailInteractor(), movieId: self.mediaListItem.getID(), mediaType: mediaListItem.mediaType))) {
             VStack(alignment: .center, spacing: 5) {
                 
                 AsyncImage(
-                    url: URL(string: self.movieListItem.imgUrl),
+                    url: URL(string: self.mediaListItem.getPosterUrl()),
                     content: { image in
                         image.resizable()
                             .scaledToFill()
@@ -39,22 +38,25 @@ struct MovieListItemView: View {
                 
                 HStack {
                     VStack {
-                        Text(self.movieListItem.title)
+                        Text(self.mediaListItem.getTitle())
                             .font(.system(size: 20))
                             .bold()
                             .foregroundColor(.primary)
                             .minimumScaleFactor(0.8)
-                        Text(self.movieListItem.genres)
-                            .font(.system(size: 14))
-                            .bold()
-                            .foregroundColor(.primary)
-                            .minimumScaleFactor(0.8)
+                        #warning("Add Genres and enable this")
+//                        Text(self.movieListItem.genres)
+//                            .font(.system(size: 14))
+//                            .bold()
+//                            .foregroundColor(.primary)
+//                            .minimumScaleFactor(0.8)
                     }
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                     Spacer()
-                    StarsView(rating: CGFloat(self.movieListItem.rating), maxRating: 5)
-                        .frame(width: 100, alignment: .center)
-                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                    if let rating = self.mediaListItem.getVoteAverage() {
+                        StarsView(rating: CGFloat(rating), maxRating: 5)
+                            .frame(width: 100, alignment: .center)
+                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                    }
                 }
             }
             .frame(width: 400, height: 250)
@@ -65,8 +67,9 @@ struct MovieListItemView: View {
     }
 }
 
+
 struct MovieListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListItemView(movieListItem: MovieMocks.movieListItem)
+        MovieListItemView(movieListItem: MovieMocks.mediaStub)
     }
 }

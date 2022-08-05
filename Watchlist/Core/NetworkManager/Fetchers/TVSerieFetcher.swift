@@ -15,7 +15,7 @@ enum TVSerieSection {
 
 class TVSerieFetcher: Fetchable {
     
-    private var series: [Watchable] = []
+    private var series: [Media] = []
     private var pageCounter: Int = 0
     private var section: TVSerieSection
     
@@ -25,25 +25,28 @@ class TVSerieFetcher: Fetchable {
         self.section = section
     }
     
-    func fetchSinglePage() async -> [Watchable] {
+    func fetchSinglePage() async -> [Media] {
         pageCounter += 1
+        var watchables: [Watchable] = []
         switch section {
         case .airingTodaySeries:
-            return await tvSerieService.fetchAiringTodaySeries(page: pageCounter)
+            watchables =  await tvSerieService.fetchAiringTodaySeries(page: pageCounter)
         case .onTheAirSeries:
-            return await tvSerieService.fetchOnTheAirSeries(page: pageCounter)
+            watchables =  await tvSerieService.fetchOnTheAirSeries(page: pageCounter)
         case .popular:
-            return await tvSerieService.fetchPopularSeries(page: pageCounter)
+            watchables =  await tvSerieService.fetchPopularSeries(page: pageCounter)
         }
+        let mediaList = watchables.compactMap{ WatchableToMediaMapper.convert(from: $0, type: .tv) }
+        return mediaList
     }
     
-    func fetchWithNextPage() async -> [Watchable] {
+    func fetchWithNextPage() async -> [Media] {
         let seriesPage = await fetchSinglePage()
         self.series.append(contentsOf: seriesPage)
         return self.series
     }
     
-    func getFetched() -> [Watchable] {
+    func getFetched() -> [Media] {
         return series
     }
 }

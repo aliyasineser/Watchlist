@@ -101,40 +101,42 @@ struct PhotoGrid: View {
         
         ScrollView(.horizontal){
             HStack(spacing: 0) {
-                ZStack {
-                    AsyncImage(
-                        url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""),
-                        content: { image in
-                            image.resizable()
-                                .scaledToFill()
-                                .clipped()
-                                .frame(width: 100)
-                        },
-                        placeholder: {
-                            CommonMocks.posterPlaceholder
-                                .resizable()
-                                .scaledToFill()
-                                .clipped()
-                                .frame(width: 100)
-                        }
-                    )
-                    Rectangle()
-                        .foregroundColor(.teal).opacity(0.7)
-                    
-                    VStack {
-                        Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
-                            .font(.system(size: 25))
-                            .bold()
-                            .minimumScaleFactor(0.7)
-                            .lineLimit(1)
+                if presenter.artistImages.count > 1 {
+                    ZStack {
+                        AsyncImage(
+                            url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""),
+                            content: { image in
+                                image.resizable()
+                                    .scaledToFill()
+                                    .clipped()
+                                    .frame(width: 100)
+                            },
+                            placeholder: {
+                                CommonMocks.posterPlaceholder
+                                    .resizable()
+                                    .scaledToFill()
+                                    .clipped()
+                                    .frame(width: 100)
+                            }
+                        )
+                        Rectangle()
+                            .foregroundColor(.teal).opacity(0.7)
                         
-                        Text(ConstantTexts.artistDetailScreenPhotoAlbumsButtonText)
-                            .font(.system(size: 14))
-                            .bold()
-                            .minimumScaleFactor(0.5)
-                    }
-                    .onTapGesture {
-                        // Navigation to artist images
+                        VStack {
+                            Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
+                                .font(.system(size: 25))
+                                .bold()
+                                .minimumScaleFactor(0.7)
+                                .lineLimit(1)
+                            
+                            Text(ConstantTexts.artistDetailScreenPhotoAlbumsButtonText)
+                                .font(.system(size: 14))
+                                .bold()
+                                .minimumScaleFactor(0.5)
+                        }
+                        .onTapGesture {
+                            // Navigation to artist images
+                        }
                     }
                 }
                 

@@ -19,5 +19,7 @@ struct ArtistEntity: Identifiable {
         self.artistId = artistId
         self.imageUrl = imageUrl
         self.name = name
+        
+        if !imageUrl.contains("https://") { self.imageUrl = "https://" + self.imageUrl }
     }
 }

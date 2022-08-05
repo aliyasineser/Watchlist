@@ -10,14 +10,20 @@ import Foundation
 protocol Watchable : Codable {
     func getTitle() -> String
     func getImagePath() -> String
+    func getReleaseDate() -> String?
+    func getOverview() -> String
+    func getVoteAverage() -> Double?
+    func getID() -> Int
+    func getPosterUrl() -> String
 }
 
-struct Media: Watchable, Codable {
+struct Media: Watchable, Codable, Identifiable {
+    
     let adult: Bool?
     let backdropPath: String?
     let genreIDS: [Int]?
     var id: Int
-    var mediaType: MediaType?
+    var mediaType: MediaType
     let originalLanguage: OriginalLanguage?
     let originalTitle: String?
     let posterPath: String?
@@ -59,4 +65,14 @@ struct Media: Watchable, Codable {
     func getImagePath() -> String {
         return posterPath ?? backdropPath ?? ""
     }
+        
+    func getID() -> Int {
+        return id
+    }
+    
+    func getVoteAverage() -> Double? { return voteAverage }
+    
+    func getReleaseDate() -> String? { return releaseDate ?? firstAirDate }
+    
+    func getOverview() -> String { return overview }
 }

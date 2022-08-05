@@ -13,12 +13,12 @@ class MovieListPresenter {
     
     private let interactor: MovieListInteractor
     private let section: MediaSection
-    @Published var mediaList: [MovieListItemEntity]
+    @Published var mediaList: [Media]
     
     init(_ interactor: MovieListInteractor, section: MediaSection) {
         self.interactor = interactor
         self.section = section
-        self.mediaList = [MovieListItemEntity]()
+        self.mediaList = [Media]()
     }
     
     func fetchMedia() -> Void {
@@ -42,61 +42,36 @@ class MovieListPresenter {
     
     private func loadPopularMovies() async -> Void {
         let movies = await interactor.fetchNextPopularPageAsFullList()
-        movies.forEach { (movie) in
-            if let releaseDate = movie.releaseDate, let voteAverage = movie.voteAverage {
-                self.mediaList.append(MovieListItemEntity(id: movie.id, title: movie.title, year: releaseDate, imgUrl: movie.getPosterUrl(), rating: voteAverage, genres: "", mediaType: .movie))
-            }
-        }
+        self.mediaList.append(contentsOf: movies)
     }
     
     private func loadMostRecentMovies() async -> Void {
         
         let movies = await interactor.fetchNextMostRecentPageAsFullList()
-        movies.forEach { (movie) in
-            if let releaseDate = movie.releaseDate, let voteAverage = movie.voteAverage {
-                self.mediaList.append(MovieListItemEntity(id: movie.id, title: movie.title, year: releaseDate, imgUrl: movie.getPosterUrl(), rating: voteAverage, genres: "", mediaType: .movie ))
-            }
-        }
+        self.mediaList.append(contentsOf: movies)
     }
     
     private func loadUpcomingMovies() async -> Void {
         
         let movies = await interactor.fetchNextUpcomingPageAsFullList()
-        movies.forEach { (movie) in
-            if let releaseDate = movie.releaseDate, let voteAverage = movie.voteAverage {
-                self.mediaList.append(MovieListItemEntity(id: movie.id, title: movie.title, year: releaseDate , imgUrl: movie.getPosterUrl(), rating: voteAverage, genres: "", mediaType: .movie))
-            }
-        }
+        self.mediaList.append(contentsOf: movies)
     }
     
     private func loadAiringToday() async -> Void {
         
         let series = await interactor.fetcthAiringTodayPageAsFullList()
-        series.forEach { (serie) in
-            if let voteAverage = serie.voteAverage, let firstAirDate = serie.firstAirDate {
-                self.mediaList.append(MovieListItemEntity(id: serie.id, title: serie.name, year: firstAirDate, imgUrl: serie.getPosterUrl(), rating: voteAverage, genres: "", mediaType: .tv))
-            }
-        }
+        self.mediaList.append(contentsOf: series)
     }
     
     private func loadOnTheAir() async -> Void {
         
         let series = await interactor.fetcthOnTheAirPageAsFullList()
-        series.forEach { (serie) in
-            if let voteAverage = serie.voteAverage, let firstAirDate = serie.firstAirDate {
-                self.mediaList.append(MovieListItemEntity(id: serie.id, title: serie.name, year: firstAirDate, imgUrl: serie.getPosterUrl(), rating: voteAverage, genres: "", mediaType: .tv))
-            }
-        }
-        
+        self.mediaList.append(contentsOf: series)
     }
     
     private func loadTopRated() async -> Void {
         let series = await interactor.fetcthTopRatedPageAsFullList()
-        series.forEach { (serie) in
-            if let voteAverage = serie.voteAverage, let firstAirDate = serie.firstAirDate {
-                self.mediaList.append(MovieListItemEntity(id: serie.id, title: serie.name, year: firstAirDate, imgUrl: serie.getPosterUrl(), rating: voteAverage, genres: "", mediaType: .tv))
-            }
-        }
+        self.mediaList.append(contentsOf: series)
     }
     
 }
