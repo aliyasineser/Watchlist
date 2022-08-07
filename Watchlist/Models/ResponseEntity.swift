@@ -22,7 +22,7 @@ struct ArtistDetail: Codable {
     let id: Int
     let name: String
     let alsoKnownAs: [String]?
-    let gender: Int
+    let gender: Int?
     let biography: String?
     let popularity: Double?
     let placeOfBirth, profilePath: String?

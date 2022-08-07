@@ -32,7 +32,7 @@ class CastInteractor{
         if let credits = credits {
             credits.cast.forEach({ cast in
                 if let castId = cast.castID, let character = cast.character {
-                    self.artists.append(CastMemberEntity(id: cast.id, cast_id: castId, character: character, order: cast.order, name: cast.name, imageUrl: cast.getPosterUrl()))
+                    self.artists.append(CastMemberEntity(id: cast.id, cast_id: castId, character: character, order: cast.order, name: cast.getTitle(), imageUrl: cast.getPosterUrl()))
                 }
             })
         }

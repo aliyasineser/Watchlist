@@ -34,11 +34,11 @@ class ArtistDetailInteractor {
     
     func fetchArtistMovies(_ id: Int) async -> [MediaCreditEntity] {
         var artistMovies: [MediaCreditEntity] = [MediaCreditEntity]()
-        let data = await movieService.fetchMovieCredits(id: id)
+        let data = await artistService.fetchMovieCredits(id: id)
         if let movies = data {
             let allCast = movies.cast + movies.crew
             allCast.forEach { credit in
-                artistMovies.append(MediaCreditEntity(id: credit.id, creditId: credit.creditID, title: credit.name, role: credit.job ?? credit.character ?? "Unknown", image_path: credit.getPosterUrl()))
+                artistMovies.append(MediaCreditEntity(id: credit.id, creditId: credit.creditID, title: credit.getTitle(), role: credit.job ?? credit.character ?? "Unknown", image_path: credit.getPosterUrl()))
             }
         }
         return artistMovies
@@ -47,11 +47,11 @@ class ArtistDetailInteractor {
     func fetchArtistTV(_ id: Int) async -> [MediaCreditEntity] {
         var artistShows: [MediaCreditEntity] = [MediaCreditEntity]()
         
-        let data = await tvService.fetchTVCredits(id: id)
+        let data = await artistService.fetchTVCredits(id: id)
         if let shows = data {
             let allCast = shows.cast + shows.crew
             allCast.forEach { credit in
-                artistShows.append(MediaCreditEntity(id: credit.id, creditId: credit.creditID, title: credit.name, role: credit.character ?? credit.department?.rawValue ?? "Unknown", image_path: credit.getPosterUrl()))
+                artistShows.append(MediaCreditEntity(id: credit.id, creditId: credit.creditID, title: credit.getTitle(), role: credit.character ?? credit.department?.rawValue ?? "Unknown", image_path: credit.getPosterUrl()))
             }
         }
         return artistShows

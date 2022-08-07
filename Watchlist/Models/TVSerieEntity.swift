@@ -85,7 +85,7 @@ struct TvDetail: Codable, WatchableDetail {
 struct CreatedBy: Codable {
     let id: Int
     let creditID, name: String
-    let gender: Int
+    let gender: Int?
     let profilePath: String?
     
     enum CodingKeys: String, CodingKey {

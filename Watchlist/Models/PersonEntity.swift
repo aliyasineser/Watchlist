@@ -32,7 +32,7 @@ struct Artist: Codable, Creditable {
     let alsoKnownAs: [String]?
     let biography: String?
     let birthday, deathday: String?
-    let gender: Int
+    let gender: Int?
     let homepage: String?
     let id: Int
     let imdbID, knownForDepartment: String?
@@ -62,12 +62,13 @@ struct Artist: Codable, Creditable {
     }
 }
 
-
 struct Cast: Codable, Creditable {
     let adult: Bool
-    let gender, id: Int
+    let gender: Int?
+    let id: Int
     let knownForDepartment: Department?
-    let name, originalName: String
+    let name: String?
+    let originalName: String?
     let popularity: Double
     let profilePath: String?
     let castID: Int?
@@ -76,6 +77,15 @@ struct Cast: Codable, Creditable {
     let order: Int?
     let department: Department?
     let job: String?
+    let backdropPath: String?
+    let genreIDS: [Int]
+    let originalLanguage: OriginalLanguage
+    let originalTitle, overview: String
+    let posterPath: String?
+    let releaseDate, title: String
+    let video: Bool
+    let voteAverage: Double
+    let voteCount: Int
     
     enum CodingKeys: String, CodingKey {
         case adult, gender, id
@@ -88,14 +98,24 @@ struct Cast: Codable, Creditable {
         case character
         case creditID = "credit_id"
         case order, department, job
+        case backdropPath = "backdrop_path"
+        case genreIDS = "genre_ids"
+        case originalLanguage = "original_language"
+        case originalTitle = "original_title"
+        case overview
+        case posterPath = "poster_path"
+        case releaseDate = "release_date"
+        case title, video
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
     }
     
     func getTitle() -> String {
-        return name
+        return title
     }
     
     func getImagePath() -> String {
-        return profilePath ?? ""
+        return posterPath ?? profilePath ?? ""
     }
     
     func getRole() -> String {

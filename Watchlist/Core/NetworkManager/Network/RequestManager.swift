@@ -24,7 +24,6 @@ class RequestManager: RequestManagerProtocol {
     }
     
     func initRequest<T: Decodable>(with data: RequestProtocol) async throws -> T {
-        
         let data = try await apiManager.initRequest(with: data)
         let decoded: T = try parser.parse(data: data)
         return decoded

@@ -30,7 +30,7 @@ class MediaCastInteractor {
         }
         credits?.cast.forEach({ cast in
             if let character = cast.character {
-                self.artists.append(CastMemberEntity(id: cast.id, cast_id: nil, character: character, order: cast.order, name: cast.name, imageUrl: cast.getPosterUrl()))
+                self.artists.append(CastMemberEntity(id: cast.id, cast_id: nil, character: character, order: cast.order, name: cast.getTitle(), imageUrl: cast.getPosterUrl()))
             }
         })
         return self.artists
