@@ -114,7 +114,6 @@ struct PhotoGrid: View {
                         )
                         .scaledToFill()
                         .clipped()
-                        .frame(width: 100)
                         
                         Rectangle()
                             .foregroundColor(.teal)
@@ -136,9 +135,10 @@ struct PhotoGrid: View {
                             // Navigation to artist images
                         }
                     }
+                    .padding(.leading, 9)
                 }
                 
-                LazyHStack{
+                LazyHStack(spacing: 0){
                     ForEach(self.presenter.artistImages.reversed()) { imageEntity in
                         AsyncImage(
                             url: URL(string: imageEntity.getPosterUrl()),
@@ -151,13 +151,13 @@ struct PhotoGrid: View {
                         )
                         .scaledToFill()
                         .clipped()
-                        .frame(width: 100)
+                        .border(width: 0.4, edges: Edge.allCases, color: .black)
                     }
                 }
+                .padding(.trailing, 8)
             }
-            Spacer()
         }
-        .padding(.leading)
+        
     }
 }
 
