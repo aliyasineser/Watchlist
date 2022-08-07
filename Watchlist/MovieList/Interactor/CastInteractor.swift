@@ -11,32 +11,34 @@ import Foundation
 class CastInteractor{
     
     var artists: [CastMemberEntity]
+    let movieService = MovieService(requestManager: RequestManager())
+    let tvService = TVService(requestManager: RequestManager())
     
     init() {
         self.artists = []
     }
     
     // TODO: Change the calls
-    //    func fetchCast(_ id: Int, mediaType: MediaType, completion: @escaping (([CastMemberEntity])-> Void)) -> Void {
-    //        self.artists.removeAll()
-    //        if mediaType == .movie {
-    //            MovieMDB.credits(movieID: id) { ret, movieCredits in
-    //                movieCredits?.cast.forEach({ cast in
-    //                        self.artists.append(CastMemberEntity(id: cast.id, cast_id: cast.cast_id, character: cast.character, order: cast.order, name: cast.name, imageUrl: cast.getPosterUrl()))
-    //                })
-    //                completion(self.artists)
-    //            }
-    //        } else {
-    //            TVMDB.credits(tvShowID: id) { ret, movieCredits in
-    //                movieCredits?.cast.forEach({ cast in
-    //                    self.artists.append(CastMemberEntity(id: cast.id, cast_id: nil, character: cast.character, order: cast.order, name: cast.name, imageUrl: cast.getPosterUrl()))
-    //                })
-    //                completion(self.artists)
-    //            }
-    //
-    //        }
-    //
-    //    }
+    func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
+        
+        self.artists.removeAll()
+        var credits: Credits? = nil
+        
+        if mediaType == .movie {
+            credits = await movieService.fetchMovieCredits(id: id)
+        } else {
+            credits = await movieService.fetchMovieCredits(id: id)
+        }
+        if let credits = credits {
+            credits.cast.forEach({ cast in
+                if let castId = cast.castID, let character = cast.character {
+                    self.artists.append(CastMemberEntity(id: cast.id, cast_id: castId, character: character, order: cast.order, name: cast.name, imageUrl: cast.getPosterUrl()))
+                }
+            })
+        }
+        return self.artists
+        
+    }
     
 }
 

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 struct DiscoverSliceItem: View {
     
     var item: DiscoverSectionItemEntity
@@ -25,7 +26,7 @@ struct DiscoverSliceItem: View {
                         image.resizable()
                     },
                     placeholder: {
-                        ProgressView()
+                        CommonMocks.posterPlaceholder
                     }
                 )
                 .scaledToFit()
@@ -43,7 +44,7 @@ struct DiscoverSectionItem_Previews: PreviewProvider {
             HStack {
                 ForEach((1..<10)) {id in
                     DiscoverSliceItem(item: MovieMocks.discoverSectionItemListItemStub)
-                        .frame(width: 140, height: 250, alignment: .center)
+                        .frame(width: 140, height: 210, alignment: .center)
                 }
             }
         })

@@ -22,7 +22,7 @@ class MediaCastPresenter: ObservableObject {
         self.artists = [CastMemberEntity]()
     }
     
-    func loadArtists() -> Void {
+    public func loadArtists() -> Void {
         Task {
             self.artists = await interactor.fetchCast(self.id, mediaType: self.mediaType)
         }

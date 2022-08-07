@@ -44,7 +44,6 @@ struct DiscoverSlice: View {
                 NavigationLink(destination: MovieListView(section: self.section)) {
                     seeAllView
                 }
-                
             }
             .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 5))
             

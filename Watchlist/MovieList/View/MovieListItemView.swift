@@ -42,12 +42,6 @@ struct MovieListItemView: View {
                             .bold()
                             .foregroundColor(.primary)
                             .minimumScaleFactor(0.8)
-                        #warning("Add Genres and enable this")
-//                        Text(self.movieListItem.genres)
-//                            .font(.system(size: 14))
-//                            .bold()
-//                            .foregroundColor(.primary)
-//                            .minimumScaleFactor(0.8)
                     }
                     .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
                     Spacer()

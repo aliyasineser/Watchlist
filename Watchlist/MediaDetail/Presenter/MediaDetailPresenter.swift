@@ -40,8 +40,6 @@ class MediaDetailPresenter: ObservableObject {
                                            point: detail.voteAverage, language: detail.originalLanguage,
                                            date: detail.getReleaseDate() ?? "", time: String(format: "%dh %dm", time/60, time%60),
                                            summary: summary, image_url: detail.getPosterUrl(), mediaType: .movie)
-    #warning("Do not forget to get genres and update")
-            //                self.media.genres = movieDetail.genresAsString() ?? ""
         }
         
     }
@@ -53,7 +51,6 @@ class MediaDetailPresenter: ObservableObject {
                                            point: detail.voteAverage, language: detail.originalLanguage,
                                            date: firstAirDate, time: String(format: "%dh %dm", (time.first ?? 0)/60, (time.first ?? 0)%60),
                                            summary: detail.getOverview(), image_url: detail.getPosterUrl(), mediaType: .tv)
-            //            self.media.genres = tvDetail?.genresAsString() ?? ""
         }
     }
 }
