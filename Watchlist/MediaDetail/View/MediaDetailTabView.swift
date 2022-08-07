@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MediaDetailTabView: View {
     
-    
     @State var tabIndex = 0
     
     var id: Int

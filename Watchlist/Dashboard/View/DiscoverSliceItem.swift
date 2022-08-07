@@ -30,17 +30,6 @@ struct DiscoverSliceItem: View {
                 )
                 .scaledToFit()
                 .frame(width: 140, height: 210)
-                
-                Text(self.item.title)
-                    .font(.system(size: 16))
-                    .foregroundColor(.primary)
-                    .bold()
-                    .lineLimit(2)
-                
-                
-                Text(self.item.year)
-                    .font(.system(size: 12))
-                    .foregroundColor(.primary)
             }
             .border(Color.primary, width: 1)
         }
@@ -54,7 +43,7 @@ struct DiscoverSectionItem_Previews: PreviewProvider {
             HStack {
                 ForEach((1..<10)) {id in
                     DiscoverSliceItem(item: MovieMocks.discoverSectionItemListItemStub)
-                        .frame(width: 136, height: 227, alignment: .center)
+                        .frame(width: 140, height: 250, alignment: .center)
                 }
             }
         })

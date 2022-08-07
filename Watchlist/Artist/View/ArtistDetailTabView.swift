@@ -59,7 +59,6 @@ struct ArtistDetailTabView: View {
                                         },
                                         placeholder: {
                                             CommonMocks.posterPlaceholder
-                                                .resizable()
                                                 .frame(width: 130, height: 200, alignment: .center)
                                                 .border(width: 1, edges: Edge.allCases, color: .black)
                                                 .clipped()

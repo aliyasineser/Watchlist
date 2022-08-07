@@ -30,13 +30,13 @@ struct DiscoverSlice: View {
                 .bold()
             Image(systemName: "chevron.right")
                 .foregroundColor(.blue)
-                .padding(EdgeInsets(top: 0, leading: 0, bottom: 4, trailing: 0))
-        }.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                .padding(.bottom, 4)
+        }.padding(.trailing, 10)
     }
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            HStack(alignment: .center, spacing: 0) {
+            HStack(alignment: .center) {
                 Text(self.sliceTitle)
                     .font(.system(size: 20))
                     .bold()
@@ -46,15 +46,16 @@ struct DiscoverSlice: View {
                 }
                 
             }
-            .padding(EdgeInsets(top: 10, leading: 15, bottom: 0, trailing: 5))
+            .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 5))
             
             ScrollView (.horizontal, showsIndicators: false){
-                HStack(alignment: .center, spacing: 10, content: {
+                HStack(alignment: .center, spacing: 10) {
                     ForEach(self.sliceItems, id: \.id) { item in
                         DiscoverSliceItem(item: item)
                             .frame(width: 140, height: 240, alignment: .center)
                     }
-                }).padding()
+                }
+                .padding(.horizontal)
             }
         }
     }

@@ -107,20 +107,18 @@ struct PhotoGrid: View {
                             url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""),
                             content: { image in
                                 image.resizable()
-                                    .scaledToFill()
-                                    .clipped()
-                                    .frame(width: 100)
                             },
                             placeholder: {
                                 CommonMocks.posterPlaceholder
-                                    .resizable()
-                                    .scaledToFill()
-                                    .clipped()
-                                    .frame(width: 100)
                             }
                         )
+                        .scaledToFill()
+                        .clipped()
+                        .frame(width: 100)
+                        
                         Rectangle()
-                            .foregroundColor(.teal).opacity(0.7)
+                            .foregroundColor(.teal)
+                            .opacity(0.7)
                         
                         VStack {
                             Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
@@ -146,18 +144,14 @@ struct PhotoGrid: View {
                             url: URL(string: imageEntity.getPosterUrl()),
                             content: { image in
                                 image.resizable()
-                                    .scaledToFill()
-                                    .clipped()
-                                    .frame(width: 100)
                             },
                             placeholder: {
                                 CommonMocks.posterPlaceholder
-                                    .resizable()
-                                    .scaledToFill()
-                                    .clipped()
-                                    .frame(width: 100)
                             }
                         )
+                        .scaledToFill()
+                        .clipped()
+                        .frame(width: 100)
                     }
                 }
             }

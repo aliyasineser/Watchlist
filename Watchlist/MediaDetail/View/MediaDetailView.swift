@@ -26,17 +26,14 @@ struct MediaDetailView: View {
                                 url: URL(string: presenter.media.image_path),
                                 content: { image in
                                     image.resizable()
-                                        .scaledToFill()
-                                        .frame(height: 300)
-                                        .clipped()
                                 },
                                 placeholder: {
                                     CommonMocks.posterPlaceholder
-                                        .resizable()
-                                        .frame(height: 300)
-                                        .clipped()
                                 }
                             )
+                            .scaledToFill()
+                            .frame(height: 300)
+                            .clipped()
                             
                             Rectangle()
                                 .fill(
@@ -56,12 +53,10 @@ struct MediaDetailView: View {
                                 content: { image in
                                     image.resizable()
                                         .scaledToFill()
-                                        .scaledToFill()
                                         .clipped()
                                 },
                                 placeholder: {
                                     CommonMocks.posterPlaceholder
-                                        .resizable()
                                         .scaledToFill()
                                         .clipped()
                                 }
@@ -101,7 +96,6 @@ struct MediaDetailView: View {
                                         .minimumScaleFactor(0.8)
                                 }
                                 
-                                
                                 Text(presenter.media.date + " " + presenter.media.time)
                                     .font(.system(size: 17))
                                     .bold()
@@ -114,8 +108,7 @@ struct MediaDetailView: View {
                             Spacer()
                         }
                         .padding(.horizontal, 10)
-                        .frame(width: gp.size.width, height: 200, alignment: .top)
-                        
+                        .frame(width: gp.size.width, alignment: .top)
                         ScrollView {
                             Text(presenter.media.summary)
                                 .font(.system(size: 16))
@@ -146,6 +139,5 @@ struct MediaDetailView_Previews: PreviewProvider {
                 .preferredColorScheme(.dark)
                 .navigationBarTitleDisplayMode(.inline)
         }
-        
     }
 }

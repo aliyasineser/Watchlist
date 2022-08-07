@@ -29,7 +29,6 @@ struct MovieListItemView: View {
                     },
                     placeholder: {
                         CommonMocks.posterPlaceholder
-                            .resizable()
                             .scaledToFill()
                             .frame(height: 210)
                             .clipped()
