@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct TvDetail: Codable {
+struct TvDetail: Codable, WatchableDetail {
     let backdropPath: String?
     let createdBy: [CreatedBy]?
     let episodeRunTime: [Int]?
@@ -66,6 +66,20 @@ struct TvDetail: Codable {
         case voteCount = "vote_count"
         case credits
     }
+    
+    func getTitle() -> String { return name }
+    
+    func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
+    
+    func getVoteAverage() -> Double? { return voteAverage }
+    
+    func getID() -> Int {
+        return id
+    }
+    
+    func getReleaseDate() -> String? { return firstAirDate }
+    
+    func getOverview() -> String { return overview }
 }
 
 struct CreatedBy: Codable {

@@ -47,11 +47,11 @@ actor MovieService {
         }
     }
     
-    func fetchMovieDetail(id: Int) async -> MovieDetail? {
+    func fetchMovieDetail(id: Int) async -> MediaDetail? {
         let requestData = MovieRequest.getMovieDetail(id: id)
         do {
             let movie: MovieDetail = try await requestManager.initRequest(with: requestData)
-            return movie
+            return WatchableToMediaMapper.convertDetail(from: movie, type: .movie)
         } catch {
             print(error.localizedDescription)
             return nil

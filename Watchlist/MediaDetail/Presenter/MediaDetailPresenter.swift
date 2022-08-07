@@ -39,8 +39,8 @@ class MediaDetailPresenter: ObservableObject {
             DispatchQueue.main.async { [weak self] in
                 self?.media = MediaDetailEntity(id: detail.id, title: detail.title, genres: "",
                                                 point: detail.voteAverage, language: detail.originalLanguage,
-                                                date: detail.releaseDate, time: String(format: "%dh %dm", time/60, time%60),
-                                               summary: summary, image_path: detail.getPosterUrl(), mediaType: .movie)
+                                                date: detail.getReleaseDate() ?? "", time: String(format: "%dh %dm", time/60, time%60),
+                                               summary: summary, image_url: detail.getPosterUrl(), mediaType: .movie)
                 #warning("Do not forget to get genres and update")
 //                self?.media.genres = movieDetail?.genresAsString() ?? ""
             }
@@ -54,7 +54,7 @@ class MediaDetailPresenter: ObservableObject {
             self.media = MediaDetailEntity(id: detail.id, title: detail.originalName, genres: "",
                                            point: detail.voteAverage, language: detail.originalLanguage,
                                            date: detail.firstAirDate, time: String(format: "%dh %dm", (time.first ?? 0)/60, (time.first ?? 0)%60),
-                                           summary: detail.overview, image_path: detail.getPosterUrl(), mediaType: .tv)
+                                           summary: detail.overview, image_url: detail.getPosterUrl(), mediaType: .tv)
 //            self.media.genres = tvDetail?.genresAsString() ?? ""
         }
     }

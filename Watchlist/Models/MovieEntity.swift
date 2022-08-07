@@ -54,7 +54,7 @@ struct Movie: Codable, Watchable {
     }
 }
 
-struct MovieDetail: Codable  {
+struct MovieDetail: Codable, WatchableDetail  {
     let id: Int
     let adult: Bool
     let posterPath: String?
@@ -100,6 +100,20 @@ struct MovieDetail: Codable  {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
         case credits
+    }
+    
+    func getTitle() -> String { return title }
+    
+    func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
+        
+    func getVoteAverage() -> Double? { return voteAverage }
+
+    func getReleaseDate() -> String? { return releaseDate }
+    
+    func getOverview() -> String { return overview ?? "" }
+    
+    func getID() -> Int {
+        return id
     }
 }
 
