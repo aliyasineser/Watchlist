@@ -17,7 +17,7 @@ class MediaDetailInteractor {
         return await movieService.fetchMovieDetail(id: id)
     }
     
-    func getTvDetail(_ id: Int ) async -> TvDetail? {
+    func getTvDetail(_ id: Int ) async -> MediaDetail? {
         return await tvService.fetchTVDetails(id: id)
     }
 }

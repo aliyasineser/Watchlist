@@ -1,5 +1,5 @@
 //
-//  MovieDetailView.swift
+//  MediaDetailView.swift
 //  Watchlist
 //
 //  Created by ali.yasin.eser on 5.07.2021.
@@ -139,7 +139,7 @@ struct MediaDetailView: View {
     
 }
 
-struct MovieDetailView_Previews: PreviewProvider {
+struct MediaDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractor(), movieId: 1285, mediaType: .movie))

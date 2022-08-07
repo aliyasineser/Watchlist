@@ -1,5 +1,5 @@
 //
-//  MovieDetailTabView.swift
+//  MediaDetailTabView.swift
 //  Watchlist
 //
 //  Created by ali.yasin.eser on 9.08.2021.
@@ -124,7 +124,7 @@ extension View {
 }
 
 
-struct MovieDetailTabView_Previews: PreviewProvider {
+struct MediaDetailTabView_Previews: PreviewProvider {
     static var previews: some View {
         MediaDetailTabView(1234, mediaType: .movie)
     }

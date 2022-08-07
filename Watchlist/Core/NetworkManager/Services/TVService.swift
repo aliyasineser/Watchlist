@@ -50,12 +50,12 @@ actor TVService {
         }
     }
     
-    func fetchTVDetails(id: Int) async -> TvDetail? {
+    func fetchTVDetails(id: Int) async -> MediaDetail? {
         let requestData = TVRequest.getSeriesDetail(id: id)
         do {
             let serie: TvDetail = try await
             requestManager.initRequest(with: requestData)
-            return serie
+            return WatchableToMediaMapper.convertDetail(from: serie, type: .tv)
         } catch {
             print(error.localizedDescription)
             return nil

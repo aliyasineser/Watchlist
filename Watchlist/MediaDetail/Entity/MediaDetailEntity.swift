@@ -1,5 +1,5 @@
 //
-//  MovieDetailEntity.swift
+//  MediaDetailEntity.swift
 //  Watchlist
 //
 //  Created by ali.yasin.eser on 12.08.2021.
