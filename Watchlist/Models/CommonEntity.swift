@@ -48,16 +48,6 @@ struct Production : Codable {
     var name : String;
 }
 
-struct Crew : Codable {
-    var credit_id: String
-    var department: String
-    var gender: Int
-    var id: Int
-    var job: String
-    var name: String
-    var profile_path: String
-}
-
 
 enum Department: String, Codable {
     case acting = "Acting"

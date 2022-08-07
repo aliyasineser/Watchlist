@@ -50,14 +50,6 @@ extension Cast {
     }
 }
 
-extension Crew {
-    
-    func getPosterUrl() -> String {
-        return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + profile_path
-    }
-}
-
-
 extension Artist {
     func getPosterUrl() -> String {
         return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + (profilePath ?? "")

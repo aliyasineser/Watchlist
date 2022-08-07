@@ -62,6 +62,7 @@ struct Artist: Codable, Creditable {
     }
 }
 
+typealias Crew = Cast
 struct Cast: Codable, Creditable {
     let adult: Bool
     let gender: Int?
