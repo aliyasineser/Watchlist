@@ -18,6 +18,6 @@ struct ArtistImageEntity: Identifiable {
     var width: Int
     
     func getPosterUrl() -> String {
-        return "https://" + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + file_path
+        return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + file_path
     }
 }

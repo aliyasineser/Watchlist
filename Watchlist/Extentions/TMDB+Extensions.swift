@@ -60,6 +60,6 @@ extension Crew {
 
 extension Artist {
     func getPosterUrl() -> String {
-        return "https://" + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + (profilePath ?? "")
+        return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + (profilePath ?? "")
     }
 }

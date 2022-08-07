@@ -1,5 +1,5 @@
 //
-//  ArtistPresenter.swift
+//  MediaCastPresenter.swift
 //  Watchlist
 //
 //  Created by ali.yasin.eser on 11.06.2021.

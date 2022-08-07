@@ -24,6 +24,6 @@ struct MediaCreditEntity: Identifiable {
         self.creditId = creditId
         self.title = title
         self.role = role
-        self.image_path = "https://" + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + image_path
+        self.image_path = APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + image_path
     }
 }

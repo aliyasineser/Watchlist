@@ -35,6 +35,6 @@ struct MediaDetailEntity: Identifiable {
         self.image_path = APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + image_url
         self.mediaType = mediaType
         
-        if !image_path.contains("https://") { self.image_path = "https://" + self.image_path }
+        if !image_path.contains(APIConstants.defaultScheme) { self.image_path = APIConstants.defaultScheme + self.image_path }
     }
 }

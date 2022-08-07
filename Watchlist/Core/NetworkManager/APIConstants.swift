@@ -11,6 +11,8 @@ enum APIConstants {
     static let baseURL = "api.themoviedb.org"
     static let baseURLPath = "/3"
     
+    static let defaultScheme = "https://"
+    
     static let baseImgUrl = "image.tmdb.org"
     static let baseImgUrlPath = "/t/p/w500"
     
