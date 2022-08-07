@@ -17,8 +17,7 @@ struct DiscoverSliceItem: View {
     }
     
     var body: some View {
-        
-        NavigationLink(destination: MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractor(), movieId: item.id, mediaType: item.mediaType))) {
+        NavigationLink(destination: MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractor(), movieId: item.itemID, mediaType: item.mediaType))) {
             VStack{
                 AsyncImage(
                     url: URL(string: self.item.imgUrl),

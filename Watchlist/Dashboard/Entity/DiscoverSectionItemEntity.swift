@@ -8,7 +8,8 @@
 import Foundation
 
 struct DiscoverSectionItemEntity: Identifiable {
-    var id: Int
+    var id = UUID()
+    var itemID: Int
     var title: String
     var year: String
     var imgUrl: String
@@ -16,7 +17,7 @@ struct DiscoverSectionItemEntity: Identifiable {
     var mediaType: MediaType
     
     init(id: Int, title: String, year: String, imgUrl: String, genre: String, mediaType: MediaType) {
-        self.id = id
+        self.itemID = id
         self.title = title
         self.year = year
         self.imgUrl = "https://" + imgUrl
