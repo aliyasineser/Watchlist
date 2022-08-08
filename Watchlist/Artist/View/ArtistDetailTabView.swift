@@ -8,18 +8,17 @@
 import SwiftUI
 
 struct ArtistDetailTabView: View {
-    
+
     @State var tabIndex = 0
-    
+
     var artistDetail: ArtistDetailEntity
     var artistCredits: [MediaCreditEntity]
-    
-    
+
     init(_ artistDetail: ArtistDetailEntity, artistCredits: [MediaCreditEntity]) {
         self.artistDetail = artistDetail
         self.artistCredits = artistCredits
     }
-    
+
     func mediaCard(credit: MediaCreditEntity) -> some View {
         return VStack(alignment: .leading, spacing: 10) {
             Text(credit.title)
@@ -33,23 +32,22 @@ struct ArtistDetailTabView: View {
                 .multilineTextAlignment(.leading)
         }
     }
-    
+
     var body: some View {
-        VStack{
+        VStack {
             ArtistDetailTopTabBar(tabIndex: $tabIndex)
             ScrollView(.vertical) {
                 if tabIndex == 0 {
                     ScrollView {
                         Text(self.artistDetail.biography!)
                     }
-                }
-                else if tabIndex == 1 {
+                } else if tabIndex == 1 {
                     ScrollView(.vertical) {
                         VStack(alignment: .leading) {
                             ForEach(self.artistCredits) { showCredit in
                                 HStack {
                                     AsyncImage(
-                                        url: URL(string: showCredit.image_path),
+                                        url: URL(string: showCredit.imagePath),
                                         content: { image in
                                             image.resizable()
                                                 .scaledToFill()
@@ -75,13 +73,11 @@ struct ArtistDetailTabView: View {
         }
         .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
         .padding(.horizontal, 12)
-        
     }
 }
 
 struct ArtistDetailTopTabBar: View {
-    
-    
+
     @Binding var tabIndex: Int
     var body: some View {
         HStack {
@@ -95,12 +91,11 @@ struct ArtistDetailTopTabBar: View {
         }
         .border(width: 2, edges: [.bottom], color: Color.secondary)
     }
-    
+
     private func onButtonTapped(index: Int) {
         withAnimation { tabIndex = index }
     }
 }
-
 
 struct ArtistDetailTabView_Previews: PreviewProvider {
     static var previews: some View {

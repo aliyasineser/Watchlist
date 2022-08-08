@@ -7,25 +7,24 @@
 
 import SwiftUI
 
-
 struct ArtistDetailView: View {
-    
+
     var interactor: ArtistDetailInteractor
     @ObservedObject var presenter: ArtistDetailPresenter
     var artistId: Int
-    
+
     init(artistId: Int) {
         self.interactor = ArtistDetailInteractor()
         self.presenter = ArtistDetailPresenter(interactor: interactor)
         self.artistId = artistId
     }
-    
+
     var body: some View {
         ScrollView(.vertical) {
             if let artist = self.presenter.artistDetail {
                 VStack(spacing: 0) {
                     ZStack(alignment: .bottomLeading) {
-                        
+
                         AsyncImage(
                             url: URL(string: artist.imgUrl),
                             content: { image in
@@ -41,7 +40,7 @@ struct ArtistDetailView: View {
                                     .clipped()
                             }
                         )
-                        
+
                         Rectangle()
                             .fill(
                                 LinearGradient(gradient: Gradient(stops: [
@@ -51,14 +50,14 @@ struct ArtistDetailView: View {
                             )
                             .frame(height: 200)
                             .frame(maxWidth: .infinity, alignment: .trailing)
-                        
+
                         VStack(alignment: .leading) {
                             Text(artist.name)
                                 .font(.system(size: 30))
                                 .bold()
                                 .minimumScaleFactor(0.7)
                                 .lineLimit(1)
-                            
+
                             if let birthday = artist.birthday {
                                 Text(birthday)
                                     .font(.system(size: 16))
@@ -66,14 +65,14 @@ struct ArtistDetailView: View {
                                     .minimumScaleFactor(0.7)
                                     .lineLimit(1)
                             }
-                            
+
                         }
                         .padding()
                     }
-                    
+
                     PhotoGrid(presenter: self.presenter)
                         .frame(height: 150)
-                    
+
                     ArtistDetailTabView(artist, artistCredits: self.presenter.artistCredits)
                         .padding(10)
                         .ignoresSafeArea()
@@ -88,18 +87,17 @@ struct ArtistDetailView: View {
     }
 }
 
-
 struct PhotoGrid: View {
-    
+
     @ObservedObject var presenter: ArtistDetailPresenter
-    
+
     init(presenter: ArtistDetailPresenter) {
         self.presenter = presenter
     }
-    
+
     var body: some View {
-        
-        ScrollView(.horizontal){
+
+        ScrollView(.horizontal) {
             HStack(spacing: 0) {
                 if presenter.artistImages.count > 1 {
                     ZStack {
@@ -114,18 +112,18 @@ struct PhotoGrid: View {
                         )
                         .scaledToFill()
                         .clipped()
-                        
+
                         Rectangle()
                             .foregroundColor(.teal)
                             .opacity(0.7)
-                        
+
                         VStack {
                             Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
                                 .font(.system(size: 25))
                                 .bold()
                                 .minimumScaleFactor(0.7)
                                 .lineLimit(1)
-                            
+
                             Text(ConstantTexts.artistDetailScreenPhotoAlbumsButtonText)
                                 .font(.system(size: 14))
                                 .bold()
@@ -137,8 +135,8 @@ struct PhotoGrid: View {
                     }
                     .padding(.leading, 9)
                 }
-                
-                LazyHStack(spacing: 0){
+
+                LazyHStack(spacing: 0) {
                     ForEach(self.presenter.artistImages.reversed()) { imageEntity in
                         AsyncImage(
                             url: URL(string: imageEntity.getPosterUrl()),
@@ -157,10 +155,8 @@ struct PhotoGrid: View {
                 .padding(.trailing, 8)
             }
         }
-        
     }
 }
-
 
 struct ArtistDetailView_Previews: PreviewProvider {
     static var previews: some View {

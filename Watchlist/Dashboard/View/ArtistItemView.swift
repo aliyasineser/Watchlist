@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-
 struct ArtistItemView: View {
-    
+
     private var artistEntity: ArtistEntity
-    
+
     internal init(artistEntity: ArtistEntity) {
         self.artistEntity = artistEntity
     }
-    
+
     var body: some View {
         VStack(alignment: .center) {
             AsyncImage(
@@ -30,7 +29,7 @@ struct ArtistItemView: View {
             ).scaledToFill()
                 .frame(width: 105, height: 160)
                 .clipped()
-            
+
             Text(self.artistEntity.name)
                 .font(.system(size: 15))
                 .foregroundColor(.primary)

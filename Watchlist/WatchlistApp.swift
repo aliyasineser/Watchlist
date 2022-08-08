@@ -7,17 +7,15 @@
 
 import SwiftUI
 
-
 @main
 struct WatchlistApp: App {
     //    let persistenceController = PersistenceController.shared
     init() {
     }
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView()
-            
         }
     }
 }

@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct MovieListItemView: View {
-    
+
     var mediaListItem: Media
-    
+
     internal init(movieListItem: Media) {
         self.mediaListItem = movieListItem
     }
-    
+
     var body: some View {
-        NavigationLink(destination: MediaDetailView(presenter:  MediaDetailPresenter(interactor: MediaDetailInteractor(), movieId: self.mediaListItem.getID(), mediaType: mediaListItem.mediaType))) {
+        NavigationLink(destination: MediaDetailView(presenter:
+                                                        MediaDetailPresenter(interactor: MediaDetailInteractor(),
+                                                                             movieId: self.mediaListItem.getID(),
+                                                                             mediaType: mediaListItem.mediaType))) {
             VStack(alignment: .center, spacing: 5) {
-                
+
                 AsyncImage(
                     url: URL(string: self.mediaListItem.getPosterUrl()),
                     content: { image in
@@ -34,7 +37,7 @@ struct MovieListItemView: View {
                             .clipped()
                     }
                 )
-                
+
                 HStack {
                     VStack {
                         Text(self.mediaListItem.getTitle())
@@ -56,10 +59,8 @@ struct MovieListItemView: View {
             .cornerRadius(10)
             .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 0)
         }
-        
     }
 }
-
 
 struct MovieListItemView_Previews: PreviewProvider {
     static var previews: some View {

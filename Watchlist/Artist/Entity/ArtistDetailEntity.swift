@@ -13,17 +13,19 @@ struct ArtistDetailEntity {
     var biography: String?
     var birthday: String?
     var deathday: String?
-    var as_known_as: [String]?
-    var place_of_birth: String?
+    var asKnownAs: [String]?
+    var placeOfBirth: String?
     var imgUrl: String
-    
-    init(id: Int, name: String, biography: String?, birthday: String?, deathday: String?, as_known_as: [String]?, place_of_birth: String?, imgUrl: String) {
+
+    init(id: Int, name: String, biography: String?, birthday: String?,
+         deathday: String?, asKnownAs: [String]?,
+         placeOfBirth: String?, imgUrl: String) {
         self.id = id
         self.name = name
         self.biography = biography
         self.deathday = deathday
-        self.as_known_as = as_known_as
-        self.place_of_birth = place_of_birth
+        self.asKnownAs = asKnownAs
+        self.placeOfBirth = placeOfBirth
         self.imgUrl = APIConstants.defaultScheme + imgUrl
         self.birthday = birthday
     }

@@ -7,23 +7,22 @@
 
 import Foundation
 
-
 class CastMemberEntity: Identifiable {
-    
+
     var id: Int
-    var cast_id: Int?
+    var castId: Int?
     var character: String!
     var order: Int!
     var name: String
     var imageUrl: String
-    
-    init(id: Int, cast_id: Int?, character: String, order: Int? = nil, name: String, imageUrl: String) {
-        self.cast_id = cast_id
+
+    init(id: Int, castId: Int?, character: String, order: Int? = nil, name: String, imageUrl: String) {
+        self.castId = castId
         self.character = character
         self.order = order
         self.name = name
         self.imageUrl = imageUrl
         self.id = id
     }
-    
+
 }

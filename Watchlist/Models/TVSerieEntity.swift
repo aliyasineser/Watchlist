@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct TvDetail: Codable, WatchableDetail {
     let backdropPath: String?
     let createdBy: [CreatedBy]?
@@ -36,7 +35,7 @@ struct TvDetail: Codable, WatchableDetail {
     let voteAverage: Double
     let voteCount: Int
     let credits: Credits?
-    
+
     enum CodingKeys: String, CodingKey {
         case backdropPath = "backdrop_path"
         case createdBy = "created_by"
@@ -66,19 +65,17 @@ struct TvDetail: Codable, WatchableDetail {
         case voteCount = "vote_count"
         case credits
     }
-    
+
     func getTitle() -> String { return name }
-    
+
     func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
-    
+
     func getVoteAverage() -> Double? { return voteAverage }
-    
-    func getID() -> Int {
-        return id
-    }
-    
+
+    func getID() -> Int { return id }
+
     func getReleaseDate() -> String? { return firstAirDate }
-    
+
     func getOverview() -> String { return overview }
 }
 
@@ -87,7 +84,7 @@ struct CreatedBy: Codable {
     let creditID, name: String
     let gender: Int?
     let profilePath: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case creditID = "credit_id"
@@ -102,7 +99,7 @@ struct Season: Codable {
     let name, overview: String
     let posterPath: String?
     let seasonNumber: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case airDate = "air_date"
         case episodeCount = "episode_count"
@@ -120,7 +117,7 @@ struct LastEpisodeToAir: Codable {
     let stillPath: String?
     let voteAverage: Double
     let voteCount: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case airDate = "air_date"
         case episodeNumber = "episode_number"
@@ -132,7 +129,6 @@ struct LastEpisodeToAir: Codable {
         case voteCount = "vote_count"
     }
 }
-
 
 struct TVSerie: Codable, Watchable {
     let posterPath: String?
@@ -148,7 +144,7 @@ struct TVSerie: Codable, Watchable {
     let voteCount: Int?
     let name: String
     let originalName: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
         case popularity, id
@@ -163,19 +159,16 @@ struct TVSerie: Codable, Watchable {
         case name
         case originalName = "original_name"
     }
-    
+
     func getTitle() -> String { return name }
-    
+
     func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
-    
+
     func getVoteAverage() -> Double? { return voteAverage }
-    
-    func getID() -> Int {
-        return id
-    }
-    
+
+    func getID() -> Int { return id }
+
     func getReleaseDate() -> String? { return firstAirDate }
-    
+
     func getOverview() -> String { return overview }
 }
-

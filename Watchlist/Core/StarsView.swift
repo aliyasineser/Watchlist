@@ -10,7 +10,7 @@ import SwiftUI
 struct StarsView: View {
     var rating: CGFloat
     var maxRating: Int
-    
+
     var body: some View {
         let stars = HStack(spacing: 0) {
             ForEach(0..<maxRating) { _ in
@@ -19,10 +19,10 @@ struct StarsView: View {
                     .aspectRatio(contentMode: .fit)
             }
         }
-        
+
         stars.overlay(
-            GeometryReader { g in
-                let width = rating / CGFloat(maxRating) * g.size.width
+            GeometryReader { geometry in
+                let width = rating / CGFloat(maxRating) * geometry.size.width
                 ZStack(alignment: .leading) {
                     Rectangle()
                         .frame(width: width)

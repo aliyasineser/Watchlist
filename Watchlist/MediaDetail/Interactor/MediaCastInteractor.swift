@@ -10,18 +10,18 @@ import Foundation
 class MediaCastInteractor {
     var artists: [CastMemberEntity]
     private var artistsPageCount: Int
-    
+
     let movieService = MovieService(requestManager: RequestManager())
     let tvService = TVService(requestManager: RequestManager())
-    
+
     init() {
         self.artists = []
         self.artistsPageCount = 0
     }
-    
+
     func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
         self.artists.removeAll()
-        var credits: Credits? = nil
+        var credits: Credits?
         switch mediaType {
         case .tv:
             credits = await tvService.fetchTVCredits(id: id)
@@ -30,10 +30,11 @@ class MediaCastInteractor {
         }
         credits?.cast.forEach({ cast in
             if let character = cast.character {
-                self.artists.append(CastMemberEntity(id: cast.id, cast_id: nil, character: character, order: cast.order, name: cast.getTitle(), imageUrl: cast.getPosterUrl()))
+                self.artists.append(CastMemberEntity(id: cast.id, castId: nil,
+                                                     character: character, order: cast.order,
+                                                     name: cast.getTitle(), imageUrl: cast.getPosterUrl()))
             }
         })
         return self.artists
     }
-    
 }

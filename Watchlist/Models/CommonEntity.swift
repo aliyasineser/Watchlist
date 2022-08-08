@@ -13,41 +13,40 @@ struct Credits: Codable {
 }
 
 struct SpokenLanguage: Codable {
-    let englishName, iso639_1, name: String
-    
+    let englishName, iso639_1, name: String // swiftlint:disable:this identifier_name
+
     enum CodingKeys: String, CodingKey {
         case englishName = "english_name"
-        case iso639_1 = "iso_639_1"
+        case iso639_1 = "iso_639_1" // swiftlint:disable:this identifier_name
         case name
     }
 }
 
 struct ProductionCountry: Codable {
-    let iso3166_1, name: String
-    
+    let iso3166_1, name: String // swiftlint:disable:this identifier_name
+
     enum CodingKeys: String, CodingKey {
-        case iso3166_1 = "iso_3166_1"
+        case iso3166_1 = "iso_3166_1" // swiftlint:disable:this identifier_name
         case name
     }
 }
 
-struct Genre : Codable {
-    var id : Int;
-    var name : String;
+struct Genre: Codable {
+    var id: Int
+    var name: String
 }
 
-struct Company : Codable {
-    var id : Int;
-    var name : String;
-    var logoPath : String;
-    var originCountry : String;
+struct Company: Codable {
+    var id: Int
+    var name: String
+    var logoPath: String
+    var originCountry: String
 }
 
-struct Production : Codable {
-    var iso3166_1 : String;
-    var name : String;
+struct Production: Codable {
+    var iso3166_1: String // swiftlint:disable:this identifier_name
+    var name: String
 }
-
 
 enum Department: String, Codable {
     case acting = "Acting"
@@ -69,7 +68,7 @@ struct ProductionCompany: Codable {
     let id: Int
     let logoPath: String?
     let name, originCountry: String
-    
+
     enum CodingKeys: String, CodingKey {
         case id
         case logoPath = "logo_path"
@@ -77,4 +76,3 @@ struct ProductionCompany: Codable {
         case originCountry = "origin_country"
     }
 }
-

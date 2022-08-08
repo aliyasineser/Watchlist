@@ -9,11 +9,11 @@ import Foundation
 
 actor ArtistService {
     private let requestManager: RequestManagerProtocol
-    
+
     init(requestManager: RequestManagerProtocol) {
         self.requestManager = requestManager
     }
-    
+
     func fetchArtistDetail(id: Int) async -> ArtistDetail? {
         let requestData = ArtistRequest.getArtist(id: id)
         do {
@@ -25,7 +25,7 @@ actor ArtistService {
             return nil
         }
     }
-    
+
     func fetchArtists(page: Int) async -> PopularArtists? {
         let requestData = ArtistRequest.getPopularArtists(page: page)
         do {
@@ -37,7 +37,7 @@ actor ArtistService {
             return nil
         }
     }
-    
+
     func fetchTVCredits(id: Int) async -> Credits? {
         let requestData = ArtistRequest.getTVCredits(id: id)
         do {
@@ -49,8 +49,7 @@ actor ArtistService {
             return nil
         }
     }
-    
-    
+
     func fetchMovieCredits(id: Int) async -> Credits? {
         let requestData = ArtistRequest.getMovieCredits(id: id)
         do {
@@ -62,7 +61,7 @@ actor ArtistService {
             return nil
         }
     }
-    
+
     func fetchImages(id: Int) async -> [Profile] {
         let requestData = ArtistRequest.getImages(id: id)
         do {

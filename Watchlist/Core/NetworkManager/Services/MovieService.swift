@@ -9,11 +9,11 @@ import Foundation
 
 actor MovieService {
     private let requestManager: RequestManagerProtocol
-    
+
     init(requestManager: RequestManagerProtocol) {
         self.requestManager = requestManager
     }
-    
+
     func fetchPopularMovies(page: Int) async -> [Movie] {
         let requestData = MovieRequest.getPopularMovies(page: page)
         do {
@@ -24,7 +24,7 @@ actor MovieService {
             return []
         }
     }
-    
+
     func fetchUpcomingMovies(page: Int) async -> [Movie] {
         let requestData = MovieRequest.getUpcomingMovies(page: page)
         do {
@@ -35,7 +35,7 @@ actor MovieService {
             return []
         }
     }
-    
+
     func fetchNowPlayingMovies(page: Int) async -> [Movie] {
         let requestData = MovieRequest.getNowPlayingMovies(page: page)
         do {
@@ -46,7 +46,7 @@ actor MovieService {
             return []
         }
     }
-    
+
     func fetchMovieDetail(id: Int) async -> MediaDetail? {
         let requestData = MovieRequest.getMovieDetail(id: id)
         do {
@@ -57,7 +57,7 @@ actor MovieService {
             return nil
         }
     }
-    
+
     func fetchMovieCredits(id: Int) async -> Credits? {
         let requestData = MovieRequest.getCredits(id: id)
         do {

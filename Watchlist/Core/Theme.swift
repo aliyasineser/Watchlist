@@ -8,11 +8,10 @@
 import Foundation
 import SwiftUI
 
-
 enum Theme: Int {
     case light
     case dark
-    
+
     var colorScheme: ColorScheme {
         switch self {
         case .light:
@@ -21,14 +20,11 @@ enum Theme: Int {
             return .dark
         }
     }
-    
-    
 }
-
 
 class AppSettings: ObservableObject {
 
     static let shared = AppSettings()
-    
+
     @AppStorage("current_theme") var currentTheme: Theme = .light
 }

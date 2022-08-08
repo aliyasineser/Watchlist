@@ -1,49 +1,16 @@
 PODS:
-  - Alamofire (5.6.2)
-  - Cosmos (23.0.0)
-  - RxCocoa (6.5.0):
-    - RxRelay (= 6.5.0)
-    - RxSwift (= 6.5.0)
-  - RxRelay (6.5.0):
-    - RxSwift (= 6.5.0)
-  - RxSwift (6.5.0)
-  - SDWebImage (5.13.2):
-    - SDWebImage/Core (= 5.13.2)
-  - SDWebImage/Core (5.13.2)
-  - SDWebImageSwiftUI (2.0.2):
-    - SDWebImage (~> 5.10)
-  - TMDBSwift (0.5.1)
+  - SwiftLint (0.48.0)
 
 DEPENDENCIES:
-  - Alamofire
-  - Cosmos
-  - RxCocoa
-  - RxSwift
-  - SDWebImage
-  - SDWebImageSwiftUI
-  - TMDBSwift
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
-    - Alamofire
-    - Cosmos
-    - RxCocoa
-    - RxRelay
-    - RxSwift
-    - SDWebImage
-    - SDWebImageSwiftUI
-    - TMDBSwift
+    - SwiftLint
 
 SPEC CHECKSUMS:
-  Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
-  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
-  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
-  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
-  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
-  SDWebImage: 72f86271a6f3139cc7e4a89220946489d4b9a866
-  SDWebImageSwiftUI: 8a3923c95108312b03a599ec1498754af55a6819
-  TMDBSwift: 9220f3dcee23372c05b92f8c111f5f4c37185aee
+  SwiftLint: 284cea64b6187c5d6bd83e9a548a64104d546447
 
-PODFILE CHECKSUM: bdf13971d10a4caa51004ab51f5fe1239e02e52a
+PODFILE CHECKSUM: 57c41a58020135950b256b28f5a26652fef1d73b
 
 COCOAPODS: 1.11.3

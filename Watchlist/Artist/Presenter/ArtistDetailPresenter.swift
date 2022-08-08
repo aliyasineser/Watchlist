@@ -13,26 +13,25 @@ class ArtistDetailPresenter: ObservableObject {
     @Published var artistDetail: ArtistDetailEntity?
     @Published var artistImages: [ArtistImageEntity]
     @Published var artistCredits: [MediaCreditEntity]
-    
+
     init(interactor: ArtistDetailInteractor) {
         self.interactor = interactor
         self.artistDetail = nil
         self.artistImages = [ArtistImageEntity]()
         self.artistCredits = [MediaCreditEntity]()
     }
-    
-    func fetchArtist(artistId: Int) -> Void {
+
+    func fetchArtist(artistId: Int) {
         Task {
             self.artistDetail = await interactor.fetchArtist(artistId)
-            
+
             self.artistImages = await interactor.fetchArtistImages(artistId)
-            
+
             let movies = await interactor.fetchArtistMovies(artistId)
             self.artistCredits.append(contentsOf: movies)
-            
+
             let shows = await interactor.fetchArtistTV(artistId)
             self.artistCredits.append(contentsOf: shows)
         }
     }
-    
 }

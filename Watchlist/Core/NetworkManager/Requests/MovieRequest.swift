@@ -15,14 +15,14 @@ enum MovieRequest: RequestProtocol {
     case getMovieReviews(id: Int)
     case getSimilarMoviesTo(id: Int)
     case getCredits(id: Int)
-    
+
     var path: String {
         switch self {
-        case .getPopularMovies(_):
+        case .getPopularMovies:
             return "/movie/popular"
-        case .getUpcomingMovies(_):
+        case .getUpcomingMovies:
             return "/movie/upcoming"
-        case .getNowPlayingMovies(_):
+        case .getNowPlayingMovies:
             return "/movie/now_playing"
         case .getMovieDetail(id: let id):
             return "/movie/\(id)"
@@ -34,7 +34,7 @@ enum MovieRequest: RequestProtocol {
             return "/movie/\(id)/credits"
         }
     }
-    
+
     var urlParams: [String: String?] {
         switch self {
         case .getPopularMovies(let page):
@@ -74,7 +74,7 @@ enum MovieRequest: RequestProtocol {
             ]
         }
     }
-    
+
     var requestType: RequestType {
         .GET
     }

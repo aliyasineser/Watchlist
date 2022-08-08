@@ -8,13 +8,12 @@
 import Foundation
 
 class ArtistInteractor {
-    
+
     let artistFetcher: ArtistFetcher = ArtistFetcher()
-   
+
     func fetchArtists() async -> [Artist] {
         let creditables = await artistFetcher.fetchWithNextPage()
-        if let artists = creditables as? [Artist] { return artists }
-        else { return [] }
+        if let artists = creditables as? [Artist] { return artists } else { return [] }
     }
-    
+
 }

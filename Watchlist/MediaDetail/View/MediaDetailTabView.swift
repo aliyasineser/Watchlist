@@ -8,27 +8,26 @@
 import SwiftUI
 
 struct MediaDetailTabView: View {
-    
+
     @State var tabIndex = 0
-    
+
     var id: Int
     var mediaType: MediaType
-    
+
     init(_ id: Int, mediaType: MediaType) {
         self.id = id
         self.mediaType = mediaType
     }
-    
+
     var body: some View {
-        VStack{
+        VStack {
             CustomTopTabBar(tabIndex: $tabIndex)
             if tabIndex == 0 {
-                MediaCastView(presenter: MediaCastPresenter(MediaCastInteractor(), id: self.id, mediaType: self.mediaType))
-            }
-            else if tabIndex == 1 {
+                MediaCastView(presenter: MediaCastPresenter(MediaCastInteractor(),
+                                                            id: self.id, mediaType: self.mediaType))
+            } else if tabIndex == 1 {
                 Text("Reviews")
-            }
-            else {
+            } else {
                 Text("More")
             }
             Spacer()
@@ -39,7 +38,7 @@ struct MediaDetailTabView: View {
 }
 
 struct CustomTopTabBar: View {
-    
+
     @Binding var tabIndex: Int
     var body: some View {
         HStack {
@@ -56,25 +55,24 @@ struct CustomTopTabBar: View {
         }
         .border(width: 1, edges: [.bottom], color: Color.secondary)
     }
-    
+
     private func onButtonTapped(index: Int) {
         withAnimation { tabIndex = index }
     }
 }
 
 struct TabBarButton: View {
-    
     let text: String
     @Binding var isSelected: Bool
     var body: some View {
         Text(text)
             .fontWeight(isSelected ? .heavy : .regular)
             .font(.system(size: 16))
-            .padding(.bottom,10)
+            .padding(.bottom, 10)
             .border(width: isSelected ? 2 : 1, edges: [.bottom], color: .secondary)
     }
 }
-
+// swiftlint:disable all
 struct EdgeBorder: Shape {
     
     var width: CGFloat

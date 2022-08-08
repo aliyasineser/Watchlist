@@ -7,23 +7,19 @@
 
 import Foundation
 
-
-import Foundation
-
-
 struct MediaCreditEntity: Identifiable {
-    
+
     var id: Int
     var creditId: String
     var title: String
     var role: String
-    var image_path: String
-    
-    init(id: Int, creditId: String, title: String, role: String, image_path: String) {
+    var imagePath: String
+
+    init(id: Int, creditId: String, title: String, role: String, imagePath: String) {
         self.id = id
         self.creditId = creditId
         self.title = title
         self.role = role
-        self.image_path = image_path
+        self.imagePath = imagePath
     }
 }

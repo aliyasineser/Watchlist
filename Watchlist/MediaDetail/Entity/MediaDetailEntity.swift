@@ -16,14 +16,13 @@ struct MediaDetailEntity: Identifiable {
     var date: String
     var time: String
     var summary: String
-    var image_path: String
+    var imagePath: String
     var mediaType: MediaType
-    
-    init() {
-        self.init(id: 0, title: "Title", genres: "Genres", point: 2.5, language: "en", date: "12.12.2012", time: "2h 15m", summary: "Summary", image_url: "", mediaType: .movie)
-    }
-    
-    init(id: Int, title: String, genres: String, point: Double, language: String, date: String, time: String, summary: String, image_url: String, mediaType: MediaType) {
+
+    init(id: Int = 0, title: String = "Title", genres: String = "Genres",
+         point: Double = 2.5, language: String = "en", date: String = "12.12.2012",
+         time: String = "2h 15m", summary: String = "Summary",
+         imageUrl: String = "imageUrl", mediaType: MediaType = .movie) {
         self.id = id
         self.title = title
         self.genres = genres
@@ -32,9 +31,11 @@ struct MediaDetailEntity: Identifiable {
         self.date = date
         self.time = time
         self.summary = summary
-        self.image_path = APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + image_url
+        self.imagePath = APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + imageUrl
         self.mediaType = mediaType
-        
-        if !image_path.contains(APIConstants.defaultScheme) { self.image_path = APIConstants.defaultScheme + self.image_path }
+        if !imagePath.contains(APIConstants.defaultScheme) {
+            self.imagePath = APIConstants.defaultScheme + self.imagePath
+
+        }
     }
 }

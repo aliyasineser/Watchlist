@@ -11,17 +11,18 @@ import Foundation
 class ArtistPresenter: ObservableObject {
     private let interactor: ArtistInteractor
     @Published var artists: [ArtistEntity]
-    
+
     init(_ interactor: ArtistInteractor) {
         self.interactor = interactor
         self.artists = [ArtistEntity]()
     }
-    
-    func loadArtists() -> Void {
+
+    func loadArtists() {
         Task {
             let artists = await interactor.fetchArtists()
             artists.forEach { (artist) in
-                self.artists.append(ArtistEntity(artistId: artist.id, imageUrl: artist.getPosterUrl(), name: artist.name))
+                self.artists.append(ArtistEntity(artistId: artist.id,
+                                                 imageUrl: artist.getPosterUrl(), name: artist.name))
             }
         }
     }

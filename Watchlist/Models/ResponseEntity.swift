@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct SearchResponse : Codable {
+struct SearchResponse: Codable {
     var page: Int
     var result: [Media]?
 }
 
-struct GenreResponse : Codable {
+struct GenreResponse: Codable {
     var genres: [Genre]?
 }
 
@@ -29,7 +29,7 @@ struct ArtistDetail: Codable {
     let adult: Bool
     let imdbID: String?
     let homepage: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case birthday
         case knownForDepartment = "known_for_department"
@@ -55,15 +55,15 @@ struct Profile: Codable {
     let aspectRatio: Double
     let filePath: String
     let height: Int
-    let iso639_1: String?
+    let iso639_1: String? // swiftlint:disable:this identifier_name
     let voteAverage: Double
     let voteCount, width: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case aspectRatio = "aspect_ratio"
         case filePath = "file_path"
         case height
-        case iso639_1 = "iso_639_1"
+        case iso639_1 = "iso_639_1" // swiftlint:disable:this identifier_name
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
         case width
@@ -74,12 +74,12 @@ struct Dates: Codable {
     let maximum, minimum: String
 }
 
-struct MovieResponse : Codable {
+struct MovieResponse: Codable {
     let dates: Dates?
     let page: Int
     var results: [Movie]
     let totalPages, totalResults: Int?
-    
+
     enum CodingKeys: String, CodingKey {
         case dates
         case page, results
@@ -88,11 +88,11 @@ struct MovieResponse : Codable {
     }
 }
 
-struct TVSerieResponse : Codable {
+struct TVSerieResponse: Codable {
     let page: Int
     var results: [TVSerie]
     let totalPages, totalResults: Int?
-    
+
     enum CodingKeys: String, CodingKey {
         case page, results
         case totalPages = "total_pages"

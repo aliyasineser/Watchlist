@@ -9,6 +9,5 @@ import Foundation
 import SwiftUI
 
 struct CommonMocks {
-    
     static var posterPlaceholder: Image = Image("onboarding1").resizable()
 }

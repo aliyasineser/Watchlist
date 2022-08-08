@@ -7,15 +7,14 @@
 
 import SwiftUI
 
-
 struct CastItemView: View {
-    
+
     private var castEntity: CastEntity
-    
+
     internal init(castEntity: CastEntity) {
         self.castEntity = castEntity
     }
-    
+
     var body: some View {
         VStack(alignment: .center) {
             AsyncImage(
@@ -34,7 +33,7 @@ struct CastItemView: View {
                         .clipped()
                 }
             )
-            
+
             Text(self.castEntity.name)
                 .font(.system(size: 15))
                 .fontWeight(.regular)
@@ -42,7 +41,7 @@ struct CastItemView: View {
                 .lineLimit(2)
                 .minimumScaleFactor(0.7)
                 .padding(EdgeInsets(top: 0, leading: 2, bottom: 4, trailing: 2))
-            
+
             Text(self.castEntity.character)
                 .font(.system(size: 13))
                 .fontWeight(.regular)
@@ -50,7 +49,7 @@ struct CastItemView: View {
                 .lineLimit(2)
                 .minimumScaleFactor(0.7)
                 .padding(EdgeInsets(top: 0, leading: 2, bottom: 4, trailing: 2))
-            
+
         }
         .frame(width: 100, height: 175)
         .border(Color.primary, width: 1)

@@ -15,7 +15,7 @@ struct DiscoverSectionItemEntity: Identifiable {
     var imgUrl: String
     var genre: String
     var mediaType: MediaType
-    
+
     init(id: Int, title: String, year: String, imgUrl: String, genre: String, mediaType: MediaType) {
         self.itemID = id
         self.title = title

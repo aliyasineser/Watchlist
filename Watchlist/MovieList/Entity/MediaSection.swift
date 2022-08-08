@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum MediaSection: CaseIterable {
     case popularMovies
     case mostRecentMovies

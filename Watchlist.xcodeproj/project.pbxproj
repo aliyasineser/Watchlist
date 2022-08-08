@@ -46,6 +46,7 @@
 		1ED9C3A626756DC90030A62B /* MovieListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9C3A526756DC90030A62B /* MovieListItemView.swift */; };
 		1ED9C3AB267571660030A62B /* MovieListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9C3AA267571660030A62B /* MovieListPresenter.swift */; };
 		1ED9C3B0267571720030A62B /* MovieListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9C3AF267571720030A62B /* MovieListInteractor.swift */; };
+		C5B082B06436BA27328E9165 /* Pods_Watchlist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56D5C10A36AC73911290D272 /* Pods_Watchlist.framework */; };
 		DD045472260A171900DFEFE6 /* WatchlistApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045471260A171900DFEFE6 /* WatchlistApp.swift */; };
 		DD045474260A171900DFEFE6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045473260A171900DFEFE6 /* ContentView.swift */; };
 		DD045476260A171C00DFEFE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD045475260A171C00DFEFE6 /* Assets.xcassets */; };
@@ -153,6 +154,9 @@
 		1ED9C3A526756DC90030A62B /* MovieListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListItemView.swift; sourceTree = "<group>"; };
 		1ED9C3AA267571660030A62B /* MovieListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListPresenter.swift; sourceTree = "<group>"; };
 		1ED9C3AF267571720030A62B /* MovieListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListInteractor.swift; sourceTree = "<group>"; };
+		56D5C10A36AC73911290D272 /* Pods_Watchlist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Watchlist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F5554330EDD96C406AFA559 /* Pods-Watchlist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watchlist.debug.xcconfig"; path = "Target Support Files/Pods-Watchlist/Pods-Watchlist.debug.xcconfig"; sourceTree = "<group>"; };
+		732A028465C9784CEAD0DEC5 /* Pods-Watchlist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watchlist.release.xcconfig"; path = "Target Support Files/Pods-Watchlist/Pods-Watchlist.release.xcconfig"; sourceTree = "<group>"; };
 		DD04546E260A171900DFEFE6 /* Watchlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watchlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD045471260A171900DFEFE6 /* WatchlistApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistApp.swift; sourceTree = "<group>"; };
 		DD045473260A171900DFEFE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -214,6 +218,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5B082B06436BA27328E9165 /* Pods_Watchlist.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +242,8 @@
 		14E0E9FFA9128CCD7D05A988 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				5F5554330EDD96C406AFA559 /* Pods-Watchlist.debug.xcconfig */,
+				732A028465C9784CEAD0DEC5 /* Pods-Watchlist.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -384,6 +391,14 @@
 			path = Interactor;
 			sourceTree = "<group>";
 		};
+		BA5D74068559E37D9304A7E5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				56D5C10A36AC73911290D272 /* Pods_Watchlist.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DD045465260A171900DFEFE6 = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +407,7 @@
 				DD045492260A171D00DFEFE6 /* WatchlistUITests */,
 				DD04546F260A171900DFEFE6 /* Products */,
 				14E0E9FFA9128CCD7D05A988 /* Pods */,
+				BA5D74068559E37D9304A7E5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -636,9 +652,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DD045498260A171D00DFEFE6 /* Build configuration list for PBXNativeTarget "Watchlist" */;
 			buildPhases = (
+				F5204F6EC97F1DE4C8AAC890 /* [CP] Check Pods Manifest.lock */,
 				DD04546A260A171900DFEFE6 /* Sources */,
 				DD04546B260A171900DFEFE6 /* Frameworks */,
 				DD04546C260A171900DFEFE6 /* Resources */,
+				DD951E8E28A0EBFC00701111 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -752,6 +770,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DD951E8E28A0EBFC00701111 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nexport PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		F5204F6EC97F1DE4C8AAC890 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Watchlist-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DD04546A260A171900DFEFE6 /* Sources */ = {
@@ -994,6 +1054,7 @@
 		};
 		DD045499260A171D00DFEFE6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5F5554330EDD96C406AFA559 /* Pods-Watchlist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1016,6 +1077,7 @@
 		};
 		DD04549A260A171D00DFEFE6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 732A028465C9784CEAD0DEC5 /* Pods-Watchlist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

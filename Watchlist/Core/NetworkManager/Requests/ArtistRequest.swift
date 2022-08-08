@@ -13,10 +13,10 @@ enum ArtistRequest: RequestProtocol {
     case getTVCredits(id: Int)
     case getMovieCredits(id: Int)
     case getImages(id: Int)
-    
+
     var path: String {
         switch self {
-        case .getPopularArtists(_):
+        case .getPopularArtists:
             return "/person/popular"
         case  .getArtist(let id):
             return "/person/\(id)"
@@ -28,7 +28,7 @@ enum ArtistRequest: RequestProtocol {
             return "/person/\(id)/images"
         }
     }
-    
+
     var urlParams: [String: String?] {
         switch self {
         case .getPopularArtists(let page):
@@ -57,7 +57,7 @@ enum ArtistRequest: RequestProtocol {
             ]
         }
     }
-    
+
     var requestType: RequestType {
         .GET
     }

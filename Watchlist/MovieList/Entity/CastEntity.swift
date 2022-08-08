@@ -7,13 +7,12 @@
 
 import Foundation
 
-
 class CastEntity: Identifiable {
     var id = UUID()
     var name: String
     var imageUrl: String
     var character: String
-    
+
     internal init(imageUrl: String, name: String, character: String) {
         self.imageUrl = APIConstants.defaultScheme + imageUrl
         self.name = name

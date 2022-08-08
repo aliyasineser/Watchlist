@@ -14,17 +14,17 @@ enum TVSerieSection {
 }
 
 class TVSerieFetcher: Fetchable {
-    
+
     private var series: [Media] = []
     private var pageCounter: Int = 0
     private var section: TVSerieSection
-    
+
     let tvSerieService = TVService(requestManager: RequestManager())
-    
+
     init(for section: TVSerieSection) {
         self.section = section
     }
-    
+
     func fetchSinglePage() async -> [Media] {
         pageCounter += 1
         var watchables: [Watchable] = []
@@ -36,16 +36,16 @@ class TVSerieFetcher: Fetchable {
         case .popular:
             watchables =  await tvSerieService.fetchPopularSeries(page: pageCounter)
         }
-        let mediaList = watchables.compactMap{ WatchableToMediaMapper.convert(from: $0, type: .tv) }
+        let mediaList = watchables.compactMap { WatchableToMediaMapper.convert(from: $0, type: .tv) }
         return mediaList
     }
-    
+
     func fetchWithNextPage() async -> [Media] {
         let seriesPage = await fetchSinglePage()
         self.series.append(contentsOf: seriesPage)
         return self.series
     }
-    
+
     func getFetched() -> [Media] {
         return series
     }

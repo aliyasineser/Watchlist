@@ -9,11 +9,11 @@ import Foundation
 
 actor TVService {
     private let requestManager: RequestManagerProtocol
-    
+
     init(requestManager: RequestManagerProtocol) {
         self.requestManager = requestManager
     }
-    
+
     func fetchPopularSeries(page: Int) async -> [TVSerie] {
         let requestData = TVRequest.getPopularSeries(page: page)
         do {
@@ -25,7 +25,7 @@ actor TVService {
             return []
         }
     }
-    
+
     func fetchOnTheAirSeries(page: Int) async -> [TVSerie] {
         let requestData = TVRequest.getOnTheAirSeries(page: page)
         do {
@@ -37,7 +37,7 @@ actor TVService {
             return []
         }
     }
-    
+
     func fetchAiringTodaySeries(page: Int) async -> [TVSerie] {
         let requestData = TVRequest.getAiringTodaySeries(page: page)
         do {
@@ -49,7 +49,7 @@ actor TVService {
             return []
         }
     }
-    
+
     func fetchTVDetails(id: Int) async -> MediaDetail? {
         let requestData = TVRequest.getSeriesDetail(id: id)
         do {
@@ -61,7 +61,7 @@ actor TVService {
             return nil
         }
     }
-    
+
     func fetchTVCredits(id: Int) async -> Credits? {
         let requestData = TVRequest.getCredits(id: id)
         do {
@@ -74,5 +74,3 @@ actor TVService {
         }
     }
 }
-
-

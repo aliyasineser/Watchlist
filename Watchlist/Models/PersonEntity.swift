@@ -7,25 +7,22 @@
 
 import Foundation
 
-
-protocol Creditable : Codable {
+protocol Creditable: Codable {
     func getTitle() -> String
     func getImagePath() -> String
 }
-
 
 struct PopularArtists: Codable {
     let page: Int
     let results: [Artist]?
     let totalPages, totalResults: Int?
-    
+
     enum CodingKeys: String, CodingKey {
         case page, results
         case totalPages = "total_pages"
         case totalResults = "total_results"
     }
 }
-
 
 struct Artist: Codable, Creditable {
     let adult: Bool
@@ -40,7 +37,7 @@ struct Artist: Codable, Creditable {
     let placeOfBirth: String?
     let popularity: Double
     let profilePath: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case adult
         case alsoKnownAs = "also_known_as"
@@ -52,14 +49,10 @@ struct Artist: Codable, Creditable {
         case popularity
         case profilePath = "profile_path"
     }
-    
-    func getTitle() -> String {
-        return name
-    }
-    
-    func getImagePath() -> String {
-        return profilePath ?? ""
-    }
+
+    func getTitle() -> String { return name }
+
+    func getImagePath() -> String { return profilePath ?? "" }
 }
 
 typealias Crew = Cast
@@ -87,7 +80,7 @@ struct Cast: Codable, Creditable {
     let video: Bool
     let voteAverage: Double
     let voteCount: Int
-    
+
     enum CodingKeys: String, CodingKey {
         case adult, gender, id
         case knownForDepartment = "known_for_department"
@@ -110,16 +103,10 @@ struct Cast: Codable, Creditable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
-    
-    func getTitle() -> String {
-        return title
-    }
-    
-    func getImagePath() -> String {
-        return posterPath ?? profilePath ?? ""
-    }
-    
-    func getRole() -> String {
-        return character ?? job ?? department?.rawValue ?? ""
-    }
+
+    func getTitle() -> String { return title }
+
+    func getImagePath() -> String { return posterPath ?? profilePath ?? "" }
+
+    func getRole() -> String { return character ?? job ?? department?.rawValue ?? "" }
 }

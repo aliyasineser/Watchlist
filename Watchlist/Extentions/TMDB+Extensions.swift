@@ -44,7 +44,7 @@ extension ArtistDetail {
 }
 
 extension Cast {
-    
+
     func getPosterUrl() -> String {
         return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
     }

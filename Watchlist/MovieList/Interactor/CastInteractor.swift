@@ -7,23 +7,21 @@
 
 import Foundation
 
+class CastInteractor {
 
-class CastInteractor{
-    
     var artists: [CastMemberEntity]
     let movieService = MovieService(requestManager: RequestManager())
     let tvService = TVService(requestManager: RequestManager())
-    
+
     init() {
         self.artists = []
     }
-    
-    // TODO: Change the calls
+
     func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
-        
+
         self.artists.removeAll()
-        var credits: Credits? = nil
-        
+        var credits: Credits?
+
         if mediaType == .movie {
             credits = await movieService.fetchMovieCredits(id: id)
         } else {
@@ -32,13 +30,12 @@ class CastInteractor{
         if let credits = credits {
             credits.cast.forEach({ cast in
                 if let castId = cast.castID, let character = cast.character {
-                    self.artists.append(CastMemberEntity(id: cast.id, cast_id: castId, character: character, order: cast.order, name: cast.getTitle(), imageUrl: cast.getPosterUrl()))
+                    self.artists.append(CastMemberEntity(id: cast.id, castId: castId,
+                                                         character: character, order: cast.order,
+                                                         name: cast.getTitle(), imageUrl: cast.getPosterUrl()))
                 }
             })
         }
         return self.artists
-        
     }
-    
 }
-

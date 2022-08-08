@@ -9,15 +9,15 @@ import Foundation
 
 struct ArtistImageEntity: Identifiable {
     var id = UUID()
-    var aspect_ratio: Double
-    var file_path: String
+    var aspectRatio: Double
+    var filePath: String
     var height: Int
-    var iso_639_1: String
-    var vote_average: Double
-    var vote_count: Int
+    var iso_639_1: String // swiftlint:disable:this identifier_name
+    var voteAverage: Double
+    var voteCount: Int
     var width: Int
-    
+
     func getPosterUrl() -> String {
-        return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + file_path
+        return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + filePath
     }
 }

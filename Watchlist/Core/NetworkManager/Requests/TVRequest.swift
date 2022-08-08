@@ -15,14 +15,14 @@ enum TVRequest: RequestProtocol {
     case getSeriesReviews(id: Int)
     case getSimilarSeriesTo(id: Int)
     case getCredits(id: Int)
-    
+
     var path: String {
         switch self {
-        case .getPopularSeries(_):
+        case .getPopularSeries:
             return "/tv/popular"
-        case .getAiringTodaySeries(_):
+        case .getAiringTodaySeries:
             return "/tv/airing_today"
-        case .getOnTheAirSeries(_):
+        case .getOnTheAirSeries:
             return "/tv/on_the_air"
         case .getSeriesDetail(id: let id):
             return "/tv/\(id)"
@@ -34,7 +34,7 @@ enum TVRequest: RequestProtocol {
             return "/tv/\(id)/credits"
         }
     }
-    
+
     var urlParams: [String: String?] {
         switch self {
         case .getPopularSeries(let page):
@@ -74,7 +74,7 @@ enum TVRequest: RequestProtocol {
             ]
         }
     }
-    
+
     var requestType: RequestType {
         .GET
     }

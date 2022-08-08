@@ -22,7 +22,7 @@ struct Movie: Codable, Watchable {
     let voteCount: Int?
     let video: Bool
     let voteAverage: Double?
-    
+
     enum CodingKeys: String, CodingKey {
         case posterPath = "poster_path"
         case adult, overview
@@ -38,23 +38,21 @@ struct Movie: Codable, Watchable {
         case video
         case voteAverage = "vote_average"
     }
-    
+
     func getTitle() -> String { return title }
-    
+
     func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
-        
+
     func getVoteAverage() -> Double? { return voteAverage }
 
     func getReleaseDate() -> String? { return releaseDate ?? nil }
-    
+
     func getOverview() -> String { return overview }
-    
-    func getID() -> Int {
-        return id
-    }
+
+    func getID() -> Int { return id }
 }
 
-struct MovieDetail: Codable, WatchableDetail  {
+struct MovieDetail: Codable, WatchableDetail {
     let id: Int
     let adult: Bool
     let posterPath: String?
@@ -79,7 +77,7 @@ struct MovieDetail: Codable, WatchableDetail  {
     let voteAverage: Double
     let voteCount: Int
     let credits: Credits?
-    
+
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
@@ -101,29 +99,27 @@ struct MovieDetail: Codable, WatchableDetail  {
         case voteCount = "vote_count"
         case credits
     }
-    
+
     func getTitle() -> String { return title }
-    
+
     func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
-        
+
     func getVoteAverage() -> Double? { return voteAverage }
 
     func getReleaseDate() -> String? { return releaseDate }
-    
+
     func getOverview() -> String { return overview ?? "" }
-    
-    func getID() -> Int {
-        return id
-    }
+
+    func getID() -> Int { return id }
 }
 
-struct Collection : Codable {
+struct Collection: Codable {
     let backdropPath: String?
     var id: Int
     let name: String
     let posterPath: String?
     let overview: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case backdropPath = "backdrop_path"
         case id

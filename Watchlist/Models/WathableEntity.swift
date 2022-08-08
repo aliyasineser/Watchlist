@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Watchable : Codable {
+protocol Watchable: Codable {
     func getTitle() -> String
     func getImagePath() -> String
     func getReleaseDate() -> String?
@@ -18,7 +18,7 @@ protocol Watchable : Codable {
 }
 
 struct Media: Watchable, Codable, Identifiable {
-    
+
     let adult: Bool?
     let backdropPath: String?
     let genreIDS: [Int]?
@@ -36,7 +36,7 @@ struct Media: Watchable, Codable, Identifiable {
     let originCountry: [String]
     let originalName: String?
     let popularity: Double
-    
+
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
@@ -57,23 +57,23 @@ struct Media: Watchable, Codable, Identifiable {
         case originCountry = "origin_country"
         case originalName = "original_name"
     }
-    
+
     func getTitle() -> String {
         return originalTitle ?? name
     }
-    
+
     func getImagePath() -> String {
         return posterPath ?? backdropPath ?? ""
     }
-        
+
     func getID() -> Int {
         return id
     }
-    
+
     func getVoteAverage() -> Double? { return voteAverage }
-    
+
     func getReleaseDate() -> String? { return releaseDate ?? firstAirDate }
-    
+
     func getOverview() -> String { return overview }
 }
 
@@ -87,7 +87,7 @@ protocol WatchableDetail: Codable {
     func getPosterUrl() -> String
 }
 
-struct MediaDetail: Codable, WatchableDetail  {
+struct MediaDetail: Codable, WatchableDetail {
     let id: Int
     let adult: Bool
     let posterPath: String?
@@ -128,7 +128,7 @@ struct MediaDetail: Codable, WatchableDetail  {
     let seasons: [Season]?
     let type: String?
     var mediaType: MediaType
-    
+
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
@@ -166,28 +166,19 @@ struct MediaDetail: Codable, WatchableDetail  {
         case seasons
         case type
         case numberOfSeasons = "number_of_seasons"
-        
     }
-    
-    func getPosterUrl() -> String {
-        return (posterPath ?? backdropPath ?? "")
-    }
-    
-    func getTitle() -> String {
-        return originalTitle
-    }
-    
-    func getImagePath() -> String {
-        return posterPath ?? backdropPath ?? ""
-    }
-        
-    func getID() -> Int {
-        return id
-    }
-    
+
+    func getPosterUrl() -> String { return (posterPath ?? backdropPath ?? "") }
+
+    func getTitle() -> String { return originalTitle }
+
+    func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
+
+    func getID() -> Int { return id }
+
     func getVoteAverage() -> Double? { return voteAverage }
-    
+
     func getReleaseDate() -> String? { return releaseDate ?? firstAirDate }
-    
+
     func getOverview() -> String { return overview ?? "" }
 }

@@ -9,14 +9,13 @@ import SwiftUI
 
 struct DashboardView: View {
     var body: some View {
-        
         TabView {
             DiscoverView(presenter: DiscoverPresenter(DiscoverInteractor()))
                 .tabItem {
                     TabItemView(systemName: "square.grid.2x2.fill", text: ConstantTexts.discoverScreenTabBarItemText)
                 }
                 .tag(0)
-            
+
             ArtistsView(presenter: ArtistPresenter(ArtistInteractor()))
                 .tabItem {
                     TabItemView(systemName: "person.crop.circle", text: ConstantTexts.artistsScreenTabBarItemText)
@@ -31,15 +30,15 @@ struct DashboardView: View {
 }
 
 struct TabItemView: View {
-    
+
     private let systemName: String
     private let text: String
-    
+
     init(systemName: String, text: String) {
         self.systemName = systemName
         self.text = text
     }
-    
+
     var body: some View {
         VStack {
             Image(systemName: self.systemName)
