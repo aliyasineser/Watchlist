@@ -28,7 +28,7 @@ struct MediaDetailView: View {
                                     image.resizable()
                                 },
                                 placeholder: {
-                                    CommonMocks.posterPlaceholder
+                                    Image(systemName: "film")
                                 }
                             )
                             .scaledToFill()
@@ -56,7 +56,7 @@ struct MediaDetailView: View {
                                         .clipped()
                                 },
                                 placeholder: {
-                                    CommonMocks.posterPlaceholder
+                                    Image(systemName: "film")
                                         .scaledToFill()
                                         .clipped()
                                 }

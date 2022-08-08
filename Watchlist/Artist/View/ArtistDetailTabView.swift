@@ -57,7 +57,7 @@ struct ArtistDetailTabView: View {
                                                 .clipped()
                                         },
                                         placeholder: {
-                                            CommonMocks.posterPlaceholder
+                                            Image(systemName: "film")
                                                 .frame(width: 130, height: 200, alignment: .center)
                                                 .border(width: 1, edges: Edge.allCases, color: .black)
                                                 .clipped()

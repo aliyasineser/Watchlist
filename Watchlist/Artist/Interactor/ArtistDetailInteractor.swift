@@ -70,7 +70,8 @@ class ArtistDetailInteractor {
                 artistShows.append(MediaCreditEntity(id: credit.id,
                                                      creditId: credit.creditID,
                                                      title: credit.getTitle(),
-                                                     role: credit.character ?? credit.department?.rawValue ?? "Unknown",
+                                                     role: credit.character ?? credit.job ??
+                                                            credit.department?.rawValue ?? "Unknown",
                                                      imagePath: credit.getPosterUrl()))
             }
         }

@@ -34,7 +34,7 @@ struct ArtistDetailView: View {
                                     .clipped()
                             },
                             placeholder: {
-                                CommonMocks.posterPlaceholder
+                                Image(systemName: "person.fill")
                                     .resizable()
                                     .frame(height: 400, alignment: .center)
                                     .clipped()
@@ -107,7 +107,7 @@ struct PhotoGrid: View {
                                 image.resizable()
                             },
                             placeholder: {
-                                CommonMocks.posterPlaceholder
+                                Image(systemName: "person.fill")
                             }
                         )
                         .scaledToFill()
