@@ -95,7 +95,7 @@ class DiscoverPresenter: ObservableObject {
         }
     }
 
-    func fetchMedia() async {
+    func fetchMedia() {
         isLoading = false
         Task {
             await loadPopularMovies()

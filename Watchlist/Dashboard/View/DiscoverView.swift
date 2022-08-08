@@ -13,9 +13,9 @@ struct DiscoverView: View {
 
     init(presenter: DiscoverPresenter) {
         self.presenter = presenter
-        Task {
-            presenter.fetchMedia
-        }
+
+        presenter.fetchMedia()
+
     }
 
     var body: some View {
@@ -54,9 +54,6 @@ struct DiscoverView: View {
                                   section: MediaSection.topRatedSeries, type: .tv)
                 } else { ProgressView() }
 
-            }
-            .task {
-                await presenter.fetchMedia()
             }
             .navigationBarTitle(ConstantTexts.discoverScreenNavBarTitle)
             .navigationBarHidden(false)
