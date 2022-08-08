@@ -27,16 +27,14 @@ struct MovieListItemView: View {
                     content: { image in
                         image.resizable()
                             .scaledToFill()
-                            .frame(height: 210)
-                            .clipped()
                     },
                     placeholder: {
-                        CommonMocks.posterPlaceholder
-                            .scaledToFill()
-                            .frame(height: 210)
-                            .clipped()
+                        Image(systemName: "film")
+                            .imageScale(.large)
                     }
                 )
+                .frame(height: 210)
+                .clipped()
 
                 HStack {
                     VStack {

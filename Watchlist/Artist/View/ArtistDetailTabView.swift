@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct ArtistDetailTabView: View {
 
@@ -46,7 +47,7 @@ struct ArtistDetailTabView: View {
                         VStack(alignment: .leading) {
                             ForEach(self.artistCredits) { showCredit in
                                 HStack {
-                                    AsyncImage(
+                                    CachedAsyncImage(
                                         url: URL(string: showCredit.imagePath),
                                         content: { image in
                                             image.resizable()

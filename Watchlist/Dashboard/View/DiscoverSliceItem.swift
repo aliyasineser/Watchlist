@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 @MainActor
 struct DiscoverSliceItem: View {
@@ -21,13 +22,17 @@ struct DiscoverSliceItem: View {
                                                                                     movieId: item.itemID,
                                                                                     mediaType: item.mediaType))) {
             VStack {
-                AsyncImage(
+                CachedAsyncImage(
                     url: URL(string: self.item.imgUrl),
                     content: { image in
                         image.resizable()
                     },
                     placeholder: {
-                        CommonMocks.posterPlaceholder
+                        VStack {
+                            Image(systemName: "film")
+                                .padding(.bottom, 10)
+                            ProgressView()
+                        }
                     }
                 )
                 .scaledToFit()

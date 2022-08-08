@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct ArtistItemView: View {
 
@@ -17,7 +18,7 @@ struct ArtistItemView: View {
 
     var body: some View {
         VStack(alignment: .center) {
-            AsyncImage(
+            CachedAsyncImage(
                 url: URL(string: self.artistEntity.imageUrl),
                 content: { image in
                     image.resizable()

@@ -9,7 +9,6 @@ import SwiftUI
 import Combine
 
 struct DiscoverView: View {
-
     @ObservedObject var presenter: DiscoverPresenter
 
     init(presenter: DiscoverPresenter) {

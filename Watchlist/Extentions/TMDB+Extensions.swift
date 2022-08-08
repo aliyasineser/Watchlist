@@ -9,7 +9,7 @@ import Foundation
 
 extension Media {
     func getPosterUrl() -> String {
-        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + (posterPath ?? "")
+        return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + (posterPath ?? "")
     }
 }
 
