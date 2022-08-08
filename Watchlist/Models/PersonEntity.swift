@@ -72,14 +72,14 @@ struct Cast: Codable, Creditable {
     let department: Department?
     let job: String?
     let backdropPath: String?
-    let genreIDS: [Int]
-    let originalLanguage: OriginalLanguage
-    let originalTitle, overview: String
+    let genreIDS: [Int]?
+    let originalLanguage: OriginalLanguage?
+    let originalTitle, overview: String?
     let posterPath: String?
-    let releaseDate, title: String
-    let video: Bool
-    let voteAverage: Double
-    let voteCount: Int
+    let releaseDate, title: String?
+    let video: Bool?
+    let voteAverage: Double?
+    let voteCount: Int?
 
     enum CodingKeys: String, CodingKey {
         case adult, gender, id
@@ -104,7 +104,7 @@ struct Cast: Codable, Creditable {
         case voteCount = "vote_count"
     }
 
-    func getTitle() -> String { return title }
+    func getTitle() -> String { return title ?? originalTitle ?? originalName ?? "" }
 
     func getImagePath() -> String { return posterPath ?? profilePath ?? "" }
 
