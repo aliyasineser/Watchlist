@@ -31,5 +31,4 @@ enum MediaSection: CaseIterable {
             return .tv
         }
     }
-
 }

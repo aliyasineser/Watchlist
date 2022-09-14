@@ -9,7 +9,7 @@ import Foundation
 
 class ArtistInteractor {
 
-    let artistFetcher: ArtistFetcher = ArtistFetcher()
+    let artistFetcher: ArtistFetcher = ArtistFetcher(requestManager: RequestManager())
 
     func fetchArtists() async -> [Artist] {
         return await artistFetcher.fetchSinglePage()

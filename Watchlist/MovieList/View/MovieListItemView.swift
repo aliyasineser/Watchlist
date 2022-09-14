@@ -17,7 +17,7 @@ struct MovieListItemView: View {
 
     var body: some View {
         NavigationLink(destination: MediaDetailView(presenter:
-                                                        MediaDetailPresenter(interactor: MediaDetailInteractor(),
+                                                        MediaDetailPresenter(interactor: MediaDetailInteractor(requestManager: RequestManager()),
                                                                              movieId: self.mediaListItem.getID(),
                                                                              mediaType: mediaListItem.mediaType))) {
             VStack(alignment: .center, spacing: 5) {

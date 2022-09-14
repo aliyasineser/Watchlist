@@ -9,12 +9,14 @@ import Foundation
 
 class CastInteractor {
 
-    var artists: [CastMemberEntity]
-    let movieService = MovieService(requestManager: RequestManager())
-    let tvService = TVService(requestManager: RequestManager())
+    private var artists: [CastMemberEntity]
+    private let movieService: MovieService
+    private let tvService: TVService
 
-    init() {
+    init(requestManager: RequestManagerProtocol) {
         self.artists = []
+        self.tvService = TVService(requestManager: requestManager)
+        self.movieService = MovieService(requestManager: requestManager)
     }
 
     func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {

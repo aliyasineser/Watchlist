@@ -9,9 +9,15 @@ import Foundation
 
 class ArtistDetailInteractor {
 
-    let movieService = MovieService(requestManager: RequestManager())
-    let tvService = TVService(requestManager: RequestManager())
-    let artistService = ArtistService(requestManager: RequestManager())
+    private let movieService: MovieService
+    private let tvService: TVService
+    private let artistService: ArtistService
+
+    init(requestManager: RequestManagerProtocol) {
+        self.movieService = MovieService(requestManager: requestManager)
+        self.tvService = TVService(requestManager: requestManager)
+        self.artistService = ArtistService(requestManager: requestManager)
+    }
 
     func fetchArtist(_ id: Int) async -> ArtistDetailEntity? {
         let person = await artistService.fetchArtistDetail(id: id)

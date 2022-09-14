@@ -11,12 +11,15 @@ class MediaCastInteractor {
     var artists: [CastMemberEntity]
     private var artistsPageCount: Int
 
-    let movieService = MovieService(requestManager: RequestManager())
-    let tvService = TVService(requestManager: RequestManager())
+    private let movieService: MovieService
+    private let tvService: TVService
 
-    init() {
+    init(requestManager: RequestManagerProtocol) {
         self.artists = []
         self.artistsPageCount = 0
+        self.movieService = MovieService(requestManager: requestManager)
+        self.tvService = TVService(requestManager: requestManager)
+
     }
 
     func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {

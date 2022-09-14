@@ -10,17 +10,21 @@ import CachedAsyncImage
 
 @MainActor
 struct DiscoverSliceItem: View {
-
+    
     var item: DiscoverSectionItemEntity
-
+    
     init(item: DiscoverSectionItemEntity) {
         self.item = item
     }
-
+    
     var body: some View {
-        NavigationLink(destination: MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractor(),
+        NavigationLink(destination: MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractor(requestManager: RequestManager()
+                                                                                                                     ),
                                                                                     movieId: item.itemID,
-                                                                                    mediaType: item.mediaType))) {
+                                                                                    mediaType: item.mediaType
+        )
+                                                   )
+        ) {
             VStack {
                 CachedAsyncImage(
                     url: URL(string: self.item.imgUrl),

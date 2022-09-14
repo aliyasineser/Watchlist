@@ -9,13 +9,11 @@ import SwiftUI
 
 struct ArtistDetailView: View {
 
-    var interactor: ArtistDetailInteractor
     @ObservedObject var presenter: ArtistDetailPresenter
     var artistId: Int
 
-    init(artistId: Int) {
-        self.interactor = ArtistDetailInteractor()
-        self.presenter = ArtistDetailPresenter(interactor: interactor)
+    init(artistId: Int, presenter: ArtistDetailPresenter) {
+        self.presenter = presenter
         self.artistId = artistId
     }
 
@@ -161,7 +159,8 @@ struct PhotoGrid: View {
 struct ArtistDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ArtistDetailView(artistId: 21)
+            #warning("Create Request Manager Mock")
+            ArtistDetailView(artistId: 21, presenter: ArtistDetailPresenter(interactor: ArtistDetailInteractor(requestManager: RequestManager())))
                 .navigationBarTitleDisplayMode(.inline)
         }
     }

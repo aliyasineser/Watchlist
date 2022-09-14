@@ -9,8 +9,13 @@ import Foundation
 
 class MediaDetailInteractor {
 
-    let movieService = MovieService(requestManager: RequestManager())
-    let tvService = TVService(requestManager: RequestManager())
+    private let movieService: MovieService
+    private let tvService: TVService
+
+    init(requestManager: RequestManagerProtocol){
+        self.movieService = MovieService(requestManager: requestManager)
+        self.tvService = TVService(requestManager: requestManager)
+    }
 
     func getMovieDetail(_ id: Int) async -> MediaDetail? {
         return await movieService.fetchMovieDetail(id: id)

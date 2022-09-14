@@ -28,7 +28,14 @@ struct ArtistsView: View {
                 ScrollViewReader { proxy in
                     LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                         ForEach(self.presenter.artists, id: \.artistId) { (artist) in
-                            NavigationLink(destination: ArtistDetailView(artistId: artist.artistId)) {
+                            NavigationLink(destination: ArtistDetailView(artistId: artist.artistId,
+                                                                         presenter: ArtistDetailPresenter(
+                                                                            interactor: ArtistDetailInteractor(
+                                                                                requestManager: RequestManager()
+                                                                            )
+                                                                         )
+                                                                        )
+                            ) {
                                 ArtistItemView(artistEntity: ArtistEntity(artistId: artist.artistId,
                                                                           imageUrl: artist.imageUrl, name: artist.name))
                             }

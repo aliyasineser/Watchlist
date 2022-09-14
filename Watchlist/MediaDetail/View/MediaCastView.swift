@@ -23,7 +23,14 @@ struct MediaCastView: View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                 ForEach(self.presenter.artists) { (artist) in
-                    NavigationLink(destination: ArtistDetailView(artistId: artist.id)) {
+                    NavigationLink(destination: ArtistDetailView(artistId: artist.id,
+                                                                 presenter: ArtistDetailPresenter(
+                                                                    interactor: ArtistDetailInteractor(
+                                                                        requestManager: RequestManager()
+                                                                    )
+                                                                 )
+                                                                )
+                    ) {
                         ArtistItemView(artistEntity: ArtistEntity(artistId: artist.id,
                                                                   imageUrl: artist.imageUrl, name: artist.name))
                     }
@@ -43,7 +50,10 @@ struct MediaCastView: View {
 struct MovieCastView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MediaCastView(presenter: MediaCastPresenter(MediaCastInteractor(), id: 1, mediaType: .movie))
+            MediaCastView(presenter: MediaCastPresenter(MediaCastInteractor(requestManager: RequestManager()),
+                                                        id: 1,
+                                                        mediaType: .movie)
+            )
         }
     }
 }

@@ -24,5 +24,4 @@ class CastMemberEntity: Identifiable {
         self.imageUrl = imageUrl
         self.id = id
     }
-
 }
