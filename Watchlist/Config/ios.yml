@@ -1,7 +1,7 @@
 name: Build and Test
 on:
   push:
-    branches: [ main ]
+    branches: [ main, ios-github-action-build ]
   pull_request:
     branches: [ main ]
 jobs:
