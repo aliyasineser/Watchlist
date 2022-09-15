@@ -19,10 +19,11 @@ class MovieFetcher: Fetchable {
     private var pageCounter: Int = 0
     private var section: MovieSection
 
-    let movieService = MovieService(requestManager: RequestManager())
+    let movieService: MovieService
 
-    init(for section: MovieSection) {
+    init(for section: MovieSection, requestManager: RequestManager) {
         self.section = section
+        self.movieService = MovieService(requestManager: requestManager)
     }
 
     func fetchSinglePage() async -> [Media] {

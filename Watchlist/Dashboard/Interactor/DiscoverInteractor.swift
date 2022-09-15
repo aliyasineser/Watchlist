@@ -9,16 +9,33 @@ import Foundation
 
 class DiscoverInteractor {
 
-    let movieService = MovieService(requestManager: RequestManager())
-    let tvService = TVService(requestManager: RequestManager())
+    let requestManager: RequestManager
 
-    let popularMoviesFetcher: MovieFetcher = MovieFetcher(for: .popular)
-    let comingSoonMoviesFetcher: MovieFetcher = MovieFetcher(for: .comingSoonMovies)
-    let mostRecentMoviesFetcher: MovieFetcher = MovieFetcher(for: .mostRecentMovies)
+    let movieService: MovieService
+    let tvService: TVService
 
-    let popularSeriesFetcher: TVSerieFetcher = TVSerieFetcher(for: .popular)
-    let airingTodaySeriesFetcher: TVSerieFetcher = TVSerieFetcher(for: .airingTodaySeries)
-    let onTheAirSeriesFetcher: TVSerieFetcher = TVSerieFetcher(for: .onTheAirSeries)
+    let popularMoviesFetcher: MovieFetcher
+    let comingSoonMoviesFetcher: MovieFetcher
+    let mostRecentMoviesFetcher: MovieFetcher
+
+    let popularSeriesFetcher: TVSerieFetcher
+    let airingTodaySeriesFetcher: TVSerieFetcher
+    let onTheAirSeriesFetcher: TVSerieFetcher
+
+    init(requestManager: RequestManager) {
+        self.requestManager = requestManager
+
+        self.movieService = MovieService(requestManager: RequestManager())
+        self.tvService = TVService(requestManager: RequestManager())
+
+        self.popularMoviesFetcher = MovieFetcher(for: .popular, requestManager: requestManager)
+        self.comingSoonMoviesFetcher = MovieFetcher(for: .comingSoonMovies, requestManager: requestManager)
+        self.mostRecentMoviesFetcher = MovieFetcher(for: .mostRecentMovies, requestManager: requestManager)
+        
+        self.popularSeriesFetcher = TVSerieFetcher(for: .popular, requestManager: requestManager)
+        self.airingTodaySeriesFetcher = TVSerieFetcher(for: .airingTodaySeries, requestManager: requestManager)
+        self.onTheAirSeriesFetcher = TVSerieFetcher(for: .onTheAirSeries, requestManager: requestManager)
+    }
 
     /// Starts from the first page
     func fetchNextPopularPageAsFullList() async -> [Media] {

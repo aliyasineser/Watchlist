@@ -19,10 +19,11 @@ class TVSerieFetcher: Fetchable {
     private var pageCounter: Int = 0
     private var section: TVSerieSection
 
-    let tvSerieService = TVService(requestManager: RequestManager())
+    let tvSerieService: TVService
 
-    init(for section: TVSerieSection) {
+    init(for section: TVSerieSection, requestManager: RequestManager) {
         self.section = section
+        self.tvSerieService = TVService(requestManager: requestManager)
     }
 
     func fetchSinglePage() async -> [Media] {
