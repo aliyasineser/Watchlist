@@ -62,6 +62,7 @@ struct ArtistsView: View {
 
 struct ArtistsView_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistsView(presenter: ArtistPresenter(ArtistInteractor()))
+        #warning("Request Manager Mock")
+        ArtistsView(presenter: ArtistPresenter(ArtistInteractor(requestManager: RequestManager())))
     }
 }

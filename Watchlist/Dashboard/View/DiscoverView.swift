@@ -67,7 +67,8 @@ struct DiscoverView: View {
 
 struct DiscoverView_Previews: PreviewProvider {
     static var previews: some View {
-        let interactor = DiscoverInteractor()
+        #warning("Request Manager Mock")
+        let interactor = DiscoverInteractor(requestManager: RequestManager())
         let presenter = DiscoverPresenter(interactor)
         DiscoverView(presenter: presenter)
     }
