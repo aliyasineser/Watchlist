@@ -55,7 +55,6 @@
 		DD04547E260A171C00DFEFE6 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD04547C260A171C00DFEFE6 /* Watchlist.xcdatamodeld */; };
 		DD045489260A171D00DFEFE6 /* WatchlistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045488260A171D00DFEFE6 /* WatchlistTests.swift */; };
 		DD045494260A171D00DFEFE6 /* WatchlistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */; };
-		DD345EF528D3E04F005BCF7D /* ios.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD345EF428D3E04F005BCF7D /* ios.yml */; };
 		DD4BB79A264C02F600E07C5F /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB799264C02F600E07C5F /* Color+Extensions.swift */; };
 		DD4BB7AF264C54AD00E07C5F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */; };
 		DD4BB7B6264C67D300E07C5F /* DashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */; };
@@ -173,7 +172,6 @@
 		DD04548F260A171D00DFEFE6 /* WatchlistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatchlistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistUITests.swift; sourceTree = "<group>"; };
 		DD045495260A171D00DFEFE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DD345EF428D3E04F005BCF7D /* ios.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = ios.yml; path = Watchlist/Config/ios.yml; sourceTree = SOURCE_ROOT; };
 		DD4BB799264C02F600E07C5F /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInteractor.swift; sourceTree = "<group>"; };
@@ -495,7 +493,6 @@
 		DD345EF628D3E059005BCF7D /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				DD345EF428D3E04F005BCF7D /* ios.yml */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -769,7 +766,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD345EF528D3E04F005BCF7D /* ios.yml in Resources */,
 				DD045479260A171C00DFEFE6 /* Preview Assets.xcassets in Resources */,
 				DD045476260A171C00DFEFE6 /* Assets.xcassets in Resources */,
 			);
