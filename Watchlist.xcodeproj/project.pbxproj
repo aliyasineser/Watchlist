@@ -55,6 +55,7 @@
 		DD04547E260A171C00DFEFE6 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD04547C260A171C00DFEFE6 /* Watchlist.xcdatamodeld */; };
 		DD045489260A171D00DFEFE6 /* WatchlistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045488260A171D00DFEFE6 /* WatchlistTests.swift */; };
 		DD045494260A171D00DFEFE6 /* WatchlistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */; };
+		DD345EF528D3E04F005BCF7D /* ios.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD345EF428D3E04F005BCF7D /* ios.yml */; };
 		DD4BB79A264C02F600E07C5F /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB799264C02F600E07C5F /* Color+Extensions.swift */; };
 		DD4BB7AF264C54AD00E07C5F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */; };
 		DD4BB7B6264C67D300E07C5F /* DashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */; };
@@ -172,6 +173,7 @@
 		DD04548F260A171D00DFEFE6 /* WatchlistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatchlistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistUITests.swift; sourceTree = "<group>"; };
 		DD045495260A171D00DFEFE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD345EF428D3E04F005BCF7D /* ios.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; name = ios.yml; path = Watchlist/Config/ios.yml; sourceTree = SOURCE_ROOT; };
 		DD4BB799264C02F600E07C5F /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInteractor.swift; sourceTree = "<group>"; };
@@ -437,6 +439,7 @@
 				DD045473260A171900DFEFE6 /* ContentView.swift */,
 				DD045475260A171C00DFEFE6 /* Assets.xcassets */,
 				DD04547A260A171C00DFEFE6 /* Persistence.swift */,
+				DD345EF628D3E059005BCF7D /* Config */,
 				DD04547F260A171C00DFEFE6 /* Info.plist */,
 				DD04547C260A171C00DFEFE6 /* Watchlist.xcdatamodeld */,
 				DD045477260A171C00DFEFE6 /* Preview Content */,
@@ -487,6 +490,14 @@
 				DDB8B9922899BE4500E7F569 /* APIError.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		DD345EF628D3E059005BCF7D /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				DD345EF428D3E04F005BCF7D /* ios.yml */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		DD4BB798264C02BC00E07C5F /* Extentions */ = {
@@ -758,6 +769,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD345EF528D3E04F005BCF7D /* ios.yml in Resources */,
 				DD045479260A171C00DFEFE6 /* Preview Assets.xcassets in Resources */,
 				DD045476260A171C00DFEFE6 /* Assets.xcassets in Resources */,
 			);
@@ -995,7 +1007,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1050,7 +1062,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1071,7 +1083,7 @@
 				DEVELOPMENT_TEAM = K8CQ9C2992;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Watchlist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1094,7 +1106,7 @@
 				DEVELOPMENT_TEAM = K8CQ9C2992;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Watchlist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
