@@ -40,7 +40,11 @@ struct DiscoverSlice: View {
                     .font(.system(size: 20))
                     .bold()
                 Spacer()
-                NavigationLink(destination: MovieListView(section: self.section)) {
+                NavigationLink(
+                    destination: MovieListView(movieListPresenter:
+                                                MovieListPresenter(DefaultMovieListInteractor(
+                                                    requestManager: RequestManager()), section: self.section))
+                ) {
                     seeAllView
                 }
             }

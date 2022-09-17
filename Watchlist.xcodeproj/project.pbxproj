@@ -441,7 +441,6 @@
 				DD045473260A171900DFEFE6 /* ContentView.swift */,
 				DD045475260A171C00DFEFE6 /* Assets.xcassets */,
 				DD04547A260A171C00DFEFE6 /* Persistence.swift */,
-				DD345EF628D3E059005BCF7D /* Config */,
 				DD04547F260A171C00DFEFE6 /* Info.plist */,
 				DD04547C260A171C00DFEFE6 /* Watchlist.xcdatamodeld */,
 				DD045477260A171C00DFEFE6 /* Preview Content */,
@@ -492,13 +491,6 @@
 				DDB8B9922899BE4500E7F569 /* APIError.swift */,
 			);
 			path = Core;
-			sourceTree = "<group>";
-		};
-		DD345EF628D3E059005BCF7D /* Config */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Config;
 			sourceTree = "<group>";
 		};
 		DD358CFC28D67A57004F62F6 /* Mocks */ = {

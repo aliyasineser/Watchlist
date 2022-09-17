@@ -10,16 +10,11 @@ import SwiftUI
 @MainActor
 struct MovieListView: View {
 
-    init(section: MediaSection) {
-        self.section = section
-        let requestManager = RequestManager()
-        self.interactor = DefaultMovieListInteractor(requestManager: requestManager)
-        self.presenter = MovieListPresenter(interactor, section: section)
+    init(movieListPresenter: MovieListPresenter) {
+        self.presenter = movieListPresenter
         self.presenter.fetchMedia()
     }
 
-    var section: MediaSection
-    var interactor: MovieListInteractor
     var presenter: MovieListPresenter
 
     var body: some View {
@@ -36,6 +31,7 @@ struct MovieListView: View {
 
 struct MovieListView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListView(section: MediaSection.popularMovies)
+        MovieListView(movieListPresenter: MovieListPresenter(MovieListInteractorStub(), section: .comingSoonMovies)
+        )
     }
 }
