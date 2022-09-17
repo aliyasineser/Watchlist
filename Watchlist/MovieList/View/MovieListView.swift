@@ -13,7 +13,7 @@ struct MovieListView: View {
     init(section: MediaSection) {
         self.section = section
         let requestManager = RequestManager()
-        self.interactor = MovieListInteractor(requestManager: requestManager)
+        self.interactor = DefaultMovieListInteractor(requestManager: requestManager)
         self.presenter = MovieListPresenter(interactor, section: section)
         self.presenter.fetchMedia()
     }

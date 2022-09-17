@@ -55,6 +55,9 @@
 		DD04547E260A171C00DFEFE6 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD04547C260A171C00DFEFE6 /* Watchlist.xcdatamodeld */; };
 		DD045489260A171D00DFEFE6 /* WatchlistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045488260A171D00DFEFE6 /* WatchlistTests.swift */; };
 		DD045494260A171D00DFEFE6 /* WatchlistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */; };
+		DD358CFE28D67A77004F62F6 /* CastInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */; };
+		DD358D0028D67C29004F62F6 /* MovieListInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358CFF28D67C29004F62F6 /* MovieListInteractorMock.swift */; };
+		DD358D0228D68AA5004F62F6 /* DiscoverInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358D0128D68AA5004F62F6 /* DiscoverInteractorMock.swift */; };
 		DD4BB79A264C02F600E07C5F /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB799264C02F600E07C5F /* Color+Extensions.swift */; };
 		DD4BB7AF264C54AD00E07C5F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */; };
 		DD4BB7B6264C67D300E07C5F /* DashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */; };
@@ -93,7 +96,6 @@
 		DDB8B99C2899DC5E00E7F569 /* ArtistFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB8B99B2899DC5E00E7F569 /* ArtistFetcher.swift */; };
 		DDB8B99F289BB13600E7F569 /* WatchableToMediaMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB8B99E289BB13600E7F569 /* WatchableToMediaMapper.swift */; };
 		DDD9513E278123AA009695C2 /* ConstantTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD9513D278123AA009695C2 /* ConstantTexts.swift */; };
-		DDD9517A278CADAA009695C2 /* MovieMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD95179278CADAA009695C2 /* MovieMocks.swift */; };
 		DDD9517C278CB4B2009695C2 /* CommonMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD9517B278CB4B2009695C2 /* CommonMocks.swift */; };
 		DDD9517E278CEBEA009695C2 /* CastMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD9517D278CEBEA009695C2 /* CastMocks.swift */; };
 /* End PBXBuildFile section */
@@ -172,6 +174,9 @@
 		DD04548F260A171D00DFEFE6 /* WatchlistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatchlistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistUITests.swift; sourceTree = "<group>"; };
 		DD045495260A171D00DFEFE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastInteractorMock.swift; sourceTree = "<group>"; };
+		DD358CFF28D67C29004F62F6 /* MovieListInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListInteractorMock.swift; sourceTree = "<group>"; };
+		DD358D0128D68AA5004F62F6 /* DiscoverInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInteractorMock.swift; sourceTree = "<group>"; };
 		DD4BB799264C02F600E07C5F /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInteractor.swift; sourceTree = "<group>"; };
@@ -209,7 +214,6 @@
 		DDB8B99B2899DC5E00E7F569 /* ArtistFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistFetcher.swift; sourceTree = "<group>"; };
 		DDB8B99E289BB13600E7F569 /* WatchableToMediaMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchableToMediaMapper.swift; sourceTree = "<group>"; };
 		DDD9513D278123AA009695C2 /* ConstantTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantTexts.swift; sourceTree = "<group>"; };
-		DDD95179278CADAA009695C2 /* MovieMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieMocks.swift; sourceTree = "<group>"; };
 		DDD9517B278CB4B2009695C2 /* CommonMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMocks.swift; sourceTree = "<group>"; };
 		DDD9517D278CEBEA009695C2 /* CastMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastMocks.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -449,7 +453,6 @@
 			isa = PBXGroup;
 			children = (
 				DD045478260A171C00DFEFE6 /* Preview Assets.xcassets */,
-				DDD95179278CADAA009695C2 /* MovieMocks.swift */,
 				DDD9517B278CB4B2009695C2 /* CommonMocks.swift */,
 				DDD9517D278CEBEA009695C2 /* CastMocks.swift */,
 			);
@@ -459,6 +462,7 @@
 		DD045487260A171D00DFEFE6 /* WatchlistTests */ = {
 			isa = PBXGroup;
 			children = (
+				DD358CFC28D67A57004F62F6 /* Mocks */,
 				DD045488260A171D00DFEFE6 /* WatchlistTests.swift */,
 				DD04548A260A171D00DFEFE6 /* Info.plist */,
 			);
@@ -495,6 +499,16 @@
 			children = (
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		DD358CFC28D67A57004F62F6 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */,
+				DD358CFF28D67C29004F62F6 /* MovieListInteractorMock.swift */,
+				DD358D0128D68AA5004F62F6 /* DiscoverInteractorMock.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		DD4BB798264C02BC00E07C5F /* Extentions */ = {
@@ -854,7 +868,6 @@
 				1E85901326926E7200901E03 /* MediaDetailView.swift in Sources */,
 				DD4BB7D6264CA5C400E07C5F /* ArtistsView.swift in Sources */,
 				1EB545CC2673DF4B008BDE2A /* ArtistItemView.swift in Sources */,
-				DDD9517A278CADAA009695C2 /* MovieMocks.swift in Sources */,
 				1ED9C3A626756DC90030A62B /* MovieListItemView.swift in Sources */,
 				DDB8B9782896D71400E7F569 /* ArtistRequest.swift in Sources */,
 				DDB8B9832896E01800E7F569 /* WathableEntity.swift in Sources */,
@@ -924,7 +937,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD358D0028D67C29004F62F6 /* MovieListInteractorMock.swift in Sources */,
 				DD045489260A171D00DFEFE6 /* WatchlistTests.swift in Sources */,
+				DD358CFE28D67A77004F62F6 /* CastInteractorMock.swift in Sources */,
+				DD358D0228D68AA5004F62F6 /* DiscoverInteractorMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1003,7 +1019,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1058,7 +1074,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1079,7 +1095,7 @@
 				DEVELOPMENT_TEAM = K8CQ9C2992;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Watchlist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1102,7 +1118,7 @@
 				DEVELOPMENT_TEAM = K8CQ9C2992;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Watchlist/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1121,7 +1137,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = WatchlistTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1142,7 +1158,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = WatchlistTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

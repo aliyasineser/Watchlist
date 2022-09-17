@@ -7,7 +7,16 @@
 
 import Foundation
 
-class MovieListInteractor {
+protocol MovieListInteractor {
+    func fetchNextPopularPageAsFullList() async -> [Media]
+    func fetchNextMostRecentPageAsFullList() async -> [Media]
+    func fetchNextUpcomingPageAsFullList() async -> [Media]
+    func fetcthAiringTodayPageAsFullList() async -> [Media]
+    func fetcthOnTheAirPageAsFullList() async -> [Media]
+    func fetcthTopRatedPageAsFullList() async -> [Media]
+}
+
+class DefaultMovieListInteractor: MovieListInteractor {
 
     let requestManager: RequestManager
 
@@ -30,7 +39,6 @@ class MovieListInteractor {
         self.airingTodaySeriesFetcher = TVSerieFetcher(for: .airingTodaySeries, requestManager: requestManager)
         self.onTheAirSeriesFetcher = TVSerieFetcher(for: .onTheAirSeries, requestManager: requestManager)
     }
-
 
     /// Starts from the first page
     func fetchNextPopularPageAsFullList() async -> [Media] {

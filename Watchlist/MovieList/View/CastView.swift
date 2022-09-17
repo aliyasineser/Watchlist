@@ -24,7 +24,8 @@ struct CastView: View {
                 ForEach(self.presenter.artists) { (artist) -> CastItemView in
                     CastItemView(castEntity: CastEntity(imageUrl: artist.imageUrl,
                                                         name: artist.name,
-                                                        character: artist.character)
+                                                        character: artist.character
+                                                       )
                     )
                 }
                 Spacer()
@@ -43,7 +44,10 @@ struct CastView: View {
 
 struct CastView_Previews: PreviewProvider {
     static var previews: some View {
-        #warning("Create Mock for Request Manager")
-        CastView(presenter: CastPresenter(CastInteractor(requestManager: RequestManager()), id: 1, mediaType: .movie))
+        CastView(presenter: CastPresenter(
+            CastInteractorStub(),
+            id: 5,
+            mediaType: .movie)
+        )
     }
 }

@@ -7,7 +7,27 @@
 
 import Foundation
 
-class CastInteractor {
+protocol CastInteractor {
+    func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity]
+}
+
+final class CastInteractorStub: CastInteractor {
+    func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
+        var casts: [CastMemberEntity] = []
+        for index in 0..<9 {
+            casts.append(CastMemberEntity(id: index,
+                                          castId: index,
+                                          character: "Character \(index) Name",
+                                          name: "Cast \(index) Name",
+                                          imageUrl: ""
+                                         )
+            )
+        }
+        return casts
+    }
+}
+
+final class DefaultCastInteractor: CastInteractor {
 
     private var artists: [CastMemberEntity]
     private let movieService: MovieService
