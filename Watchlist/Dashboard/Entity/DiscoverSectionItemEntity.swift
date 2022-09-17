@@ -25,3 +25,11 @@ struct DiscoverSectionItemEntity: Identifiable {
         self.mediaType = mediaType
     }
 }
+
+extension DiscoverSectionItemEntity {
+    static let mock = DiscoverSectionItemEntity(id: 1,
+                                                title: "Very Very  Movie Title ",
+                                                year: "31 - 07 - 2021", imgUrl: "",
+                                                genre: "Comedy", mediaType: .movie
+    )
+}

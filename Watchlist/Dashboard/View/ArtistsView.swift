@@ -37,7 +37,9 @@ struct ArtistsView: View {
                                                                         )
                             ) {
                                 ArtistItemView(artistEntity: ArtistEntity(artistId: artist.artistId,
-                                                                          imageUrl: artist.imageUrl, name: artist.name))
+                                                                          imageUrl: artist.imageUrl,
+                                                                          name: artist.name)
+                                )
                             }
                         }
                         Spacer()
@@ -62,7 +64,7 @@ struct ArtistsView: View {
 
 struct ArtistsView_Previews: PreviewProvider {
     static var previews: some View {
-        #warning("Request Manager Mock")
+#warning("Request Manager Mock")
         ArtistsView(presenter: ArtistPresenter(ArtistInteractor(requestManager: RequestManager())))
     }
 }

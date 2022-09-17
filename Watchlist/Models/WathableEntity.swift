@@ -77,6 +77,18 @@ struct Media: Watchable, Codable, Identifiable {
     func getOverview() -> String { return overview }
 }
 
+extension Media {
+    static let mock = Media(adult: true,
+                            backdropPath: "",
+                            genreIDS: [1], id: 1, mediaType: .movie,
+                            originalLanguage: OriginalLanguage.en, originalTitle: "No way home",
+                            posterPath: "", overview: "Nice movie ",
+                            releaseDate: "2021 - 06 - 26", title: "No way home",
+                            video: true, voteAverage: 5, voteCount: 5000000,
+                            firstAirDate: "2021 - 05 - 21", name: "No way home",
+                            originCountry: [], originalName: "No way home", popularity: 1000)
+}
+
 protocol WatchableDetail: Codable {
     func getTitle() -> String
     func getImagePath() -> String

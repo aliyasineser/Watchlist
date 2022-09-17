@@ -134,9 +134,11 @@ struct MediaDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractor(requestManager: RequestManager()),
-                                                            movieId: 1285, mediaType: .movie))
-                .preferredColorScheme(.dark)
-                .navigationBarTitleDisplayMode(.inline)
+                                                            movieId: 1285,
+                                                            mediaType: .movie)
+            )
+            .preferredColorScheme(.dark)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

@@ -10,20 +10,23 @@ import CachedAsyncImage
 
 @MainActor
 struct DiscoverSliceItem: View {
-    
+
     var item: DiscoverSectionItemEntity
-    
+
     init(item: DiscoverSectionItemEntity) {
         self.item = item
     }
-    
+
     var body: some View {
-        NavigationLink(destination: MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractor(requestManager: RequestManager()
-                                                                                                                     ),
-                                                                                    movieId: item.itemID,
-                                                                                    mediaType: item.mediaType
-        )
-                                                   )
+        NavigationLink(
+            destination: MediaDetailView(presenter: MediaDetailPresenter(
+                interactor: MediaDetailInteractor(requestManager:
+                                                    RequestManager()
+                                                 ),
+                movieId: item.itemID,
+                mediaType: item.mediaType
+            )
+            )
         ) {
             VStack {
                 CachedAsyncImage(
@@ -52,7 +55,7 @@ struct DiscoverSectionItem_Previews: PreviewProvider {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack {
                 ForEach((1..<10)) { _ in
-                    DiscoverSliceItem(item: MovieMocks.discoverSectionItemListItemStub)
+                    DiscoverSliceItem(item: DiscoverSectionItemEntity.mock)
                         .frame(width: 140, height: 210, alignment: .center)
                 }
             }

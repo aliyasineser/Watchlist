@@ -10,7 +10,7 @@ import SwiftUI
 struct DashboardView: View {
     var body: some View {
         TabView {
-            DiscoverView(presenter: DiscoverPresenter(DiscoverInteractor(requestManager: RequestManager())))
+            DiscoverView(presenter: DiscoverPresenter(DefaultDiscoverInteractor(requestManager: RequestManager())))
                 .tabItem {
                     TabItemView(systemName: "square.grid.2x2.fill", text: ConstantTexts.discoverScreenTabBarItemText)
                 }

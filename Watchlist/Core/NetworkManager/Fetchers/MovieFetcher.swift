@@ -21,7 +21,7 @@ class MovieFetcher: Fetchable {
 
     let movieService: MovieService
 
-    init(for section: MovieSection, requestManager: RequestManager) {
+    init(for section: MovieSection, requestManager: RequestManagerProtocol) {
         self.section = section
         self.movieService = MovieService(requestManager: requestManager)
     }
