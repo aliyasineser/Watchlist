@@ -10,18 +10,18 @@ import Foundation
 struct MediaDetailEntity: Identifiable {
     var id: Int
     var title: String
-    var genres: String
+    var genres: String?
     var point: Double
     var language: String
     var date: String
-    var time: String
+    var time: String?
     var summary: String
     var imagePath: String
     var mediaType: MediaType
 
-    init(id: Int = 0, title: String = "Title", genres: String = "Genres",
+    init(id: Int = 0, title: String = "Title", genres: String? = nil,
          point: Double = 2.5, language: String = "en", date: String = "12.12.2012",
-         time: String = "2h 15m", summary: String = "Summary",
+         time: String? = nil, summary: String = "Summary",
          imageUrl: String = "imageUrl", mediaType: MediaType = .movie) {
         self.id = id
         self.title = title

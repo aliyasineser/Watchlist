@@ -17,6 +17,76 @@ struct MediaDetailView: View {
         presenter.getMediaDetail()
     }
 
+    fileprivate func mediaTitle() -> some View {
+        return Text(presenter.media.title)
+            .font(.system(size: 25))
+            .bold()
+            .minimumScaleFactor(0.65)
+            .lineLimit(2)
+            .padding(.bottom, 2)
+    }
+
+    fileprivate func rating() -> some View {
+        return HStack {
+            StarsView(rating: CGFloat(presenter.media.point/2.0), maxRating: 5)
+                .frame(width: 110, alignment: .center)
+            Text(String(format: "%.1f / 10", presenter.media.point))
+                .font(.system(size: 14))
+                .bold()
+                .foregroundColor(.primary)
+                .minimumScaleFactor(0.7)
+                .clipped()
+        }
+    }
+
+    fileprivate func releaseDate() -> some View {
+        return Text(presenter.media.date)
+            .font(.system(size: 17))
+            .bold()
+            .foregroundColor(.primary)
+            .minimumScaleFactor(0.8)
+            .lineLimit(1)
+            .padding(.top, 3)
+    }
+
+    fileprivate func mediaDetailStack() -> some View {
+        return VStack(alignment: .leading) {
+            mediaTitle()
+
+            if let genres = presenter.media.genres {
+                Text(genres)
+                    .font(.system(size: 17))
+                    .foregroundColor(.primary)
+                    .bold()
+                    .minimumScaleFactor(0.7)
+                    .lineLimit(1)
+            }
+
+            rating()
+
+            if let lang = OriginalLanguage(isoCode: presenter.media.language)?.language {
+                Text(lang)
+                    .font(.system(size: 18))
+                    .bold()
+                    .foregroundColor(.primary)
+                    .minimumScaleFactor(0.8)
+            }
+
+            releaseDate()
+
+            if let time = presenter.media.time {
+                Text(time)
+                    .font(.system(size: 17))
+                    .bold()
+                    .foregroundColor(.primary)
+                    .minimumScaleFactor(0.8)
+                    .lineLimit(1)
+                    .padding(.top, 3)
+            }
+
+        }
+    }
+
     var body: some View {
         VStack(alignment: .leading) {
             GeometryReader { geometry in
@@ -63,48 +133,7 @@ struct MediaDetailView: View {
                                 }
                             )
 
-                            VStack(alignment: .leading) {
-                                Text(presenter.media.title)
-                                    .font(.system(size: 25))
-                                    .bold()
-                                    .minimumScaleFactor(0.65)
-                                    .lineLimit(2)
-                                    .padding(.bottom, 2)
-
-                                Text(presenter.media.genres)
-                                    .font(.system(size: 17))
-                                    .foregroundColor(.primary)
-                                    .bold()
-                                    .minimumScaleFactor(0.7)
-                                    .lineLimit(1)
-
-                                HStack {
-                                    StarsView(rating: CGFloat(presenter.media.point/2.0), maxRating: 5)
-                                        .frame(width: 110, alignment: .center)
-                                    Text(String(format: "%.1f / 10", presenter.media.point))
-                                        .font(.system(size: 14))
-                                        .bold()
-                                        .foregroundColor(.primary)
-                                        .minimumScaleFactor(0.7)
-                                        .clipped()
-                                }
-
-                                if let lang = OriginalLanguage(isoCode: presenter.media.language)?.language {
-                                    Text(lang)
-                                        .font(.system(size: 18))
-                                        .bold()
-                                        .foregroundColor(.primary)
-                                        .minimumScaleFactor(0.8)
-                                }
-
-                                Text(presenter.media.date + " " + presenter.media.time)
-                                    .font(.system(size: 17))
-                                    .bold()
-                                    .foregroundColor(.primary)
-                                    .minimumScaleFactor(0.8)
-                                    .lineLimit(1)
-                                    .padding(.top, 3)
-                            }
+                            mediaDetailStack()
                             .padding(.leading, 5)
                             Spacer()
                         }

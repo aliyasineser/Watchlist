@@ -32,7 +32,8 @@ final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
                                                 deathday: person.deathday,
                                                 asKnownAs: person.alsoKnownAs,
                                                 placeOfBirth: person.placeOfBirth,
-                                                imgUrl: person.getPosterUrl())
+                                                imgUrl: person.getPosterUrl()
+            )
             return artistData
         }
         return nil
@@ -48,7 +49,9 @@ final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
                                                   iso_639_1: img.iso639_1 ?? APIConstants.language,
                                                   voteAverage: img.voteAverage,
                                                   voteCount: img.voteCount,
-                                                  width: img.width))
+                                                  width: img.width
+                                                 )
+            )
         }
         return artistImages
     }
@@ -63,7 +66,9 @@ final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
                                                       creditId: credit.creditID,
                                                       title: credit.getTitle(),
                                                       role: credit.job ?? credit.character ?? "Unknown",
-                                                      imagePath: credit.getPosterUrl()))
+                                                      imagePath: credit.getPosterUrl()
+                                                     )
+                )
             }
         }
         return artistMovies
@@ -81,7 +86,9 @@ final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
                                                      title: credit.getTitle(),
                                                      role: credit.character ?? credit.job ??
                                                      credit.department?.rawValue ?? "Unknown",
-                                                     imagePath: credit.getPosterUrl()))
+                                                     imagePath: credit.getPosterUrl()
+                                                    )
+                )
             }
         }
         return artistShows
