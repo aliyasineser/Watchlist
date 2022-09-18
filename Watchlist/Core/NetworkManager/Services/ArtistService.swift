@@ -8,9 +8,9 @@
 import Foundation
 
 actor ArtistService {
-    private let requestManager: RequestManagerProtocol
+    private let requestManager: RequestManager
 
-    init(requestManager: RequestManagerProtocol) {
+    init(requestManager: RequestManager) {
         self.requestManager = requestManager
     }
 

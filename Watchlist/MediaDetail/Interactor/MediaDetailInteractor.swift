@@ -17,7 +17,7 @@ final class DefaultMediaDetailInteractor: MediaDetailInteractor {
     private let movieService: MovieService
     private let tvService: TVService
 
-    init(requestManager: RequestManagerProtocol) {
+    init(requestManager: RequestManager) {
         self.movieService = MovieService(requestManager: requestManager)
         self.tvService = TVService(requestManager: requestManager)
     }

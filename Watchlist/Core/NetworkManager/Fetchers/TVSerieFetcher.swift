@@ -21,7 +21,7 @@ class TVSerieFetcher: Fetchable {
 
     let tvSerieService: TVService
 
-    init(for section: TVSerieSection, requestManager: RequestManagerProtocol) {
+    init(for section: TVSerieSection, requestManager: RequestManager) {
         self.section = section
         self.tvSerieService = TVService(requestManager: requestManager)
     }

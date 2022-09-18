@@ -18,7 +18,7 @@ protocol DiscoverInteractor {
 
 final class DefaultDiscoverInteractor: DiscoverInteractor {
 
-    let requestManager: RequestManagerProtocol
+    let requestManager: RequestManager
 
     let popularMoviesFetcher: MovieFetcher
     let comingSoonMoviesFetcher: MovieFetcher
@@ -28,7 +28,7 @@ final class DefaultDiscoverInteractor: DiscoverInteractor {
     let airingTodaySeriesFetcher: TVSerieFetcher
     let onTheAirSeriesFetcher: TVSerieFetcher
 
-    init(requestManager: RequestManagerProtocol) {
+    init(requestManager: RequestManager) {
         self.requestManager = requestManager
 
         self.popularMoviesFetcher = MovieFetcher(for: .popular, requestManager: requestManager)

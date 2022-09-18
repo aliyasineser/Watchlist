@@ -20,7 +20,7 @@ struct MovieListItemView: View {
             destination: MediaDetailView(
                 presenter: MediaDetailPresenter(
                     interactor: DefaultMediaDetailInteractor(
-                        requestManager: RequestManager()),
+                        requestManager: DefaultRequestManager()),
                     movieId: self.mediaListItem.getID(),
                     mediaType: mediaListItem.mediaType))) {
                         VStack(alignment: .center, spacing: 5) {

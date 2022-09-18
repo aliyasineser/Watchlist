@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol RequestProtocol {
+protocol NetworkRequest {
     var path: String { get }
     var requestType: RequestType { get }
     var headers: [String: String] { get }
@@ -17,7 +17,7 @@ protocol RequestProtocol {
 }
 
 // MARK: - Default RequestProtocol
-extension RequestProtocol {
+extension NetworkRequest {
     var host: String {
         APIConstants.baseURL
     }

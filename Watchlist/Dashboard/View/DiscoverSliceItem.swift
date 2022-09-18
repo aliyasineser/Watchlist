@@ -21,7 +21,7 @@ struct DiscoverSliceItem: View {
         NavigationLink(
             destination: MediaDetailView(presenter: MediaDetailPresenter(
                 interactor: DefaultMediaDetailInteractor(requestManager:
-                                                    RequestManager()
+                                                            DefaultRequestManager()
                                                  ),
                 movieId: item.itemID,
                 mediaType: item.mediaType

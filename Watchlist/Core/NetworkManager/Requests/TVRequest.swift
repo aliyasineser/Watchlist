@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TVRequest: RequestProtocol {
+enum TVRequest: NetworkRequest {
     case getPopularSeries(page: Int)
     case getAiringTodaySeries(page: Int)
     case getOnTheAirSeries(page: Int)

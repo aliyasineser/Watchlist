@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MovieRequest: RequestProtocol {
+enum MovieRequest: NetworkRequest {
     case getPopularMovies(page: Int)
     case getUpcomingMovies(page: Int)
     case getNowPlayingMovies(page: Int)

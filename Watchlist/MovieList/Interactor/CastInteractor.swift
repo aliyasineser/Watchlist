@@ -17,7 +17,7 @@ final class DefaultCastInteractor: CastInteractor {
     private let movieService: MovieService
     private let tvService: TVService
 
-    init(requestManager: RequestManagerProtocol) {
+    init(requestManager: RequestManager) {
         self.artists = []
         self.tvService = TVService(requestManager: requestManager)
         self.movieService = MovieService(requestManager: requestManager)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ImageRequest: RequestProtocol {
+enum ImageRequest: NetworkRequest {
     case getImage(endpoint: String)
 
     var host: String {

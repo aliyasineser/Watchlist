@@ -20,7 +20,7 @@ final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
     private let tvService: TVService
     private let artistService: ArtistService
 
-    init(requestManager: RequestManagerProtocol) {
+    init(requestManager: RequestManager) {
         self.movieService = MovieService(requestManager: requestManager)
         self.tvService = TVService(requestManager: requestManager)
         self.artistService = ArtistService(requestManager: requestManager)

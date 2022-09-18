@@ -18,7 +18,7 @@ final class DefaultMediaCastInteractor: MediaCastInteractor {
     private let movieService: MovieService
     private let tvService: TVService
 
-    init(requestManager: RequestManagerProtocol) {
+    init(requestManager: RequestManager) {
         self.artists = []
         self.artistsPageCount = 0
         self.movieService = MovieService(requestManager: requestManager)

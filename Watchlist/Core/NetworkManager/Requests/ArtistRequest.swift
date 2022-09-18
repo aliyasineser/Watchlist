@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ArtistRequest: RequestProtocol {
+enum ArtistRequest: NetworkRequest {
     case getPopularArtists(page: Int)
     case getArtist(id: Int)
     case getTVCredits(id: Int)

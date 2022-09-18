@@ -31,7 +31,7 @@ struct ArtistsView: View {
                             NavigationLink(destination: ArtistDetailView(artistId: artist.artistId,
                                                                          presenter: ArtistDetailPresenter(
                                                                             interactor: DefaultArtistDetailInteractor(
-                                                                                requestManager: RequestManager()
+                                                                                requestManager: DefaultRequestManager()
                                                                             )
                                                                          )
                                                                         )

@@ -43,7 +43,7 @@ struct DiscoverSlice: View {
                 NavigationLink(
                     destination: MovieListView(movieListPresenter:
                                                 MovieListPresenter(DefaultMovieListInteractor(
-                                                    requestManager: RequestManager()), section: self.section))
+                                                    requestManager: DefaultRequestManager()), section: self.section))
                 ) {
                     seeAllView
                 }

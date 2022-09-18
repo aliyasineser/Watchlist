@@ -14,7 +14,7 @@ class ArtistFetcher {
 
     private let artistService: ArtistService
 
-    init(requestManager: RequestManagerProtocol) {
+    init(requestManager: RequestManager) {
         self.artistService = ArtistService(requestManager: requestManager)
     }
 

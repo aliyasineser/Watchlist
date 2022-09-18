@@ -7,22 +7,22 @@
 
 import Foundation
 
-protocol RequestManagerProtocol {
-    var apiManager: APIManagerProtocol { get }
-    var parser: DataParserProtocol { get }
-    func initRequest<T: Decodable>(with data: RequestProtocol) async throws -> T
+protocol RequestManager {
+    var apiManager: APIManager { get }
+    var parser: DataParser { get }
+    func initRequest<T: Decodable>(with data: NetworkRequest) async throws -> T
 }
 
-class RequestManager: RequestManagerProtocol {
-    let apiManager: APIManagerProtocol
+final class DefaultRequestManager: RequestManager {
+    let apiManager: APIManager
 
     init(
-        apiManager: APIManagerProtocol = APIManager()
+        apiManager: APIManager = DefaultAPIManager()
     ) {
         self.apiManager = apiManager
     }
 
-    func initRequest<T: Decodable>(with data: RequestProtocol) async throws -> T {
+    func initRequest<T: Decodable>(with data: NetworkRequest) async throws -> T {
         let data = try await apiManager.initRequest(with: data)
         let decoded: T = try parser.parse(data: data)
         return decoded
@@ -30,8 +30,8 @@ class RequestManager: RequestManagerProtocol {
 }
 
 // MARK: - Returns Data Parser
-extension RequestManagerProtocol {
-    var parser: DataParserProtocol {
-        return DataParser()
+extension RequestManager {
+    var parser: DataParser {
+        return DefaultDataParser()
     }
 }
