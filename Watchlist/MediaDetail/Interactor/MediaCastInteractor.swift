@@ -7,7 +7,11 @@
 
 import Foundation
 
-class MediaCastInteractor {
+protocol MediaCastInteractor {
+    func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity]
+}
+
+final class DefaultMediaCastInteractor: MediaCastInteractor {
     var artists: [CastMemberEntity]
     private var artistsPageCount: Int
 
@@ -39,5 +43,15 @@ class MediaCastInteractor {
             }
         })
         return self.artists
+    }
+}
+
+final class MediaCastInteractorStub: MediaCastInteractor {
+    func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
+        var casts: [CastMemberEntity] = []
+        for _ in 0..<9 {
+            casts.append(.mock)
+        }
+        return casts
     }
 }

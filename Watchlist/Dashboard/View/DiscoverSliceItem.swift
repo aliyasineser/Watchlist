@@ -20,7 +20,7 @@ struct DiscoverSliceItem: View {
     var body: some View {
         NavigationLink(
             destination: MediaDetailView(presenter: MediaDetailPresenter(
-                interactor: MediaDetailInteractor(requestManager:
+                interactor: DefaultMediaDetailInteractor(requestManager:
                                                     RequestManager()
                                                  ),
                 movieId: item.itemID,

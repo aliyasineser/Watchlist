@@ -25,3 +25,12 @@ class CastMemberEntity: Identifiable {
         self.id = id
     }
 }
+
+extension CastMemberEntity {
+    static let mock = CastMemberEntity(id: 1,
+                                       castId: 1,
+                                       character: "Character",
+                                       name: "Cast Name",
+                                       imageUrl: "Image Url"
+    )
+}

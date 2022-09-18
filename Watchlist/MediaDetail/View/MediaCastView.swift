@@ -25,7 +25,7 @@ struct MediaCastView: View {
                 ForEach(self.presenter.artists) { (artist) in
                     NavigationLink(destination: ArtistDetailView(artistId: artist.id,
                                                                  presenter: ArtistDetailPresenter(
-                                                                    interactor: ArtistDetailInteractor(
+                                                                    interactor: DefaultArtistDetailInteractor(
                                                                         requestManager: RequestManager()
                                                                     )
                                                                  )
@@ -50,7 +50,7 @@ struct MediaCastView: View {
 struct MovieCastView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MediaCastView(presenter: MediaCastPresenter(MediaCastInteractor(requestManager: RequestManager()),
+            MediaCastView(presenter: MediaCastPresenter(MediaCastInteractorStub(),
                                                         id: 1,
                                                         mediaType: .movie)
             )

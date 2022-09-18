@@ -60,8 +60,6 @@
 		DD358D0228D68AA5004F62F6 /* DiscoverInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358D0128D68AA5004F62F6 /* DiscoverInteractorMock.swift */; };
 		DD4BB79A264C02F600E07C5F /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB799264C02F600E07C5F /* Color+Extensions.swift */; };
 		DD4BB7AF264C54AD00E07C5F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */; };
-		DD4BB7B6264C67D300E07C5F /* DashboardInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */; };
-		DD4BB7BB264C6B0F00E07C5F /* DashboardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7BA264C6B0F00E07C5F /* DashboardPresenter.swift */; };
 		DD4BB7CC264CA21C00E07C5F /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7CB264CA21C00E07C5F /* DiscoverView.swift */; };
 		DD4BB7D6264CA5C400E07C5F /* ArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7D5264CA5C400E07C5F /* ArtistsView.swift */; };
 		DD4BB7DB264CAF2300E07C5F /* DiscoverInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7DA264CAF2300E07C5F /* DiscoverInteractor.swift */; };
@@ -97,7 +95,6 @@
 		DDB8B99F289BB13600E7F569 /* WatchableToMediaMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB8B99E289BB13600E7F569 /* WatchableToMediaMapper.swift */; };
 		DDD9513E278123AA009695C2 /* ConstantTexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD9513D278123AA009695C2 /* ConstantTexts.swift */; };
 		DDD9517C278CB4B2009695C2 /* CommonMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD9517B278CB4B2009695C2 /* CommonMocks.swift */; };
-		DDD9517E278CEBEA009695C2 /* CastMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDD9517D278CEBEA009695C2 /* CastMocks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,8 +176,6 @@
 		DD358D0128D68AA5004F62F6 /* DiscoverInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInteractorMock.swift; sourceTree = "<group>"; };
 		DD4BB799264C02F600E07C5F /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardInteractor.swift; sourceTree = "<group>"; };
-		DD4BB7BA264C6B0F00E07C5F /* DashboardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPresenter.swift; sourceTree = "<group>"; };
 		DD4BB7CB264CA21C00E07C5F /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		DD4BB7D5264CA5C400E07C5F /* ArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsView.swift; sourceTree = "<group>"; };
 		DD4BB7DA264CAF2300E07C5F /* DiscoverInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverInteractor.swift; sourceTree = "<group>"; };
@@ -215,7 +210,6 @@
 		DDB8B99E289BB13600E7F569 /* WatchableToMediaMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchableToMediaMapper.swift; sourceTree = "<group>"; };
 		DDD9513D278123AA009695C2 /* ConstantTexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantTexts.swift; sourceTree = "<group>"; };
 		DDD9517B278CB4B2009695C2 /* CommonMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonMocks.swift; sourceTree = "<group>"; };
-		DDD9517D278CEBEA009695C2 /* CastMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastMocks.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -453,7 +447,6 @@
 			children = (
 				DD045478260A171C00DFEFE6 /* Preview Assets.xcassets */,
 				DDD9517B278CB4B2009695C2 /* CommonMocks.swift */,
-				DDD9517D278CEBEA009695C2 /* CastMocks.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -540,7 +533,6 @@
 		DD4BB7B3264C67BB00E07C5F /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				DD4BB7B5264C67D300E07C5F /* DashboardInteractor.swift */,
 				DD4BB7DA264CAF2300E07C5F /* DiscoverInteractor.swift */,
 				1EB545D02673E48C008BDE2A /* ArtistInteractor.swift */,
 			);
@@ -550,7 +542,6 @@
 		DD4BB7B4264C67C200E07C5F /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				DD4BB7BA264C6B0F00E07C5F /* DashboardPresenter.swift */,
 				DD4BB7DF264CAF4400E07C5F /* DiscoverPresenter.swift */,
 				1EB545D52673E497008BDE2A /* ArtistPresenter.swift */,
 			);
@@ -844,7 +835,6 @@
 				DDB8B98D2899BD6D00E7F569 /* PersonEntity.swift in Sources */,
 				1E632C6D26ECF5C5005780FD /* ArtistDetailInteractor.swift in Sources */,
 				1EB545D12673E48C008BDE2A /* ArtistInteractor.swift in Sources */,
-				DDD9517E278CEBEA009695C2 /* CastMocks.swift in Sources */,
 				DDB8B99C2899DC5E00E7F569 /* ArtistFetcher.swift in Sources */,
 				1E2AD90926ED0D3C00EBB78D /* ArtistDetailEntity.swift in Sources */,
 				1ED9C3AB267571660030A62B /* MovieListPresenter.swift in Sources */,
@@ -903,12 +893,10 @@
 				1E71A19426E9391000AD4055 /* CastPresenter.swift in Sources */,
 				1E62DF7326C68BA90003400E /* ISO639_1.swift in Sources */,
 				1E0AA5AD26C422F300B3C7F5 /* MediaDetailPresenter.swift in Sources */,
-				DD4BB7B6264C67D300E07C5F /* DashboardInteractor.swift in Sources */,
 				1E2AD90726ECFDB200EBB78D /* ArtistDetailPresenter.swift in Sources */,
 				1E71A19626E9391C00AD4055 /* CastInteractor.swift in Sources */,
 				DDB8B9652896C0CF00E7F569 /* NetworkError.swift in Sources */,
 				1E71A19C26E97A2A00AD4055 /* CastMemberEntity.swift in Sources */,
-				DD4BB7BB264C6B0F00E07C5F /* DashboardPresenter.swift in Sources */,
 				1E0AA5AF26C4230900B3C7F5 /* MediaDetailInteractor.swift in Sources */,
 				1EA727442676CD6B0002BF85 /* MediaSection.swift in Sources */,
 				DD4BB7DB264CAF2300E07C5F /* DiscoverInteractor.swift in Sources */,

@@ -19,3 +19,10 @@ class CastEntity: Identifiable {
         self.character = character
     }
 }
+
+extension CastEntity {
+    static let mock = CastEntity(imageUrl: "",
+                                 name: "Artist_Name Artist_Surname",
+                                 character: "Character"
+    )
+}

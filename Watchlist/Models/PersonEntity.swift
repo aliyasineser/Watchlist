@@ -55,6 +55,24 @@ struct Artist: Codable, Creditable {
     func getImagePath() -> String { return profilePath ?? "" }
 }
 
+extension Artist {
+    static let mock = Artist(adult: true,
+                             alsoKnownAs: ["KnownAs"],
+                             biography: "Lived a great life",
+                             birthday: "01-01-1991",
+                             deathday: "01-01-2021",
+                             gender: 1,
+                             homepage: "www.homepage.com",
+                             id: 1,
+                             imdbID: "IMDB-ID",
+                             knownForDepartment: "Actress",
+                             name: "Actress Name",
+                             placeOfBirth: "London",
+                             popularity: 10,
+                             profilePath: "Profile Path"
+    )
+}
+
 typealias Crew = Cast
 struct Cast: Codable, Creditable {
     let adult: Bool

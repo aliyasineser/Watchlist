@@ -7,7 +7,12 @@
 
 import Foundation
 
-class MediaDetailInteractor {
+protocol MediaDetailInteractor {
+    func getMovieDetail(_ id: Int) async -> MediaDetail?
+    func getTvDetail(_ id: Int ) async -> MediaDetail?
+}
+
+final class DefaultMediaDetailInteractor: MediaDetailInteractor {
 
     private let movieService: MovieService
     private let tvService: TVService
@@ -23,5 +28,15 @@ class MediaDetailInteractor {
 
     func getTvDetail(_ id: Int ) async -> MediaDetail? {
         return await tvService.fetchTVDetails(id: id)
+    }
+}
+
+final class MediaDetailInteractorStub: MediaDetailInteractor {
+    func getMovieDetail(_ id: Int) async -> MediaDetail? {
+        return .mock
+    }
+
+    func getTvDetail(_ id: Int ) async -> MediaDetail? {
+        return .mock
     }
 }

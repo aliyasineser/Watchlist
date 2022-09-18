@@ -21,3 +21,14 @@ struct ArtistImageEntity: Identifiable {
         return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + filePath
     }
 }
+
+extension ArtistImageEntity {
+    static let mock = ArtistImageEntity(aspectRatio: 1,
+                                        filePath: "File Path",
+                                        height: 200,
+                                        iso_639_1: "en-US",
+                                        voteAverage: 5,
+                                        voteCount: 10,
+                                        width: 200
+    )
+}

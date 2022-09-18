@@ -30,3 +30,14 @@ struct ArtistDetailEntity {
         self.birthday = birthday
     }
 }
+
+extension ArtistDetailEntity {
+    static let mock = ArtistDetailEntity(id: 1, name: "Artist Name",
+                                         biography: "Artist Lived a long happy life. ",
+                                         birthday: "21 - 05 - 1921",
+                                         deathday: "02 - 02 - 2022",
+                                         asKnownAs: ["Yoyo person", "Nonnoooo Person"],
+                                         placeOfBirth: "Old Yorkshire",
+                                         imgUrl: "www.image.com"
+    )
+}

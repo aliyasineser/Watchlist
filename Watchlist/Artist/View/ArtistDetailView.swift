@@ -159,9 +159,10 @@ struct PhotoGrid: View {
 struct ArtistDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            #warning("Create Request Manager Mock")
-            ArtistDetailView(artistId: 21, presenter: ArtistDetailPresenter(interactor: ArtistDetailInteractor(requestManager: RequestManager())))
-                .navigationBarTitleDisplayMode(.inline)
+            ArtistDetailView(artistId: 21,
+                             presenter: ArtistDetailPresenter(interactor: ArtistDetailInteractorStub())
+            )
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

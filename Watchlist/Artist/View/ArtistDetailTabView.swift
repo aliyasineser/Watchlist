@@ -100,6 +100,6 @@ struct ArtistDetailTopTabBar: View {
 
 struct ArtistDetailTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistDetailTabView(CastMocks.artistDetailEntity, artistCredits: [])
+        ArtistDetailTabView(ArtistDetailEntity.mock, artistCredits: [])
     }
 }

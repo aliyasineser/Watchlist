@@ -48,7 +48,7 @@ struct ArtistItemView: View {
 struct ArtistItemView_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
-            ArtistItemView(artistEntity: CastMocks.artistEntity)
+            ArtistItemView(artistEntity: ArtistEntity.mock)
         }
         .padding()
     }

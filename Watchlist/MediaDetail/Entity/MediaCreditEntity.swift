@@ -23,3 +23,12 @@ struct MediaCreditEntity: Identifiable {
         self.imagePath = imagePath
     }
 }
+
+extension MediaCreditEntity {
+    static let mock = MediaCreditEntity(id: 1,
+                                        creditId: "Credit ID",
+                                        title: "Credit Title",
+                                        role: "Credit Role",
+                                        imagePath: "www.testimage.com"
+    )
+}

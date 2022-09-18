@@ -4,10 +4,9 @@
 //
 //  Created by Ali Yasin Eser on 18.09.2022.
 //
-
+// swiftlint:disable:all identifier_name
 import Foundation
 @testable import Watchlist
-
 
 final class DiscoverInteractorMock: DiscoverInteractor {
 

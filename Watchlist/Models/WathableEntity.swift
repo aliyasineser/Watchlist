@@ -194,3 +194,48 @@ struct MediaDetail: Codable, WatchableDetail {
 
     func getOverview() -> String { return overview ?? "" }
 }
+
+extension MediaDetail {
+    static let mock = MediaDetail(id: 1,
+                                  adult: true,
+                                  posterPath: "Poster Path",
+                                  backdropPath: "Backdrop Path",
+                                  overview: "Good Media",
+                                  releaseDate: "01-01-1991",
+                                  genres: [],
+                                  belongsToCollection: nil,
+                                  budget: 100000, homepage: "Homepage",
+                                  imdbID: "IMDB-ID",
+                                  originalLanguage: "Chinese",
+                                  originalTitle: "Original Title",
+                                  popularity: 10,
+                                  productionCompanies: [],
+                                  productionCountries: [],
+                                  revenue: 1000000,
+                                  runtime: 123,
+                                  spokenLanguages: [],
+                                  status: "Status",
+                                  title: "Title",
+                                  tagline: nil,
+                                  video: false,
+                                  voteAverage: 10,
+                                  voteCount: 10,
+                                  credits: nil,
+                                  createdBy: [],
+                                  episodeRunTime: [],
+                                  firstAirDate: nil,
+                                  inProduction: false,
+                                  languages: [],
+                                  lastAirDate: nil,
+                                  lastEpisodeToAir: nil,
+                                  name: "Name",
+                                  nextEpisodeToAir: nil,
+                                  networks: [],
+                                  numberOfEpisodes: 123,
+                                  numberOfSeasons: 123,
+                                  originCountry: [],
+                                  originalName: nil,
+                                  seasons: [], type: nil,
+                                  mediaType: .movie
+    )
+}

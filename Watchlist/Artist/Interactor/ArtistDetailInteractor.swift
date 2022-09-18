@@ -7,7 +7,14 @@
 
 import Foundation
 
-class ArtistDetailInteractor {
+protocol ArtistDetailInteractor {
+    func fetchArtist(_ id: Int) async -> ArtistDetailEntity?
+    func fetchArtistImages (_ id: Int) async -> [ArtistImageEntity]
+    func fetchArtistMovies(_ id: Int) async -> [MediaCreditEntity]
+    func fetchArtistTV(_ id: Int) async -> [MediaCreditEntity]
+}
+
+final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
 
     private let movieService: MovieService
     private let tvService: TVService
@@ -77,10 +84,45 @@ class ArtistDetailInteractor {
                                                      creditId: credit.creditID,
                                                      title: credit.getTitle(),
                                                      role: credit.character ?? credit.job ??
-                                                            credit.department?.rawValue ?? "Unknown",
+                                                     credit.department?.rawValue ?? "Unknown",
                                                      imagePath: credit.getPosterUrl()))
             }
         }
         return artistShows
+    }
+}
+
+final class ArtistDetailInteractorStub: ArtistDetailInteractor {
+
+    func fetchArtist(_ id: Int) async -> ArtistDetailEntity? {
+        var mediaList: [ArtistDetailEntity] = []
+        for _ in 0..<9 {
+            mediaList.append(ArtistDetailEntity.mock)
+        }
+        return ArtistDetailEntity.mock
+    }
+
+    func fetchArtistImages (_ id: Int) async -> [ArtistImageEntity] {
+        var imageList: [ArtistImageEntity] = []
+        for _ in 0..<9 {
+            imageList.append(ArtistImageEntity.mock)
+        }
+        return imageList
+    }
+
+    func fetchArtistMovies(_ id: Int) async -> [MediaCreditEntity] {
+        var creditList: [MediaCreditEntity] = []
+        for _ in 0..<9 {
+            creditList.append(MediaCreditEntity.mock)
+        }
+        return creditList
+    }
+
+    func fetchArtistTV(_ id: Int) async -> [MediaCreditEntity] {
+        var creditList: [MediaCreditEntity] = []
+        for _ in 0..<9 {
+            creditList.append(MediaCreditEntity.mock)
+        }
+        return creditList
     }
 }

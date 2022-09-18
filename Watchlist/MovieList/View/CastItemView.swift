@@ -59,7 +59,7 @@ struct CastItemView: View {
 struct CastItemView_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
-            CastItemView(castEntity: CastMocks.castEntity)
+            CastItemView(castEntity: CastEntity.mock)
         }
         .padding()
     }

@@ -30,7 +30,7 @@ struct ArtistsView: View {
                         ForEach(self.presenter.artists, id: \.artistId) { (artist) in
                             NavigationLink(destination: ArtistDetailView(artistId: artist.artistId,
                                                                          presenter: ArtistDetailPresenter(
-                                                                            interactor: ArtistDetailInteractor(
+                                                                            interactor: DefaultArtistDetailInteractor(
                                                                                 requestManager: RequestManager()
                                                                             )
                                                                          )
@@ -64,7 +64,6 @@ struct ArtistsView: View {
 
 struct ArtistsView_Previews: PreviewProvider {
     static var previews: some View {
-#warning("Request Manager Mock")
-        ArtistsView(presenter: ArtistPresenter(ArtistInteractor(requestManager: RequestManager())))
+        ArtistsView(presenter: ArtistPresenter(ArtistInteractorStub()))
     }
 }

@@ -22,3 +22,10 @@ struct ArtistEntity: Identifiable {
         if !imageUrl.contains(APIConstants.defaultScheme) { self.imageUrl = APIConstants.defaultScheme + self.imageUrl }
     }
 }
+
+extension ArtistEntity {
+    static let mock = ArtistEntity(artistId: 1,
+                                   imageUrl: "",
+                                   name: "Artist_Name Artist_Surname"
+    )
+}

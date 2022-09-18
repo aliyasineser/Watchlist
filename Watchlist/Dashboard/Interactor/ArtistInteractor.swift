@@ -7,7 +7,11 @@
 
 import Foundation
 
-class ArtistInteractor {
+protocol ArtistInteractor {
+    func fetchArtists() async -> [Artist]
+}
+
+final class DefaultArtistInteractor: ArtistInteractor {
 
     let artistFetcher: ArtistFetcher
 
@@ -17,5 +21,15 @@ class ArtistInteractor {
 
     init(requestManager: RequestManager) {
         self.artistFetcher = ArtistFetcher(requestManager: requestManager)
+    }
+}
+
+final class ArtistInteractorStub: ArtistInteractor {
+    func fetchArtists() async -> [Artist] {
+        var artists: [Artist] = []
+        for _ in 0..<9 {
+            artists.append(Artist.mock)
+        }
+        return artists
     }
 }

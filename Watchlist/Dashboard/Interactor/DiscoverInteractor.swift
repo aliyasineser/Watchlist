@@ -16,23 +16,6 @@ protocol DiscoverInteractor {
     func fetcthTopRatedPageAsFullList() async -> [Media]
 }
 
-final class DiscoverInteractorStub: DiscoverInteractor {
-    private func getMediaList() -> [Media] {
-        var mediaList: [Media] = []
-        for _ in 0..<9 {
-            mediaList.append(Media.mock)
-        }
-        return mediaList
-    }
-
-    func fetchNextPopularPageAsFullList() async -> [Media] { getMediaList() }
-    func fetchNextMostRecentPageAsFullList() async -> [Media] { getMediaList() }
-    func fetchNextUpcomingPageAsFullList() async -> [Media] { getMediaList() }
-    func fetcthAiringTodayPageAsFullList() async -> [Media] { getMediaList() }
-    func fetcthOnTheAirPageAsFullList() async -> [Media] { getMediaList() }
-    func fetcthTopRatedPageAsFullList() async -> [Media] { getMediaList() }
-}
-
 final class DefaultDiscoverInteractor: DiscoverInteractor {
 
     let requestManager: RequestManagerProtocol
@@ -86,4 +69,21 @@ final class DefaultDiscoverInteractor: DiscoverInteractor {
         return await popularSeriesFetcher.fetchWithNextPage()
     }
 
+}
+
+final class DiscoverInteractorStub: DiscoverInteractor {
+    private func getMediaList() -> [Media] {
+        var mediaList: [Media] = []
+        for _ in 0..<9 {
+            mediaList.append(Media.mock)
+        }
+        return mediaList
+    }
+
+    func fetchNextPopularPageAsFullList() async -> [Media] { getMediaList() }
+    func fetchNextMostRecentPageAsFullList() async -> [Media] { getMediaList() }
+    func fetchNextUpcomingPageAsFullList() async -> [Media] { getMediaList() }
+    func fetcthAiringTodayPageAsFullList() async -> [Media] { getMediaList() }
+    func fetcthOnTheAirPageAsFullList() async -> [Media] { getMediaList() }
+    func fetcthTopRatedPageAsFullList() async -> [Media] { getMediaList() }
 }

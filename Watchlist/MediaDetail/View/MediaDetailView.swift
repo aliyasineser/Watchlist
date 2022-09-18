@@ -133,7 +133,7 @@ struct MediaDetailView: View {
 struct MediaDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractor(requestManager: RequestManager()),
+            MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractorStub(),
                                                             movieId: 1285,
                                                             mediaType: .movie)
             )
