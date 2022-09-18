@@ -67,7 +67,7 @@ struct DiscoverView: View {
 
 struct DiscoverView_Previews: PreviewProvider {
     static var previews: some View {
-        let interactor = DiscoverInteractorStub()
+        let interactor = MediaInteractorStub()
         let presenter = DiscoverPresenter(interactor)
         DiscoverView(presenter: presenter)
     }

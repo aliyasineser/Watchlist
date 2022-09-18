@@ -1,5 +1,5 @@
 //
-//  MovieListPresenter.swift
+//  MediaListPresenter.swift
 //  Watchlist
 //
 //  Created by ali.yasin.eser on 13.06.2021.
@@ -9,13 +9,13 @@ import Foundation
 import SwiftUI
 
 @MainActor
-class MovieListPresenter {
+class MediaListPresenter {
 
-    private let interactor: MovieListInteractor
+    private let interactor: MediaInteractor
     private let section: MediaSection
     @Published var mediaList: [Media]
 
-    init(_ interactor: MovieListInteractor, section: MediaSection) {
+    init(_ interactor: MediaInteractor, section: MediaSection) {
         self.interactor = interactor
         self.section = section
         self.mediaList = [Media]()

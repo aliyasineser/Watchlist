@@ -8,7 +8,7 @@
 import Foundation
 @testable import Watchlist
 
-final class MovieListInteractorMock: MovieListInteractor {
+final class MovieListInteractorMock: MediaInteractor {
 
     var fetchNextPopularPageAsFullListStub: [Media] = []
     var fetchNextMostRecentPageAsFullListStub: [Media] = []

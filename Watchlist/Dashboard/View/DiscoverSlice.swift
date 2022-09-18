@@ -41,8 +41,8 @@ struct DiscoverSlice: View {
                     .bold()
                 Spacer()
                 NavigationLink(
-                    destination: MovieListView(movieListPresenter:
-                                                MovieListPresenter(DefaultMovieListInteractor(
+                    destination: MediaListView(mediaListPresenter:
+                                                MediaListPresenter(DefaultMediaInteractor(
                                                     requestManager: DefaultRequestManager()), section: self.section))
                 ) {
                     seeAllView

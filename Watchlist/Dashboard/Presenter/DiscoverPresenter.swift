@@ -11,7 +11,7 @@ import SwiftUI
 @MainActor
 class DiscoverPresenter: ObservableObject {
 
-    private let interactor: DiscoverInteractor
+    private let interactor: MediaInteractor
     @Published var popularMovies: [DiscoverSectionItemEntity]
     @Published var mostRecentMovies: [DiscoverSectionItemEntity]
     @Published var upcomingMovies: [DiscoverSectionItemEntity]
@@ -21,7 +21,7 @@ class DiscoverPresenter: ObservableObject {
 
     @Published var isLoading: Bool = false
 
-    init(_ interactor: DiscoverInteractor) {
+    init(_ interactor: MediaInteractor) {
         self.interactor = interactor
         self.popularMovies = [DiscoverSectionItemEntity]()
         self.mostRecentMovies = [DiscoverSectionItemEntity]()

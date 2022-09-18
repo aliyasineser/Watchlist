@@ -1,13 +1,13 @@
 //
-//  DiscoverInteractor.swift
+//  MediaInteractor.swift
 //  Watchlist
 //
-//  Created by Ali Yasin Eser on 13.05.2021.
+//  Created by ali.yasin.eser on 13.06.2021.
 //
 
 import Foundation
 
-protocol DiscoverInteractor {
+protocol MediaInteractor {
     func fetchNextPopularPageAsFullList() async -> [Media]
     func fetchNextMostRecentPageAsFullList() async -> [Media]
     func fetchNextUpcomingPageAsFullList() async -> [Media]
@@ -16,7 +16,7 @@ protocol DiscoverInteractor {
     func fetcthTopRatedPageAsFullList() async -> [Media]
 }
 
-final class DefaultDiscoverInteractor: DiscoverInteractor {
+final class DefaultMediaInteractor: MediaInteractor {
 
     let requestManager: RequestManager
 
@@ -71,7 +71,7 @@ final class DefaultDiscoverInteractor: DiscoverInteractor {
 
 }
 
-final class DiscoverInteractorStub: DiscoverInteractor {
+final class MediaInteractorStub: MediaInteractor {
     private func getMediaList() -> [Media] {
         var mediaList: [Media] = []
         for _ in 0..<9 {

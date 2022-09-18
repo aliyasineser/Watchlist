@@ -1,5 +1,5 @@
 //
-//  MovieListItemView.swift
+//  MediaListItemView.swift
 //  Watchlist
 //
 //  Created by ali.yasin.eser on 13.06.2021.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct MovieListItemView: View {
+struct MediaListItemView: View {
 
     var mediaListItem: Media
 
-    internal init(movieListItem: Media) {
-        self.mediaListItem = movieListItem
+    internal init(mediaListItem: Media) {
+        self.mediaListItem = mediaListItem
     }
 
     var body: some View {
@@ -63,8 +63,8 @@ struct MovieListItemView: View {
     }
 }
 
-struct MovieListItemView_Previews: PreviewProvider {
+struct MediaListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieListItemView(movieListItem: Media.mock)
+        MediaListItemView(mediaListItem: Media.mock)
     }
 }

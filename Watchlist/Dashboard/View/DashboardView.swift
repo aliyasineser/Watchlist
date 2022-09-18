@@ -11,7 +11,7 @@ struct DashboardView: View {
     var body: some View {
         TabView {
             DiscoverView(
-                presenter: DiscoverPresenter(DefaultDiscoverInteractor(
+                presenter: DiscoverPresenter(DefaultMediaInteractor(
                     requestManager: DefaultRequestManager())
                 )
             )
