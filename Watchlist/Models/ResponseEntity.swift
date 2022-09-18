@@ -42,6 +42,10 @@ struct ArtistDetail: Codable {
         case imdbID = "imdb_id"
         case homepage
     }
+
+    func getPosterUrl() -> String {
+        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + (profilePath ?? "")
+    }
 }
 
 // MARK: - ArtistImageResponse

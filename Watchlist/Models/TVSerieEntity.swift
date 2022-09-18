@@ -77,6 +77,10 @@ struct TvDetail: Codable, WatchableDetail {
     func getReleaseDate() -> String? { return firstAirDate }
 
     func getOverview() -> String { return overview }
+
+    func getPosterUrl() -> String {
+        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
+    }
 }
 
 struct CreatedBy: Codable {
@@ -171,4 +175,8 @@ struct TVSerie: Codable, Watchable {
     func getReleaseDate() -> String? { return firstAirDate }
 
     func getOverview() -> String { return overview }
+
+    func getPosterUrl() -> String {
+        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
+    }
 }

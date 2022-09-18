@@ -50,6 +50,10 @@ struct Movie: Codable, Watchable {
     func getOverview() -> String { return overview }
 
     func getID() -> Int { return id }
+
+    func getPosterUrl() -> String {
+        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
+    }
 }
 
 struct MovieDetail: Codable, WatchableDetail {
@@ -111,6 +115,10 @@ struct MovieDetail: Codable, WatchableDetail {
     func getOverview() -> String { return overview ?? "" }
 
     func getID() -> Int { return id }
+
+    func getPosterUrl() -> String {
+        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
+    }
 }
 
 struct Collection: Codable {

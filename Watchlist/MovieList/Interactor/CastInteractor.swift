@@ -31,7 +31,7 @@ final class DefaultCastInteractor: CastInteractor {
         if mediaType == .movie {
             credits = await movieService.fetchMovieCredits(id: id)
         } else {
-            credits = await movieService.fetchMovieCredits(id: id)
+            credits = await tvService.fetchTVCredits(id: id)
         }
         if let credits = credits {
             credits.cast.forEach({ cast in

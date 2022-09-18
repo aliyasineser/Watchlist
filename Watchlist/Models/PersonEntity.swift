@@ -53,6 +53,10 @@ struct Artist: Codable, Creditable {
     func getTitle() -> String { return name }
 
     func getImagePath() -> String { return profilePath ?? "" }
+
+    func getPosterUrl() -> String {
+        return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
+    }
 }
 
 extension Artist {
@@ -127,4 +131,8 @@ struct Cast: Codable, Creditable {
     func getImagePath() -> String { return posterPath ?? profilePath ?? "" }
 
     func getRole() -> String { return character ?? job ?? department?.rawValue ?? "" }
+
+    func getPosterUrl() -> String {
+        return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
+    }
 }

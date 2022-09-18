@@ -19,7 +19,7 @@ class MovieFetcher: Fetchable {
     private var pageCounter: Int = 0
     private var section: MovieSection
 
-    let movieService: MovieService
+    private let movieService: MovieService
 
     init(for section: MovieSection, requestManager: RequestManager) {
         self.section = section

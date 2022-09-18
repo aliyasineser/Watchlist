@@ -75,6 +75,10 @@ struct Media: Watchable, Codable, Identifiable {
     func getReleaseDate() -> String? { return releaseDate ?? firstAirDate }
 
     func getOverview() -> String { return overview }
+
+    func getPosterUrl() -> String {
+        return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
+    }
 }
 
 extension Media {

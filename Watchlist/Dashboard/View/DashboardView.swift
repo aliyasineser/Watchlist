@@ -10,11 +10,15 @@ import SwiftUI
 struct DashboardView: View {
     var body: some View {
         TabView {
-            DiscoverView(presenter: DiscoverPresenter(DefaultDiscoverInteractor(requestManager: DefaultRequestManager())))
-                .tabItem {
-                    TabItemView(systemName: "square.grid.2x2.fill", text: ConstantTexts.discoverScreenTabBarItemText)
-                }
-                .tag(0)
+            DiscoverView(
+                presenter: DiscoverPresenter(DefaultDiscoverInteractor(
+                    requestManager: DefaultRequestManager())
+                )
+            )
+            .tabItem {
+                TabItemView(systemName: "square.grid.2x2.fill", text: ConstantTexts.discoverScreenTabBarItemText)
+            }
+            .tag(0)
 
             ArtistsView(presenter: ArtistPresenter(DefaultArtistInteractor(requestManager: DefaultRequestManager())))
                 .tabItem {
