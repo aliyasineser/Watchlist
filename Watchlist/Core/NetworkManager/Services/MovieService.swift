@@ -14,33 +14,11 @@ actor MovieService {
         self.requestManager = requestManager
     }
 
-    func fetchPopularMovies(page: Int) async -> [Movie] {
-        let requestData = MovieRequest.getPopularMovies(page: page)
+    func fetchMovies(request: NetworkRequest) async -> [Movie] {
         do {
-            let popularMovies: MovieResponse = try await requestManager.initRequest(with: requestData)
-            return popularMovies.results
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-
-    func fetchUpcomingMovies(page: Int) async -> [Movie] {
-        let requestData = MovieRequest.getUpcomingMovies(page: page)
-        do {
-            let popularMovies: MovieResponse = try await requestManager.initRequest(with: requestData)
-            return popularMovies.results
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-
-    func fetchNowPlayingMovies(page: Int) async -> [Movie] {
-        let requestData = MovieRequest.getNowPlayingMovies(page: page)
-        do {
-            let popularMovies: MovieResponse = try await requestManager.initRequest(with: requestData)
-            return popularMovies.results
+            let movies: MovieResponse = try await
+            requestManager.initRequest(with: request)
+            return movies.results
         } catch {
             print(error.localizedDescription)
             return []

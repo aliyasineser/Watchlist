@@ -31,11 +31,11 @@ class TVSerieFetcher: Fetchable {
         var watchables: [Watchable] = []
         switch section {
         case .airingTodaySeries:
-            watchables =  await tvSerieService.fetchAiringTodaySeries(page: pageCounter)
+            watchables =  await tvSerieService.fetchSeries(request: TVRequest.getAiringTodaySeries(page: pageCounter))
         case .onTheAirSeries:
-            watchables =  await tvSerieService.fetchOnTheAirSeries(page: pageCounter)
+            watchables =  await tvSerieService.fetchSeries(request: TVRequest.getOnTheAirSeries(page: pageCounter))
         case .popular:
-            watchables =  await tvSerieService.fetchPopularSeries(page: pageCounter)
+            watchables =  await tvSerieService.fetchSeries(request: TVRequest.getOnTheAirSeries(page: pageCounter))
         }
         let mediaList = watchables.compactMap { WatchableToMediaMapper.convert(from: $0, type: .tv) }
         return mediaList

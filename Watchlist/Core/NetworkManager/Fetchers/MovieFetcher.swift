@@ -31,11 +31,11 @@ class MovieFetcher: Fetchable {
         var watchables: [Watchable] = []
         switch section {
         case .popular:
-            watchables =  await movieService.fetchPopularMovies(page: pageCounter)
+            watchables =  await movieService.fetchMovies(request: MovieRequest.getPopularMovies(page: pageCounter))
         case .mostRecentMovies:
-            watchables =  await movieService.fetchNowPlayingMovies(page: pageCounter)
+            watchables =  await movieService.fetchMovies(request: MovieRequest.getPopularMovies(page: pageCounter))
         case .comingSoonMovies:
-            watchables =  await movieService.fetchUpcomingMovies(page: pageCounter)
+            watchables =  await movieService.fetchMovies(request: MovieRequest.getPopularMovies(page: pageCounter))
         }
         return watchables.compactMap { WatchableToMediaMapper.convert(from: $0, type: .movie) }
     }

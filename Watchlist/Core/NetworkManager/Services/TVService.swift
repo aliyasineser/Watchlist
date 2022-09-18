@@ -14,35 +14,10 @@ actor TVService {
         self.requestManager = requestManager
     }
 
-    func fetchPopularSeries(page: Int) async -> [TVSerie] {
-        let requestData = TVRequest.getPopularSeries(page: page)
+    func fetchSeries(request: NetworkRequest) async -> [TVSerie] {
         do {
             let series: TVSerieResponse = try await
-            requestManager.initRequest(with: requestData)
-            return series.results
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-
-    func fetchOnTheAirSeries(page: Int) async -> [TVSerie] {
-        let requestData = TVRequest.getOnTheAirSeries(page: page)
-        do {
-            let series: TVSerieResponse = try await
-            requestManager.initRequest(with: requestData)
-            return series.results
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
-    }
-
-    func fetchAiringTodaySeries(page: Int) async -> [TVSerie] {
-        let requestData = TVRequest.getAiringTodaySeries(page: page)
-        do {
-            let series: TVSerieResponse = try await
-            requestManager.initRequest(with: requestData)
+            requestManager.initRequest(with: request)
             return series.results
         } catch {
             print(error.localizedDescription)
