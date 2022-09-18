@@ -16,13 +16,9 @@ protocol ArtistDetailInteractor {
 
 final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
 
-    private let movieService: MovieService
-    private let tvService: TVService
     private let artistService: ArtistService
 
     init(requestManager: RequestManager) {
-        self.movieService = MovieService(requestManager: requestManager)
-        self.tvService = TVService(requestManager: requestManager)
         self.artistService = ArtistService(requestManager: requestManager)
     }
 

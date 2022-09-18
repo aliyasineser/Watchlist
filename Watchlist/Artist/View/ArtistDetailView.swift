@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct ArtistDetailView: View {
 
@@ -23,7 +24,7 @@ struct ArtistDetailView: View {
                 VStack(spacing: 0) {
                     ZStack(alignment: .bottomLeading) {
 
-                        AsyncImage(
+                        CachedAsyncImage(
                             url: URL(string: artist.imgUrl),
                             content: { image in
                                 image.resizable()
@@ -99,13 +100,14 @@ struct PhotoGrid: View {
             HStack(spacing: 0) {
                 if presenter.artistImages.count > 1 {
                     ZStack {
-                        AsyncImage(
+                        CachedAsyncImage(
                             url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""),
                             content: { image in
                                 image.resizable()
                             },
                             placeholder: {
                                 Image(systemName: "person.fill")
+                                    .resizable()
                             }
                         )
                         .scaledToFill()
@@ -136,13 +138,14 @@ struct PhotoGrid: View {
 
                 LazyHStack(spacing: 0) {
                     ForEach(self.presenter.artistImages.reversed()) { imageEntity in
-                        AsyncImage(
+                        CachedAsyncImage(
                             url: URL(string: imageEntity.getPosterUrl()),
                             content: { image in
                                 image.resizable()
                             },
                             placeholder: {
-                                CommonMocks.posterPlaceholder
+                                Image(systemName: "person.fill")
+                                    .resizable()
                             }
                         )
                         .scaledToFill()

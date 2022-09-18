@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct MediaListItemView: View {
 
@@ -25,7 +26,7 @@ struct MediaListItemView: View {
                     mediaType: mediaListItem.mediaType))) {
                         VStack(alignment: .center, spacing: 5) {
 
-                            AsyncImage(
+                            CachedAsyncImage(
                                 url: URL(string: self.mediaListItem.getPosterUrl()),
                                 content: { image in
                                     image.resizable()

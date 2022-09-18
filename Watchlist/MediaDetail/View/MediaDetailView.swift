@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 
 struct MediaDetailView: View {
 
@@ -22,7 +23,7 @@ struct MediaDetailView: View {
                 ScrollView {
                     VStack {
                         ZStack(alignment: .bottom) {
-                            AsyncImage(
+                            CachedAsyncImage(
                                 url: URL(string: presenter.media.imagePath),
                                 content: { image in
                                     image.resizable()
@@ -48,7 +49,7 @@ struct MediaDetailView: View {
                         .frame(width: geometry.size.width, height: 300, alignment: .center)
 
                         HStack(alignment: .top) {
-                            AsyncImage(
+                            CachedAsyncImage(
                                 url: URL(string: presenter.media.imagePath),
                                 content: { image in
                                     image.resizable()

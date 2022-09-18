@@ -28,17 +28,16 @@ class TVSerieFetcher: Fetchable {
 
     func fetchSinglePage() async -> [Media] {
         pageCounter += 1
-        var watchables: [Watchable] = []
+        var watchables: [Media] = []
         switch section {
         case .airingTodaySeries:
-            watchables =  await tvSerieService.fetchSeries(request: TVRequest.getAiringTodaySeries(page: pageCounter))
+            watchables =  await tvSerieService.fetchMedia(request: TVRequest.getAiringTodaySeries(page: pageCounter))
         case .onTheAirSeries:
-            watchables =  await tvSerieService.fetchSeries(request: TVRequest.getOnTheAirSeries(page: pageCounter))
+            watchables =  await tvSerieService.fetchMedia(request: TVRequest.getOnTheAirSeries(page: pageCounter))
         case .popular:
-            watchables =  await tvSerieService.fetchSeries(request: TVRequest.getOnTheAirSeries(page: pageCounter))
+            watchables =  await tvSerieService.fetchMedia(request: TVRequest.getOnTheAirSeries(page: pageCounter))
         }
-        let mediaList = watchables.compactMap { WatchableToMediaMapper.convert(from: $0, type: .tv) }
-        return mediaList
+        return watchables
     }
 
     func fetchWithNextPage() async -> [Media] {

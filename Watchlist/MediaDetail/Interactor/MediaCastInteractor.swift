@@ -31,9 +31,9 @@ final class DefaultMediaCastInteractor: MediaCastInteractor {
         var credits: Credits?
         switch mediaType {
         case .tv:
-            credits = await tvService.fetchTVCredits(id: id)
+            credits = await tvService.fetchMediaCredits(id: id)
         case .movie:
-            credits = await movieService.fetchMovieCredits(id: id)
+            credits = await movieService.fetchMediaCredits(id: id)
         }
         credits?.cast.forEach({ cast in
             if let character = cast.character {

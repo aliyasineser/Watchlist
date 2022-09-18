@@ -23,11 +23,11 @@ final class DefaultMediaDetailInteractor: MediaDetailInteractor {
     }
 
     func getMovieDetail(_ id: Int) async -> MediaDetail? {
-        return await movieService.fetchMovieDetail(id: id)
+        return await movieService.fetchMediaDetails(id: id)
     }
 
     func getTvDetail(_ id: Int ) async -> MediaDetail? {
-        return await tvService.fetchTVDetails(id: id)
+        return await tvService.fetchMediaDetails(id: id)
     }
 }
 

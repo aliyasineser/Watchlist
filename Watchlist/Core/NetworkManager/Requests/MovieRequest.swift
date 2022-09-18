@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MovieRequest: NetworkRequest {
+enum MovieRequest: MediaNetworkRequest {
     case getPopularMovies(page: Int)
     case getUpcomingMovies(page: Int)
     case getNowPlayingMovies(page: Int)
@@ -15,6 +15,10 @@ enum MovieRequest: NetworkRequest {
     case getMovieReviews(id: Int)
     case getSimilarMoviesTo(id: Int)
     case getCredits(id: Int)
+
+    func mediaType() -> MediaType {
+        .movie
+    }
 
     var path: String {
         switch self {

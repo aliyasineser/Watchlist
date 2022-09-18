@@ -7,25 +7,24 @@
 
 import Foundation
 
-actor TVService {
+actor TVService: MediaService {
     private let requestManager: RequestManager
 
     init(requestManager: RequestManager) {
         self.requestManager = requestManager
     }
 
-    func fetchSeries(request: NetworkRequest) async -> [TVSerie] {
+    func fetchMedia(request: NetworkRequest) async -> [Media] {
         do {
-            let series: TVSerieResponse = try await
-            requestManager.initRequest(with: request)
-            return series.results
+            let series: TVSerieResponse = try await requestManager.initRequest(with: request)
+            return series.results.compactMap { WatchableToMediaMapper.convert(from: $0, type: .tv) }
         } catch {
             print(error.localizedDescription)
             return []
         }
     }
 
-    func fetchTVDetails(id: Int) async -> MediaDetail? {
+    func fetchMediaDetails(id: Int) async -> MediaDetail? {
         let requestData = TVRequest.getSeriesDetail(id: id)
         do {
             let serie: TvDetail = try await
@@ -37,7 +36,7 @@ actor TVService {
         }
     }
 
-    func fetchTVCredits(id: Int) async -> Credits? {
+    func fetchMediaCredits(id: Int) async -> Credits? {
         let requestData = TVRequest.getCredits(id: id)
         do {
             let credits: Credits = try await

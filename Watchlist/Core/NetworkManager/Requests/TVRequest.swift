@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TVRequest: NetworkRequest {
+enum TVRequest: MediaNetworkRequest {
     case getPopularSeries(page: Int)
     case getAiringTodaySeries(page: Int)
     case getOnTheAirSeries(page: Int)
@@ -15,6 +15,10 @@ enum TVRequest: NetworkRequest {
     case getSeriesReviews(id: Int)
     case getSimilarSeriesTo(id: Int)
     case getCredits(id: Int)
+
+    func mediaType() -> MediaType {
+        .tv
+    }
 
     var path: String {
         switch self {
