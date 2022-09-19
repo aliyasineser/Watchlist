@@ -57,17 +57,17 @@ class MediaListPresenter {
 
     private func loadAiringToday() async {
 
-        let series = await interactor.fetcthAiringTodayPageAsFullList()
+        let series = await interactor.fetcthNextAiringTodayPageAsFullList()
         self.mediaList.append(contentsOf: series)
     }
 
     private func loadOnTheAir() async {
-        let series = await interactor.fetcthOnTheAirPageAsFullList()
+        let series = await interactor.fetcthNextOnTheAirPageAsFullList()
         self.mediaList.append(contentsOf: series)
     }
 
     private func loadTopRated() async {
-        let series = await interactor.fetcthTopRatedPageAsFullList()
+        let series = await interactor.fetcthNextTopRatedPageAsFullList()
         self.mediaList.append(contentsOf: series)
     }
 

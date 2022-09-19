@@ -84,7 +84,7 @@ class DiscoverPresenter: ObservableObject {
     }
 
     func loadAiringToday() async {
-        let series = await interactor.fetcthAiringTodayPageAsFullList()
+        let series = await interactor.fetcthNextAiringTodayPageAsFullList()
         series.forEach { (serie) in
             self.airingTodaySeries.append(DiscoverSectionItemEntity(id: serie.id,
                                                                     title: serie.name,
@@ -98,7 +98,7 @@ class DiscoverPresenter: ObservableObject {
     }
 
     func loadOnTheAir() async {
-        let series = await interactor.fetcthOnTheAirPageAsFullList()
+        let series = await interactor.fetcthNextOnTheAirPageAsFullList()
         series.forEach { (serie) in
             self.onTheAirSeries.append(DiscoverSectionItemEntity(id: serie.id,
                                                                  title: serie.name,
@@ -112,7 +112,7 @@ class DiscoverPresenter: ObservableObject {
     }
 
     func loadTopRated() async {
-        let series = await interactor.fetcthTopRatedPageAsFullList()
+        let series = await interactor.fetcthNextTopRatedPageAsFullList()
         series.forEach { (serie) in
             self.topRatedSeries.append(DiscoverSectionItemEntity(id: serie.id,
                                                                  title: serie.name,

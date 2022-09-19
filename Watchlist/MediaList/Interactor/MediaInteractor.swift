@@ -11,33 +11,49 @@ protocol MediaInteractor {
     func fetchNextPopularPageAsFullList() async -> [Media]
     func fetchNextMostRecentPageAsFullList() async -> [Media]
     func fetchNextUpcomingPageAsFullList() async -> [Media]
-    func fetcthAiringTodayPageAsFullList() async -> [Media]
-    func fetcthOnTheAirPageAsFullList() async -> [Media]
-    func fetcthTopRatedPageAsFullList() async -> [Media]
+    func fetcthNextAiringTodayPageAsFullList() async -> [Media]
+    func fetcthNextOnTheAirPageAsFullList() async -> [Media]
+    func fetcthNextTopRatedPageAsFullList() async -> [Media]
 }
 
 final class DefaultMediaInteractor: MediaInteractor {
 
     let requestManager: RequestManager
 
-    let popularMoviesFetcher: MovieFetcher
-    let comingSoonMoviesFetcher: MovieFetcher
-    let mostRecentMoviesFetcher: MovieFetcher
+    let popularMoviesFetcher: Fetchable
+    let comingSoonMoviesFetcher: Fetchable
+    let mostRecentMoviesFetcher: Fetchable
 
-    let popularSeriesFetcher: TVSerieFetcher
-    let airingTodaySeriesFetcher: TVSerieFetcher
-    let onTheAirSeriesFetcher: TVSerieFetcher
+    let popularSeriesFetcher: Fetchable
+    let airingTodaySeriesFetcher: Fetchable
+    let onTheAirSeriesFetcher: Fetchable
 
     init(requestManager: RequestManager) {
         self.requestManager = requestManager
 
-        self.popularMoviesFetcher = MovieFetcher(for: .popular, requestManager: requestManager)
-        self.comingSoonMoviesFetcher = MovieFetcher(for: .comingSoonMovies, requestManager: requestManager)
-        self.mostRecentMoviesFetcher = MovieFetcher(for: .mostRecentMovies, requestManager: requestManager)
+        self.popularMoviesFetcher = MediaFetcher(strategy: PopularMoviesFetchStrategy(),
+                                                 service: MovieService(requestManager: requestManager)
+        )
 
-        self.popularSeriesFetcher = TVSerieFetcher(for: .popular, requestManager: requestManager)
-        self.airingTodaySeriesFetcher = TVSerieFetcher(for: .airingTodaySeries, requestManager: requestManager)
-        self.onTheAirSeriesFetcher = TVSerieFetcher(for: .onTheAirSeries, requestManager: requestManager)
+        self.comingSoonMoviesFetcher = MediaFetcher(strategy: UpcomingMoviesFetchStrategy(),
+                                                    service: MovieService(requestManager: requestManager)
+        )
+
+        self.mostRecentMoviesFetcher = MediaFetcher(strategy: NowPlayingMoviesFetchStrategy(),
+                                                    service: MovieService(requestManager: requestManager)
+        )
+
+        self.popularSeriesFetcher = MediaFetcher(strategy: PopularSeriesFetchStrategy(),
+                                                 service: TVService(requestManager: requestManager)
+        )
+
+        self.airingTodaySeriesFetcher = MediaFetcher(strategy: AiringTodaySeriesFetchStrategy(),
+                                                     service: TVService(requestManager: requestManager)
+        )
+
+        self.onTheAirSeriesFetcher = MediaFetcher(strategy: OnTheAirSeriesFetchStrategy(),
+                                                  service: TVService(requestManager: requestManager)
+        )
     }
 
     /// Starts from the first page
@@ -56,16 +72,16 @@ final class DefaultMediaInteractor: MediaInteractor {
     }
 
     /// Starts from the first page
-    func fetcthAiringTodayPageAsFullList() async -> [Media] {
+    func fetcthNextAiringTodayPageAsFullList() async -> [Media] {
         return await airingTodaySeriesFetcher.fetchWithNextPage()
     }
 
     /// Starts from the first page
-    func fetcthOnTheAirPageAsFullList() async -> [Media] {
+    func fetcthNextOnTheAirPageAsFullList() async -> [Media] {
         return await onTheAirSeriesFetcher.fetchWithNextPage()
     }
     /// Starts from the first page
-    func fetcthTopRatedPageAsFullList() async -> [Media] {
+    func fetcthNextTopRatedPageAsFullList() async -> [Media] {
         return await popularSeriesFetcher.fetchWithNextPage()
     }
 
@@ -83,7 +99,7 @@ final class MediaInteractorStub: MediaInteractor {
     func fetchNextPopularPageAsFullList() async -> [Media] { getMediaList() }
     func fetchNextMostRecentPageAsFullList() async -> [Media] { getMediaList() }
     func fetchNextUpcomingPageAsFullList() async -> [Media] { getMediaList() }
-    func fetcthAiringTodayPageAsFullList() async -> [Media] { getMediaList() }
-    func fetcthOnTheAirPageAsFullList() async -> [Media] { getMediaList() }
-    func fetcthTopRatedPageAsFullList() async -> [Media] { getMediaList() }
+    func fetcthNextAiringTodayPageAsFullList() async -> [Media] { getMediaList() }
+    func fetcthNextOnTheAirPageAsFullList() async -> [Media] { getMediaList() }
+    func fetcthNextTopRatedPageAsFullList() async -> [Media] { getMediaList() }
 }

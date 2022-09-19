@@ -39,17 +39,17 @@ final class MovieListInteractorMock: MediaInteractor {
         return fetchNextUpcomingPageAsFullListStub
     }
 
-    func fetcthAiringTodayPageAsFullList() async -> [Media] {
+    func fetcthNextAiringTodayPageAsFullList() async -> [Media] {
         fetcthAiringTodayPageAsFullListWasCalledOnce = true
         return fetcthAiringTodayPageAsFullListStub
     }
 
-    func fetcthOnTheAirPageAsFullList() async -> [Media] {
+    func fetcthNextOnTheAirPageAsFullList() async -> [Media] {
         fetcthOnTheAirPageAsFullListWasCalledOnce = true
         return fetcthOnTheAirPageAsFullListStub
     }
 
-    func fetcthTopRatedPageAsFullList() async -> [Media] {
+    func fetcthNextTopRatedPageAsFullList() async -> [Media] {
         fetcthTopRatedPageAsFullListWasCalledOnce = true
         return fetcthTopRatedPageAsFullListStub
     }
