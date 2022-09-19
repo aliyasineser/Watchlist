@@ -35,7 +35,7 @@ class TVSerieFetcher: Fetchable {
         case .onTheAirSeries:
             watchables =  await tvSerieService.fetchMedia(request: TVRequest.getOnTheAirSeries(page: pageCounter))
         case .popular:
-            watchables =  await tvSerieService.fetchMedia(request: TVRequest.getOnTheAirSeries(page: pageCounter))
+            watchables =  await tvSerieService.fetchMedia(request: TVRequest.getPopularSeries(page: pageCounter))
         }
         return watchables
     }

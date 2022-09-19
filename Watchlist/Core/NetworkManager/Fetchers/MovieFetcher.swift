@@ -33,9 +33,9 @@ class MovieFetcher: Fetchable {
         case .popular:
             watchables =  await movieService.fetchMedia(request: MovieRequest.getPopularMovies(page: pageCounter))
         case .mostRecentMovies:
-            watchables =  await movieService.fetchMedia(request: MovieRequest.getPopularMovies(page: pageCounter))
+            watchables =  await movieService.fetchMedia(request: MovieRequest.getNowPlayingMovies(page: pageCounter))
         case .comingSoonMovies:
-            watchables =  await movieService.fetchMedia(request: MovieRequest.getPopularMovies(page: pageCounter))
+            watchables =  await movieService.fetchMedia(request: MovieRequest.getUpcomingMovies(page: pageCounter))
         }
         return watchables
     }

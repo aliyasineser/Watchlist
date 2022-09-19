@@ -23,49 +23,9 @@ struct ArtistDetailView: View {
             if let artist = self.presenter.artistDetail {
                 VStack(spacing: 0) {
                     ZStack(alignment: .bottomLeading) {
-
-                        CachedAsyncImage(
-                            url: URL(string: artist.imgUrl),
-                            content: { image in
-                                image.resizable()
-                                    .scaledToFill()
-                                    .frame(height: 400, alignment: .center)
-                                    .clipped()
-                            },
-                            placeholder: {
-                                Image(systemName: "person.fill")
-                                    .resizable()
-                                    .frame(height: 400, alignment: .center)
-                                    .clipped()
-                            }
-                        )
-
-                        Rectangle()
-                            .fill(
-                                LinearGradient(gradient: Gradient(stops: [
-                                    .init(color: Color(UIColor.gray).opacity(0.01), location: 0),
-                                    .init(color: Color(UIColor.gray).opacity(0.8), location: 1)
-                                ]), startPoint: .top, endPoint: .bottom)
-                            )
-                            .frame(height: 200)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-
-                        VStack(alignment: .leading) {
-                            Text(artist.name)
-                                .font(.system(size: 30))
-                                .bold()
-                                .minimumScaleFactor(0.7)
-                                .lineLimit(1)
-
-                            if let birthday = artist.birthday {
-                                Text(birthday)
-                                    .font(.system(size: 16))
-                                    .bold()
-                                    .minimumScaleFactor(0.7)
-                                    .lineLimit(1)
-                            }
-
-                        }
+                        artistImage(url: artist.imgUrl)
+                        gradientView()
+                        artistInfoView(name: artist.name, birthday: artist.birthday)
                         .padding()
                     }
 
@@ -74,16 +34,62 @@ struct ArtistDetailView: View {
 
                     ArtistDetailTabView(artist, artistCredits: self.presenter.artistCredits)
                         .padding(10)
-                        .ignoresSafeArea()
                 }
-                .clipped()
             }
         }
         .onAppear(perform: {
             self.presenter.fetchArtist(artistId: artistId)
         })
-        .ignoresSafeArea()
     }
+
+    fileprivate func artistImage(url: String) -> some View {
+        return CachedAsyncImage(
+            url: URL(string: url),
+            content: { image in
+                image.resizable()
+                    .scaledToFill()
+                    .frame(height: 400, alignment: .center)
+                    .clipped()
+            },
+            placeholder: {
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .frame(height: 400, alignment: .center)
+                    .clipped()
+            }
+        )
+    }
+
+    fileprivate func gradientView() -> some View {
+        return Rectangle()
+            .fill(
+                LinearGradient(gradient: Gradient(stops: [
+                    .init(color: Color(UIColor.gray).opacity(0.01), location: 0),
+                    .init(color: Color(UIColor.gray).opacity(0.8), location: 1)
+                ]), startPoint: .top, endPoint: .bottom)
+            )
+            .frame(height: 200)
+            .frame(maxWidth: .infinity, alignment: .trailing)
+    }
+
+    fileprivate func artistInfoView(name: String, birthday: String?) -> some View {
+        return VStack(alignment: .leading) {
+            Text(name)
+                .font(.system(size: 30))
+                .bold()
+                .minimumScaleFactor(0.7)
+                .lineLimit(1)
+
+            if let birthday = birthday {
+                Text(birthday)
+                    .font(.system(size: 16))
+                    .bold()
+                    .minimumScaleFactor(0.7)
+                    .lineLimit(1)
+            }
+        }
+    }
+
 }
 
 struct PhotoGrid: View {
@@ -100,35 +106,12 @@ struct PhotoGrid: View {
             HStack(spacing: 0) {
                 if presenter.artistImages.count > 1 {
                     ZStack {
-                        CachedAsyncImage(
-                            url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""),
-                            content: { image in
-                                image.resizable()
-                            },
-                            placeholder: {
-                                Image(systemName: "person.fill")
-                                    .resizable()
-                            }
-                        )
-                        .scaledToFill()
-                        .clipped()
-
+                        artistGridImage()
                         Rectangle()
                             .foregroundColor(.teal)
                             .opacity(0.7)
 
-                        VStack {
-                            Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
-                                .font(.system(size: 25))
-                                .bold()
-                                .minimumScaleFactor(0.7)
-                                .lineLimit(1)
-
-                            Text(ConstantTexts.artistDetailScreenPhotoAlbumsButtonText)
-                                .font(.system(size: 14))
-                                .bold()
-                                .minimumScaleFactor(0.5)
-                        }
+                        numberOfImagesLabel()
                         .onTapGesture {
                             // Navigation to artist images
                         }
@@ -138,24 +121,58 @@ struct PhotoGrid: View {
 
                 LazyHStack(spacing: 0) {
                     ForEach(self.presenter.artistImages.reversed()) { imageEntity in
-                        CachedAsyncImage(
-                            url: URL(string: imageEntity.getPosterUrl()),
-                            content: { image in
-                                image.resizable()
-                            },
-                            placeholder: {
-                                Image(systemName: "person.fill")
-                                    .resizable()
-                            }
-                        )
-                        .scaledToFill()
-                        .clipped()
-                        .border(width: 0.4, edges: Edge.allCases, color: .black)
+                        artistImageItem(imageEntity)
                     }
                 }
                 .padding(.trailing, 8)
             }
         }
+    }
+
+    fileprivate func artistGridImage() -> some View {
+        return CachedAsyncImage(
+            url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""),
+            content: { image in
+                image.resizable()
+            },
+            placeholder: {
+                Image(systemName: "person.fill")
+                    .resizable()
+            }
+        )
+        .scaledToFill()
+        .clipped()
+    }
+
+    fileprivate func numberOfImagesLabel() -> VStack<TupleView<(some View, some View)>> {
+        return VStack {
+            Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
+                .font(.system(size: 25))
+                .bold()
+                .minimumScaleFactor(0.7)
+                .lineLimit(1)
+
+            Text(ConstantTexts.artistDetailScreenPhotoAlbumsButtonText)
+                .font(.system(size: 14))
+                .bold()
+                .minimumScaleFactor(0.5)
+        }
+    }
+
+    fileprivate func artistImageItem(_ imageEntity: ReversedCollection<[ArtistImageEntity]>.Element) -> some View {
+        return CachedAsyncImage(
+            url: URL(string: imageEntity.getPosterUrl()),
+            content: { image in
+                image.resizable()
+            },
+            placeholder: {
+                Image(systemName: "person.fill")
+                    .resizable()
+            }
+        )
+        .scaledToFill()
+        .clipped()
+        .border(width: 0.4, edges: Edge.allCases, color: .black)
     }
 }
 
