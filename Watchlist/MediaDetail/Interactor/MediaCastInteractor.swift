@@ -15,8 +15,8 @@ final class DefaultMediaCastInteractor: MediaCastInteractor {
     var artists: [CastMemberEntity]
     private var artistsPageCount: Int
 
-    private let movieService: MovieService
-    private let tvService: TVService
+    private let movieService: MediaService
+    private let tvService: MediaService
 
     init(requestManager: RequestManager) {
         self.artists = []

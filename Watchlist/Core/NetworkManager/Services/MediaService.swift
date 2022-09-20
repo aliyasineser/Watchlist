@@ -2,7 +2,7 @@
 //  MediaService.swift
 //  Watchlist
 //
-//  Created by Ali Yasin Eser on 18.09.2022.
+//  Created by Ali Yasin Eser on 21.09.2022.
 //
 
 import Foundation

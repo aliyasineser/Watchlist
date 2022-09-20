@@ -32,8 +32,4 @@ class MediaFetcher: Fetchable {
         self.mediaList.append(contentsOf: page)
         return self.mediaList
     }
-
-    func getFetched() -> [Media] {
-        return mediaList
-    }
 }

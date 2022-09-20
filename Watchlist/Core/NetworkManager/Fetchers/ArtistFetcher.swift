@@ -29,8 +29,4 @@ class ArtistFetcher {
         self.artists.append(contentsOf: artistsPage)
         return self.artists
     }
-
-    func getFetched() -> [Creditable] {
-        return artists
-    }
 }
