@@ -12,22 +12,15 @@ import CachedAsyncImage
 struct DiscoverSliceItem: View {
 
     var item: DiscoverSectionItemEntity
+    @State var isAppeared = false
 
     init(item: DiscoverSectionItemEntity) {
         self.item = item
     }
 
-    var body: some View {
-        NavigationLink(
-            destination: MediaDetailView(
-                presenter: MediaDetailPresenter(
-                    interactor: DefaultMediaDetailInteractor(),
-                    movieId: item.itemID,
-                    mediaType: item.mediaType
-                )
-            )
-        ) {
-            VStack {
+    fileprivate func posterImage() -> some View {
+        return VStack {
+            if isAppeared {
                 CachedAsyncImage(
                     url: URL(string: self.item.imgUrl),
                     content: { image in
@@ -41,16 +34,38 @@ struct DiscoverSliceItem: View {
                         }
                     }
                 )
-                .scaledToFit()
-                .frame(
-                    width: 140,
-                    height: 210
+            } else {
+                Image(systemName: "film")
+            }
+        }
+    }
+
+    var body: some View {
+        NavigationLink(
+            destination: MediaDetailView(
+                presenter: MediaDetailPresenter(
+                    interactor: DefaultMediaDetailInteractor(),
+                    movieId: item.itemID,
+                    mediaType: item.mediaType
                 )
+            )
+        ) {
+            VStack {
+
+                posterImage()
+                    .scaledToFit()
+                    .frame(
+                        width: 140,
+                        height: 210
+                    )
             }
             .border(
                 Color.primary,
                 width: 1
             )
+            .onAppear {
+                isAppeared = true
+            }
         }
     }
 }

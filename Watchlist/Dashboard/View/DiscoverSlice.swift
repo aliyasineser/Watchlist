@@ -72,6 +72,11 @@ struct DiscoverSlice_Previews: PreviewProvider {
         DiscoverSlice(sliceTitle: "Title",
                       sliceItems: [DiscoverSectionItemEntity.mock,
                                    DiscoverSectionItemEntity.mock,
+                                   DiscoverSectionItemEntity.mock,
+                                   DiscoverSectionItemEntity.mock,
+                                   DiscoverSectionItemEntity.mock,
+                                   DiscoverSectionItemEntity.mock,
+                                   DiscoverSectionItemEntity.mock,
                                    DiscoverSectionItemEntity.mock
                                   ],
                       section: MediaSection.popularMovies, type: .movie

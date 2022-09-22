@@ -29,7 +29,9 @@ struct DiscoverSectionItemEntity: Identifiable {
 extension DiscoverSectionItemEntity {
     static let mock = DiscoverSectionItemEntity(id: 1,
                                                 title: "Very Very  Movie Title ",
-                                                year: "31 - 07 - 2021", imgUrl: "",
-                                                genre: "Comedy", mediaType: .movie
+                                                year: "31 - 07 - 2021",
+                                                imgUrl: "",
+                                                genre: "Comedy",
+                                                mediaType: .movie
     )
 }
