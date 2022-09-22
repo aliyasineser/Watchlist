@@ -17,7 +17,6 @@ struct PersistenceController {
             let newItem = Item(context: viewContext)
             let movie = FavoriteMovie(context: viewContext)
             movie.id = 5
-            
             newItem.timestamp = Date()
         }
         do {
@@ -29,7 +28,6 @@ struct PersistenceController {
         return result
     }()
 
-
     func saveContext() {
         do {
             try PersistenceController.shared.container.viewContext.save()
@@ -39,9 +37,10 @@ struct PersistenceController {
         }
     }
 
-    func addFavoriteMovie(id: Int) {
+    func addFavoriteMovie(id: Int, name: String) {
         let movie = FavoriteMovie(context: PersistenceController.shared.container.viewContext)
         movie.id = Int32(id)
+        movie.name = name
         saveContext()
         print("added")
     }
@@ -49,11 +48,13 @@ struct PersistenceController {
     func deleteFavoriteMovie(id: Int) {
         let viewContext = PersistenceController.shared.container.viewContext
         let request = FavoriteMovie.fetchRequest()
+        request.fetchLimit =  1
+        request.predicate = NSPredicate(format: "id == %d", id)
 
         do {
             let movies = try viewContext.fetch(request)
 
-            if let movie = movies.first(where: {$0.id == Int32(id)}) {
+            if let movie = movies.first {
                 viewContext.delete(movie)
                 print("removed")
             }
@@ -71,16 +72,11 @@ struct PersistenceController {
 
         do {
             let count = try viewContext.count(for: request)
-            if count > 0 {
-                return true
-            } else {
-                return false
-            }
+            return count > 0
         } catch {
             fatalError("Failed to check if favorite movie present: \(error)")
         }
     }
-
 
     let container: NSPersistentContainer
 

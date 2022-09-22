@@ -17,7 +17,6 @@ struct MediaDetailView: View {
     init(presenter: MediaDetailPresenter) {
         self.presenter = presenter
         presenter.getMediaDetail()
-        isFavorite = PersistenceController.shared.isFavoriteMovie(id: presenter.mediaId)
     }
 
     fileprivate func mediaTitle() -> some View {
@@ -92,12 +91,18 @@ struct MediaDetailView: View {
                 if isFavorite {
                     PersistenceController.shared.deleteFavoriteMovie(id: presenter.mediaId)
                 } else {
-                    PersistenceController.shared.addFavoriteMovie(id: presenter.mediaId)
+                    PersistenceController.shared.addFavoriteMovie(id: presenter.mediaId, name: presenter.media.title)
                 }
                 isFavorite = PersistenceController.shared.isFavoriteMovie(id: presenter.mediaId)
+                print("")
             } label: {
-                Image(systemName: isFavorite ? "star.fill": "star")
-                    .foregroundColor(.teal)
+                Image(
+                    systemName: isFavorite ? "star.fill": "star"
+                )
+                .foregroundColor(.teal)
+            }
+            .onAppear{
+                isFavorite = PersistenceController.shared.isFavoriteMovie(id: presenter.mediaId)
             }
 
         }
@@ -150,7 +155,7 @@ struct MediaDetailView: View {
                             )
 
                             mediaDetailStack()
-                            .padding(.leading, 5)
+                                .padding(.leading, 5)
                             Spacer()
                         }
                         .padding(.horizontal, 10)

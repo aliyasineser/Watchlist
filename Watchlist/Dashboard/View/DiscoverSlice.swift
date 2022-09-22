@@ -51,16 +51,27 @@ struct DiscoverSlice: View {
                     seeAllView
                 }
             }
-            .padding(EdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 5))
+            .padding(
+                EdgeInsets(
+                    top: 0,
+                    leading: 15,
+                    bottom: 0,
+                    trailing: 5
+                )
+            )
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .center, spacing: 10) {
-                    ForEach(self.sliceItems, id: \.itemID) { item in
-                        DiscoverSliceItem(item: item)
-                            .frame(width: 140, height: 240, alignment: .center)
+            if sliceItems.isEmpty {
+                ProgressView()
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(alignment: .center, spacing: 10) {
+                        ForEach(self.sliceItems, id: \.itemID) { item in
+                            DiscoverSliceItem(item: item)
+                                .frame(width: 140, height: 240, alignment: .center)
+                        }
                     }
+                    .padding(.horizontal)
                 }
-                .padding(.horizontal)
             }
         }
     }

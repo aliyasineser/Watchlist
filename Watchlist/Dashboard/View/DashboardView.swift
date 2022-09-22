@@ -7,6 +7,20 @@
 
 import SwiftUI
 
+enum TabViewSection {
+    case discover
+    case artists
+
+    var tag: Int {
+        switch self {
+        case .discover:
+            return 0
+        case .artists:
+            return 1
+        }
+    }
+}
+
 struct DashboardView: View {
     var body: some View {
         TabView {
@@ -16,13 +30,13 @@ struct DashboardView: View {
             .tabItem {
                 TabItemView(systemName: "square.grid.2x2.fill", text: ConstantTexts.discoverScreenTabBarItemText)
             }
-            .tag(0)
+            .tag(TabViewSection.discover.tag)
 
             ArtistsView(presenter: ArtistPresenter(DefaultArtistInteractor()))
                 .tabItem {
                     TabItemView(systemName: "person.crop.circle", text: ConstantTexts.artistsScreenTabBarItemText)
                 }
-                .tag(1)
+                .tag(TabViewSection.artists.tag)
         }
         .navigationBarTitle(ConstantTexts.dashboardScreenNavBarTitle)
         .navigationBarHidden(false)

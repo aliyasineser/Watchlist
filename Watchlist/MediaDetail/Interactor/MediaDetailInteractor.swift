@@ -17,7 +17,6 @@ final class DefaultMediaDetailInteractor: MediaDetailInteractor {
     private let movieService: MediaService = MovieService.shared
     private let tvService: MediaService = TVService.shared
 
-
     func getMovieDetail(_ id: Int) async -> MediaDetail? {
         return await movieService.fetchMediaDetails(id: id)
     }
