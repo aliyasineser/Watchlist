@@ -23,9 +23,14 @@ struct MediaDetailTabView: View {
         VStack {
             CustomTopTabBar(tabIndex: $tabIndex)
             if tabIndex == 0 {
-                MediaCastView(presenter: MediaCastPresenter(DefaultMediaCastInteractor(
-                    requestManager: DefaultRequestManager()),
-                                                            id: self.id, mediaType: self.mediaType))
+                MediaCastView(presenter: MediaCastPresenter(
+                    DefaultMediaCastInteractor(
+                        requestManager: DefaultRequestManager()
+                    ),
+                    id: self.id,
+                    mediaType: self.mediaType
+                )
+                )
             } else if tabIndex == 1 {
                 Text("Reviews")
             } else {

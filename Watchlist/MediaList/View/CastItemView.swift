@@ -15,41 +15,64 @@ struct CastItemView: View {
         self.castEntity = castEntity
     }
 
+    fileprivate func castImage() -> some View {
+        return AsyncImage(
+            url: URL(string: self.castEntity.imageUrl),
+            content: { image in
+                image.resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 120)
+                    .clipped()
+            },
+            placeholder: {
+                Image(systemName: "person.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 100, height: 120)
+                    .clipped()
+            }
+        )
+    }
+
+    fileprivate func castName() -> some View {
+        return Text(self.castEntity.name)
+            .font(.system(size: 15))
+            .fontWeight(.regular)
+            .multilineTextAlignment(.center)
+            .lineLimit(2)
+            .minimumScaleFactor(0.7)
+            .padding(
+                EdgeInsets(
+                    top: 0,
+                    leading: 2,
+                    bottom: 4,
+                    trailing: 2
+                )
+            )
+    }
+
+    fileprivate func castRole() -> some View {
+        return Text(self.castEntity.character)
+            .font(.system(size: 13))
+            .fontWeight(.regular)
+            .multilineTextAlignment(.center)
+            .lineLimit(2)
+            .minimumScaleFactor(0.7)
+            .padding(
+                EdgeInsets(
+                    top: 0,
+                    leading: 2,
+                    bottom: 4,
+                    trailing: 2
+                )
+            )
+    }
+
     var body: some View {
         VStack(alignment: .center) {
-            AsyncImage(
-                url: URL(string: self.castEntity.imageUrl),
-                content: { image in
-                    image.resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 120)
-                        .clipped()
-                },
-                placeholder: {
-                    Image(systemName: "person.fill")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 100, height: 120)
-                        .clipped()
-                }
-            )
-
-            Text(self.castEntity.name)
-                .font(.system(size: 15))
-                .fontWeight(.regular)
-                .multilineTextAlignment(.center)
-                .lineLimit(2)
-                .minimumScaleFactor(0.7)
-                .padding(EdgeInsets(top: 0, leading: 2, bottom: 4, trailing: 2))
-
-            Text(self.castEntity.character)
-                .font(.system(size: 13))
-                .fontWeight(.regular)
-                .multilineTextAlignment(.center)
-                .lineLimit(2)
-                .minimumScaleFactor(0.7)
-                .padding(EdgeInsets(top: 0, leading: 2, bottom: 4, trailing: 2))
-
+            castImage()
+            castName()
+            castRole()
         }
         .frame(width: 100, height: 175)
         .border(Color.primary, width: 1)

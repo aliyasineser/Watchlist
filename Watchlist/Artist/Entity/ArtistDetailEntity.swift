@@ -16,7 +16,7 @@ struct ArtistDetailEntity {
     var asKnownAs: [String]?
     var placeOfBirth: String?
     var imgUrl: String
-
+    
     init(id: Int, name: String, biography: String?, birthday: String?,
          deathday: String?, asKnownAs: [String]?,
          placeOfBirth: String?, imgUrl: String) {
@@ -32,12 +32,13 @@ struct ArtistDetailEntity {
 }
 
 extension ArtistDetailEntity {
-    static let mock = ArtistDetailEntity(id: 1, name: "Artist Name",
-                                         biography: "Artist Lived a long happy life. ",
-                                         birthday: "21 - 05 - 1921",
-                                         deathday: "02 - 02 - 2022",
-                                         asKnownAs: ["Yoyo person", "Nonnoooo Person"],
-                                         placeOfBirth: "Old Yorkshire",
-                                         imgUrl: "www.image.com"
+    static let mock = ArtistDetailEntity(
+        id: 1, name: "Artist Name",
+        biography: "Artist Lived a long happy life. ",
+        birthday: "21 - 05 - 1921",
+        deathday: "02 - 02 - 2022",
+        asKnownAs: ["Yoyo person", "Nonnoooo Person"],
+        placeOfBirth: "Old Yorkshire",
+        imgUrl: "www.image.com"
     )
 }

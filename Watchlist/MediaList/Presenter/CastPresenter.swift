@@ -27,7 +27,11 @@ class CastPresenter: ObservableObject {
         Task {
             let artists = await interactor.fetchCast(self.id, mediaType: self.mediaType)
             self.artists = artists.map { (artist) -> CastEntity in
-                return CastEntity( imageUrl: artist.imageUrl, name: artist.name, character: artist.character)
+                return CastEntity(
+                    imageUrl: artist.imageUrl,
+                    name: artist.name,
+                    character: artist.character
+                )
             }
         }
     }

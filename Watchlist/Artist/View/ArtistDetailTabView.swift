@@ -34,6 +34,25 @@ struct ArtistDetailTabView: View {
         }
     }
 
+    fileprivate func creditMediaPoster(showCredit: MediaCreditEntity) -> some View {
+        return CachedAsyncImage(
+            url: URL(string: showCredit.imagePath),
+            content: { image in
+                image.resizable()
+                    .scaledToFill()
+                    .frame(width: 130, height: 200, alignment: .center)
+                    .border(width: 1, edges: Edge.allCases, color: .black)
+                    .clipped()
+            },
+            placeholder: {
+                Image(systemName: "film")
+                    .frame(width: 130, height: 200, alignment: .center)
+                    .border(width: 1, edges: Edge.allCases, color: .black)
+                    .clipped()
+            }
+        )
+    }
+
     var body: some View {
         VStack {
             ArtistDetailTopTabBar(tabIndex: $tabIndex)
@@ -47,22 +66,7 @@ struct ArtistDetailTabView: View {
                         VStack(alignment: .leading) {
                             ForEach(self.artistCredits) { showCredit in
                                 HStack {
-                                    CachedAsyncImage(
-                                        url: URL(string: showCredit.imagePath),
-                                        content: { image in
-                                            image.resizable()
-                                                .scaledToFill()
-                                                .frame(width: 130, height: 200, alignment: .center)
-                                                .border(width: 1, edges: Edge.allCases, color: .black)
-                                                .clipped()
-                                        },
-                                        placeholder: {
-                                            Image(systemName: "film")
-                                                .frame(width: 130, height: 200, alignment: .center)
-                                                .border(width: 1, edges: Edge.allCases, color: .black)
-                                                .clipped()
-                                        }
-                                    )
+                                    creditMediaPoster(showCredit: showCredit)
                                     mediaCard(credit: showCredit)
                                 }
                             }

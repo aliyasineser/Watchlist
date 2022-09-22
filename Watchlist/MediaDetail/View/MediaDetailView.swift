@@ -101,10 +101,59 @@ struct MediaDetailView: View {
                 )
                 .foregroundColor(.teal)
             }
-            .onAppear{
+            .onAppear {
                 isFavorite = PersistenceController.shared.isFavoriteMovie(id: presenter.mediaId)
             }
 
+        }
+    }
+
+    fileprivate func mediaView() -> some View {
+        return HStack(alignment: .top) {
+            CachedAsyncImage(
+                url: URL(string: presenter.media.imagePath),
+                content: { image in
+                    image.resizable()
+                        .scaledToFill()
+                        .clipped()
+                },
+                placeholder: {
+                    Image(systemName: "film")
+                        .scaledToFill()
+                        .clipped()
+                }
+            )
+
+            mediaDetailStack()
+                .padding(.leading, 5)
+            Spacer()
+        }
+    }
+
+    fileprivate func mediaPoster(geometry: GeometryProxy) -> some View {
+        return ZStack(alignment: .bottom) {
+            CachedAsyncImage(
+                url: URL(string: presenter.media.imagePath),
+                content: { image in
+                    image.resizable()
+                },
+                placeholder: {
+                    Image(systemName: "film")
+                }
+            )
+            .scaledToFill()
+            .frame(height: 300)
+            .clipped()
+
+            Rectangle()
+                .fill(
+                    LinearGradient(gradient: Gradient(stops: [
+                        .init(color: Color(UIColor.systemBackground).opacity(0.01), location: 0),
+                        .init(color: Color(UIColor.systemBackground), location: 1)
+                    ]), startPoint: .top, endPoint: .bottom)
+                )
+                .frame(height: 0.3 * geometry.size.width)
+                .frame(maxWidth: .infinity, alignment: .trailing)
         }
     }
 
@@ -113,53 +162,13 @@ struct MediaDetailView: View {
             GeometryReader { geometry in
                 ScrollView {
                     VStack {
-                        ZStack(alignment: .bottom) {
-                            CachedAsyncImage(
-                                url: URL(string: presenter.media.imagePath),
-                                content: { image in
-                                    image.resizable()
-                                },
-                                placeholder: {
-                                    Image(systemName: "film")
-                                }
-                            )
-                            .scaledToFill()
-                            .frame(height: 300)
-                            .clipped()
+                        mediaPoster(geometry: geometry)
+                            .frame(width: geometry.size.width, height: 300, alignment: .center)
 
-                            Rectangle()
-                                .fill(
-                                    LinearGradient(gradient: Gradient(stops: [
-                                        .init(color: Color(UIColor.systemBackground).opacity(0.01), location: 0),
-                                        .init(color: Color(UIColor.systemBackground), location: 1)
-                                    ]), startPoint: .top, endPoint: .bottom)
-                                )
-                                .frame(height: 0.3 * geometry.size.width)
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                        }
-                        .frame(width: geometry.size.width, height: 300, alignment: .center)
+                        mediaView()
+                            .padding(.horizontal, 10)
+                            .frame(width: geometry.size.width, alignment: .top)
 
-                        HStack(alignment: .top) {
-                            CachedAsyncImage(
-                                url: URL(string: presenter.media.imagePath),
-                                content: { image in
-                                    image.resizable()
-                                        .scaledToFill()
-                                        .clipped()
-                                },
-                                placeholder: {
-                                    Image(systemName: "film")
-                                        .scaledToFill()
-                                        .clipped()
-                                }
-                            )
-
-                            mediaDetailStack()
-                                .padding(.leading, 5)
-                            Spacer()
-                        }
-                        .padding(.horizontal, 10)
-                        .frame(width: geometry.size.width, alignment: .top)
                         ScrollView {
                             Text(presenter.media.summary)
                                 .font(.system(size: 16))
@@ -167,8 +176,11 @@ struct MediaDetailView: View {
                         .padding(.horizontal, 10)
                         .padding(.top, 25)
 
-                        MediaDetailTabView(self.presenter.mediaId, mediaType: self.presenter.mediaType)
-                            .padding(.top, 20)
+                        MediaDetailTabView(
+                            self.presenter.mediaId,
+                            mediaType: self.presenter.mediaType
+                        )
+                        .padding(.top, 20)
                     }
                 }
             }
@@ -184,9 +196,12 @@ struct MediaDetailView: View {
 struct MediaDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MediaDetailView(presenter: MediaDetailPresenter(interactor: MediaDetailInteractorStub(),
-                                                            movieId: 1285,
-                                                            mediaType: .movie)
+            MediaDetailView(
+                presenter: MediaDetailPresenter(
+                    interactor: MediaDetailInteractorStub(),
+                    movieId: 1285,
+                    mediaType: .movie
+                )
             )
             .preferredColorScheme(.dark)
             .navigationBarTitleDisplayMode(.inline)

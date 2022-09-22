@@ -34,9 +34,16 @@ final class DefaultMediaCastInteractor: MediaCastInteractor {
         }
         credits?.cast.forEach({ cast in
             if let character = cast.character {
-                self.artists.append(CastMemberEntity(id: cast.id, castId: nil,
-                                                     character: character, order: cast.order,
-                                                     name: cast.getTitle(), imageUrl: cast.getPosterUrl()))
+                self.artists.append(
+                    CastMemberEntity(
+                        id: cast.id,
+                        castId: nil,
+                        character: character,
+                        order: cast.order,
+                        name: cast.getTitle(),
+                        imageUrl: cast.getPosterUrl()
+                    )
+                )
             }
         })
         return self.artists

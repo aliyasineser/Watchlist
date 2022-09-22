@@ -34,9 +34,16 @@ final class DefaultCastInteractor: CastInteractor {
         if let credits = credits {
             credits.cast.forEach({ cast in
                 if let castId = cast.castID, let character = cast.character {
-                    self.artists.append(CastMemberEntity(id: cast.id, castId: castId,
-                                                         character: character, order: cast.order,
-                                                         name: cast.getTitle(), imageUrl: cast.getPosterUrl()))
+                    self.artists.append(
+                        CastMemberEntity(
+                            id: cast.id,
+                            castId: castId,
+                            character: character,
+                            order: cast.order,
+                            name: cast.getTitle(),
+                            imageUrl: cast.getPosterUrl()
+                        )
+                    )
                 }
             })
         }

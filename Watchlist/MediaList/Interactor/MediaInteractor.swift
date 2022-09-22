@@ -18,24 +18,30 @@ protocol MediaInteractor {
 
 final class DefaultMediaInteractor: MediaInteractor {
 
-    let popularMoviesFetcher: Fetchable = MediaFetcher(strategy: PopularMoviesFetchStrategy(),
-                                                       service: MovieService.shared
+    let popularMoviesFetcher: Fetchable = MediaFetcher(
+        strategy: PopularMoviesFetchStrategy(),
+        service: MovieService.shared
     )
-    let comingSoonMoviesFetcher: Fetchable = MediaFetcher(strategy: UpcomingMoviesFetchStrategy(),
-                                                          service: MovieService.shared
+    let comingSoonMoviesFetcher: Fetchable = MediaFetcher(
+        strategy: UpcomingMoviesFetchStrategy(),
+        service: MovieService.shared
     )
-    let mostRecentMoviesFetcher: Fetchable = MediaFetcher(strategy: NowPlayingMoviesFetchStrategy(),
-                                                          service: MovieService.shared
+    let mostRecentMoviesFetcher: Fetchable = MediaFetcher(
+        strategy: NowPlayingMoviesFetchStrategy(),
+        service: MovieService.shared
     )
 
-    let popularSeriesFetcher: Fetchable = MediaFetcher(strategy: PopularSeriesFetchStrategy(),
-                                                       service: TVService.shared
+    let popularSeriesFetcher: Fetchable = MediaFetcher(
+        strategy: PopularSeriesFetchStrategy(),
+        service: TVService.shared
     )
-    let airingTodaySeriesFetcher: Fetchable = MediaFetcher(strategy: AiringTodaySeriesFetchStrategy(),
-                                                           service: TVService.shared
+    let airingTodaySeriesFetcher: Fetchable = MediaFetcher(
+        strategy: AiringTodaySeriesFetchStrategy(),
+        service: TVService.shared
     )
-    let onTheAirSeriesFetcher: Fetchable = MediaFetcher(strategy: OnTheAirSeriesFetchStrategy(),
-                                                        service: TVService.shared
+    let onTheAirSeriesFetcher: Fetchable = MediaFetcher(
+        strategy: OnTheAirSeriesFetchStrategy(),
+        service: TVService.shared
     )
 
     /// Starts from the first page

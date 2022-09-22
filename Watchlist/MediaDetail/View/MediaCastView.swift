@@ -23,14 +23,18 @@ struct MediaCastView: View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                 ForEach(self.presenter.artists) { (artist) in
-                    NavigationLink(destination: ArtistDetailView(artistId: artist.id,
-                                                                 presenter: ArtistDetailPresenter(
-                                                                    interactor: DefaultArtistDetailInteractor()
-                                                                 )
-                                                                )
+                    NavigationLink(destination: ArtistDetailView(
+                        artistId: artist.id,
+                        presenter: ArtistDetailPresenter(
+                            interactor: DefaultArtistDetailInteractor()
+                        )
+                    )
                     ) {
-                        ArtistItemView(artistEntity: ArtistEntity(artistId: artist.id,
-                                                                  imageUrl: artist.imageUrl, name: artist.name))
+                        ArtistItemView(artistEntity: ArtistEntity(
+                            artistId: artist.id,
+                            imageUrl: artist.imageUrl, name: artist.name
+                        )
+                        )
                     }
                 }
                 Spacer()
@@ -48,9 +52,11 @@ struct MediaCastView: View {
 struct MovieCastView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            MediaCastView(presenter: MediaCastPresenter(MediaCastInteractorStub(),
-                                                        id: 1,
-                                                        mediaType: .movie)
+            MediaCastView(
+                presenter: MediaCastPresenter(
+                    MediaCastInteractorStub(),
+                    id: 1,
+                    mediaType: .movie)
             )
         }
     }
