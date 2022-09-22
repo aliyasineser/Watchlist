@@ -30,9 +30,7 @@ struct ArtistsView: View {
                         ForEach(self.presenter.artists, id: \.artistId) { (artist) in
                             NavigationLink(destination: ArtistDetailView(artistId: artist.artistId,
                                                                          presenter: ArtistDetailPresenter(
-                                                                            interactor: DefaultArtistDetailInteractor(
-                                                                                requestManager: DefaultRequestManager()
-                                                                            )
+                                                                            interactor: DefaultArtistDetailInteractor()
                                                                          )
                                                                         )
                             ) {

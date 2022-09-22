@@ -14,13 +14,9 @@ protocol MediaDetailInteractor {
 
 final class DefaultMediaDetailInteractor: MediaDetailInteractor {
 
-    private let movieService: MovieService
-    private let tvService: TVService
+    private let movieService: MediaService = MovieService.shared
+    private let tvService: MediaService = TVService.shared
 
-    init(requestManager: RequestManager) {
-        self.movieService = MovieService(requestManager: requestManager)
-        self.tvService = TVService(requestManager: requestManager)
-    }
 
     func getMovieDetail(_ id: Int) async -> MediaDetail? {
         return await movieService.fetchMediaDetails(id: id)

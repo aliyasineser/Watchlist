@@ -25,9 +25,7 @@ struct MediaCastView: View {
                 ForEach(self.presenter.artists) { (artist) in
                     NavigationLink(destination: ArtistDetailView(artistId: artist.id,
                                                                  presenter: ArtistDetailPresenter(
-                                                                    interactor: DefaultArtistDetailInteractor(
-                                                                        requestManager: DefaultRequestManager()
-                                                                    )
+                                                                    interactor: DefaultArtistDetailInteractor()
                                                                  )
                                                                 )
                     ) {

@@ -16,11 +16,7 @@ protocol ArtistDetailInteractor {
 
 final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
 
-    private let artistService: ArtistService
-
-    init(requestManager: RequestManager) {
-        self.artistService = ArtistService(requestManager: requestManager)
-    }
+    private let artistService: ArtistService = .shared
 
     func fetchArtist(_ id: Int) async -> ArtistDetailEntity? {
         let person = await artistService.fetchArtistDetail(id: id)

@@ -7,10 +7,12 @@
 
 import Foundation
 
-actor TVService: MediaService {
+final class TVService: MediaService {
     private let requestManager: RequestManager
 
-    init(requestManager: RequestManager) {
+    public static let shared = TVService()
+
+    init(requestManager: RequestManager = DefaultRequestManager()) {
         self.requestManager = requestManager
     }
 

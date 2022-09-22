@@ -14,13 +14,11 @@ protocol CastInteractor {
 final class DefaultCastInteractor: CastInteractor {
 
     private var artists: [CastMemberEntity]
-    private let movieService: MovieService
-    private let tvService: TVService
+    private let movieService: MediaService = MovieService.shared
+    private let tvService: MediaService = TVService.shared
 
-    init(requestManager: RequestManager) {
+    init() {
         self.artists = []
-        self.tvService = TVService(requestManager: requestManager)
-        self.movieService = MovieService(requestManager: requestManager)
     }
 
     func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {

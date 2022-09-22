@@ -41,9 +41,12 @@ struct DiscoverSlice: View {
                     .bold()
                 Spacer()
                 NavigationLink(
-                    destination: MediaListView(mediaListPresenter:
-                                                MediaListPresenter(DefaultMediaInteractor(
-                                                    requestManager: DefaultRequestManager()), section: self.section))
+                    destination: MediaListView(
+                        mediaListPresenter: MediaListPresenter(
+                            DefaultMediaInteractor(),
+                            section: self.section
+                        )
+                    )
                 ) {
                     seeAllView
                 }
@@ -67,10 +70,11 @@ struct DiscoverSlice_Previews: PreviewProvider {
 
     static var previews: some View {
         DiscoverSlice(sliceTitle: "Title",
-                      sliceItems: [DiscoverSectionItemEntity(id: 1,
-                                                             title: "Very Very Long Movie Title",
-                                                             year: "21 - 05 - 2021",
-                                                             imgUrl: "", genre: "Comedy", mediaType: .movie)],
-                      section: MediaSection.popularMovies, type: .movie)
+                      sliceItems: [DiscoverSectionItemEntity.mock,
+                                   DiscoverSectionItemEntity.mock,
+                                   DiscoverSectionItemEntity.mock
+                                  ],
+                      section: MediaSection.popularMovies, type: .movie
+        )
     }
 }

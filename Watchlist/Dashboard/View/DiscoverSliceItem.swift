@@ -19,13 +19,12 @@ struct DiscoverSliceItem: View {
 
     var body: some View {
         NavigationLink(
-            destination: MediaDetailView(presenter: MediaDetailPresenter(
-                interactor: DefaultMediaDetailInteractor(requestManager:
-                                                            DefaultRequestManager()
-                                                 ),
-                movieId: item.itemID,
-                mediaType: item.mediaType
-            )
+            destination: MediaDetailView(
+                presenter: MediaDetailPresenter(
+                    interactor: DefaultMediaDetailInteractor(),
+                    movieId: item.itemID,
+                    mediaType: item.mediaType
+                )
             )
         ) {
             VStack {
@@ -43,9 +42,15 @@ struct DiscoverSliceItem: View {
                     }
                 )
                 .scaledToFit()
-                .frame(width: 140, height: 210)
+                .frame(
+                    width: 140,
+                    height: 210
+                )
             }
-            .border(Color.primary, width: 1)
+            .border(
+                Color.primary,
+                width: 1
+            )
         }
     }
 }
@@ -55,8 +60,10 @@ struct DiscoverSectionItem_Previews: PreviewProvider {
         ScrollView(.horizontal, showsIndicators: false, content: {
             HStack {
                 ForEach((1..<10)) { _ in
-                    DiscoverSliceItem(item: DiscoverSectionItemEntity.mock)
-                        .frame(width: 140, height: 210, alignment: .center)
+                    DiscoverSliceItem(
+                        item: DiscoverSectionItemEntity.mock
+                    )
+                    .frame(width: 140, height: 210, alignment: .center)
                 }
             }
         })

@@ -20,7 +20,7 @@ struct DashboardView: View {
             }
             .tag(0)
 
-            ArtistsView(presenter: ArtistPresenter(DefaultArtistInteractor(requestManager: DefaultRequestManager())))
+            ArtistsView(presenter: ArtistPresenter(DefaultArtistInteractor()))
                 .tabItem {
                     TabItemView(systemName: "person.crop.circle", text: ConstantTexts.artistsScreenTabBarItemText)
                 }

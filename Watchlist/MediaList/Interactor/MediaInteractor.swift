@@ -18,43 +18,25 @@ protocol MediaInteractor {
 
 final class DefaultMediaInteractor: MediaInteractor {
 
-    let requestManager: RequestManager
+    let popularMoviesFetcher: Fetchable = MediaFetcher(strategy: PopularMoviesFetchStrategy(),
+                                                       service: MovieService.shared
+    )
+    let comingSoonMoviesFetcher: Fetchable = MediaFetcher(strategy: UpcomingMoviesFetchStrategy(),
+                                                          service: MovieService.shared
+    )
+    let mostRecentMoviesFetcher: Fetchable = MediaFetcher(strategy: NowPlayingMoviesFetchStrategy(),
+                                                          service: MovieService.shared
+    )
 
-    let popularMoviesFetcher: Fetchable
-    let comingSoonMoviesFetcher: Fetchable
-    let mostRecentMoviesFetcher: Fetchable
-
-    let popularSeriesFetcher: Fetchable
-    let airingTodaySeriesFetcher: Fetchable
-    let onTheAirSeriesFetcher: Fetchable
-
-    init(requestManager: RequestManager) {
-        self.requestManager = requestManager
-
-        self.popularMoviesFetcher = MediaFetcher(strategy: PopularMoviesFetchStrategy(),
-                                                 service: MovieService(requestManager: requestManager)
-        )
-
-        self.comingSoonMoviesFetcher = MediaFetcher(strategy: UpcomingMoviesFetchStrategy(),
-                                                    service: MovieService(requestManager: requestManager)
-        )
-
-        self.mostRecentMoviesFetcher = MediaFetcher(strategy: NowPlayingMoviesFetchStrategy(),
-                                                    service: MovieService(requestManager: requestManager)
-        )
-
-        self.popularSeriesFetcher = MediaFetcher(strategy: PopularSeriesFetchStrategy(),
-                                                 service: TVService(requestManager: requestManager)
-        )
-
-        self.airingTodaySeriesFetcher = MediaFetcher(strategy: AiringTodaySeriesFetchStrategy(),
-                                                     service: TVService(requestManager: requestManager)
-        )
-
-        self.onTheAirSeriesFetcher = MediaFetcher(strategy: OnTheAirSeriesFetchStrategy(),
-                                                  service: TVService(requestManager: requestManager)
-        )
-    }
+    let popularSeriesFetcher: Fetchable = MediaFetcher(strategy: PopularSeriesFetchStrategy(),
+                                                       service: TVService.shared
+    )
+    let airingTodaySeriesFetcher: Fetchable = MediaFetcher(strategy: AiringTodaySeriesFetchStrategy(),
+                                                           service: TVService.shared
+    )
+    let onTheAirSeriesFetcher: Fetchable = MediaFetcher(strategy: OnTheAirSeriesFetchStrategy(),
+                                                        service: TVService.shared
+    )
 
     /// Starts from the first page
     func fetchNextPopularPageAsFullList() async -> [Media] {

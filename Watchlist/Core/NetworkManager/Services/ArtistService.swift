@@ -7,10 +7,12 @@
 
 import Foundation
 
-actor ArtistService {
+final class ArtistService {
     private let requestManager: RequestManager
 
-    init(requestManager: RequestManager) {
+    public static let shared = ArtistService()
+
+    init(requestManager: RequestManager = DefaultRequestManager()) {
         self.requestManager = requestManager
     }
 

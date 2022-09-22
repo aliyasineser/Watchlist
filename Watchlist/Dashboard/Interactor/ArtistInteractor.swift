@@ -13,15 +13,12 @@ protocol ArtistInteractor {
 
 final class DefaultArtistInteractor: ArtistInteractor {
 
-    let artistFetcher: ArtistFetcher
+    let artistFetcher: ArtistFetcher = ArtistFetcher()
 
     func fetchArtists() async -> [Artist] {
         return await artistFetcher.fetchSinglePage()
     }
 
-    init(requestManager: RequestManager) {
-        self.artistFetcher = ArtistFetcher(requestManager: requestManager)
-    }
 }
 
 final class ArtistInteractorStub: ArtistInteractor {

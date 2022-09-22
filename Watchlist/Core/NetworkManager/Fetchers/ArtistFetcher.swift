@@ -12,11 +12,7 @@ class ArtistFetcher {
     private var artists: [Artist] = []
     private var pageCounter: Int = 0
 
-    private let artistService: ArtistService
-
-    init(requestManager: RequestManager) {
-        self.artistService = ArtistService(requestManager: requestManager)
-    }
+    private let artistService: ArtistService = .shared
 
     func fetchSinglePage() async -> [Artist] {
         pageCounter += 1

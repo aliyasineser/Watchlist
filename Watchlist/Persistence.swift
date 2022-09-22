@@ -11,10 +11,13 @@ struct PersistenceController {
     static let shared = PersistenceController()
 
     static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
+        let result = PersistenceController(inMemory: false)
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
             let newItem = Item(context: viewContext)
+            let movie = FavoriteMovie(context: viewContext)
+            movie.id = 5
+            
             newItem.timestamp = Date()
         }
         do {
@@ -25,6 +28,59 @@ struct PersistenceController {
         }
         return result
     }()
+
+
+    func saveContext() {
+        do {
+            try PersistenceController.shared.container.viewContext.save()
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+
+    func addFavoriteMovie(id: Int) {
+        let movie = FavoriteMovie(context: PersistenceController.shared.container.viewContext)
+        movie.id = Int32(id)
+        saveContext()
+        print("added")
+    }
+
+    func deleteFavoriteMovie(id: Int) {
+        let viewContext = PersistenceController.shared.container.viewContext
+        let request = FavoriteMovie.fetchRequest()
+
+        do {
+            let movies = try viewContext.fetch(request)
+
+            if let movie = movies.first(where: {$0.id == Int32(id)}) {
+                viewContext.delete(movie)
+                print("removed")
+            }
+        } catch {
+            fatalError("Failed to delete favorite movie: \(error)")
+        }
+        saveContext()
+    }
+
+    func isFavoriteMovie(id: Int) -> Bool {
+        let viewContext = PersistenceController.shared.container.viewContext
+        let request = FavoriteMovie.fetchRequest()
+        request.fetchLimit =  1
+        request.predicate = NSPredicate(format: "id == %d", id)
+
+        do {
+            let count = try viewContext.count(for: request)
+            if count > 0 {
+                return true
+            } else {
+                return false
+            }
+        } catch {
+            fatalError("Failed to check if favorite movie present: \(error)")
+        }
+    }
+
 
     let container: NSPersistentContainer
 
