@@ -11,9 +11,7 @@ struct DashboardView: View {
     var body: some View {
         TabView {
             DiscoverView(
-                presenter: DiscoverPresenter(DefaultMediaInteractor(
-                    requestManager: DefaultRequestManager())
-                )
+                presenter: DiscoverPresenter(DefaultMediaInteractor())
             )
             .tabItem {
                 TabItemView(systemName: "square.grid.2x2.fill", text: ConstantTexts.discoverScreenTabBarItemText)
