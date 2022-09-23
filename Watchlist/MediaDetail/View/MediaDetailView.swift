@@ -89,14 +89,14 @@ struct MediaDetailView: View {
 
             Button {
                 if isFavorite {
-                    PersistenceController.shared.deleteFavoriteMovie(id: presenter.mediaId)
+                    FavoriteMovieStorage.shared.deleteFavorite(id: presenter.mediaId)
                 } else {
-                    PersistenceController.shared.addFavoriteMovie(
+                    FavoriteMovieStorage.shared.addFavorite(
                         id: presenter.mediaId,
                         name: presenter.media.title
                     )
                 }
-                isFavorite = PersistenceController.shared.isFavoriteMovie(id: presenter.mediaId)
+                isFavorite = FavoriteMovieStorage.shared.isFavorite(id: presenter.mediaId)
             } label: {
                 Image(
                     systemName: isFavorite ? "star.fill": "star"
@@ -104,7 +104,7 @@ struct MediaDetailView: View {
                 .foregroundColor(.teal)
             }
             .onAppear {
-                isFavorite = PersistenceController.shared.isFavoriteMovie(id: presenter.mediaId)
+                isFavorite = FavoriteMovieStorage.shared.isFavorite(id: presenter.mediaId)
             }
 
         }
@@ -158,7 +158,7 @@ struct MediaDetailView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
         }
     }
-    
+
     var body: some View {
         VStack(alignment: .leading) {
             GeometryReader { geometry in

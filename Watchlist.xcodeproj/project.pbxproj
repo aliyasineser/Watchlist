@@ -61,6 +61,8 @@
 		DD4BB7CC264CA21C00E07C5F /* DiscoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7CB264CA21C00E07C5F /* DiscoverView.swift */; };
 		DD4BB7D6264CA5C400E07C5F /* ArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7D5264CA5C400E07C5F /* ArtistsView.swift */; };
 		DD4BB7E0264CAF4400E07C5F /* DiscoverPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7DF264CAF4400E07C5F /* DiscoverPresenter.swift */; };
+		DD4C9EF928DE0C2A00BD2B48 /* FavoriteMovieStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C9EF828DE0C2A00BD2B48 /* FavoriteMovieStorage.swift */; };
+		DD4C9EFB28DE0DF800BD2B48 /* FavoriteStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C9EFA28DE0DF800BD2B48 /* FavoriteStorage.swift */; };
 		DD5D490D28D745A400FD1B10 /* RequestManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D490C28D745A400FD1B10 /* RequestManagerMock.swift */; };
 		DD5D490F28D7AE7400FD1B10 /* MediaNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D490E28D7AE7400FD1B10 /* MediaNetworkRequest.swift */; };
 		DD5DE043265D96D500E06B4B /* DiscoverSliceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DE042265D96D500E06B4B /* DiscoverSliceItem.swift */; };
@@ -183,6 +185,8 @@
 		DD4BB7CB264CA21C00E07C5F /* DiscoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverView.swift; sourceTree = "<group>"; };
 		DD4BB7D5264CA5C400E07C5F /* ArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsView.swift; sourceTree = "<group>"; };
 		DD4BB7DF264CAF4400E07C5F /* DiscoverPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverPresenter.swift; sourceTree = "<group>"; };
+		DD4C9EF828DE0C2A00BD2B48 /* FavoriteMovieStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMovieStorage.swift; sourceTree = "<group>"; };
+		DD4C9EFA28DE0DF800BD2B48 /* FavoriteStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteStorage.swift; sourceTree = "<group>"; };
 		DD5D490C28D745A400FD1B10 /* RequestManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManagerMock.swift; sourceTree = "<group>"; };
 		DD5D490E28D7AE7400FD1B10 /* MediaNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaNetworkRequest.swift; sourceTree = "<group>"; };
 		DD5DE042265D96D500E06B4B /* DiscoverSliceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSliceItem.swift; sourceTree = "<group>"; };
@@ -486,6 +490,7 @@
 		DD0454A7260A1E3800DFEFE6 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				DD4C9EF728DE0C0500BD2B48 /* Storage */,
 				DDB8B99D289BB11800E7F569 /* Mappers */,
 				DDB8B95F2896C09700E7F569 /* NetworkManager */,
 				DD9DB3412798889C00F26D5A /* Static */,
@@ -557,6 +562,15 @@
 				1EB545D52673E497008BDE2A /* ArtistPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		DD4C9EF728DE0C0500BD2B48 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				DD4C9EF828DE0C2A00BD2B48 /* FavoriteMovieStorage.swift */,
+				DD4C9EFA28DE0DF800BD2B48 /* FavoriteStorage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		DD5DE053265ED67300E06B4B /* Entity */ = {
@@ -886,12 +900,14 @@
 				1E0AA5A726C41DDD00B3C7F5 /* MediaCastView.swift in Sources */,
 				DD04547B260A171C00DFEFE6 /* Persistence.swift in Sources */,
 				DDB8B9872896E99700E7F569 /* TVService.swift in Sources */,
+				DD4C9EF928DE0C2A00BD2B48 /* FavoriteMovieStorage.swift in Sources */,
 				DDB8B9912899BE2700E7F569 /* TVSerieEntity.swift in Sources */,
 				DDB8B9742896D32900E7F569 /* TVRequest.swift in Sources */,
 				DDCDE57B28DA77740081AD87 /* MediaService.swift in Sources */,
 				DD04547E260A171C00DFEFE6 /* Watchlist.xcdatamodeld in Sources */,
 				1ECB346126C5AA5300735CAE /* MediaDetailEntity.swift in Sources */,
 				DDB8B9612896C0AC00E7F569 /* DataParser.swift in Sources */,
+				DD4C9EFB28DE0DF800BD2B48 /* FavoriteStorage.swift in Sources */,
 				1ED9C3B0267571720030A62B /* MediaInteractor.swift in Sources */,
 				1E0AA5AB26C41E5100B3C7F5 /* MediaCastPresenter.swift in Sources */,
 				DDB8B98F2899BDF500E7F569 /* MovieEntity.swift in Sources */,
