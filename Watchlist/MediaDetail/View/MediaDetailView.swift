@@ -11,12 +11,13 @@ import CachedAsyncImage
 struct MediaDetailView: View {
 
     @ObservedObject var presenter: MediaDetailPresenter
-
+    let favoriteStorage: FavoriteStorage
     @State var isFavorite = false
 
     init(presenter: MediaDetailPresenter) {
         self.presenter = presenter
         presenter.getMediaDetail()
+        favoriteStorage = presenter.mediaType == .movie ? FavoriteMovieStorage.shared: FavoriteTVSerieStorage.shared
     }
 
     fileprivate func mediaTitle() -> some View {
@@ -89,14 +90,14 @@ struct MediaDetailView: View {
 
             Button {
                 if isFavorite {
-                    FavoriteMovieStorage.shared.deleteFavorite(id: presenter.mediaId)
+                    favoriteStorage.deleteFavorite(id: presenter.mediaId)
                 } else {
-                    FavoriteMovieStorage.shared.addFavorite(
+                    favoriteStorage.addFavorite(
                         id: presenter.mediaId,
                         name: presenter.media.title
                     )
                 }
-                isFavorite = FavoriteMovieStorage.shared.isFavorite(id: presenter.mediaId)
+                isFavorite = favoriteStorage.isFavorite(id: presenter.mediaId)
             } label: {
                 Image(
                     systemName: isFavorite ? "star.fill": "star"
@@ -104,7 +105,7 @@ struct MediaDetailView: View {
                 .foregroundColor(.teal)
             }
             .onAppear {
-                isFavorite = FavoriteMovieStorage.shared.isFavorite(id: presenter.mediaId)
+                isFavorite = favoriteStorage.isFavorite(id: presenter.mediaId)
             }
 
         }

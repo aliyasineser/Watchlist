@@ -63,6 +63,7 @@
 		DD4BB7E0264CAF4400E07C5F /* DiscoverPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7DF264CAF4400E07C5F /* DiscoverPresenter.swift */; };
 		DD4C9EF928DE0C2A00BD2B48 /* FavoriteMovieStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C9EF828DE0C2A00BD2B48 /* FavoriteMovieStorage.swift */; };
 		DD4C9EFB28DE0DF800BD2B48 /* FavoriteStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C9EFA28DE0DF800BD2B48 /* FavoriteStorage.swift */; };
+		DD4C9EFD28DE108B00BD2B48 /* FavoriteTVSerieStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C9EFC28DE108B00BD2B48 /* FavoriteTVSerieStorage.swift */; };
 		DD5D490D28D745A400FD1B10 /* RequestManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D490C28D745A400FD1B10 /* RequestManagerMock.swift */; };
 		DD5D490F28D7AE7400FD1B10 /* MediaNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D490E28D7AE7400FD1B10 /* MediaNetworkRequest.swift */; };
 		DD5DE043265D96D500E06B4B /* DiscoverSliceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DE042265D96D500E06B4B /* DiscoverSliceItem.swift */; };
@@ -187,6 +188,7 @@
 		DD4BB7DF264CAF4400E07C5F /* DiscoverPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverPresenter.swift; sourceTree = "<group>"; };
 		DD4C9EF828DE0C2A00BD2B48 /* FavoriteMovieStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteMovieStorage.swift; sourceTree = "<group>"; };
 		DD4C9EFA28DE0DF800BD2B48 /* FavoriteStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteStorage.swift; sourceTree = "<group>"; };
+		DD4C9EFC28DE108B00BD2B48 /* FavoriteTVSerieStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTVSerieStorage.swift; sourceTree = "<group>"; };
 		DD5D490C28D745A400FD1B10 /* RequestManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestManagerMock.swift; sourceTree = "<group>"; };
 		DD5D490E28D7AE7400FD1B10 /* MediaNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaNetworkRequest.swift; sourceTree = "<group>"; };
 		DD5DE042265D96D500E06B4B /* DiscoverSliceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSliceItem.swift; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 			children = (
 				DD4C9EF828DE0C2A00BD2B48 /* FavoriteMovieStorage.swift */,
 				DD4C9EFA28DE0DF800BD2B48 /* FavoriteStorage.swift */,
+				DD4C9EFC28DE108B00BD2B48 /* FavoriteTVSerieStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -915,6 +918,7 @@
 				1ED91A4B273B33FA00676C9E /* MediaCreditEntity.swift in Sources */,
 				1E09E4A226C876290015574C /* NavigationConfigurator.swift in Sources */,
 				1EB8DE6126C07FE400DE2522 /* MediaDetailTabView.swift in Sources */,
+				DD4C9EFD28DE108B00BD2B48 /* FavoriteTVSerieStorage.swift in Sources */,
 				DDB8B97F2896DFE600E7F569 /* CommonEntity.swift in Sources */,
 				DD4BB79A264C02F600E07C5F /* Color+Extensions.swift in Sources */,
 				1ED9C3A126755D0B0030A62B /* StarsView.swift in Sources */,

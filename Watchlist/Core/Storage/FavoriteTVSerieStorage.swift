@@ -1,5 +1,5 @@
 //
-//  FavoriteMovieStorage.swift
+//  FavoriteTVSerieStorage.swift
 //  Watchlist
 //
 //  Created by Ali Yasin Eser on 23.09.2022.
@@ -8,16 +8,16 @@
 import Foundation
 import CoreData
 
-class FavoriteMovieStorage: FavoriteStorage {
+class FavoriteTVSerieStorage: FavoriteStorage {
 
-    public static let shared: FavoriteMovieStorage = FavoriteMovieStorage()
+    public static let shared: FavoriteTVSerieStorage = FavoriteTVSerieStorage()
 
     let viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext
 
     private init() {}
 
     func addFavorite(id: Int, name: String) {
-        let movie = FavoriteMovie(context: viewContext)
+        let movie = FavoriteSerie(context: viewContext)
         movie.id = Int32(id)
         movie.name = name
         saveContext()
@@ -25,31 +25,32 @@ class FavoriteMovieStorage: FavoriteStorage {
     }
 
     func deleteFavorite(id: Int) {
-        let request = FavoriteMovie.fetchRequest()
+        let request = FavoriteSerie.fetchRequest()
         request.fetchLimit =  1
         request.predicate = NSPredicate(format: "id == %d", id)
         do {
-            let movies = try viewContext.fetch(request)
+            let series = try viewContext.fetch(request)
 
-            if let movie = movies.first {
-                viewContext.delete(movie)
+            if let serie = series.first {
+                viewContext.delete(serie)
                 print("removed")
             }
         } catch {
-            fatalError("Failed to delete favorite movie: \(error)")
+            fatalError("Failed to delete serie movie: \(error)")
         }
         saveContext()
     }
 
     func isFavorite(id: Int) -> Bool {
-        let request = FavoriteMovie.fetchRequest()
+        let request = FavoriteSerie.fetchRequest()
         request.fetchLimit =  1
         request.predicate = NSPredicate(format: "id == %d", id)
         do {
             let count = try viewContext.count(for: request)
             return count > 0
         } catch {
-            fatalError("Failed to check if favorite movie present: \(error)")
+            fatalError("Failed to check if favorite serie present: \(error)")
         }
     }
 }
+
