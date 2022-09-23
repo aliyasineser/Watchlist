@@ -15,13 +15,13 @@ class MediaDetailPresenter: ObservableObject {
     @Published var media: MediaDetailEntity = MediaDetailEntity()
     public let mediaId: Int
     public let mediaType: MediaType
-    
+
     init(interactor: MediaDetailInteractor, movieId: Int, mediaType: MediaType) {
         self.interactor = interactor
         self.mediaId = movieId
         self.mediaType = mediaType
     }
-    
+
     func getMediaDetail() {
         Task {
             switch self.mediaType {
@@ -32,7 +32,7 @@ class MediaDetailPresenter: ObservableObject {
             }
         }
     }
-    
+
     func getMovieDetail(_ id: Int) async {
         let movieDetail = await interactor.getMovieDetail(id)
         if let detail = movieDetail, let time = detail.runtime, let summary = detail.overview {
@@ -50,7 +50,7 @@ class MediaDetailPresenter: ObservableObject {
             )
         }
     }
-    
+
     func getTvDetail(_ id: Int) async {
         let tvDetail = await interactor.getTvDetail(id)
         if let detail = tvDetail,

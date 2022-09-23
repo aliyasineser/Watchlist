@@ -8,13 +8,13 @@
 import Foundation
 
 struct MediaCreditEntity: Identifiable {
-    
+
     var id: Int
     var creditId: String
     var title: String
     var role: String
     var imagePath: String
-    
+
     init(id: Int, creditId: String, title: String, role: String, imagePath: String) {
         self.id = id
         self.creditId = creditId

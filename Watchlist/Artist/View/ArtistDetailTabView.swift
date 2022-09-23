@@ -40,14 +40,30 @@ struct ArtistDetailTabView: View {
             content: { image in
                 image.resizable()
                     .scaledToFill()
-                    .frame(width: 130, height: 200, alignment: .center)
-                    .border(width: 1, edges: Edge.allCases, color: .black)
+                    .frame(
+                        width: 130,
+                        height: 200,
+                        alignment: .center
+                    )
+                    .border(
+                        width: 1,
+                        edges: Edge.allCases,
+                        color: .black
+                    )
                     .clipped()
             },
             placeholder: {
                 Image(systemName: "film")
-                    .frame(width: 130, height: 200, alignment: .center)
-                    .border(width: 1, edges: Edge.allCases, color: .black)
+                    .frame(
+                        width: 130,
+                        height: 200,
+                        alignment: .center
+                    )
+                    .border(
+                        width: 1,
+                        edges: Edge.allCases,
+                        color: .black
+                    )
                     .clipped()
             }
         )
@@ -76,7 +92,10 @@ struct ArtistDetailTabView: View {
                 Spacer()
             }
         }
-        .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
+        .frame(
+            width: UIScreen.main.bounds.width - 24,
+            alignment: .center
+        )
         .padding(.horizontal, 12)
     }
 }
@@ -87,14 +106,24 @@ struct ArtistDetailTopTabBar: View {
     var body: some View {
         HStack {
             Spacer()
-            TabBarButton(text: "Summary", isSelected: .constant(tabIndex == 0))
-                .onTapGesture { onButtonTapped(index: 0) }
+            TabBarButton(
+                text: "Summary",
+                isSelected: .constant(tabIndex == 0)
+            )
+            .onTapGesture { onButtonTapped(index: 0) }
             Spacer()
-            TabBarButton(text: "Movies", isSelected: .constant(tabIndex == 1))
-                .onTapGesture { onButtonTapped(index: 1) }
+            TabBarButton(
+                text: "Movies",
+                isSelected: .constant(tabIndex == 1)
+            )
+            .onTapGesture { onButtonTapped(index: 1) }
             Spacer()
         }
-        .border(width: 2, edges: [.bottom], color: Color.secondary)
+        .border(
+            width: 2,
+            edges: [.bottom],
+            color: Color.secondary
+        )
     }
 
     private func onButtonTapped(index: Int) {

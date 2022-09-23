@@ -75,7 +75,10 @@ struct CastItemView: View {
             castRole()
         }
         .frame(width: 100, height: 175)
-        .border(Color.primary, width: 1)
+        .border(
+            Color.primary,
+            width: 1
+        )
     }
 }
 

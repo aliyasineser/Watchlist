@@ -16,7 +16,7 @@ struct ArtistDetailEntity {
     var asKnownAs: [String]?
     var placeOfBirth: String?
     var imgUrl: String
-    
+
     init(id: Int, name: String, biography: String?, birthday: String?,
          deathday: String?, asKnownAs: [String]?,
          placeOfBirth: String?, imgUrl: String) {

@@ -13,7 +13,7 @@ struct MediaDetailTabView: View {
 
     var id: Int
     var mediaType: MediaType
-
+    
     init(_ id: Int, mediaType: MediaType) {
         self.id = id
         self.mediaType = mediaType
@@ -24,9 +24,7 @@ struct MediaDetailTabView: View {
             CustomTopTabBar(tabIndex: $tabIndex)
             if tabIndex == 0 {
                 MediaCastView(presenter: MediaCastPresenter(
-                    DefaultMediaCastInteractor(
-                        requestManager: DefaultRequestManager()
-                    ),
+                    DefaultMediaCastInteractor(),
                     id: self.id,
                     mediaType: self.mediaType
                 )
@@ -49,17 +47,30 @@ struct CustomTopTabBar: View {
     var body: some View {
         HStack {
             Spacer()
-            TabBarButton(text: "Cast", isSelected: .constant(tabIndex == 0))
-                .onTapGesture { onButtonTapped(index: 0) }
+            TabBarButton(
+                text: "Cast",
+                isSelected: .constant(tabIndex == 0)
+            )
+            .onTapGesture { onButtonTapped(index: 0) }
             Spacer()
-            TabBarButton(text: "Reviews", isSelected: .constant(tabIndex == 1))
-                .onTapGesture { onButtonTapped(index: 1) }
+            TabBarButton(
+                text: "Reviews",
+                isSelected: .constant(tabIndex == 1)
+            )
+            .onTapGesture { onButtonTapped(index: 1) }
             Spacer()
-            TabBarButton(text: "More", isSelected: .constant(tabIndex == 2))
-                .onTapGesture { onButtonTapped(index: 2) }
+            TabBarButton(
+                text: "More",
+                isSelected: .constant(tabIndex == 2)
+            )
+            .onTapGesture { onButtonTapped(index: 2) }
             Spacer()
         }
-        .border(width: 1, edges: [.bottom], color: Color.secondary)
+        .border(
+            width: 1,
+            edges: [.bottom],
+            color: Color.secondary
+        )
     }
 
     private func onButtonTapped(index: Int) {
@@ -75,7 +86,11 @@ struct TabBarButton: View {
             .fontWeight(isSelected ? .heavy : .regular)
             .font(.system(size: 16))
             .padding(.bottom, 10)
-            .border(width: isSelected ? 2 : 1, edges: [.bottom], color: .secondary)
+            .border(
+                width: isSelected ? 2 : 1,
+                edges: [.bottom],
+                color: .secondary
+            )
     }
 }
 // swiftlint:disable all

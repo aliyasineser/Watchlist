@@ -40,15 +40,16 @@ final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
         var artistImages: [ArtistImageEntity] = [ArtistImageEntity]()
         let images = await artistService.fetchImages(id: id)
         for img in images {
-            artistImages.append(ArtistImageEntity(
-                aspectRatio: img.aspectRatio,
-                filePath: img.filePath,
-                height: img.height,
-                iso_639_1: img.iso639_1 ?? APIConstants.language,
-                voteAverage: img.voteAverage,
-                voteCount: img.voteCount,
-                width: img.width
-            )
+            artistImages.append(
+                ArtistImageEntity(
+                    aspectRatio: img.aspectRatio,
+                    filePath: img.filePath,
+                    height: img.height,
+                    iso_639_1: img.iso639_1 ?? APIConstants.language,
+                    voteAverage: img.voteAverage,
+                    voteCount: img.voteCount,
+                    width: img.width
+                )
             )
         }
         return artistImages
@@ -60,13 +61,14 @@ final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
         if let movies = data {
             let allCast = movies.cast + movies.crew
             allCast.forEach { credit in
-                artistMovies.append(MediaCreditEntity(
-                    id: credit.id,
-                    creditId: credit.creditID,
-                    title: credit.getTitle(),
-                    role: credit.job ?? credit.character ?? "Unknown",
-                    imagePath: credit.getPosterUrl()
-                )
+                artistMovies.append(
+                    MediaCreditEntity(
+                        id: credit.id,
+                        creditId: credit.creditID,
+                        title: credit.getTitle(),
+                        role: credit.job ?? credit.character ?? "Unknown",
+                        imagePath: credit.getPosterUrl()
+                    )
                 )
             }
         }
@@ -80,14 +82,15 @@ final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
         if let shows = data {
             let allCast = shows.cast + shows.crew
             allCast.forEach { credit in
-                artistShows.append(MediaCreditEntity(
-                    id: credit.id,
-                    creditId: credit.creditID,
-                    title: credit.getTitle(),
-                    role: credit.character ?? credit.job ??
-                    credit.department?.rawValue ?? "Unknown",
-                    imagePath: credit.getPosterUrl()
-                )
+                artistShows.append(
+                    MediaCreditEntity(
+                        id: credit.id,
+                        creditId: credit.creditID,
+                        title: credit.getTitle(),
+                        role: credit.character ?? credit.job ??
+                        credit.department?.rawValue ?? "Unknown",
+                        imagePath: credit.getPosterUrl()
+                    )
                 )
             }
         }

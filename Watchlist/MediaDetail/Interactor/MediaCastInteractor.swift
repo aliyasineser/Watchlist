@@ -12,16 +12,11 @@ protocol MediaCastInteractor {
 }
 
 final class DefaultMediaCastInteractor: MediaCastInteractor {
-    var artists: [CastMemberEntity]
-    private var artistsPageCount: Int
+    var artists: [CastMemberEntity] = []
+    private var artistsPageCount: Int = 0
 
     private let movieService: MediaService = MovieService.shared
     private let tvService: MediaService = TVService.shared
-
-    init(requestManager: RequestManager) {
-        self.artists = []
-        self.artistsPageCount = 0
-    }
 
     func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
         self.artists.removeAll()

@@ -16,7 +16,7 @@ struct ArtistImageEntity: Identifiable {
     var voteAverage: Double
     var voteCount: Int
     var width: Int
-    
+
     func getPosterUrl() -> String {
         return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + filePath
     }

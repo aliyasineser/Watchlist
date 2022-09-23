@@ -12,20 +12,20 @@ protocol CastInteractor {
 }
 
 final class DefaultCastInteractor: CastInteractor {
-
+    
     private var artists: [CastMemberEntity]
     private let movieService: MediaService = MovieService.shared
     private let tvService: MediaService = TVService.shared
-
+    
     init() {
         self.artists = []
     }
-
+    
     func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
-
+        
         self.artists.removeAll()
         var credits: Credits?
-
+        
         if mediaType == .movie {
             credits = await movieService.fetchMediaCredits(id: id)
         } else {
@@ -55,12 +55,14 @@ final class CastInteractorStub: CastInteractor {
     func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
         var casts: [CastMemberEntity] = []
         for index in 0..<9 {
-            casts.append(CastMemberEntity(id: index,
-                                          castId: index,
-                                          character: "Character \(index) Name",
-                                          name: "Cast \(index) Name",
-                                          imageUrl: ""
-                                         )
+            casts.append(
+                CastMemberEntity(
+                    id: index,
+                    castId: index,
+                    character: "Character \(index) Name",
+                    name: "Cast \(index) Name",
+                    imageUrl: ""
+                )
             )
         }
         return casts

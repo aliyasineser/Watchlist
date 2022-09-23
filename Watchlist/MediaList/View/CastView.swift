@@ -39,17 +39,25 @@ struct CastView: View {
         .onAppear(perform: {
             presenter.loadArtists()
         })
-        .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
+        .padding(
+            EdgeInsets(
+                top: 15,
+                leading: 0,
+                bottom: 0,
+                trailing: 0
+            )
+        )
 
     }
 }
 
 struct CastView_Previews: PreviewProvider {
     static var previews: some View {
-        CastView(presenter: CastPresenter(
-            CastInteractorStub(),
-            id: 5,
-            mediaType: .movie)
+        CastView(
+            presenter: CastPresenter(
+                CastInteractorStub(),
+                id: 5,
+                mediaType: .movie)
         )
     }
 }
