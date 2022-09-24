@@ -17,9 +17,8 @@ struct ArtistsView: View {
     ]
 
     init(presenter: ArtistPresenter) {
-
         self.presenter = presenter
-        presenter.loadArtists()
+        // Spacer manages lading the artists, no need to call
     }
 
     var body: some View {
@@ -28,12 +27,13 @@ struct ArtistsView: View {
                 ScrollViewReader { proxy in
                     LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
                         ForEach(self.presenter.artists, id: \.artistId) { (artist) in
-                            NavigationLink(destination: ArtistDetailView(
-                                artistId: artist.artistId,
-                                presenter: ArtistDetailPresenter(
-                                    interactor: DefaultArtistDetailInteractor()
+                            NavigationLink(
+                                destination: ArtistDetailView(
+                                    artistId: artist.artistId,
+                                    presenter: ArtistDetailPresenter(
+                                        interactor: DefaultArtistDetailInteractor()
+                                    )
                                 )
-                            )
                             ) {
                                 ArtistItemView(
                                     artistEntity: ArtistEntity(
@@ -59,13 +59,23 @@ struct ArtistsView: View {
             .navigationBarHidden(false)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
-            .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
+            .padding(
+                EdgeInsets(
+                    top: 15,
+                    leading: 0,
+                    bottom: 0,
+                    trailing: 0)
+            )
         }
     }
 }
 
 struct ArtistsView_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistsView(presenter: ArtistPresenter(ArtistInteractorStub()))
+        ArtistsView(
+            presenter: ArtistPresenter(
+                ArtistInteractorStub()
+            )
+        )
     }
 }

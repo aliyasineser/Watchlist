@@ -22,11 +22,13 @@ struct ConstantTexts {
     static let genresScreenNavBarTitle: String = "Genres"
     static let artistsScreenNavBarTitle: String = "Artists"
     static let dashboardScreenNavBarTitle: String = "Dashboard"
+    static let favoritesScreenNavBarTitle: String = "Favorites"
 
     // MARK: TabBarItemName
     static let discoverScreenTabBarItemText: String = "Discover"
     static let genresScreenTabBarItemText: String = "Genres"
     static let artistsScreenTabBarItemText: String = "Artists"
+    static let favoritesScreenTabBarItemText: String = "Favorites"
 
     static let sliceSeeAllButtonText: String = "See All"
 

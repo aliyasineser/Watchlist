@@ -46,6 +46,9 @@
 		1ED9C3AB267571660030A62B /* MediaListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9C3AA267571660030A62B /* MediaListPresenter.swift */; };
 		1ED9C3B0267571720030A62B /* MediaInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED9C3AF267571720030A62B /* MediaInteractor.swift */; };
 		C5B082B06436BA27328E9165 /* Pods_Watchlist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56D5C10A36AC73911290D272 /* Pods_Watchlist.framework */; };
+		DD02ECCD28DF9C7400D230F9 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02ECCC28DF9C7400D230F9 /* FavoritesView.swift */; };
+		DD02ECCF28DF9C9D00D230F9 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02ECCE28DF9C9D00D230F9 /* FavoritesPresenter.swift */; };
+		DD02ECD128DF9CE100D230F9 /* FavoritesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02ECD028DF9CE100D230F9 /* FavoritesInteractor.swift */; };
 		DD045472260A171900DFEFE6 /* WatchlistApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045471260A171900DFEFE6 /* WatchlistApp.swift */; };
 		DD045474260A171900DFEFE6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045473260A171900DFEFE6 /* ContentView.swift */; };
 		DD045476260A171C00DFEFE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD045475260A171C00DFEFE6 /* Assets.xcassets */; };
@@ -165,6 +168,9 @@
 		56D5C10A36AC73911290D272 /* Pods_Watchlist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Watchlist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F5554330EDD96C406AFA559 /* Pods-Watchlist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watchlist.debug.xcconfig"; path = "Target Support Files/Pods-Watchlist/Pods-Watchlist.debug.xcconfig"; sourceTree = "<group>"; };
 		732A028465C9784CEAD0DEC5 /* Pods-Watchlist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Watchlist.release.xcconfig"; path = "Target Support Files/Pods-Watchlist/Pods-Watchlist.release.xcconfig"; sourceTree = "<group>"; };
+		DD02ECCC28DF9C7400D230F9 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		DD02ECCE28DF9C9D00D230F9 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
+		DD02ECD028DF9CE100D230F9 /* FavoritesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesInteractor.swift; sourceTree = "<group>"; };
 		DD04546E260A171900DFEFE6 /* Watchlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watchlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD045471260A171900DFEFE6 /* WatchlistApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistApp.swift; sourceTree = "<group>"; };
 		DD045473260A171900DFEFE6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -417,6 +423,40 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DD02ECC828DF9C3000D230F9 /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				DD02ECCB28DF9C5800D230F9 /* View */,
+				DD02ECCA28DF9C4600D230F9 /* Interactor */,
+				DD02ECC928DF9C3E00D230F9 /* Presenter */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		DD02ECC928DF9C3E00D230F9 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				DD02ECCE28DF9C9D00D230F9 /* FavoritesPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		DD02ECCA28DF9C4600D230F9 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				DD02ECD028DF9CE100D230F9 /* FavoritesInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		DD02ECCB28DF9C5800D230F9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DD02ECCC28DF9C7400D230F9 /* FavoritesView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		DD045465260A171900DFEFE6 = {
 			isa = PBXGroup;
 			children = (
@@ -442,6 +482,7 @@
 		DD045470260A171900DFEFE6 /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
+				DD02ECC828DF9C3000D230F9 /* Favorites */,
 				DDB8B97C2896DFCB00E7F569 /* Models */,
 				1E632C6326ECF52D005780FD /* Artist */,
 				1E85900D26926E3F00901E03 /* MediaDetail */,
@@ -883,6 +924,7 @@
 				1ED9C3AB267571660030A62B /* MediaListPresenter.swift in Sources */,
 				DDB8B9932899BE4500E7F569 /* APIError.swift in Sources */,
 				DDD9517C278CB4B2009695C2 /* CommonMocks.swift in Sources */,
+				DD02ECD128DF9CE100D230F9 /* FavoritesInteractor.swift in Sources */,
 				1E88CF3326755A410066D6AB /* MediaListView.swift in Sources */,
 				1EB545DB2673E930008BDE2A /* AritstEntity.swift in Sources */,
 				DD4BB7E0264CAF4400E07C5F /* DiscoverPresenter.swift in Sources */,
@@ -899,6 +941,7 @@
 				DDB8B9782896D71400E7F569 /* ArtistRequest.swift in Sources */,
 				DDB8B9832896E01800E7F569 /* WathableEntity.swift in Sources */,
 				1E8CF81F26800482003BDB35 /* View+Extensions.swift in Sources */,
+				DD02ECCD28DF9C7400D230F9 /* FavoritesView.swift in Sources */,
 				1E0AA5A726C41DDD00B3C7F5 /* MediaCastView.swift in Sources */,
 				DD04547B260A171C00DFEFE6 /* Persistence.swift in Sources */,
 				DDB8B9872896E99700E7F569 /* TVService.swift in Sources */,
@@ -923,6 +966,7 @@
 				1ED9C3A126755D0B0030A62B /* StarsView.swift in Sources */,
 				DDB8B96B2896C10900E7F569 /* APIConstants.swift in Sources */,
 				1E8CF81A2680044D003BDB35 /* HideNavigationBarModifier.swift in Sources */,
+				DD02ECCF28DF9C9D00D230F9 /* FavoritesPresenter.swift in Sources */,
 				1E2AD90B26ED1D1F00EBB78D /* ArtistDetailTabView.swift in Sources */,
 				DDB8B99A2899CE5E00E7F569 /* Fetchable.swift in Sources */,
 				1EBC9EE0272CA98100669463 /* ArtistImageEntity.swift in Sources */,
