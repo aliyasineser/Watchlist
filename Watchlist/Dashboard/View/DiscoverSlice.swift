@@ -23,7 +23,7 @@ struct DiscoverSlice: View {
 
     var seeAllView: some View {
         HStack(alignment: .center, spacing: 1.0) {
-            Text(ConstantTexts.sliceSeeAllButtonText)
+            Text(ConstantTexts.ButtonTitle.sliceSeeAll)
                 .foregroundColor(.blue)
                 .font(.system(size: 20))
                 .bold()

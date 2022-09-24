@@ -21,52 +21,59 @@ struct DiscoverView: View {
         NavigationView {
             ScrollView(.vertical, showsIndicators: true ) {
                 DiscoverSlice(
-                    sliceTitle: ConstantTexts.mostPopularSectionHeader,
+                    sliceTitle: ConstantTexts.SectionHeader.mostPopular,
                     sliceItems: self.presenter.popularMovies,
                     section: MediaSection.popularMovies,
                     type: .movie
                 )
 
                 DiscoverSlice(
-                    sliceTitle: ConstantTexts.mostRecentSectionHeader,
+                    sliceTitle: ConstantTexts.SectionHeader.mostRecent,
                     sliceItems: self.presenter.mostRecentMovies,
                     section: MediaSection.mostRecentMovies,
                     type: .movie
                 )
 
                 DiscoverSlice(
-                    sliceTitle: ConstantTexts.comingSoonSectionHeader,
+                    sliceTitle: ConstantTexts.SectionHeader.comingSoon,
                     sliceItems: self.presenter.upcomingMovies,
                     section: MediaSection.comingSoonMovies,
                     type: .movie
                 )
 
                 DiscoverSlice(
-                    sliceTitle: ConstantTexts.airingTodaySectionHeader,
+                    sliceTitle: ConstantTexts.SectionHeader.airingToday,
                     sliceItems: self.presenter.airingTodaySeries,
                     section: MediaSection.airingTodaySeries,
                     type: .tv
                 )
 
                 DiscoverSlice(
-                    sliceTitle: ConstantTexts.onTheAirSectionHeader,
+                    sliceTitle: ConstantTexts.SectionHeader.onTheAir,
                     sliceItems: self.presenter.onTheAirSeries,
                     section: MediaSection.onTheAirSeries,
                     type: .tv
                 )
 
                 DiscoverSlice(
-                    sliceTitle: ConstantTexts.topRatedSectionHeader,
+                    sliceTitle: ConstantTexts.SectionHeader.topRated,
                     sliceItems: self.presenter.topRatedSeries,
                     section: MediaSection.topRatedSeries,
                     type: .tv
                 )
             }
-            .navigationBarTitle(ConstantTexts.discoverScreenNavBarTitle)
+            .navigationBarTitle(ConstantTexts.NavigationBarTitle.discoverScreen)
             .navigationBarHidden(false)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
-            .padding(EdgeInsets(top: 5, leading: 0, bottom: 0, trailing: 0))
+            .padding(
+                EdgeInsets(
+                    top: 5,
+                    leading: 0,
+                    bottom: 0,
+                    trailing: 0
+                )
+            )
         }
     }
 

@@ -18,7 +18,7 @@ struct FavoritesView: View {
         VStack {
             Text("TODO: Implement the screen")
         }
-        .navigationTitle(ConstantTexts.favoritesScreenNavBarTitle)
+        .navigationTitle(ConstantTexts.NavigationBarTitle.favoritesScreen)
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)

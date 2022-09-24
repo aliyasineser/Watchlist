@@ -152,7 +152,7 @@ struct PhotoGrid: View {
                 .minimumScaleFactor(0.7)
                 .lineLimit(1)
 
-            Text(ConstantTexts.artistDetailScreenPhotoAlbumsButtonText)
+            Text(ConstantTexts.ButtonTitle.artistDetailScreenPhotoAlbums)
                 .font(.system(size: 14))
                 .bold()
                 .minimumScaleFactor(0.5)

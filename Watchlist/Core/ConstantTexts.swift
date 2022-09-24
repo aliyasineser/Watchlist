@@ -9,29 +9,36 @@ import Foundation
 
 struct ConstantTexts {
 
-    // MARK: Dashboard Section Headers
-    static let mostPopularSectionHeader: String = "Most Popular"
-    static let mostRecentSectionHeader: String = "Most Recent"
-    static let comingSoonSectionHeader: String = "Coming Soon"
-    static let airingTodaySectionHeader: String = "Airing Today"
-    static let onTheAirSectionHeader: String = "On The Air"
-    static let topRatedSectionHeader: String = "Top Rated"
+    // MARK: Section Header
+    public enum SectionHeader {
+        static let mostPopular: String = "Most Popular"
+        static let mostRecent: String = "Most Recent"
+        static let comingSoon: String = "Coming Soon"
+        static let airingToday: String = "Airing Today"
+        static let onTheAir: String = "On The Air"
+        static let topRated: String = "Top Rated"
+    }
 
-    // MARK: Navigation Titles
-    static let discoverScreenNavBarTitle: String = "Discover"
-    static let genresScreenNavBarTitle: String = "Genres"
-    static let artistsScreenNavBarTitle: String = "Artists"
-    static let dashboardScreenNavBarTitle: String = "Dashboard"
-    static let favoritesScreenNavBarTitle: String = "Favorites"
+    // MARK: NavigationBar Title
+    public enum NavigationBarTitle {
+        static let discoverScreen: String = "Discover"
+        static let genresScreen: String = "Genres"
+        static let artistsScreen: String = "Artists"
+        static let dashboardScreen: String = "Dashboard"
+        static let favoritesScreen: String = "Favorites"
+    }
 
-    // MARK: TabBarItemName
-    static let discoverScreenTabBarItemText: String = "Discover"
-    static let genresScreenTabBarItemText: String = "Genres"
-    static let artistsScreenTabBarItemText: String = "Artists"
-    static let favoritesScreenTabBarItemText: String = "Favorites"
+    // MARK: TabBar Item Title
+    public enum TabBarItemTitle {
+        static let discoverScreen: String = "Discover"
+        static let genresScreen: String = "Genres"
+        static let artistsScreen: String = "Artists"
+        static let favoritesScreen: String = "Favorites"
+    }
 
-    static let sliceSeeAllButtonText: String = "See All"
-
-    // MARK: Artist Detail Screen
-    static let artistDetailScreenPhotoAlbumsButtonText = "Photo Albums"
+    // MARK: Button Title
+    public enum ButtonTitle {
+        static let sliceSeeAll: String = "See All"
+        static let artistDetailScreenPhotoAlbums = "Photo Albums"
+    }
 }

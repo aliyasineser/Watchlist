@@ -25,8 +25,10 @@ enum TabViewSection {
 }
 
 struct DashboardView: View {
+    @State var selectedTabIndex: Int = 0
+
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTabIndex) {
             DiscoverView(
                 presenter: DiscoverPresenter(
                     DefaultMediaInteractor()
@@ -35,7 +37,7 @@ struct DashboardView: View {
             .tabItem {
                 TabItemView(
                     systemName: "square.grid.2x2.fill",
-                    text: ConstantTexts.discoverScreenTabBarItemText
+                    text: ConstantTexts.TabBarItemTitle.discoverScreen
                 )
             }
             .tag(TabViewSection.discover.tag)
@@ -48,7 +50,7 @@ struct DashboardView: View {
             .tabItem {
                 TabItemView(
                     systemName: "person.crop.circle",
-                    text: ConstantTexts.artistsScreenTabBarItemText
+                    text: ConstantTexts.TabBarItemTitle.artistsScreen
                 )
             }
             .tag(TabViewSection.artists.tag)
@@ -61,12 +63,12 @@ struct DashboardView: View {
             .tabItem {
                 TabItemView(
                     systemName: "star.circle.fill",
-                    text: ConstantTexts.favoritesScreenTabBarItemText
+                    text: ConstantTexts.TabBarItemTitle.favoritesScreen
                 )
             }
             .tag(TabViewSection.favorites.tag)
         }
-        .navigationBarTitle(ConstantTexts.dashboardScreenNavBarTitle)
+        .navigationBarTitle(ConstantTexts.NavigationBarTitle.dashboardScreen)
         .navigationBarHidden(false)
         .navigationBarBackButtonHidden(true)
         .navigationBarTitleDisplayMode(.inline)
