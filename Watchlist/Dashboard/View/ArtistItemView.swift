@@ -40,11 +40,12 @@ struct ArtistItemView: View {
             .multilineTextAlignment(.center)
             .lineLimit(2)
             .minimumScaleFactor(0.7)
-            .padding(EdgeInsets(
-                top: 4,
-                leading: 2,
-                bottom: 4,
-                trailing: 2)
+            .padding(
+                EdgeInsets(
+                    top: 4,
+                    leading: 2,
+                    bottom: 4,
+                    trailing: 2)
             )
     }
 

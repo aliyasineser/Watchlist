@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct MediaCastView: View {
-
+    
     @ObservedObject var presenter: MediaCastPresenter
-
+    
     let columns = [
         GridItem(.adaptive(minimum: 100))
     ]
-
+    
     init(presenter: MediaCastPresenter) {
         self.presenter = presenter
     }
-
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
@@ -44,8 +44,15 @@ struct MediaCastView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .padding(EdgeInsets(top: 15, leading: 0, bottom: 0, trailing: 0))
-
+        .padding(
+            EdgeInsets(
+                top: 15,
+                leading: 0,
+                bottom: 0,
+                trailing: 0
+            )
+        )
+        
     }
 }
 

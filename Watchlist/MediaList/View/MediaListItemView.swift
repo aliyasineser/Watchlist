@@ -9,13 +9,13 @@ import SwiftUI
 import CachedAsyncImage
 
 struct MediaListItemView: View {
-
+    
     var mediaListItem: Media
-
+    
     internal init(mediaListItem: Media) {
         self.mediaListItem = mediaListItem
     }
-
+    
     fileprivate func posterImage() -> some View {
         return CachedAsyncImage(
             url: URL(string: self.mediaListItem.getPosterUrl()),
@@ -31,7 +31,7 @@ struct MediaListItemView: View {
         .frame(height: 210)
         .clipped()
     }
-
+    
     fileprivate func movieInfoStack() -> some View {
         return HStack {
             VStack {
@@ -41,16 +41,30 @@ struct MediaListItemView: View {
                     .foregroundColor(.primary)
                     .minimumScaleFactor(0.8)
             }
-            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
+            .padding(
+                EdgeInsets(
+                    top: 0,
+                    leading: 10,
+                    bottom: 0,
+                    trailing: 0
+                )
+            )
             Spacer()
             if let rating = self.mediaListItem.getVoteAverage() {
                 StarsView(rating: CGFloat(rating), maxRating: 5)
                     .frame(width: 100, alignment: .center)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 10))
+                    .padding(
+                        EdgeInsets(
+                            top: 0,
+                            leading: 0,
+                            bottom: 0,
+                            trailing: 10
+                        )
+                    )
             }
         }
     }
-
+    
     var body: some View {
         NavigationLink(
             destination: MediaDetailView(
