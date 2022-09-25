@@ -10,8 +10,19 @@ import Combine
 
 class FavoritesPresenter: ObservableObject {
     private let interactor: FavoritesInteractor
+    @Published var artists: [ArtistDetail] = []
+    @Published var movies: [MediaDetail] = []
+    @Published var tvSeries: [MediaDetail] = []
 
     init(_ interactor: FavoritesInteractor) {
         self.interactor = interactor
+    }
+
+    @MainActor func fetchFavorites() {
+        Task {
+            self.artists = await interactor.getFavoriteArtists()
+            self.movies = await interactor.getFavoriteMovies()
+            self.tvSeries = await interactor.getFavoriteSeries()
+        }
     }
 }

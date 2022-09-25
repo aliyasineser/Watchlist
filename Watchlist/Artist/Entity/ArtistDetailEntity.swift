@@ -26,7 +26,7 @@ struct ArtistDetailEntity {
         self.deathday = deathday
         self.asKnownAs = asKnownAs
         self.placeOfBirth = placeOfBirth
-        self.imgUrl = APIConstants.defaultScheme + imgUrl
+        self.imgUrl = imgUrl
         self.birthday = birthday
     }
 }

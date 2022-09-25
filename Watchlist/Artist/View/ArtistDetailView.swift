@@ -13,6 +13,9 @@ struct ArtistDetailView: View {
     @ObservedObject var presenter: ArtistDetailPresenter
     var artistId: Int
 
+    let favoriteStorage: FavoriteStorage = FavoriteArtistStorage.shared
+    @State var isFavorite = false
+
     init(artistId: Int, presenter: ArtistDetailPresenter) {
         self.presenter = presenter
         self.artistId = artistId
@@ -31,7 +34,27 @@ struct ArtistDetailView: View {
 
                     PhotoGrid(presenter: self.presenter)
                         .frame(height: 150)
-
+                    HStack {
+                        Button {
+                            if isFavorite {
+                                favoriteStorage.deleteFavorite(id: artist.id)
+                            } else {
+                                favoriteStorage.addFavorite(
+                                    id: artist.id,
+                                    name: artist.name
+                                )
+                            }
+                            isFavorite = favoriteStorage.isFavorite(id: artist.id)
+                        } label: {
+                            Image(
+                                systemName: isFavorite ? "star.fill": "star"
+                            )
+                            .foregroundColor(.teal)
+                        }
+                        .onAppear {
+                            isFavorite = favoriteStorage.isFavorite(id: artist.id)
+                        }
+                    }
                     ArtistDetailTabView(artist, artistCredits: self.presenter.artistCredits)
                         .padding(10)
                 }

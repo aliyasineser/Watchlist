@@ -52,4 +52,13 @@ class FavoriteArtistStorage: FavoriteStorage {
             fatalError("Failed to check if favorite movie present: \(error)")
         }
     }
+
+    func fetchArtists() -> [FavoriteArtist] {
+        let request = FavoriteArtist.fetchRequest()
+        do {
+            return try viewContext.fetch(request)
+        } catch {
+            fatalError("Failed to fetch favorite artists: \(error)")
+        }
+    }
 }

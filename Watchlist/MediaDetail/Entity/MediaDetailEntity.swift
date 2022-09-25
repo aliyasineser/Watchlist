@@ -31,11 +31,7 @@ struct MediaDetailEntity: Identifiable {
         self.date = date
         self.time = time
         self.summary = summary
-        self.imagePath = APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + imageUrl
+        self.imagePath = imageUrl
         self.mediaType = mediaType
-        if !imagePath.contains(APIConstants.defaultScheme) {
-            self.imagePath = APIConstants.defaultScheme + self.imagePath
-
-        }
     }
 }

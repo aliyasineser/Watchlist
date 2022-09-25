@@ -52,5 +52,14 @@ class FavoriteTVSerieStorage: FavoriteStorage {
             fatalError("Failed to check if favorite serie present: \(error)")
         }
     }
-}
 
+    func fetchSeries() -> [FavoriteSerie] {
+        let request = FavoriteSerie.fetchRequest()
+        do {
+            return try viewContext.fetch(request)
+        } catch {
+            fatalError("Failed to delete favorite movies: \(error)")
+
+        }
+    }
+}

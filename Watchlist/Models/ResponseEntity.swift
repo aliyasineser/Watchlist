@@ -16,7 +16,7 @@ struct GenreResponse: Codable {
     var genres: [Genre]?
 }
 
-struct ArtistDetail: Codable {
+struct ArtistDetail: Codable, Identifiable {
     let birthday, knownForDepartment: String?
     let deathday: String?
     let id: Int
@@ -44,7 +44,7 @@ struct ArtistDetail: Codable {
     }
 
     func getPosterUrl() -> String {
-        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + (profilePath ?? "")
+        APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + (profilePath ?? "")
     }
 }
 
