@@ -12,3 +12,22 @@ protocol MediaService {
     func fetchMediaDetails(id: Int) async -> MediaDetail?
     func fetchMediaCredits(id: Int) async -> Credits?
 }
+
+final class MediaServiceStub: MediaService {
+
+    func fetchMedia(request: NetworkRequest) async -> [Media] {
+        var mediaList: [Media] = []
+        for _ in 0..<9 {
+            mediaList.append(Media.mock)
+        }
+        return mediaList
+    }
+
+    func fetchMediaDetails(id: Int) async -> MediaDetail? {
+        MediaDetail.mock
+    }
+
+    func fetchMediaCredits(id: Int) async -> Credits? {
+        Credits.mock
+    }
+}

@@ -13,18 +13,16 @@ class MediaCastPresenter: ObservableObject {
     @Published var artists: [CastMemberEntity]
 
     var id: Int
-    var mediaType: MediaType
 
-    init(_ interactor: MediaCastInteractor, id: Int, mediaType: MediaType) {
+    init(_ interactor: MediaCastInteractor, id: Int) {
         self.id = id
-        self.mediaType = mediaType
         self.interactor = interactor
         self.artists = [CastMemberEntity]()
     }
 
     public func loadArtists() {
         Task {
-            self.artists = await interactor.fetchCast(self.id, mediaType: self.mediaType)
+            self.artists = await interactor.fetchCast(self.id)
         }
     }
 }

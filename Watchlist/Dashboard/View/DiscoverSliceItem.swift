@@ -40,15 +40,29 @@ struct DiscoverSliceItem: View {
         }
     }
 
+    @MainActor
+    func getMediaDetailView(mediaType: MediaType) -> some View {
+        VStack {
+            if mediaType == .movie {
+                MovieDetailView(
+                    presenter: MovieDetailPresenter(
+                        interactor: DefaultMovieDetailInteractor(),
+                        id: item.itemID
+                    )
+                )
+            } else {
+                TVSerieDetailView(
+                    presenter: TVSerieDetailPresenter(
+                        interactor: DefaultTVSerieDetailInteractor(),
+                        id: item.itemID
+                    )
+                )
+            }
+        }
+    }
     var body: some View {
         NavigationLink(
-            destination: MediaDetailView(
-                presenter: MediaDetailPresenter(
-                    interactor: DefaultMediaDetailInteractor(),
-                    movieId: item.itemID,
-                    mediaType: item.mediaType
-                )
-            )
+            destination: getMediaDetailView(mediaType: item.mediaType)
         ) {
             VStack {
 

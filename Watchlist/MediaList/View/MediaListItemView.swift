@@ -9,13 +9,13 @@ import SwiftUI
 import CachedAsyncImage
 
 struct MediaListItemView: View {
-    
+
     var mediaListItem: Media
-    
+
     internal init(mediaListItem: Media) {
         self.mediaListItem = mediaListItem
     }
-    
+
     fileprivate func posterImage() -> some View {
         return CachedAsyncImage(
             url: URL(string: self.mediaListItem.getPosterUrl()),
@@ -31,7 +31,7 @@ struct MediaListItemView: View {
         .frame(height: 210)
         .clipped()
     }
-    
+
     fileprivate func movieInfoStack() -> some View {
         return HStack {
             VStack {
@@ -64,16 +64,32 @@ struct MediaListItemView: View {
             }
         }
     }
-    
+
+    @MainActor
+    func getMediaDetailView(mediaType: MediaType) -> some View {
+        VStack {
+            if mediaType == .movie {
+                MovieDetailView(
+                    presenter: MovieDetailPresenter(
+                        interactor: DefaultMovieDetailInteractor(),
+                        id: self.mediaListItem.getID()
+                    )
+                )
+            } else {
+                TVSerieDetailView(
+                    presenter: TVSerieDetailPresenter(
+                        interactor: DefaultTVSerieDetailInteractor(),
+                        id: self.mediaListItem.getID()
+                    )
+                )
+            }
+        }
+    }
+
     var body: some View {
         NavigationLink(
-            destination: MediaDetailView(
-                presenter: MediaDetailPresenter(
-                    interactor: DefaultMediaDetailInteractor(),
-                    movieId: self.mediaListItem.getID(),
-                    mediaType: mediaListItem.mediaType
-                )
-            )
+            destination:
+                getMediaDetailView(mediaType: mediaListItem.mediaType)
         ) {
             VStack(alignment: .center, spacing: 5) {
                 posterImage()

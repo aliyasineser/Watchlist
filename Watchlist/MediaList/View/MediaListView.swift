@@ -31,7 +31,11 @@ struct MediaListView: View {
 
 struct MediaListView_Previews: PreviewProvider {
     static var previews: some View {
-        MediaListView(mediaListPresenter: MediaListPresenter(MediaInteractorStub(), section: .comingSoonMovies)
+        MediaListView(
+            mediaListPresenter: MediaListPresenter(
+                MediaInteractorStub(),
+                section: .comingSoonMovies
+            )
         )
     }
 }

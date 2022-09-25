@@ -83,6 +83,43 @@ struct TvDetail: Codable, WatchableDetail {
     }
 }
 
+extension TvDetail {
+    static let mock = TvDetail(
+        backdropPath: "Backdrop",
+        createdBy: [],
+        episodeRunTime: [1,2,3],
+        firstAirDate: "01-01-1994",
+        genres: [],
+        homepage: "",
+        id: 1,
+        inProduction: false,
+        languages: ["en"],
+        lastAirDate: "01-04-2001",
+        lastEpisodeToAir: nil,
+        name: "TV Serie",
+        nextEpisodeToAir: nil,
+        networks: [],
+        numberOfEpisodes: 10,
+        numberOfSeasons: 5,
+        originCountry: [],
+        originalLanguage: "en",
+        originalName: "TV Serie original name",
+        overview: "Good serie",
+        popularity: 5,
+        posterPath: "postar path",
+        productionCompanies: [],
+        productionCountries: [],
+        seasons: [],
+        spokenLanguages: [],
+        status: "online",
+        tagline: "tagline",
+        type: "type",
+        voteAverage: 9,
+        voteCount: 1000,
+        credits: nil
+    )
+}
+
 struct CreatedBy: Codable {
     let id: Int
     let creditID, name: String
