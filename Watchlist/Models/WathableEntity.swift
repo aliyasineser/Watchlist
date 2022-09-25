@@ -186,7 +186,10 @@ struct MediaDetail: Codable, WatchableDetail, Identifiable {
         case numberOfSeasons = "number_of_seasons"
     }
 
-    func getPosterUrl() -> String { return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + (posterPath ?? backdropPath ?? "") }
+    func getPosterUrl() -> String {
+        return APIConstants.defaultScheme + APIConstants.baseImgUrl +
+            APIConstants.baseImgUrlPath + (posterPath ?? backdropPath ?? "")
+    }
 
     func getTitle() -> String { return originalTitle }
 
