@@ -33,15 +33,15 @@ struct MovieDetailView: View {
                     time: presenter.media.time
                 )
 
-                FavoriteButton(favoriteStorage: favoriteStorage,
-                               isFavorite: $isFavorite,
-                               id: presenter.id,
-                               title: presenter.media.title
-                )
-
             }
             .padding(.leading, 5)
             Spacer()
+            FavoriteButton(favoriteStorage: favoriteStorage,
+                           isFavorite: $isFavorite,
+                           id: presenter.id,
+                           title: presenter.media.title
+            )
+            .padding(.leading, 10)
         }
     }
 
@@ -50,8 +50,12 @@ struct MovieDetailView: View {
             GeometryReader { geometry in
                 ScrollView {
                     VStack {
-                        PosterView(imageUrl: presenter.media.imagePath, height: 300, width: geometry.size.width)
-                            .frame(alignment: .center)
+                        PosterView(
+                            imageUrl: presenter.media.imagePath,
+                            height: 300,
+                            width: geometry.size.width
+                        )
+                        .frame(alignment: .center)
 
                         mediaView()
                             .padding(.horizontal, 10)

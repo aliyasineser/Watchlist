@@ -84,7 +84,7 @@ struct FavoritesView: View {
                         .fontWeight(.heavy)
                         .font(.largeTitle)
                 }
-                
+
             }
             .navigationTitle(ConstantTexts.NavigationBarTitle.favoritesScreen)
             .navigationBarHidden(false)
@@ -94,7 +94,6 @@ struct FavoritesView: View {
                 presenter.fetchFavorites()
             }
         }
-
 
     }
 }

@@ -87,7 +87,7 @@ extension TvDetail {
     static let mock = TvDetail(
         backdropPath: "Backdrop",
         createdBy: [],
-        episodeRunTime: [1,2,3],
+        episodeRunTime: [1, 2, 3],
         firstAirDate: "01-01-1994",
         genres: [],
         homepage: "",

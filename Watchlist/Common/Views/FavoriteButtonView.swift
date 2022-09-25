@@ -27,8 +27,10 @@ struct FavoriteButton: View {
             isFavorite = favoriteStorage.isFavorite(id: id)
         } label: {
             Image(
-                systemName: isFavorite ? "star.fill": "star"
+                systemName: isFavorite ? "heart.fill": "heart"
             )
+            .resizable()
+            .frame(width: 35, height: 35)
             .foregroundColor(.accentColor)
         }
         .onAppear {

@@ -56,5 +56,4 @@ final class DefaultFavoritesInteractor: FavoritesInteractor {
         return favorites
     }
 
-    
 }

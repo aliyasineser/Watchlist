@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 protocol TVSerieDetailInteractor {
     func getDetail(_ id: Int ) async -> MediaDetail?
 }

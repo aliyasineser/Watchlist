@@ -29,7 +29,6 @@ extension FavoriteStorage {
     }
 }
 
-
 final class FavoriteStorageStub: FavoriteStorage {
     var viewContext: NSManagedObjectContext = NSManagedObjectContext(.privateQueue)
 
@@ -41,6 +40,5 @@ final class FavoriteStorageStub: FavoriteStorage {
     func isFavorite(id: Int) -> Bool {
         return isFavoriteStub
     }
-
 
 }
