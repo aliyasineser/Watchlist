@@ -43,6 +43,25 @@ struct ArtistDetail: Codable, Identifiable {
     }
 }
 
+extension ArtistDetail {
+    static let mock = ArtistDetail(
+        birthday: "01-01-1994",
+        knownForDepartment: "Department",
+        deathday: "01-01-2009",
+        id: 1,
+        name: "Name",
+        alsoKnownAs: [],
+        gender: 1,
+        biography: "Biography",
+        popularity: 10,
+        placeOfBirth: "Place",
+        profilePath: "ProfilePath",
+        adult: false,
+        imdbID: "IMDB ID",
+        homepage: "www.homepage.com"
+    )
+}
+
 // MARK: - ArtistImageResponse
 struct ArtistImageResponse: Codable {
     let id: Int

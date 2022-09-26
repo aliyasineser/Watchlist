@@ -9,15 +9,15 @@ import SwiftUI
 
 struct CastItemView: View {
 
-    private var castEntity: CastEntity
+    private var cast: Cast
 
-    internal init(castEntity: CastEntity) {
-        self.castEntity = castEntity
+    internal init(cast: Cast) {
+        self.cast = cast
     }
 
     fileprivate func castImage() -> some View {
         return AsyncImage(
-            url: URL(string: self.castEntity.imageUrl),
+            url: URL(string: cast.getPosterUrl()),
             content: { image in
                 image.resizable()
                     .scaledToFill()
@@ -35,7 +35,7 @@ struct CastItemView: View {
     }
 
     fileprivate func castName() -> some View {
-        return Text(self.castEntity.name)
+        return Text(cast.getTitle())
             .font(.system(size: 15))
             .fontWeight(.regular)
             .multilineTextAlignment(.center)
@@ -52,7 +52,7 @@ struct CastItemView: View {
     }
 
     fileprivate func castRole() -> some View {
-        return Text(self.castEntity.character)
+        return Text(cast.getRole())
             .font(.system(size: 13))
             .fontWeight(.regular)
             .multilineTextAlignment(.center)
@@ -86,7 +86,7 @@ struct CastItemView: View {
 struct CastItemView_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
-            CastItemView(castEntity: CastEntity.mock)
+            CastItemView(cast: Cast.mock)
         }
         .padding()
     }

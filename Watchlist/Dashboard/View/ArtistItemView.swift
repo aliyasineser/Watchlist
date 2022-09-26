@@ -10,15 +10,15 @@ import CachedAsyncImage
 
 struct ArtistItemView: View {
 
-    private var artistEntity: ArtistEntity
+    private var artist: Creditable
 
-    internal init(artistEntity: ArtistEntity) {
-        self.artistEntity = artistEntity
+    internal init(artist: Creditable) {
+        self.artist = artist
     }
 
     fileprivate func artistImage() -> some View {
         return CachedAsyncImage(
-            url: URL(string: self.artistEntity.imageUrl),
+            url: URL(string: artist.getPosterUrl()),
             content: { image in
                 image.resizable()
             },
@@ -33,7 +33,7 @@ struct ArtistItemView: View {
     }
 
     fileprivate func artistLabel() -> some View {
-        return Text(self.artistEntity.name)
+        return Text(artist.getTitle())
             .font(.system(size: 15))
             .foregroundColor(.primary)
             .fontWeight(.regular)
@@ -62,7 +62,7 @@ struct ArtistItemView: View {
 struct ArtistItemView_Previews: PreviewProvider {
     static var previews: some View {
         HStack {
-            ArtistItemView(artistEntity: ArtistEntity.mock)
+            ArtistItemView(artist: Artist.mock)
         }
         .padding()
     }

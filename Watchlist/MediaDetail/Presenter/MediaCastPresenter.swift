@@ -10,14 +10,14 @@ import Foundation
 @MainActor
 class MediaCastPresenter: ObservableObject {
     private let interactor: MediaCastInteractor
-    @Published var artists: [CastMemberEntity]
+    @Published var artists: [Cast]
 
     var id: Int
 
     init(_ interactor: MediaCastInteractor, id: Int) {
         self.id = id
         self.interactor = interactor
-        self.artists = [CastMemberEntity]()
+        self.artists = [Cast]()
     }
 
     public func loadArtists() {

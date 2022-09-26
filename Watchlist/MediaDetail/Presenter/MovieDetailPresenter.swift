@@ -12,7 +12,7 @@ import SwiftUI
 @MainActor
 class MovieDetailPresenter: ObservableObject {
     let interactor: MovieDetailInteractor
-    @Published var media: MediaDetailEntity = MediaDetailEntity()
+    @Published var media: MovieDetail = MovieDetail.mock
     public let id: Int
 
     init(interactor: MovieDetailInteractor, id: Int) {
@@ -27,23 +27,8 @@ class MovieDetailPresenter: ObservableObject {
     }
 
     func getMovieDetail(_ id: Int) async {
-        let movieDetail = await interactor.getMovieDetail(id)
-        guard let detail = movieDetail as? MovieDetail,
-                let time = detail.runtime,
-                let summary = detail.overview
-        else { return }
-        
-        self.media = MediaDetailEntity(
-            id: detail.id,
-            title: detail.title,
-            genres: nil,
-            point: detail.voteAverage,
-            language: detail.originalLanguage,
-            date: detail.getReleaseDate() ?? "",
-            time: String(format: "%dh %dm", time/60, time%60),
-            summary: summary,
-            imageUrl: detail.getPosterUrl(),
-            mediaType: .movie
-        )
+        guard let movieDetail = await interactor.getMovieDetail(id) else { return }
+        guard let detail = movieDetail as? MovieDetail else { return }
+        self.media = detail
     }
 }

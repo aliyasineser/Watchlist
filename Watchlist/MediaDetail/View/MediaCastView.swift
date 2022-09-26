@@ -22,7 +22,7 @@ struct MediaCastView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
-                ForEach(self.presenter.artists) { (artist) in
+                ForEach(self.presenter.artists, id: \.id) { (artist) in
                     NavigationLink(
                         destination: ArtistDetailView(
                             artistId: artist.id,
@@ -31,13 +31,7 @@ struct MediaCastView: View {
                             )
                         )
                     ) {
-                        ArtistItemView(
-                            artistEntity: ArtistEntity(
-                                artistId: artist.id,
-                                imageUrl: artist.imageUrl,
-                                name: artist.name
-                            )
-                        )
+                        ArtistItemView(artist: artist)
                     }
                 }
                 Spacer()

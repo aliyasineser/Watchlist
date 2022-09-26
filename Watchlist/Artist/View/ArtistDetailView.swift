@@ -26,7 +26,7 @@ struct ArtistDetailView: View {
             if let artist = self.presenter.artistDetail {
                 VStack(spacing: 0) {
                     ZStack(alignment: .bottomLeading) {
-                        artistImage(url: artist.imgUrl)
+                        artistImage(url: artist.getPosterUrl())
                         gradientView()
                         artistInfoView(name: artist.name, birthday: artist.birthday)
                             .padding()
@@ -148,7 +148,7 @@ struct PhotoGrid: View {
 
     fileprivate func artistGridImage() -> some View {
         return CachedAsyncImage(
-            url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""),
+            url: URL(string: self.presenter.artistDetail?.getPosterUrl() ?? ""),
             content: { image in
                 image.resizable()
             },

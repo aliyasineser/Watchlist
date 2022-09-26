@@ -22,15 +22,15 @@ struct MovieDetailView: View {
 
     fileprivate func mediaView() -> some View {
         return HStack(alignment: .top) {
-            MediaHeaderView(imageUrl: presenter.media.imagePath)
+            MediaHeaderView(imageUrl: presenter.media.getPosterUrl())
             VStack(alignment: .leading) {
                 MediaDetailsView(
                     title: presenter.media.title,
-                    genres: presenter.media.genres,
-                    rating: presenter.media.point,
-                    language: presenter.media.language,
-                    date: presenter.media.date,
-                    time: presenter.media.time
+                    genres: presenter.media.genres.first?.name,
+                    rating: presenter.media.voteAverage,
+                    language: presenter.media.originalLanguage,
+                    date: presenter.media.releaseDate,
+                    time: nil
                 )
 
             }
@@ -51,7 +51,7 @@ struct MovieDetailView: View {
                 ScrollView {
                     VStack {
                         PosterView(
-                            imageUrl: presenter.media.imagePath,
+                            imageUrl: presenter.media.getPosterUrl(),
                             height: 300,
                             width: geometry.size.width
                         )
@@ -60,13 +60,15 @@ struct MovieDetailView: View {
                         mediaView()
                             .padding(.horizontal, 10)
                             .frame(width: geometry.size.width, alignment: .top)
-
-                        ScrollView {
-                            Text(presenter.media.summary)
-                                .font(.system(size: 16))
+                        if let overview = presenter.media.overview {
+                            ScrollView {
+                                Text(overview)
+                                    .font(.system(size: 16))
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.top, 25)
                         }
-                        .padding(.horizontal, 10)
-                        .padding(.top, 25)
+
 
                         MediaDetailTabView(
                             self.presenter.id,

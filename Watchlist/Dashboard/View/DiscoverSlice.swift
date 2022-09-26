@@ -12,13 +12,11 @@ struct DiscoverSlice: View {
     var sliceTitle: String
     var sliceItems: [Watchable]
     var section: MediaSection
-    var type: MediaType
 
-    internal init(sliceTitle: String, sliceItems: [Watchable], section: MediaSection, type: MediaType) {
+    internal init(sliceTitle: String, sliceItems: [Watchable], section: MediaSection) {
         self.sliceTitle = sliceTitle
         self.sliceItems = sliceItems
         self.section = section
-        self.type = type
     }
 
     var seeAllView: some View {
@@ -91,7 +89,7 @@ struct DiscoverSlice_Previews: PreviewProvider {
                          Movie.mock,
                          Movie.mock
                         ],
-            section: MediaSection.popularMovies, type: .movie
+            section: MediaSection.popularMovies
         )
     }
 }

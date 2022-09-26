@@ -8,56 +8,38 @@
 import Foundation
 
 protocol CastInteractor {
-    func fetchCast(_ id: Int) async -> [CastMemberEntity]
+    func fetchCast(_ id: Int) async -> [Cast]
 }
 
 final class DefaultCastInteractor: CastInteractor {
 
-    private var artists: [CastMemberEntity]
+    private var credits: [Cast]
     private let mediaService: MediaService
 
     init(mediaService: MediaService) {
-        self.artists = []
+        self.credits = []
         self.mediaService = mediaService
     }
 
-    func fetchCast(_ id: Int) async -> [CastMemberEntity] {
+    func fetchCast(_ id: Int) async -> [Cast] {
 
-        self.artists.removeAll()
+        self.credits.removeAll()
         var credits: Credits?
 
         credits = await mediaService.fetchMediaCredits(id: id)
-        guard let credits = credits else { return self.artists }
-        credits.cast
-            .filter { $0.castID != nil && $0.character != nil }
-            .forEach {
-                self.artists.append(
-                    CastMemberEntity(
-                        id: $0.id,
-                        castId: $0.castID,
-                        character: $0.character!,
-                        order: $0.order,
-                        name: $0.getTitle(),
-                        imageUrl: $0.getPosterUrl()
-                    )
-                )
-            }
-        return self.artists
+        guard let credits = credits else { return self.credits }
+        let filteredCredits = credits.cast.filter { $0.castID != nil && $0.character != nil }
+        self.credits.append(contentsOf: filteredCredits)
+        return self.credits
     }
 }
 
 final class CastInteractorStub: CastInteractor {
-    func fetchCast(_ id: Int) async -> [CastMemberEntity] {
-        var casts: [CastMemberEntity] = []
-        for index in 0..<9 {
+    func fetchCast(_ id: Int) async -> [Cast] {
+        var casts: [Cast] = []
+        for _ in 0..<9 {
             casts.append(
-                CastMemberEntity(
-                    id: index,
-                    castId: index,
-                    character: "Character \(index) Name",
-                    name: "Cast \(index) Name",
-                    imageUrl: ""
-                )
+                Cast.mock
             )
         }
         return casts

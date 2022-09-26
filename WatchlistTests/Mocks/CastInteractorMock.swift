@@ -10,10 +10,10 @@ import Foundation
 
 final class CastInteractorMock: CastInteractor {
 
-    var fetchCastCallStub: [CastMemberEntity] = []
+    var fetchCastCallStub: [Cast] = []
     var fetchCastCallCalledOnce: Bool = false
 
-    func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
+    func fetchCast(_ id: Int) async -> [Cast] {
         fetchCastCallCalledOnce = true
         return fetchCastCallStub
     }

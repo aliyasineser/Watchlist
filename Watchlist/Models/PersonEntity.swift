@@ -8,8 +8,11 @@
 import Foundation
 
 protocol Creditable: Codable {
+    var id: Int { get }
     func getTitle() -> String
     func getImagePath() -> String
+    func getKnownForDepartment() -> String?
+    func getPosterUrl() -> String
 }
 
 struct PopularArtists: Codable {
@@ -25,6 +28,7 @@ struct PopularArtists: Codable {
 }
 
 struct Artist: Codable, Creditable {
+
     let adult: Bool
     let alsoKnownAs: [String]?
     let biography: String?
@@ -32,7 +36,8 @@ struct Artist: Codable, Creditable {
     let gender: Int?
     let homepage: String?
     let id: Int
-    let imdbID, knownForDepartment: String?
+    let imdbID: String?
+    let knownForDepartment: Department?
     let name: String
     let placeOfBirth: String?
     let popularity: Double
@@ -48,6 +53,10 @@ struct Artist: Codable, Creditable {
         case placeOfBirth = "place_of_birth"
         case popularity
         case profilePath = "profile_path"
+    }
+
+    func getKnownForDepartment() -> String? {
+        knownForDepartment?.rawValue
     }
 
     func getTitle() -> String { return name }
@@ -69,7 +78,7 @@ extension Artist {
                              homepage: "www.homepage.com",
                              id: 1,
                              imdbID: "IMDB-ID",
-                             knownForDepartment: "Actress",
+                             knownForDepartment: .acting,
                              name: "Actress Name",
                              placeOfBirth: "London",
                              popularity: 10,
@@ -78,7 +87,7 @@ extension Artist {
 }
 
 typealias Crew = Cast
-struct Cast: Codable, Creditable {
+struct Cast: Codable, Creditable, Identifiable {
     let adult: Bool
     let gender: Int?
     let id: Int
@@ -126,6 +135,10 @@ struct Cast: Codable, Creditable {
         case voteCount = "vote_count"
     }
 
+    func getKnownForDepartment() -> String? {
+        knownForDepartment?.rawValue
+    }
+
     func getTitle() -> String { return title ?? originalTitle ?? originalName ?? "" }
 
     func getImagePath() -> String { return posterPath ?? profilePath ?? "" }
@@ -135,4 +148,34 @@ struct Cast: Codable, Creditable {
     func getPosterUrl() -> String {
         return APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
     }
+}
+
+extension Cast {
+    static let mock = Cast(
+        adult: true,
+        gender: 1,
+        id: 1,
+        knownForDepartment: .acting,
+        name: "Name",
+        originalName: "Original Name",
+        popularity: 10,
+        profilePath: "ProfilePath",
+        castID: 12,
+        character: "Character",
+        creditID: "CreditID",
+        order: 1,
+        department: .acting,
+        job: "Job",
+        backdropPath: "BackdropPath",
+        genreIDS: [],
+        originalLanguage: .en,
+        originalTitle: "Original Title",
+        overview: "Overview",
+        posterPath: "PostPath",
+        releaseDate: "01-01-1994",
+        title: "Title",
+        video: false,
+        voteAverage: 7.2,
+        voteCount: 1000
+    )
 }

@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 class TVSerieDetailPresenter: ObservableObject {
     let interactor: TVSerieDetailInteractor
-    @Published var media: MediaDetailEntity = MediaDetailEntity()
+    @Published var media: TvDetail = TvDetail.mock
     public let id: Int
 
     init(interactor: TVSerieDetailInteractor, id: Int) {
@@ -26,18 +26,7 @@ class TVSerieDetailPresenter: ObservableObject {
 
     func getDetail(_ id: Int) async {
         let tvDetail = await interactor.getDetail(id)
-        guard let detail = tvDetail as? TvDetail, let firstAirDate = detail.getReleaseDate() else { return }
-        self.media = MediaDetailEntity(
-            id: detail.id,
-            title: detail.getTitle(),
-            genres: nil,
-            point: detail.voteAverage,
-            language: detail.originalLanguage,
-            date: firstAirDate,
-            time: nil,
-            summary: detail.getOverview(),
-            imageUrl: detail.getPosterUrl(),
-            mediaType: .tv
-        )
+        guard let detail = tvDetail as? TvDetail else { return }
+        self.media = detail
     }
 }
