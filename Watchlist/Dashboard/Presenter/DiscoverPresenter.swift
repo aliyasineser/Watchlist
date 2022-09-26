@@ -33,98 +33,6 @@ class DiscoverPresenter: ObservableObject {
         self.isLoading = false
     }
 
-    func loadPopularMovies() async {
-        let movies = await interactor.fetchNextPopularPageAsFullList()
-        movies.forEach { (movie) in
-            if let releaseDate = movie.releaseDate {
-                self.popularMovies.append(DiscoverSectionItemEntity(id: movie.id,
-                                                                    title: movie.getTitle(),
-                                                                    year: releaseDate,
-                                                                    imgUrl: movie.getPosterUrl(),
-                                                                    genre: "",
-                                                                    mediaType: .movie
-                                                                   )
-                )
-            }
-        }
-    }
-
-    func loadMostRecentMovies() async {
-
-        let movies = await interactor.fetchNextMostRecentPageAsFullList()
-        movies.forEach { (movie) in
-            if let releaseDate = movie.releaseDate {
-                self.mostRecentMovies.append(DiscoverSectionItemEntity(id: movie.id,
-                                                                       title: movie.getTitle(),
-                                                                       year: releaseDate,
-                                                                       imgUrl: movie.getPosterUrl(),
-                                                                       genre: "",
-                                                                       mediaType: .movie
-                                                                      )
-                )
-            }
-        }
-    }
-
-    func loadUpcomingMovies() async {
-
-        let movies = await interactor.fetchNextUpcomingPageAsFullList()
-        movies.forEach { (movie) in
-            if let releaseDate = movie.releaseDate {
-                self.upcomingMovies.append(DiscoverSectionItemEntity(id: movie.id,
-                                                                     title: movie.getTitle(),
-                                                                     year: releaseDate,
-                                                                     imgUrl: movie.getPosterUrl(),
-                                                                     genre: "",
-                                                                     mediaType: .movie
-                                                                    )
-                )
-            }
-        }
-    }
-
-    func loadAiringToday() async {
-        let series = await interactor.fetcthNextAiringTodayPageAsFullList()
-        series.forEach { (serie) in
-            self.airingTodaySeries.append(DiscoverSectionItemEntity(id: serie.id,
-                                                                    title: serie.name,
-                                                                    year: serie.firstAirDate,
-                                                                    imgUrl: serie.getPosterUrl(),
-                                                                    genre: "",
-                                                                    mediaType: .tv
-                                                                   )
-            )
-        }
-    }
-
-    func loadOnTheAir() async {
-        let series = await interactor.fetcthNextOnTheAirPageAsFullList()
-        series.forEach { (serie) in
-            self.onTheAirSeries.append(DiscoverSectionItemEntity(id: serie.id,
-                                                                 title: serie.name,
-                                                                 year: serie.firstAirDate,
-                                                                 imgUrl: serie.getPosterUrl(),
-                                                                 genre: "",
-                                                                 mediaType: .tv
-                                                                )
-            )
-        }
-    }
-
-    func loadTopRated() async {
-        let series = await interactor.fetcthNextTopRatedPageAsFullList()
-        series.forEach { (serie) in
-            self.topRatedSeries.append(DiscoverSectionItemEntity(id: serie.id,
-                                                                 title: serie.name,
-                                                                 year: serie.firstAirDate,
-                                                                 imgUrl: serie.getPosterUrl(),
-                                                                 genre: "",
-                                                                 mediaType: .tv
-                                                                )
-            )
-        }
-    }
-
     func fetchMedia() {
         isLoading = false
         Task {
@@ -136,5 +44,71 @@ class DiscoverPresenter: ObservableObject {
             await loadTopRated()
         }
         isLoading = true
+    }
+
+    func loadPopularMovies() async {
+        let movies = await interactor.fetchNextPopularPageAsFullList()
+        mapToMovies(watchables: movies, container: &self.popularMovies)
+    }
+
+    func loadMostRecentMovies() async {
+
+        let movies = await interactor.fetchNextMostRecentPageAsFullList()
+        mapToMovies(watchables: movies, container: &self.mostRecentMovies)
+    }
+
+    func loadUpcomingMovies() async {
+
+        let movies = await interactor.fetchNextUpcomingPageAsFullList()
+        mapToMovies(watchables: movies, container: &self.upcomingMovies)
+    }
+
+    func loadAiringToday() async {
+        let series = await interactor.fetcthNextAiringTodayPageAsFullList()
+        mapToSeries(watchables: series, container: &self.airingTodaySeries)
+    }
+
+    func loadOnTheAir() async {
+        let series = await interactor.fetcthNextOnTheAirPageAsFullList()
+        mapToSeries(watchables: series, container: &self.onTheAirSeries)
+    }
+
+    func loadTopRated() async {
+        let series = await interactor.fetcthNextTopRatedPageAsFullList()
+        mapToSeries(watchables: series, container: &self.topRatedSeries)
+    }
+
+    private func mapToMovies(watchables: [Watchable], container: inout [DiscoverSectionItemEntity]) {
+        watchables.compactMap { $0 as? Movie }
+            .filter { $0.releaseDate != nil }
+            .forEach {
+                container.append(
+                    DiscoverSectionItemEntity(
+                        id: $0.id,
+                        title: $0.getTitle(),
+                        year: $0.releaseDate!,
+                        imgUrl: $0.getPosterUrl(),
+                        genre: "",
+                        mediaType: .movie
+                    )
+                )
+            }
+    }
+
+    private func mapToSeries(watchables: [Watchable], container: inout [DiscoverSectionItemEntity]) {
+        watchables.compactMap { $0 as? TVSerie }
+            .filter { $0.firstAirDate != nil }
+            .forEach {
+                container.append(
+                    DiscoverSectionItemEntity(
+                        id: $0.id,
+                        title: $0.getTitle(),
+                        year: $0.firstAirDate!,
+                        imgUrl: $0.getPosterUrl(),
+                        genre: "",
+                        mediaType: .tv
+                    )
+                )
+            }
     }
 }

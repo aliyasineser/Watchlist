@@ -16,10 +16,10 @@ final class MovieService: MediaService {
         self.requestManager = requestManager
     }
 
-    func fetchMedia(request: NetworkRequest) async -> [Media] {
+    func fetchMedia(request: NetworkRequest) async -> [Watchable] {
         do {
             let movies: MovieResponse = try await requestManager.initRequest(with: request)
-            return movies.results.compactMap { WatchableToMediaMapper.convert(from: $0, type: .movie) }
+            return movies.results
         } catch {
             print(error.localizedDescription)
             return []

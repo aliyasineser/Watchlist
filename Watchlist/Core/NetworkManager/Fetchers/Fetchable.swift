@@ -8,6 +8,6 @@
 import Foundation
 
 protocol Fetchable {
-    func fetchSinglePage() async -> [Media]
-    func fetchWithNextPage() async -> [Media]
+    func fetchSinglePage() async -> [Watchable]
+    func fetchWithNextPage() async -> [Watchable]
 }

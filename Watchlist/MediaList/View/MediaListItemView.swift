@@ -10,9 +10,9 @@ import CachedAsyncImage
 
 struct MediaListItemView: View {
 
-    var mediaListItem: Media
+    var mediaListItem: Watchable
 
-    internal init(mediaListItem: Media) {
+    internal init(mediaListItem: Watchable) {
         self.mediaListItem = mediaListItem
     }
 
@@ -66,9 +66,9 @@ struct MediaListItemView: View {
     }
 
     @MainActor
-    func getMediaDetailView(mediaType: MediaType) -> some View {
+    func getMediaDetailView(mediaType: Watchable.Type) -> some View {
         VStack {
-            if mediaType == .movie {
+            if (mediaType as? Movie.Type) != nil {
                 MovieDetailView(
                     presenter: MovieDetailPresenter(
                         interactor: DefaultMovieDetailInteractor(),
@@ -89,7 +89,7 @@ struct MediaListItemView: View {
     var body: some View {
         NavigationLink(
             destination:
-                getMediaDetailView(mediaType: mediaListItem.mediaType)
+                getMediaDetailView(mediaType: type(of: mediaListItem))
         ) {
             VStack(alignment: .center, spacing: 5) {
                 posterImage()

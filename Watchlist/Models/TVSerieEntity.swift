@@ -171,7 +171,7 @@ struct LastEpisodeToAir: Codable {
     }
 }
 
-struct TVSerie: Codable, Watchable {
+struct TVSerie: Codable, Watchable, Identifiable {
     let posterPath: String?
     let popularity: Double
     let id: Int
@@ -212,8 +212,4 @@ struct TVSerie: Codable, Watchable {
     func getReleaseDate() -> String? { return firstAirDate }
 
     func getOverview() -> String { return overview }
-
-    func getPosterUrl() -> String {
-        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
-    }
 }

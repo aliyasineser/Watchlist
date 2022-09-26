@@ -8,6 +8,7 @@
 import Foundation
 
 protocol Watchable: Codable {
+    var id: Int { get }
     func getTitle() -> String
     func getImagePath() -> String
     func getReleaseDate() -> String?
@@ -15,6 +16,14 @@ protocol Watchable: Codable {
     func getVoteAverage() -> Double?
     func getID() -> Int
     func getPosterUrl() -> String
+}
+
+extension Watchable {
+    func getPosterUrl() -> String {
+        APIConstants.defaultScheme +
+        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath +
+        getImagePath()
+    }
 }
 
 struct Media: Watchable, Codable, Identifiable {
@@ -105,6 +114,14 @@ protocol WatchableDetail: Codable {
     func getPosterUrl() -> String
 }
 
+extension WatchableDetail {
+    func getPosterUrl() -> String {
+        APIConstants.defaultScheme +
+        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath +
+        getImagePath()
+    }
+}
+
 struct MediaDetail: Codable, WatchableDetail, Identifiable {
     let id: Int
     let adult: Bool
@@ -184,11 +201,6 @@ struct MediaDetail: Codable, WatchableDetail, Identifiable {
         case seasons
         case type
         case numberOfSeasons = "number_of_seasons"
-    }
-
-    func getPosterUrl() -> String {
-        return APIConstants.defaultScheme + APIConstants.baseImgUrl +
-            APIConstants.baseImgUrlPath + (posterPath ?? backdropPath ?? "")
     }
 
     func getTitle() -> String { return originalTitle }

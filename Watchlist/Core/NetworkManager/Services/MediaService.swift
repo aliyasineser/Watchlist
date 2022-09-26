@@ -8,14 +8,14 @@
 import Foundation
 
 protocol MediaService {
-    func fetchMedia(request: NetworkRequest) async -> [Media]
+    func fetchMedia(request: NetworkRequest) async -> [Watchable]
     func fetchMediaDetails(id: Int) async -> MediaDetail?
     func fetchMediaCredits(id: Int) async -> Credits?
 }
 
 final class MediaServiceStub: MediaService {
 
-    func fetchMedia(request: NetworkRequest) async -> [Media] {
+    func fetchMedia(request: NetworkRequest) async -> [Watchable] {
         var mediaList: [Media] = []
         for _ in 0..<9 {
             mediaList.append(Media.mock)

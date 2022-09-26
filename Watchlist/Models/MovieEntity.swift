@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Movie: Codable, Watchable {
+struct Movie: Codable, Watchable, Identifiable {
     let id: Int
     let adult: Bool?
     let posterPath: String?
@@ -50,10 +50,6 @@ struct Movie: Codable, Watchable {
     func getOverview() -> String { return overview }
 
     func getID() -> Int { return id }
-
-    func getPosterUrl() -> String {
-        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
-    }
 }
 
 struct MovieDetail: Codable, WatchableDetail {

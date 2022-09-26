@@ -13,12 +13,12 @@ class MediaListPresenter {
 
     private let interactor: MediaInteractor
     private let section: MediaSection
-    @Published var mediaList: [Media]
+    @Published var mediaList: [Watchable]
 
     init(_ interactor: MediaInteractor, section: MediaSection) {
         self.interactor = interactor
         self.section = section
-        self.mediaList = [Media]()
+        self.mediaList = [Watchable]()
     }
 
     func fetchMedia() {
