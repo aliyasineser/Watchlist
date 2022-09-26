@@ -12,23 +12,23 @@ import SwiftUI
 class DiscoverPresenter: ObservableObject {
 
     private let interactor: MediaInteractor
-    @Published var popularMovies: [DiscoverSectionItemEntity]
-    @Published var mostRecentMovies: [DiscoverSectionItemEntity]
-    @Published var upcomingMovies: [DiscoverSectionItemEntity]
-    @Published var airingTodaySeries: [DiscoverSectionItemEntity]
-    @Published var onTheAirSeries: [DiscoverSectionItemEntity]
-    @Published var topRatedSeries: [DiscoverSectionItemEntity]
+    @Published var popularMovies: [Watchable]
+    @Published var mostRecentMovies: [Watchable]
+    @Published var upcomingMovies: [Watchable]
+    @Published var airingTodaySeries: [Watchable]
+    @Published var onTheAirSeries: [Watchable]
+    @Published var topRatedSeries: [Watchable]
 
     @Published var isLoading: Bool = false
 
     init(_ interactor: MediaInteractor) {
         self.interactor = interactor
-        self.popularMovies = [DiscoverSectionItemEntity]()
-        self.mostRecentMovies = [DiscoverSectionItemEntity]()
-        self.upcomingMovies = [DiscoverSectionItemEntity]()
-        self.airingTodaySeries = [DiscoverSectionItemEntity]()
-        self.onTheAirSeries = [DiscoverSectionItemEntity]()
-        self.topRatedSeries = [DiscoverSectionItemEntity]()
+        self.popularMovies = [Watchable]()
+        self.mostRecentMovies = [Watchable]()
+        self.upcomingMovies = [Watchable]()
+        self.airingTodaySeries = [Watchable]()
+        self.onTheAirSeries = [Watchable]()
+        self.topRatedSeries = [Watchable]()
 
         self.isLoading = false
     }
@@ -78,37 +78,15 @@ class DiscoverPresenter: ObservableObject {
         mapToSeries(watchables: series, container: &self.topRatedSeries)
     }
 
-    private func mapToMovies(watchables: [Watchable], container: inout [DiscoverSectionItemEntity]) {
+    private func mapToMovies(watchables: [Watchable], container: inout [Watchable]) {
         watchables.compactMap { $0 as? Movie }
             .filter { $0.releaseDate != nil }
-            .forEach {
-                container.append(
-                    DiscoverSectionItemEntity(
-                        id: $0.id,
-                        title: $0.getTitle(),
-                        year: $0.releaseDate!,
-                        imgUrl: $0.getPosterUrl(),
-                        genre: "",
-                        mediaType: .movie
-                    )
-                )
-            }
+            .forEach { container.append($0) }
     }
 
-    private func mapToSeries(watchables: [Watchable], container: inout [DiscoverSectionItemEntity]) {
+    private func mapToSeries(watchables: [Watchable], container: inout [Watchable]) {
         watchables.compactMap { $0 as? TVSerie }
             .filter { $0.firstAirDate != nil }
-            .forEach {
-                container.append(
-                    DiscoverSectionItemEntity(
-                        id: $0.id,
-                        title: $0.getTitle(),
-                        year: $0.firstAirDate!,
-                        imgUrl: $0.getPosterUrl(),
-                        genre: "",
-                        mediaType: .tv
-                    )
-                )
-            }
+            .forEach { container.append($0) }
     }
 }

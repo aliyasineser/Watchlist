@@ -56,8 +56,8 @@ struct CastView_Previews: PreviewProvider {
         CastView(
             presenter: CastPresenter(
                 CastInteractorStub(),
-                id: 5,
-                mediaType: .movie)
+                id: 5
+            )
         )
     }
 }

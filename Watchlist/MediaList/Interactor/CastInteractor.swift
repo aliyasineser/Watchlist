@@ -8,51 +8,46 @@
 import Foundation
 
 protocol CastInteractor {
-    func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity]
+    func fetchCast(_ id: Int) async -> [CastMemberEntity]
 }
 
 final class DefaultCastInteractor: CastInteractor {
 
     private var artists: [CastMemberEntity]
-    private let movieService: MediaService = MovieService.shared
-    private let tvService: MediaService = TVService.shared
+    private let mediaService: MediaService
 
-    init() {
+    init(mediaService: MediaService) {
         self.artists = []
+        self.mediaService = mediaService
     }
 
-    func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
+    func fetchCast(_ id: Int) async -> [CastMemberEntity] {
 
         self.artists.removeAll()
         var credits: Credits?
 
-        if mediaType == .movie {
-            credits = await movieService.fetchMediaCredits(id: id)
-        } else {
-            credits = await tvService.fetchMediaCredits(id: id)
-        }
-        if let credits = credits {
-            credits.cast.forEach({ cast in
-                if let castId = cast.castID, let character = cast.character {
-                    self.artists.append(
-                        CastMemberEntity(
-                            id: cast.id,
-                            castId: castId,
-                            character: character,
-                            order: cast.order,
-                            name: cast.getTitle(),
-                            imageUrl: cast.getPosterUrl()
-                        )
+        credits = await mediaService.fetchMediaCredits(id: id)
+        guard let credits = credits else { return self.artists }
+        credits.cast
+            .filter { $0.castID != nil && $0.character != nil }
+            .forEach {
+                self.artists.append(
+                    CastMemberEntity(
+                        id: $0.id,
+                        castId: $0.castID,
+                        character: $0.character!,
+                        order: $0.order,
+                        name: $0.getTitle(),
+                        imageUrl: $0.getPosterUrl()
                     )
-                }
-            })
-        }
+                )
+            }
         return self.artists
     }
 }
 
 final class CastInteractorStub: CastInteractor {
-    func fetchCast(_ id: Int, mediaType: MediaType) async -> [CastMemberEntity] {
+    func fetchCast(_ id: Int) async -> [CastMemberEntity] {
         var casts: [CastMemberEntity] = []
         for index in 0..<9 {
             casts.append(

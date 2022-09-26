@@ -10,11 +10,11 @@ import SwiftUI
 struct DiscoverSlice: View {
 
     var sliceTitle: String
-    var sliceItems: [DiscoverSectionItemEntity]
+    var sliceItems: [Watchable]
     var section: MediaSection
     var type: MediaType
 
-    internal init(sliceTitle: String, sliceItems: [DiscoverSectionItemEntity], section: MediaSection, type: MediaType) {
+    internal init(sliceTitle: String, sliceItems: [Watchable], section: MediaSection, type: MediaType) {
         self.sliceTitle = sliceTitle
         self.sliceItems = sliceItems
         self.section = section
@@ -65,7 +65,7 @@ struct DiscoverSlice: View {
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .center, spacing: 10) {
-                        ForEach(self.sliceItems, id: \.itemID) { item in
+                        ForEach(self.sliceItems, id: \.id) { item in
                             DiscoverSliceItem(item: item)
                                 .frame(width: 140, height: 240, alignment: .center)
                         }
@@ -80,17 +80,18 @@ struct DiscoverSlice: View {
 struct DiscoverSlice_Previews: PreviewProvider {
 
     static var previews: some View {
-        DiscoverSlice(sliceTitle: "Title",
-                      sliceItems: [DiscoverSectionItemEntity.mock,
-                                   DiscoverSectionItemEntity.mock,
-                                   DiscoverSectionItemEntity.mock,
-                                   DiscoverSectionItemEntity.mock,
-                                   DiscoverSectionItemEntity.mock,
-                                   DiscoverSectionItemEntity.mock,
-                                   DiscoverSectionItemEntity.mock,
-                                   DiscoverSectionItemEntity.mock
-                                  ],
-                      section: MediaSection.popularMovies, type: .movie
+        DiscoverSlice(
+            sliceTitle: "Title",
+            sliceItems: [Movie.mock,
+                         Movie.mock,
+                         Movie.mock,
+                         Movie.mock,
+                         Movie.mock,
+                         Movie.mock,
+                         Movie.mock,
+                         Movie.mock
+                        ],
+            section: MediaSection.popularMovies, type: .movie
         )
     }
 }
