@@ -21,14 +21,14 @@ struct CastItemView: View {
             content: { image in
                 image.resizable()
                     .scaledToFill()
-                    .frame(width: 100, height: 120)
+                    .frame(width: 100, height: 150)
                     .clipped()
             },
             placeholder: {
                 Image(systemName: "person.fill")
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 100, height: 120)
+                    .frame(width: 100, height: 150)
                     .clipped()
             }
         )
@@ -56,6 +56,7 @@ struct CastItemView: View {
             .font(.system(size: 13))
             .fontWeight(.regular)
             .multilineTextAlignment(.center)
+            .truncationMode(.tail)
             .lineLimit(2)
             .minimumScaleFactor(0.7)
             .padding(
@@ -74,7 +75,7 @@ struct CastItemView: View {
             castName()
             castRole()
         }
-        .frame(width: 100, height: 175)
+        .frame(width: 100)
         .border(
             Color.primary,
             width: 1
