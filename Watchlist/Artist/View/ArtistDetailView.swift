@@ -9,18 +9,18 @@ import SwiftUI
 import CachedAsyncImage
 
 struct ArtistDetailView: View {
-    
+
     @ObservedObject var presenter: ArtistDetailPresenter
     var artistId: Int
-    
+
     let favoriteStorage: FavoriteStorage = FavoriteArtistStorage.shared
     @State var isFavorite = false
-    
+
     init(artistId: Int, presenter: ArtistDetailPresenter) {
         self.presenter = presenter
         self.artistId = artistId
     }
-    
+
     var body: some View {
         ScrollView(.vertical) {
             if let artist = self.presenter.artistDetail {
@@ -45,10 +45,10 @@ struct ArtistDetailView: View {
                             .padding(.top, 20)
                         }
                     }
-                    
+
                     PhotoGrid(presenter: self.presenter)
                         .frame(height: 150)
-                    
+
                     ArtistDetailTabView(artist, artistCredits: self.presenter.artistCredits)
                         .padding(10)
                 }
@@ -58,7 +58,7 @@ struct ArtistDetailView: View {
             self.presenter.fetchArtist(artistId: artistId)
         })
     }
-    
+
     fileprivate func artistImage(url: String) -> some View {
         return CachedAsyncImage(
             url: URL(string: url),
@@ -76,7 +76,7 @@ struct ArtistDetailView: View {
             }
         )
     }
-    
+
     fileprivate func gradientView() -> some View {
         return Rectangle()
             .fill(
@@ -88,7 +88,7 @@ struct ArtistDetailView: View {
             .frame(height: 200)
             .frame(maxWidth: .infinity, alignment: .trailing)
     }
-    
+
     fileprivate func artistInfoView(name: String, birthday: String?) -> some View {
         return VStack(alignment: .leading) {
             Text(name)
@@ -96,7 +96,7 @@ struct ArtistDetailView: View {
                 .bold()
                 .minimumScaleFactor(0.7)
                 .lineLimit(1)
-            
+
             if let birthday = birthday {
                 Text(birthday)
                     .font(.system(size: 16))
@@ -106,19 +106,19 @@ struct ArtistDetailView: View {
             }
         }
     }
-    
+
 }
 
 struct PhotoGrid: View {
-    
+
     @ObservedObject var presenter: ArtistDetailPresenter
-    
+
     init(presenter: ArtistDetailPresenter) {
         self.presenter = presenter
     }
-    
+
     var body: some View {
-        
+
         ScrollView(.horizontal) {
             HStack(spacing: 0) {
                 if presenter.artistImages.count > 1 {
@@ -127,7 +127,7 @@ struct PhotoGrid: View {
                         Rectangle()
                             .foregroundColor(.teal)
                             .opacity(0.7)
-                        
+
                         numberOfImagesLabel()
                             .onTapGesture {
                                 // Navigation to artist images
@@ -135,7 +135,7 @@ struct PhotoGrid: View {
                     }
                     .padding(.leading, 9)
                 }
-                
+
                 LazyHStack(spacing: 0) {
                     ForEach(self.presenter.artistImages.reversed()) { imageEntity in
                         artistImageItem(imageEntity)
@@ -145,7 +145,7 @@ struct PhotoGrid: View {
             }
         }
     }
-    
+
     fileprivate func artistGridImage() -> some View {
         return CachedAsyncImage(
             url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""),
@@ -160,7 +160,7 @@ struct PhotoGrid: View {
         .scaledToFill()
         .clipped()
     }
-    
+
     fileprivate func numberOfImagesLabel() -> VStack<TupleView<(some View, some View)>> {
         return VStack {
             Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
@@ -168,14 +168,14 @@ struct PhotoGrid: View {
                 .bold()
                 .minimumScaleFactor(0.7)
                 .lineLimit(1)
-            
+
             Text(ConstantTexts.ButtonTitle.artistDetailScreenPhotoAlbums)
                 .font(.system(size: 14))
                 .bold()
                 .minimumScaleFactor(0.5)
         }
     }
-    
+
     fileprivate func artistImageItem(_ imageEntity: ReversedCollection<[ArtistImageEntity]>.Element) -> some View {
         return CachedAsyncImage(
             url: URL(string: imageEntity.getPosterUrl()),
