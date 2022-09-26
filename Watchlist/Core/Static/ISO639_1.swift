@@ -195,6 +195,7 @@ public enum OriginalLanguage: String, CaseIterable, Codable {
     case yo = "yo"
     case za = "za"
     case zu = "zu"
+    case xx = "xx"
 }
 
 extension OriginalLanguage {
@@ -386,6 +387,7 @@ extension OriginalLanguage {
         case .yo: return "Yoruba"
         case .za: return "Zhuang, Chuang"
         case .zu: return "Zulu"
+        case .xx: return "Unkown"
         }
     }
     
