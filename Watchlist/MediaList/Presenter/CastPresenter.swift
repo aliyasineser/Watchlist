@@ -11,28 +11,19 @@ import Foundation
 class CastPresenter: ObservableObject {
 
     private let interactor: CastInteractor
-    @Published var artists: [CastEntity]
+    @Published var casts: [Cast]
 
     var id: Int
-    var mediaType: MediaType
 
-    init(_ interactor: CastInteractor, id: Int, mediaType: MediaType) {
+    init(_ interactor: CastInteractor, id: Int) {
         self.id = id
-        self.mediaType = mediaType
         self.interactor = interactor
-        self.artists = [CastEntity]()
+        self.casts = [Cast]()
     }
 
     func loadArtists() {
         Task {
-            let artists = await interactor.fetchCast(self.id, mediaType: self.mediaType)
-            self.artists = artists.map { (artist) -> CastEntity in
-                return CastEntity(
-                    imageUrl: artist.imageUrl,
-                    name: artist.name,
-                    character: artist.character
-                )
-            }
+            self.casts = await interactor.fetchCast(self.id)
         }
     }
 }

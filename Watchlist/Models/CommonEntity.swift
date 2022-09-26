@@ -12,6 +12,10 @@ struct Credits: Codable {
     let id: Int?
 }
 
+extension Credits {
+    static let mock = Credits(cast: [], crew: [], id: 1)
+}
+
 struct SpokenLanguage: Codable {
     let englishName, iso639_1, name: String // swiftlint:disable:this identifier_name
 

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TvDetail: Codable, WatchableDetail {
+struct TvDetail: Codable, WatchableDetail, Identifiable {
     let backdropPath: String?
     let createdBy: [CreatedBy]?
     let episodeRunTime: [Int]?
@@ -77,10 +77,43 @@ struct TvDetail: Codable, WatchableDetail {
     func getReleaseDate() -> String? { return firstAirDate }
 
     func getOverview() -> String { return overview }
+}
 
-    func getPosterUrl() -> String {
-        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
-    }
+extension TvDetail {
+    static let mock = TvDetail(
+        backdropPath: "Backdrop",
+        createdBy: [],
+        episodeRunTime: [1, 2, 3],
+        firstAirDate: "01-01-1994",
+        genres: [],
+        homepage: "",
+        id: 1,
+        inProduction: false,
+        languages: ["en"],
+        lastAirDate: "01-04-2001",
+        lastEpisodeToAir: nil,
+        name: "TV Serie",
+        nextEpisodeToAir: nil,
+        networks: [],
+        numberOfEpisodes: 10,
+        numberOfSeasons: 5,
+        originCountry: [],
+        originalLanguage: "en",
+        originalName: "TV Serie original name",
+        overview: "Good serie",
+        popularity: 5,
+        posterPath: "postar path",
+        productionCompanies: [],
+        productionCountries: [],
+        seasons: [],
+        spokenLanguages: [],
+        status: "online",
+        tagline: "tagline",
+        type: "type",
+        voteAverage: 9,
+        voteCount: 1000,
+        credits: nil
+    )
 }
 
 struct CreatedBy: Codable {
@@ -134,7 +167,7 @@ struct LastEpisodeToAir: Codable {
     }
 }
 
-struct TVSerie: Codable, Watchable {
+struct TVSerie: Codable, Watchable, Identifiable {
     let posterPath: String?
     let popularity: Double
     let id: Int
@@ -175,8 +208,4 @@ struct TVSerie: Codable, Watchable {
     func getReleaseDate() -> String? { return firstAirDate }
 
     func getOverview() -> String { return overview }
-
-    func getPosterUrl() -> String {
-        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
-    }
 }

@@ -8,12 +8,12 @@
 import Foundation
 
 protocol MediaInteractor {
-    func fetchNextPopularPageAsFullList() async -> [Media]
-    func fetchNextMostRecentPageAsFullList() async -> [Media]
-    func fetchNextUpcomingPageAsFullList() async -> [Media]
-    func fetcthNextAiringTodayPageAsFullList() async -> [Media]
-    func fetcthNextOnTheAirPageAsFullList() async -> [Media]
-    func fetcthNextTopRatedPageAsFullList() async -> [Media]
+    func fetchNextPopularPageAsFullList() async -> [Watchable]
+    func fetchNextMostRecentPageAsFullList() async -> [Watchable]
+    func fetchNextUpcomingPageAsFullList() async -> [Watchable]
+    func fetcthNextAiringTodayPageAsFullList() async -> [Watchable]
+    func fetcthNextOnTheAirPageAsFullList() async -> [Watchable]
+    func fetcthNextTopRatedPageAsFullList() async -> [Watchable]
 }
 
 final class DefaultMediaInteractor: MediaInteractor {
@@ -45,49 +45,49 @@ final class DefaultMediaInteractor: MediaInteractor {
     )
 
     /// Starts from the first page
-    func fetchNextPopularPageAsFullList() async -> [Media] {
+    func fetchNextPopularPageAsFullList() async -> [Watchable] {
         return await popularMoviesFetcher.fetchWithNextPage()
     }
 
     /// Starts from the first page
-    func fetchNextMostRecentPageAsFullList() async -> [Media] {
+    func fetchNextMostRecentPageAsFullList() async -> [Watchable] {
         return await mostRecentMoviesFetcher.fetchWithNextPage()
     }
 
     /// Starts from the first page
-    func fetchNextUpcomingPageAsFullList() async -> [Media] {
+    func fetchNextUpcomingPageAsFullList() async -> [Watchable] {
         return await comingSoonMoviesFetcher.fetchWithNextPage()
     }
 
     /// Starts from the first page
-    func fetcthNextAiringTodayPageAsFullList() async -> [Media] {
+    func fetcthNextAiringTodayPageAsFullList() async -> [Watchable] {
         return await airingTodaySeriesFetcher.fetchWithNextPage()
     }
 
     /// Starts from the first page
-    func fetcthNextOnTheAirPageAsFullList() async -> [Media] {
+    func fetcthNextOnTheAirPageAsFullList() async -> [Watchable] {
         return await onTheAirSeriesFetcher.fetchWithNextPage()
     }
     /// Starts from the first page
-    func fetcthNextTopRatedPageAsFullList() async -> [Media] {
+    func fetcthNextTopRatedPageAsFullList() async -> [Watchable] {
         return await popularSeriesFetcher.fetchWithNextPage()
     }
 
 }
 
 final class MediaInteractorStub: MediaInteractor {
-    private func getMediaList() -> [Media] {
-        var mediaList: [Media] = []
+    private func getMediaList() -> [Watchable] {
+        var mediaList: [Watchable] = []
         for _ in 0..<9 {
-            mediaList.append(Media.mock)
+            mediaList.append(Movie.mock)
         }
         return mediaList
     }
 
-    func fetchNextPopularPageAsFullList() async -> [Media] { getMediaList() }
-    func fetchNextMostRecentPageAsFullList() async -> [Media] { getMediaList() }
-    func fetchNextUpcomingPageAsFullList() async -> [Media] { getMediaList() }
-    func fetcthNextAiringTodayPageAsFullList() async -> [Media] { getMediaList() }
-    func fetcthNextOnTheAirPageAsFullList() async -> [Media] { getMediaList() }
-    func fetcthNextTopRatedPageAsFullList() async -> [Media] { getMediaList() }
+    func fetchNextPopularPageAsFullList() async -> [Watchable] { getMediaList() }
+    func fetchNextMostRecentPageAsFullList() async -> [Watchable] { getMediaList() }
+    func fetchNextUpcomingPageAsFullList() async -> [Watchable] { getMediaList() }
+    func fetcthNextAiringTodayPageAsFullList() async -> [Watchable] { getMediaList() }
+    func fetcthNextOnTheAirPageAsFullList() async -> [Watchable] { getMediaList() }
+    func fetcthNextTopRatedPageAsFullList() async -> [Watchable] { getMediaList() }
 }

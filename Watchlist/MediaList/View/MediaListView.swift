@@ -21,7 +21,7 @@ struct MediaListView: View {
 
         ScrollView {
             VStack(alignment: .center, spacing: 10) {
-                ForEach(self.presenter.mediaList) { media in
+                ForEach(self.presenter.mediaList, id: \.id) { media in
                     MediaListItemView(mediaListItem: media)
                 }
             }
@@ -31,7 +31,11 @@ struct MediaListView: View {
 
 struct MediaListView_Previews: PreviewProvider {
     static var previews: some View {
-        MediaListView(mediaListPresenter: MediaListPresenter(MediaInteractorStub(), section: .comingSoonMovies)
+        MediaListView(
+            mediaListPresenter: MediaListPresenter(
+                MediaInteractorStub(),
+                section: .comingSoonMovies
+            )
         )
     }
 }

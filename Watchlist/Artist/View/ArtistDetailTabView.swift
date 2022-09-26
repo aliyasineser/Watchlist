@@ -12,31 +12,31 @@ struct ArtistDetailTabView: View {
 
     @State var tabIndex = 0
 
-    var artistDetail: ArtistDetailEntity
-    var artistCredits: [MediaCreditEntity]
+    var artistDetail: ArtistDetail
+    var artistCredits: [Cast]
 
-    init(_ artistDetail: ArtistDetailEntity, artistCredits: [MediaCreditEntity]) {
+    init(_ artistDetail: ArtistDetail, artistCredits: [Cast]) {
         self.artistDetail = artistDetail
         self.artistCredits = artistCredits
     }
 
-    func mediaCard(credit: MediaCreditEntity) -> some View {
+    func mediaCard(credit: Cast) -> some View {
         return VStack(alignment: .leading, spacing: 10) {
-            Text(credit.title)
+            Text(credit.getTitle())
                 .font(.title2)
                 .lineLimit(3)
                 .minimumScaleFactor(0.8)
                 .multilineTextAlignment(.leading)
-            Text(credit.role)
+            Text(credit.getRole())
                 .font(.subheadline)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
         }
     }
 
-    fileprivate func creditMediaPoster(showCredit: MediaCreditEntity) -> some View {
+    fileprivate func creditMediaPoster(showCredit: Cast) -> some View {
         return CachedAsyncImage(
-            url: URL(string: showCredit.imagePath),
+            url: URL(string: showCredit.getPosterUrl()),
             content: { image in
                 image.resizable()
                     .scaledToFill()
@@ -80,7 +80,7 @@ struct ArtistDetailTabView: View {
                 } else if tabIndex == 1 {
                     ScrollView(.vertical) {
                         VStack(alignment: .leading) {
-                            ForEach(self.artistCredits) { showCredit in
+                            ForEach(artistCredits, id: \.id) { showCredit in
                                 HStack {
                                     creditMediaPoster(showCredit: showCredit)
                                     mediaCard(credit: showCredit)
@@ -133,6 +133,6 @@ struct ArtistDetailTopTabBar: View {
 
 struct ArtistDetailTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistDetailTabView(ArtistDetailEntity.mock, artistCredits: [])
+        ArtistDetailTabView(ArtistDetail.mock, artistCredits: [])
     }
 }

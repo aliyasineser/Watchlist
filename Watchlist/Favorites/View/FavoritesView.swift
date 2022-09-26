@@ -56,7 +56,7 @@ struct FavoritesView: View {
                 }
 
                 Section {
-                    ForEach(presenter.movies) { movie in
+                    ForEach(presenter.movies, id: \.id) { movie in
                         HStack {
                             artistImage(url: movie.getPosterUrl())
                             Spacer()
@@ -71,7 +71,7 @@ struct FavoritesView: View {
                 }
 
                 Section {
-                    ForEach(presenter.tvSeries) { tvSerie in
+                    ForEach(presenter.tvSeries, id: \.id) { tvSerie in
                         HStack {
                             artistImage(url: tvSerie.getPosterUrl())
                             Spacer()
@@ -84,7 +84,7 @@ struct FavoritesView: View {
                         .fontWeight(.heavy)
                         .font(.largeTitle)
                 }
-                
+
             }
             .navigationTitle(ConstantTexts.NavigationBarTitle.favoritesScreen)
             .navigationBarHidden(false)
@@ -94,7 +94,6 @@ struct FavoritesView: View {
                 presenter.fetchFavorites()
             }
         }
-
 
     }
 }

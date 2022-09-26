@@ -12,117 +12,25 @@ import SwiftUI
 class DiscoverPresenter: ObservableObject {
 
     private let interactor: MediaInteractor
-    @Published var popularMovies: [DiscoverSectionItemEntity]
-    @Published var mostRecentMovies: [DiscoverSectionItemEntity]
-    @Published var upcomingMovies: [DiscoverSectionItemEntity]
-    @Published var airingTodaySeries: [DiscoverSectionItemEntity]
-    @Published var onTheAirSeries: [DiscoverSectionItemEntity]
-    @Published var topRatedSeries: [DiscoverSectionItemEntity]
+    @Published var popularMovies: [Watchable]
+    @Published var mostRecentMovies: [Watchable]
+    @Published var upcomingMovies: [Watchable]
+    @Published var airingTodaySeries: [Watchable]
+    @Published var onTheAirSeries: [Watchable]
+    @Published var topRatedSeries: [Watchable]
 
     @Published var isLoading: Bool = false
 
     init(_ interactor: MediaInteractor) {
         self.interactor = interactor
-        self.popularMovies = [DiscoverSectionItemEntity]()
-        self.mostRecentMovies = [DiscoverSectionItemEntity]()
-        self.upcomingMovies = [DiscoverSectionItemEntity]()
-        self.airingTodaySeries = [DiscoverSectionItemEntity]()
-        self.onTheAirSeries = [DiscoverSectionItemEntity]()
-        self.topRatedSeries = [DiscoverSectionItemEntity]()
+        self.popularMovies = [Watchable]()
+        self.mostRecentMovies = [Watchable]()
+        self.upcomingMovies = [Watchable]()
+        self.airingTodaySeries = [Watchable]()
+        self.onTheAirSeries = [Watchable]()
+        self.topRatedSeries = [Watchable]()
 
         self.isLoading = false
-    }
-
-    func loadPopularMovies() async {
-        let movies = await interactor.fetchNextPopularPageAsFullList()
-        movies.forEach { (movie) in
-            if let releaseDate = movie.releaseDate {
-                self.popularMovies.append(DiscoverSectionItemEntity(id: movie.id,
-                                                                    title: movie.getTitle(),
-                                                                    year: releaseDate,
-                                                                    imgUrl: movie.getPosterUrl(),
-                                                                    genre: "",
-                                                                    mediaType: .movie
-                                                                   )
-                )
-            }
-        }
-    }
-
-    func loadMostRecentMovies() async {
-
-        let movies = await interactor.fetchNextMostRecentPageAsFullList()
-        movies.forEach { (movie) in
-            if let releaseDate = movie.releaseDate {
-                self.mostRecentMovies.append(DiscoverSectionItemEntity(id: movie.id,
-                                                                       title: movie.getTitle(),
-                                                                       year: releaseDate,
-                                                                       imgUrl: movie.getPosterUrl(),
-                                                                       genre: "",
-                                                                       mediaType: .movie
-                                                                      )
-                )
-            }
-        }
-    }
-
-    func loadUpcomingMovies() async {
-
-        let movies = await interactor.fetchNextUpcomingPageAsFullList()
-        movies.forEach { (movie) in
-            if let releaseDate = movie.releaseDate {
-                self.upcomingMovies.append(DiscoverSectionItemEntity(id: movie.id,
-                                                                     title: movie.getTitle(),
-                                                                     year: releaseDate,
-                                                                     imgUrl: movie.getPosterUrl(),
-                                                                     genre: "",
-                                                                     mediaType: .movie
-                                                                    )
-                )
-            }
-        }
-    }
-
-    func loadAiringToday() async {
-        let series = await interactor.fetcthNextAiringTodayPageAsFullList()
-        series.forEach { (serie) in
-            self.airingTodaySeries.append(DiscoverSectionItemEntity(id: serie.id,
-                                                                    title: serie.name,
-                                                                    year: serie.firstAirDate,
-                                                                    imgUrl: serie.getPosterUrl(),
-                                                                    genre: "",
-                                                                    mediaType: .tv
-                                                                   )
-            )
-        }
-    }
-
-    func loadOnTheAir() async {
-        let series = await interactor.fetcthNextOnTheAirPageAsFullList()
-        series.forEach { (serie) in
-            self.onTheAirSeries.append(DiscoverSectionItemEntity(id: serie.id,
-                                                                 title: serie.name,
-                                                                 year: serie.firstAirDate,
-                                                                 imgUrl: serie.getPosterUrl(),
-                                                                 genre: "",
-                                                                 mediaType: .tv
-                                                                )
-            )
-        }
-    }
-
-    func loadTopRated() async {
-        let series = await interactor.fetcthNextTopRatedPageAsFullList()
-        series.forEach { (serie) in
-            self.topRatedSeries.append(DiscoverSectionItemEntity(id: serie.id,
-                                                                 title: serie.name,
-                                                                 year: serie.firstAirDate,
-                                                                 imgUrl: serie.getPosterUrl(),
-                                                                 genre: "",
-                                                                 mediaType: .tv
-                                                                )
-            )
-        }
     }
 
     func fetchMedia() {
@@ -136,5 +44,49 @@ class DiscoverPresenter: ObservableObject {
             await loadTopRated()
         }
         isLoading = true
+    }
+
+    func loadPopularMovies() async {
+        let movies = await interactor.fetchNextPopularPageAsFullList()
+        mapToMovies(watchables: movies, container: &self.popularMovies)
+    }
+
+    func loadMostRecentMovies() async {
+
+        let movies = await interactor.fetchNextMostRecentPageAsFullList()
+        mapToMovies(watchables: movies, container: &self.mostRecentMovies)
+    }
+
+    func loadUpcomingMovies() async {
+
+        let movies = await interactor.fetchNextUpcomingPageAsFullList()
+        mapToMovies(watchables: movies, container: &self.upcomingMovies)
+    }
+
+    func loadAiringToday() async {
+        let series = await interactor.fetcthNextAiringTodayPageAsFullList()
+        mapToSeries(watchables: series, container: &self.airingTodaySeries)
+    }
+
+    func loadOnTheAir() async {
+        let series = await interactor.fetcthNextOnTheAirPageAsFullList()
+        mapToSeries(watchables: series, container: &self.onTheAirSeries)
+    }
+
+    func loadTopRated() async {
+        let series = await interactor.fetcthNextTopRatedPageAsFullList()
+        mapToSeries(watchables: series, container: &self.topRatedSeries)
+    }
+
+    private func mapToMovies(watchables: [Watchable], container: inout [Watchable]) {
+        watchables.compactMap { $0 as? Movie }
+            .filter { $0.releaseDate != nil }
+            .forEach { container.append($0) }
+    }
+
+    private func mapToSeries(watchables: [Watchable], container: inout [Watchable]) {
+        watchables.compactMap { $0 as? TVSerie }
+            .filter { $0.firstAirDate != nil }
+            .forEach { container.append($0) }
     }
 }

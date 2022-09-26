@@ -10,15 +10,15 @@ import Foundation
 @MainActor
 class ArtistDetailPresenter: ObservableObject {
     var interactor: ArtistDetailInteractor
-    @Published var artistDetail: ArtistDetailEntity?
+    @Published var artistDetail: ArtistDetail?
     @Published var artistImages: [ArtistImageEntity]
-    @Published var artistCredits: [MediaCreditEntity]
+    @Published var artistCredits: [Cast]
 
     init(interactor: ArtistDetailInteractor) {
         self.interactor = interactor
         self.artistDetail = nil
         self.artistImages = [ArtistImageEntity]()
-        self.artistCredits = [MediaCreditEntity]()
+        self.artistCredits = [Cast]()
     }
 
     func fetchArtist(artistId: Int) {

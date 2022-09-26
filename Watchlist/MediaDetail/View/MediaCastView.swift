@@ -8,33 +8,30 @@
 import SwiftUI
 
 struct MediaCastView: View {
-    
+
     @ObservedObject var presenter: MediaCastPresenter
-    
+
     let columns = [
         GridItem(.adaptive(minimum: 100))
     ]
-    
+
     init(presenter: MediaCastPresenter) {
         self.presenter = presenter
     }
-    
+
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
-                ForEach(self.presenter.artists) { (artist) in
-                    NavigationLink(destination: ArtistDetailView(
-                        artistId: artist.id,
-                        presenter: ArtistDetailPresenter(
-                            interactor: DefaultArtistDetailInteractor()
-                        )
-                    )
-                    ) {
-                        ArtistItemView(artistEntity: ArtistEntity(
+                ForEach(self.presenter.artists, id: \.id) { (artist) in
+                    NavigationLink(
+                        destination: ArtistDetailView(
                             artistId: artist.id,
-                            imageUrl: artist.imageUrl, name: artist.name
+                            presenter: ArtistDetailPresenter(
+                                interactor: DefaultArtistDetailInteractor()
+                            )
                         )
-                        )
+                    ) {
+                        ArtistItemView(artist: artist)
                     }
                 }
                 Spacer()
@@ -52,7 +49,7 @@ struct MediaCastView: View {
                 trailing: 0
             )
         )
-        
+
     }
 }
 
@@ -62,8 +59,8 @@ struct MovieCastView_Previews: PreviewProvider {
             MediaCastView(
                 presenter: MediaCastPresenter(
                     MediaCastInteractorStub(),
-                    id: 1,
-                    mediaType: .movie)
+                    id: 1
+                )
             )
         }
     }

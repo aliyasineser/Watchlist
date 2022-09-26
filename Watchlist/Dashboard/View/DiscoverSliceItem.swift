@@ -11,10 +11,10 @@ import CachedAsyncImage
 @MainActor
 struct DiscoverSliceItem: View {
 
-    var item: DiscoverSectionItemEntity
+    var item: Watchable
     @State var isAppeared = false
 
-    init(item: DiscoverSectionItemEntity) {
+    init(item: Watchable) {
         self.item = item
     }
 
@@ -22,7 +22,7 @@ struct DiscoverSliceItem: View {
         return VStack {
             if isAppeared {
                 CachedAsyncImage(
-                    url: URL(string: self.item.imgUrl),
+                    url: URL(string: self.item.getPosterUrl()),
                     content: { image in
                         image.resizable()
                     },
@@ -40,15 +40,29 @@ struct DiscoverSliceItem: View {
         }
     }
 
+    @MainActor
+    func getMediaDetailView(mediaType: Watchable.Type) -> some View {
+        VStack {
+            if mediaType == Movie.self {
+                MovieDetailView(
+                    presenter: MovieDetailPresenter(
+                        interactor: DefaultMovieDetailInteractor(),
+                        id: item.id
+                    )
+                )
+            } else {
+                TVSerieDetailView(
+                    presenter: TVSerieDetailPresenter(
+                        interactor: DefaultTVSerieDetailInteractor(),
+                        id: item.id
+                    )
+                )
+            }
+        }
+    }
     var body: some View {
         NavigationLink(
-            destination: MediaDetailView(
-                presenter: MediaDetailPresenter(
-                    interactor: DefaultMediaDetailInteractor(),
-                    movieId: item.itemID,
-                    mediaType: item.mediaType
-                )
-            )
+            destination: getMediaDetailView(mediaType: type(of: item))
         ) {
             VStack {
 
@@ -76,7 +90,7 @@ struct DiscoverSectionItem_Previews: PreviewProvider {
             HStack {
                 ForEach((1..<10)) { _ in
                     DiscoverSliceItem(
-                        item: DiscoverSectionItemEntity.mock
+                        item: Movie.mock
                     )
                     .frame(width: 140, height: 210, alignment: .center)
                 }

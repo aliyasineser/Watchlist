@@ -26,35 +26,29 @@ struct ArtistDetailView: View {
             if let artist = self.presenter.artistDetail {
                 VStack(spacing: 0) {
                     ZStack(alignment: .bottomLeading) {
-                        artistImage(url: artist.imgUrl)
+                        artistImage(url: artist.getPosterUrl())
                         gradientView()
                         artistInfoView(name: artist.name, birthday: artist.birthday)
-                        .padding()
+                            .padding()
+                        HStack {
+                            Spacer()
+                            VStack {
+                                FavoriteButton(
+                                    favoriteStorage: favoriteStorage,
+                                    isFavorite: $isFavorite,
+                                    id: artist.id,
+                                    title: artist.name
+                                )
+                                Spacer()
+                            }
+                            .padding(.trailing, 30)
+                            .padding(.top, 20)
+                        }
                     }
 
                     PhotoGrid(presenter: self.presenter)
                         .frame(height: 150)
-                    HStack {
-                        Button {
-                            if isFavorite {
-                                favoriteStorage.deleteFavorite(id: artist.id)
-                            } else {
-                                favoriteStorage.addFavorite(
-                                    id: artist.id,
-                                    name: artist.name
-                                )
-                            }
-                            isFavorite = favoriteStorage.isFavorite(id: artist.id)
-                        } label: {
-                            Image(
-                                systemName: isFavorite ? "star.fill": "star"
-                            )
-                            .foregroundColor(.teal)
-                        }
-                        .onAppear {
-                            isFavorite = favoriteStorage.isFavorite(id: artist.id)
-                        }
-                    }
+
                     ArtistDetailTabView(artist, artistCredits: self.presenter.artistCredits)
                         .padding(10)
                 }
@@ -87,8 +81,8 @@ struct ArtistDetailView: View {
         return Rectangle()
             .fill(
                 LinearGradient(gradient: Gradient(stops: [
-                    .init(color: Color(UIColor.gray).opacity(0.01), location: 0),
-                    .init(color: Color(UIColor.gray).opacity(0.8), location: 1)
+                    .init(color: .accentColor.opacity(0.01), location: 0),
+                    .init(color: .accentColor.opacity(0.8), location: 1)
                 ]), startPoint: .top, endPoint: .bottom)
             )
             .frame(height: 200)
@@ -131,13 +125,13 @@ struct PhotoGrid: View {
                     ZStack {
                         artistGridImage()
                         Rectangle()
-                            .foregroundColor(.teal)
+                            .foregroundColor(.accentColor)
                             .opacity(0.7)
 
                         numberOfImagesLabel()
-                        .onTapGesture {
-                            // Navigation to artist images
-                        }
+                            .onTapGesture {
+                                // Navigation to artist images
+                            }
                     }
                     .padding(.leading, 9)
                 }
@@ -154,7 +148,7 @@ struct PhotoGrid: View {
 
     fileprivate func artistGridImage() -> some View {
         return CachedAsyncImage(
-            url: URL(string: self.presenter.artistDetail?.imgUrl ?? ""),
+            url: URL(string: self.presenter.artistDetail?.getPosterUrl() ?? ""),
             content: { image in
                 image.resizable()
             },
@@ -202,8 +196,11 @@ struct PhotoGrid: View {
 struct ArtistDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ArtistDetailView(artistId: 21,
-                             presenter: ArtistDetailPresenter(interactor: ArtistDetailInteractorStub())
+            ArtistDetailView(
+                artistId: 21,
+                presenter: ArtistDetailPresenter(
+                    interactor: ArtistDetailInteractorStub()
+                )
             )
             .navigationBarTitleDisplayMode(.inline)
         }

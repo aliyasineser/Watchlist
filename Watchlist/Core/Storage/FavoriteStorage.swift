@@ -28,3 +28,17 @@ extension FavoriteStorage {
         }
     }
 }
+
+final class FavoriteStorageStub: FavoriteStorage {
+    var viewContext: NSManagedObjectContext = NSManagedObjectContext(.privateQueue)
+
+    func addFavorite(id: Int, name: String) {}
+
+    func deleteFavorite(id: Int) {}
+
+    var isFavoriteStub: Bool = false
+    func isFavorite(id: Int) -> Bool {
+        return isFavoriteStub
+    }
+
+}

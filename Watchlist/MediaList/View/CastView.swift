@@ -21,13 +21,9 @@ struct CastView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
-                ForEach(self.presenter.artists) { (artist) -> CastItemView in
+                ForEach(self.presenter.casts, id: \.id) { (artist) -> CastItemView in
                     CastItemView(
-                        castEntity: CastEntity(
-                            imageUrl: artist.imageUrl,
-                            name: artist.name,
-                            character: artist.character
-                        )
+                        cast: artist
                     )
                 }
                 Spacer()
@@ -56,8 +52,8 @@ struct CastView_Previews: PreviewProvider {
         CastView(
             presenter: CastPresenter(
                 CastInteractorStub(),
-                id: 5,
-                mediaType: .movie)
+                id: 5
+            )
         )
     }
 }

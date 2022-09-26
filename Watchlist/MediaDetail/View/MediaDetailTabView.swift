@@ -12,22 +12,22 @@ struct MediaDetailTabView: View {
     @State var tabIndex = 0
 
     var id: Int
-    var mediaType: MediaType
-    
-    init(_ id: Int, mediaType: MediaType) {
+    var mediaService: MediaService
+
+    init(_ id: Int, mediaService: MediaService) {
         self.id = id
-        self.mediaType = mediaType
+        self.mediaService = mediaService
     }
 
     var body: some View {
         VStack {
             CustomTopTabBar(tabIndex: $tabIndex)
             if tabIndex == 0 {
-                MediaCastView(presenter: MediaCastPresenter(
-                    DefaultMediaCastInteractor(),
-                    id: self.id,
-                    mediaType: self.mediaType
-                )
+                MediaCastView(
+                    presenter: MediaCastPresenter(
+                        DefaultMediaCastInteractor(mediaService: mediaService),
+                        id: self.id
+                    )
                 )
             } else if tabIndex == 1 {
                 Text("Reviews")
@@ -144,6 +144,6 @@ extension View {
 
 struct MediaDetailTabView_Previews: PreviewProvider {
     static var previews: some View {
-        MediaDetailTabView(1234, mediaType: .movie)
+        MediaDetailTabView(1234, mediaService: MediaServiceStub())
     }
 }

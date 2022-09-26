@@ -9,13 +9,13 @@ import SwiftUI
 import CachedAsyncImage
 
 struct MediaListItemView: View {
-    
-    var mediaListItem: Media
-    
-    internal init(mediaListItem: Media) {
+
+    var mediaListItem: Watchable
+
+    internal init(mediaListItem: Watchable) {
         self.mediaListItem = mediaListItem
     }
-    
+
     fileprivate func posterImage() -> some View {
         return CachedAsyncImage(
             url: URL(string: self.mediaListItem.getPosterUrl()),
@@ -31,7 +31,7 @@ struct MediaListItemView: View {
         .frame(height: 210)
         .clipped()
     }
-    
+
     fileprivate func movieInfoStack() -> some View {
         return HStack {
             VStack {
@@ -64,16 +64,32 @@ struct MediaListItemView: View {
             }
         }
     }
-    
+
+    @MainActor
+    func getMediaDetailView(mediaType: Watchable.Type) -> some View {
+        VStack {
+            if (mediaType as? Movie.Type) != nil {
+                MovieDetailView(
+                    presenter: MovieDetailPresenter(
+                        interactor: DefaultMovieDetailInteractor(),
+                        id: self.mediaListItem.getID()
+                    )
+                )
+            } else {
+                TVSerieDetailView(
+                    presenter: TVSerieDetailPresenter(
+                        interactor: DefaultTVSerieDetailInteractor(),
+                        id: self.mediaListItem.getID()
+                    )
+                )
+            }
+        }
+    }
+
     var body: some View {
         NavigationLink(
-            destination: MediaDetailView(
-                presenter: MediaDetailPresenter(
-                    interactor: DefaultMediaDetailInteractor(),
-                    movieId: self.mediaListItem.getID(),
-                    mediaType: mediaListItem.mediaType
-                )
-            )
+            destination:
+                getMediaDetailView(mediaType: type(of: mediaListItem))
         ) {
             VStack(alignment: .center, spacing: 5) {
                 posterImage()
@@ -93,6 +109,6 @@ struct MediaListItemView: View {
 
 struct MediaListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        MediaListItemView(mediaListItem: Media.mock)
+        MediaListItemView(mediaListItem: Movie.mock)
     }
 }

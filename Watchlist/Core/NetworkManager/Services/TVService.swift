@@ -16,22 +16,22 @@ final class TVService: MediaService {
         self.requestManager = requestManager
     }
 
-    func fetchMedia(request: NetworkRequest) async -> [Media] {
+    func fetchMedia(request: NetworkRequest) async -> [Watchable] {
         do {
             let series: TVSerieResponse = try await requestManager.initRequest(with: request)
-            return series.results.compactMap { WatchableToMediaMapper.convert(from: $0, type: .tv) }
+            return series.results
         } catch {
             print(error.localizedDescription)
             return []
         }
     }
 
-    func fetchMediaDetails(id: Int) async -> MediaDetail? {
+    func fetchMediaDetails(id: Int) async -> WatchableDetail? {
         let requestData = TVRequest.getSeriesDetail(id: id)
         do {
             let serie: TvDetail = try await
             requestManager.initRequest(with: requestData)
-            return WatchableToMediaMapper.convertDetail(from: serie, type: .tv)
+            return serie
         } catch {
             print(error.localizedDescription)
             return nil

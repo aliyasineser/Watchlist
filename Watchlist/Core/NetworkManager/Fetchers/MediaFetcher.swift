@@ -9,7 +9,7 @@ import Foundation
 
 class MediaFetcher: Fetchable {
 
-    private var mediaList: [Media] = []
+    private var mediaList: [Watchable] = []
     private var pageCounter: Int = 0
 
     private var mediaStrategy: MediaListFetchStrategy
@@ -20,14 +20,14 @@ class MediaFetcher: Fetchable {
         self.mediaService = service
     }
 
-    func fetchSinglePage() async -> [Media] {
+    func fetchSinglePage() async -> [Watchable] {
         pageCounter += 1
-        var watchables: [Media] = []
+        var watchables: [Watchable] = []
         watchables =  await mediaService.fetchMedia(request: mediaStrategy.fetch(page: pageCounter))
         return watchables
     }
 
-    func fetchWithNextPage() async -> [Media] {
+    func fetchWithNextPage() async -> [Watchable] {
         let page = await fetchSinglePage()
         self.mediaList.append(contentsOf: page)
         return self.mediaList

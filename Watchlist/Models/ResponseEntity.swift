@@ -7,11 +7,6 @@
 
 import Foundation
 
-struct SearchResponse: Codable {
-    var page: Int
-    var result: [Media]?
-}
-
 struct GenreResponse: Codable {
     var genres: [Genre]?
 }
@@ -46,6 +41,25 @@ struct ArtistDetail: Codable, Identifiable {
     func getPosterUrl() -> String {
         APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + (profilePath ?? "")
     }
+}
+
+extension ArtistDetail {
+    static let mock = ArtistDetail(
+        birthday: "01-01-1994",
+        knownForDepartment: "Department",
+        deathday: "01-01-2009",
+        id: 1,
+        name: "Name",
+        alsoKnownAs: [],
+        gender: 1,
+        biography: "Biography",
+        popularity: 10,
+        placeOfBirth: "Place",
+        profilePath: "ProfilePath",
+        adult: false,
+        imdbID: "IMDB ID",
+        homepage: "www.homepage.com"
+    )
 }
 
 // MARK: - ArtistImageResponse
