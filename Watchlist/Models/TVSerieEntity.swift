@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TvDetail: Codable, WatchableDetail {
+struct TvDetail: Codable, WatchableDetail, Identifiable {
     let backdropPath: String?
     let createdBy: [CreatedBy]?
     let episodeRunTime: [Int]?
@@ -77,10 +77,6 @@ struct TvDetail: Codable, WatchableDetail {
     func getReleaseDate() -> String? { return firstAirDate }
 
     func getOverview() -> String { return overview }
-
-    func getPosterUrl() -> String {
-        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
-    }
 }
 
 extension TvDetail {

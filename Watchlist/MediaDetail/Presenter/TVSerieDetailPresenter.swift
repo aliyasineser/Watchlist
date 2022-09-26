@@ -26,20 +26,18 @@ class TVSerieDetailPresenter: ObservableObject {
 
     func getDetail(_ id: Int) async {
         let tvDetail = await interactor.getDetail(id)
-        if let detail = tvDetail,
-           let firstAirDate = detail.getReleaseDate() {
-            self.media = MediaDetailEntity(
-                id: detail.id,
-                title: detail.getTitle(),
-                genres: nil,
-                point: detail.voteAverage,
-                language: detail.originalLanguage,
-                date: firstAirDate,
-                time: nil,
-                summary: detail.getOverview(),
-                imageUrl: detail.getPosterUrl(),
-                mediaType: .tv
-            )
-        }
+        guard let detail = tvDetail as? TvDetail, let firstAirDate = detail.getReleaseDate() else { return }
+        self.media = MediaDetailEntity(
+            id: detail.id,
+            title: detail.getTitle(),
+            genres: nil,
+            point: detail.voteAverage,
+            language: detail.originalLanguage,
+            date: firstAirDate,
+            time: nil,
+            summary: detail.getOverview(),
+            imageUrl: detail.getPosterUrl(),
+            mediaType: .tv
+        )
     }
 }

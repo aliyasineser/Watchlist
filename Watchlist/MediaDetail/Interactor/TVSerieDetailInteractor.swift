@@ -8,21 +8,21 @@
 import Foundation
 
 protocol TVSerieDetailInteractor {
-    func getDetail(_ id: Int ) async -> MediaDetail?
+    func getDetail(_ id: Int ) async -> WatchableDetail?
 }
 
 final class DefaultTVSerieDetailInteractor: TVSerieDetailInteractor {
 
     private let tvService: MediaService = TVService.shared
 
-    func getDetail(_ id: Int ) async -> MediaDetail? {
+    func getDetail(_ id: Int ) async -> WatchableDetail? {
         return await tvService.fetchMediaDetails(id: id)
     }
 }
 
 final class TVSerieDetailInteractorStub: TVSerieDetailInteractor {
 
-    func getDetail(_ id: Int ) async -> MediaDetail? {
-        return .mock
+    func getDetail(_ id: Int ) async -> WatchableDetail? {
+        return MovieDetail.mock
     }
 }

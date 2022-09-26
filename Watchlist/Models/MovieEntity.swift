@@ -52,7 +52,26 @@ struct Movie: Codable, Watchable, Identifiable {
     func getID() -> Int { return id }
 }
 
-struct MovieDetail: Codable, WatchableDetail {
+extension Movie {
+    static let mock = Movie(
+        id: 1,
+        adult: true,
+        posterPath: "posterPath",
+        backdropPath: "backdropPath",
+        overview: "Good movie",
+        releaseDate: "01-01-2001",
+        genreIDS: [],
+        originalTitle: "Original Title",
+        originalLanguage: nil,
+        title: "Title",
+        popularity: 10,
+        voteCount: 6,
+        video: false,
+        voteAverage: 10000
+    )
+}
+
+struct MovieDetail: Codable, WatchableDetail, Identifiable {
     let id: Int
     let adult: Bool
     let posterPath: String?
@@ -111,11 +130,39 @@ struct MovieDetail: Codable, WatchableDetail {
     func getOverview() -> String { return overview ?? "" }
 
     func getID() -> Int { return id }
-
-    func getPosterUrl() -> String {
-        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + getImagePath()
-    }
 }
+
+extension MovieDetail {
+    static let mock = MovieDetail(
+        id: 1,
+        adult: true,
+        posterPath: "posterPath",
+        backdropPath: "backdropPath",
+        overview: "overview",
+        releaseDate: "01-01-1945",
+        genres: [],
+        belongsToCollection: nil,
+        budget: 10000,
+        homepage: "www.de.com",
+        imdbID: "123",
+        originalLanguage: "English",
+        originalTitle: "Original Title",
+        popularity: 10,
+        productionCompanies: [],
+        productionCountries: [],
+        revenue: 100000,
+        runtime: 123,
+        spokenLanguages: [],
+        status: "Status",
+        title: "Title",
+        tagline: "Tagline",
+        video: false,
+        voteAverage: 6.5,
+        voteCount: 10000,
+        credits: .mock
+    )
+}
+
 
 struct Collection: Codable {
     let backdropPath: String?

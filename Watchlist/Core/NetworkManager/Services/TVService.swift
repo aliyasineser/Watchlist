@@ -26,12 +26,12 @@ final class TVService: MediaService {
         }
     }
 
-    func fetchMediaDetails(id: Int) async -> MediaDetail? {
+    func fetchMediaDetails(id: Int) async -> WatchableDetail? {
         let requestData = TVRequest.getSeriesDetail(id: id)
         do {
             let serie: TvDetail = try await
             requestManager.initRequest(with: requestData)
-            return WatchableToMediaMapper.convertDetail(from: serie, type: .tv)
+            return serie
         } catch {
             print(error.localizedDescription)
             return nil

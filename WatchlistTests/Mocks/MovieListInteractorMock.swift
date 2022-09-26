@@ -10,12 +10,12 @@ import Foundation
 
 final class MovieListInteractorMock: MediaInteractor {
 
-    var fetchNextPopularPageAsFullListStub: [Media] = []
-    var fetchNextMostRecentPageAsFullListStub: [Media] = []
-    var fetchNextUpcomingPageAsFullListStub: [Media] = []
-    var fetcthAiringTodayPageAsFullListStub: [Media] = []
-    var fetcthOnTheAirPageAsFullListStub: [Media] = []
-    var fetcthTopRatedPageAsFullListStub: [Media] = []
+    var fetchNextPopularPageAsFullListStub: [Watchable] = []
+    var fetchNextMostRecentPageAsFullListStub: [Watchable] = []
+    var fetchNextUpcomingPageAsFullListStub: [Watchable] = []
+    var fetcthAiringTodayPageAsFullListStub: [Watchable] = []
+    var fetcthOnTheAirPageAsFullListStub: [Watchable] = []
+    var fetcthTopRatedPageAsFullListStub: [Watchable] = []
 
     var fetchNextPopularPageAsFullListWasCalledOnce: Bool = false
     var fetchNextMostRecentPageAsFullListWasCalledOnce: Bool = false
@@ -24,32 +24,32 @@ final class MovieListInteractorMock: MediaInteractor {
     var fetcthOnTheAirPageAsFullListWasCalledOnce: Bool = false
     var fetcthTopRatedPageAsFullListWasCalledOnce: Bool = false
 
-    func fetchNextPopularPageAsFullList() async -> [Media] {
+    func fetchNextPopularPageAsFullList() async -> [Watchable] {
         fetchNextPopularPageAsFullListWasCalledOnce = true
         return fetchNextPopularPageAsFullListStub
     }
 
-    func fetchNextMostRecentPageAsFullList() async -> [Media] {
+    func fetchNextMostRecentPageAsFullList() async -> [Watchable] {
         fetchNextMostRecentPageAsFullListWasCalledOnce = true
         return fetchNextMostRecentPageAsFullListStub
     }
 
-    func fetchNextUpcomingPageAsFullList() async -> [Media] {
+    func fetchNextUpcomingPageAsFullList() async -> [Watchable] {
         fetchNextUpcomingPageAsFullListWasCalledOnce = true
         return fetchNextUpcomingPageAsFullListStub
     }
 
-    func fetcthNextAiringTodayPageAsFullList() async -> [Media] {
+    func fetcthNextAiringTodayPageAsFullList() async -> [Watchable] {
         fetcthAiringTodayPageAsFullListWasCalledOnce = true
         return fetcthAiringTodayPageAsFullListStub
     }
 
-    func fetcthNextOnTheAirPageAsFullList() async -> [Media] {
+    func fetcthNextOnTheAirPageAsFullList() async -> [Watchable] {
         fetcthOnTheAirPageAsFullListWasCalledOnce = true
         return fetcthOnTheAirPageAsFullListStub
     }
 
-    func fetcthNextTopRatedPageAsFullList() async -> [Media] {
+    func fetcthNextTopRatedPageAsFullList() async -> [Watchable] {
         fetcthTopRatedPageAsFullListWasCalledOnce = true
         return fetcthTopRatedPageAsFullListStub
     }

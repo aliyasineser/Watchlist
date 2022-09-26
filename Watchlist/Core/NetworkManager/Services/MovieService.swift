@@ -26,11 +26,11 @@ final class MovieService: MediaService {
         }
     }
 
-    func fetchMediaDetails(id: Int) async -> MediaDetail? {
+    func fetchMediaDetails(id: Int) async -> WatchableDetail? {
         let requestData = MovieRequest.getMovieDetail(id: id)
         do {
             let movie: MovieDetail = try await requestManager.initRequest(with: requestData)
-            return WatchableToMediaMapper.convertDetail(from: movie, type: .movie)
+            return movie
         } catch {
             print(error.localizedDescription)
             return nil

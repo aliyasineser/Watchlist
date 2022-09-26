@@ -76,10 +76,10 @@ final class DefaultMediaInteractor: MediaInteractor {
 }
 
 final class MediaInteractorStub: MediaInteractor {
-    private func getMediaList() -> [Media] {
-        var mediaList: [Media] = []
+    private func getMediaList() -> [Watchable] {
+        var mediaList: [Watchable] = []
         for _ in 0..<9 {
-            mediaList.append(Media.mock)
+            mediaList.append(Movie.mock)
         }
         return mediaList
     }

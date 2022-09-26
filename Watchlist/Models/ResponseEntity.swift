@@ -7,11 +7,6 @@
 
 import Foundation
 
-struct SearchResponse: Codable {
-    var page: Int
-    var result: [Media]?
-}
-
 struct GenreResponse: Codable {
     var genres: [Genre]?
 }

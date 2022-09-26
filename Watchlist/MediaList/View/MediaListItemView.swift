@@ -109,6 +109,6 @@ struct MediaListItemView: View {
 
 struct MediaListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        MediaListItemView(mediaListItem: Media.mock)
+        MediaListItemView(mediaListItem: Movie.mock)
     }
 }

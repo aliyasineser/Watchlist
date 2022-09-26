@@ -125,7 +125,7 @@ struct PhotoGrid: View {
                     ZStack {
                         artistGridImage()
                         Rectangle()
-                            .foregroundColor(.teal)
+                            .foregroundColor(.accentColor)
                             .opacity(0.7)
 
                         numberOfImagesLabel()
