@@ -7,34 +7,67 @@
 
 import Foundation
 
-struct TvDetail: Codable, Watchable, Identifiable {
+struct TVSerie: Codable, Watchable, Identifiable {
+    let id: Int
+    let title: String
+    let posterPath: String?
+    let popularity: Double
+    let backdropPath: String?
+    let voteAverage: Double?
+    let overview: String?
+    let firstAirDate: String?
+    let originCountry: [OriginCountry]?
+    let genreIDS: [Int]?
+    let originalLanguage: OriginalLanguage?
+    let voteCount: Int?
+    let originalTitle: String?
+
+    enum CodingKeys: String, CodingKey {
+        case posterPath = "poster_path"
+        case popularity, id
+        case backdropPath = "backdrop_path"
+        case voteAverage = "vote_average"
+        case overview
+        case firstAirDate = "first_air_date"
+        case originCountry = "origin_country"
+        case genreIDS = "genre_ids"
+        case originalLanguage = "original_language"
+        case voteCount = "vote_count"
+        case title = "name"
+        case originalTitle = "original_name"
+    }
+}
+
+struct TvDetail: Codable, WatchableDetail, Identifiable {
+    let id: Int
     let backdropPath: String?
     let createdBy: [CreatedBy]?
     let episodeRunTime: [Int]?
     let firstAirDate: String
     let genres: [Genre]
-    let homepage: String
-    let id: Int
+    var homepage: String?
     let inProduction: Bool
     let languages: [String]
     let lastAirDate: String?
     let lastEpisodeToAir: LastEpisodeToAir?
-    let name: String
+    let title: String
     let nextEpisodeToAir: LastEpisodeToAir?
     let networks: [ProductionCompany]?
     let numberOfEpisodes, numberOfSeasons: Int
     let originCountry: [String]
-    let originalLanguage, originalName, overview: String
+    let originalLanguage: OriginalLanguage?
+    let overview: String?
+    let originalTitle: String?
     let popularity: Double
     let posterPath: String?
-    let productionCompanies: [ProductionCompany]?
-    let productionCountries: [ProductionCountry]?
+    var productionCompanies: [ProductionCompany]?
+    var productionCountries: [ProductionCountry]?
     let seasons: [Season]?
-    let spokenLanguages: [SpokenLanguage]?
-    let status, tagline, type: String
-    let voteAverage: Double
-    let voteCount: Int
-    let credits: Credits?
+    var spokenLanguages: [SpokenLanguage]?
+    var status, tagline, type: String?
+    let voteAverage: Double?
+    var voteCount: Int?
+    var credits: Credits?
 
     enum CodingKeys: String, CodingKey {
         case backdropPath = "backdrop_path"
@@ -46,14 +79,14 @@ struct TvDetail: Codable, Watchable, Identifiable {
         case languages
         case lastAirDate = "last_air_date"
         case lastEpisodeToAir = "last_episode_to_air"
-        case name
+        case title = "name"
         case nextEpisodeToAir = "next_episode_to_air"
         case networks
         case numberOfEpisodes = "number_of_episodes"
         case numberOfSeasons = "number_of_seasons"
         case originCountry = "origin_country"
         case originalLanguage = "original_language"
-        case originalName = "original_name"
+        case originalTitle = "original_name"
         case overview, popularity
         case posterPath = "poster_path"
         case productionCompanies = "production_companies"
@@ -65,42 +98,29 @@ struct TvDetail: Codable, Watchable, Identifiable {
         case voteCount = "vote_count"
         case credits
     }
-
-    func getTitle() -> String { return name }
-
-    func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
-
-    func getVoteAverage() -> Double? { return voteAverage }
-
-    func getID() -> Int { return id }
-
-    func getReleaseDate() -> String? { return firstAirDate }
-
-    func getOverview() -> String { return overview }
 }
 
 extension TvDetail {
     static let mock = TvDetail(
-        backdropPath: "Backdrop",
+        id: 1, backdropPath: "Backdrop",
         createdBy: [],
         episodeRunTime: [1, 2, 3],
         firstAirDate: "01-01-1994",
         genres: [],
         homepage: "",
-        id: 1,
         inProduction: false,
         languages: ["en"],
         lastAirDate: "01-04-2001",
         lastEpisodeToAir: nil,
-        name: "TV Serie",
+        title: "TV Serie",
         nextEpisodeToAir: nil,
         networks: [],
         numberOfEpisodes: 10,
         numberOfSeasons: 5,
         originCountry: [],
-        originalLanguage: "en",
-        originalName: "TV Serie original name",
+        originalLanguage: .en,
         overview: "Good serie",
+        originalTitle: "TV Serie original name",
         popularity: 5,
         posterPath: "postar path",
         productionCompanies: [],
@@ -165,47 +185,4 @@ struct LastEpisodeToAir: Codable {
         case voteAverage = "vote_average"
         case voteCount = "vote_count"
     }
-}
-
-struct TVSerie: Codable, Watchable, Identifiable {
-    let id: Int
-    let name: String
-    let posterPath: String?
-    let popularity: Double
-    let backdropPath: String?
-    let voteAverage: Double?
-    let overview: String
-    let firstAirDate: String?
-    let originCountry: [OriginCountry]?
-    let genreIDS: [Int]?
-    let originalLanguage: OriginalLanguage?
-    let voteCount: Int?
-    let originalName: String?
-
-    enum CodingKeys: String, CodingKey {
-        case posterPath = "poster_path"
-        case popularity, id
-        case backdropPath = "backdrop_path"
-        case voteAverage = "vote_average"
-        case overview
-        case firstAirDate = "first_air_date"
-        case originCountry = "origin_country"
-        case genreIDS = "genre_ids"
-        case originalLanguage = "original_language"
-        case voteCount = "vote_count"
-        case name
-        case originalName = "original_name"
-    }
-
-    func getTitle() -> String { return name }
-
-    func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
-
-    func getVoteAverage() -> Double? { return voteAverage }
-
-    func getID() -> Int { return id }
-
-    func getReleaseDate() -> String? { return firstAirDate }
-
-    func getOverview() -> String { return overview }
 }

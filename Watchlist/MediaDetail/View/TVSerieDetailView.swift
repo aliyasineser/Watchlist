@@ -22,10 +22,10 @@ struct TVSerieDetailView: View {
 
     fileprivate func mediaView() -> some View {
         HStack(alignment: .top) {
-            MediaHeaderView(imageUrl: presenter.media.getPosterUrl())
+            MediaHeaderView(imageUrl: presenter.media.posterUrl())
             VStack(alignment: .leading) {
                 MediaDetailsView(
-                    title: presenter.media.name,
+                    title: presenter.media.title,
                     genres: presenter.media.genres.first?.name,
                     rating: presenter.media.voteAverage,
                     language: presenter.media.originalLanguage,
@@ -38,7 +38,7 @@ struct TVSerieDetailView: View {
             FavoriteButton(favoriteStorage: favoriteStorage,
                            isFavorite: $isFavorite,
                            id: presenter.id,
-                           title: presenter.media.name
+                           title: presenter.media.title
             )
             .padding(.trailing, 15)
         }
@@ -50,7 +50,7 @@ struct TVSerieDetailView: View {
                 ScrollView {
                     VStack {
                         PosterView(
-                            imageUrl: presenter.media.getPosterUrl(),
+                            imageUrl: presenter.media.posterUrl(),
                             height: 300,
                             width: geometry.size.width
                         )
@@ -60,12 +60,14 @@ struct TVSerieDetailView: View {
                             .padding(.horizontal, 10)
                             .frame(width: geometry.size.width, alignment: .top)
 
-                        ScrollView {
-                            Text(presenter.media.overview)
-                                .font(.system(size: 16))
+                        if let overview = presenter.media.overview {
+                            ScrollView {
+                                Text(overview)
+                                    .font(.system(size: 16))
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.top, 25)
                         }
-                        .padding(.horizontal, 10)
-                        .padding(.top, 25)
 
                         MediaDetailTabView(
                             self.presenter.id,
@@ -77,7 +79,7 @@ struct TVSerieDetailView: View {
             }
         }
         .navigationBarBackButtonHidden(false)
-        .navigationTitle(self.presenter.media.name)
+        .navigationTitle(self.presenter.media.title)
         .onAppear {
             presenter.getMediaDetail()
         }

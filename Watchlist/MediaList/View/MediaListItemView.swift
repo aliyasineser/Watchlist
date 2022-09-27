@@ -18,7 +18,7 @@ struct MediaListItemView: View {
 
     fileprivate func posterImage() -> some View {
         return CachedAsyncImage(
-            url: URL(string: self.mediaListItem.getPosterUrl()),
+            url: URL(string: self.mediaListItem.posterUrl()),
             content: { image in
                 image.resizable()
                     .scaledToFill()
@@ -35,7 +35,7 @@ struct MediaListItemView: View {
     fileprivate func movieInfoStack() -> some View {
         return HStack {
             VStack {
-                Text(self.mediaListItem.getTitle())
+                Text(self.mediaListItem.title)
                     .font(.system(size: 20))
                     .bold()
                     .foregroundColor(.primary)
@@ -50,7 +50,7 @@ struct MediaListItemView: View {
                 )
             )
             Spacer()
-            if let rating = self.mediaListItem.getVoteAverage() {
+            if let rating = self.mediaListItem.voteAverage {
                 StarsView(rating: CGFloat(rating), maxRating: 5)
                     .frame(width: 100, alignment: .center)
                     .padding(
@@ -72,14 +72,14 @@ struct MediaListItemView: View {
                 MovieDetailView(
                     presenter: MovieDetailPresenter(
                         interactor: DefaultMovieDetailInteractor(),
-                        id: self.mediaListItem.getID()
+                        id: self.mediaListItem.id
                     )
                 )
             } else {
                 TVSerieDetailView(
                     presenter: TVSerieDetailPresenter(
                         interactor: DefaultTVSerieDetailInteractor(),
-                        id: self.mediaListItem.getID()
+                        id: self.mediaListItem.id
                     )
                 )
             }

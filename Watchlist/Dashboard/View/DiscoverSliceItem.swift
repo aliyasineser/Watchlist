@@ -22,7 +22,7 @@ struct DiscoverSliceItem: View {
         return VStack {
             if isAppeared {
                 CachedAsyncImage(
-                    url: URL(string: self.item.getPosterUrl()),
+                    url: URL(string: self.item.posterUrl()),
                     content: { image in
                         image.resizable()
                     },

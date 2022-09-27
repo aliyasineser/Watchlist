@@ -26,7 +26,7 @@ final class TVService: MediaService {
         }
     }
 
-    func fetchMediaDetails(id: Int) async -> Watchable? {
+    func fetchMediaDetails(id: Int) async -> WatchableDetail? {
         let requestData = TVRequest.getSeriesDetail(id: id)
         do {
             let serie: TvDetail = try await

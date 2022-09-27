@@ -58,9 +58,9 @@ struct FavoritesView: View {
                 Section {
                     ForEach(presenter.movies, id: \.id) { movie in
                         HStack {
-                            artistImage(url: movie.getPosterUrl())
+                            artistImage(url: movie.posterUrl())
                             Spacer()
-                            Text(movie.getTitle())
+                            Text(movie.title)
                         }
                         .padding(.horizontal, 20)
                     }
@@ -73,9 +73,9 @@ struct FavoritesView: View {
                 Section {
                     ForEach(presenter.tvSeries, id: \.id) { tvSerie in
                         HStack {
-                            artistImage(url: tvSerie.getPosterUrl())
+                            artistImage(url: tvSerie.posterUrl())
                             Spacer()
-                            Text(tvSerie.getTitle())
+                            Text(tvSerie.title)
                         }
                         .padding(.horizontal, 20)
                     }

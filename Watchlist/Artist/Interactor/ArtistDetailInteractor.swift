@@ -9,7 +9,7 @@ import Foundation
 
 protocol ArtistDetailInteractor {
     func fetchArtist(_ id: Int) async -> ArtistDetail?
-    func fetchArtistImages (_ id: Int) async -> [ArtistImageEntity]
+    func fetchArtistImages (_ id: Int) async -> [Profile]
     func fetchArtistMovies(_ id: Int) async -> [Cast]
     func fetchArtistTV(_ id: Int) async -> [Cast]
 }
@@ -24,23 +24,8 @@ final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
         return person
     }
 
-    func fetchArtistImages (_ id: Int) async -> [ArtistImageEntity] {
-        var artistImages: [ArtistImageEntity] = [ArtistImageEntity]()
-        let images = await artistService.fetchImages(id: id)
-        for img in images {
-            artistImages.append(
-                ArtistImageEntity(
-                    aspectRatio: img.aspectRatio,
-                    filePath: img.filePath,
-                    height: img.height,
-                    iso_639_1: img.iso639_1 ?? APIConstants.language,
-                    voteAverage: img.voteAverage,
-                    voteCount: img.voteCount,
-                    width: img.width
-                )
-            )
-        }
-        return artistImages
+    func fetchArtistImages (_ id: Int) async -> [Profile] {
+        return await artistService.fetchImages(id: id)
     }
 
     func fetchArtistMovies(_ id: Int) async -> [Cast] {
@@ -75,10 +60,10 @@ final class ArtistDetailInteractorStub: ArtistDetailInteractor {
         return ArtistDetail.mock
     }
 
-    func fetchArtistImages (_ id: Int) async -> [ArtistImageEntity] {
-        var imageList: [ArtistImageEntity] = []
+    func fetchArtistImages (_ id: Int) async -> [Profile] {
+        var imageList: [Profile] = []
         for _ in 0..<9 {
-            imageList.append(ArtistImageEntity.mock)
+            imageList.append(Profile.mock)
         }
         return imageList
     }

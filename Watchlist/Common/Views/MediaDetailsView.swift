@@ -10,8 +10,8 @@ import SwiftUI
 struct MediaDetailsView: View {
     var title: String
     var genres: String?
-    var rating: CGFloat
-    var language: String
+    var rating: Double?
+    var language: OriginalLanguage?
     var date: String
     var time: String?
 
@@ -24,7 +24,7 @@ struct MediaDetailsView: View {
                 .lineLimit(2)
                 .padding(.bottom, 2)
 
-            if let genres = genres {
+            if let genres {
                 Text(genres)
                     .font(.system(size: 17))
                     .foregroundColor(.primary)
@@ -33,10 +33,12 @@ struct MediaDetailsView: View {
                     .lineLimit(1)
             }
 
-            RatingView(rating: rating)
+            if let rating {
+                RatingView(rating: rating)
+            }
 
-            if let lang = OriginalLanguage(isoCode: language)?.language {
-                Text(lang)
+            if let language {
+                Text(language.language)
                     .font(.system(size: 18))
                     .bold()
                     .foregroundColor(.primary)
@@ -70,7 +72,7 @@ struct MediaDetailsView_Previews: PreviewProvider {
         MediaDetailsView(
             title: "Title",
             rating: 5.5,
-            language: "English",
+            language: .en,
             date: "24-05-1588"
         )
     }

@@ -11,13 +11,13 @@ import Foundation
 class ArtistDetailPresenter: ObservableObject {
     var interactor: ArtistDetailInteractor
     @Published var artistDetail: ArtistDetail?
-    @Published var artistImages: [ArtistImageEntity]
+    @Published var artistImages: [Profile]
     @Published var artistCredits: [Cast]
 
     init(interactor: ArtistDetailInteractor) {
         self.interactor = interactor
         self.artistDetail = nil
-        self.artistImages = [ArtistImageEntity]()
+        self.artistImages = [Profile]()
         self.artistCredits = [Cast]()
     }
 

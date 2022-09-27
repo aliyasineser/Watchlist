@@ -137,7 +137,7 @@ struct PhotoGrid: View {
                 }
 
                 LazyHStack(spacing: 0) {
-                    ForEach(self.presenter.artistImages.reversed()) { imageEntity in
+                    ForEach(self.presenter.artistImages.reversed(), id: \.filePath) { imageEntity in
                         artistImageItem(imageEntity)
                     }
                 }
@@ -176,7 +176,7 @@ struct PhotoGrid: View {
         }
     }
 
-    fileprivate func artistImageItem(_ imageEntity: ReversedCollection<[ArtistImageEntity]>.Element) -> some View {
+    fileprivate func artistImageItem(_ imageEntity: ReversedCollection<[Profile]>.Element) -> some View {
         return CachedAsyncImage(
             url: URL(string: imageEntity.getPosterUrl()),
             content: { image in

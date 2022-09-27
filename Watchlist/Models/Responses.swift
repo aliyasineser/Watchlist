@@ -36,6 +36,23 @@ struct Profile: Codable {
         case voteCount = "vote_count"
         case width
     }
+
+    func getPosterUrl() -> String {
+        APIConstants.defaultScheme + APIConstants.baseImgUrl +
+        APIConstants.baseImgUrlPath + filePath
+    }
+}
+
+extension Profile {
+    static let mock = Profile(
+        aspectRatio: 1,
+        filePath: "File Path",
+        height: 200,
+        iso639_1: "en-US",
+        voteAverage: 5,
+        voteCount: 10,
+        width: 200
+    )
 }
 
 // MARK: - Dates

@@ -22,7 +22,7 @@ struct MovieDetailView: View {
 
     fileprivate func mediaView() -> some View {
         return HStack(alignment: .top) {
-            MediaHeaderView(imageUrl: presenter.media.getPosterUrl())
+            MediaHeaderView(imageUrl: presenter.media.posterUrl())
             VStack(alignment: .leading) {
                 MediaDetailsView(
                     title: presenter.media.title,
@@ -51,7 +51,7 @@ struct MovieDetailView: View {
                 ScrollView {
                     VStack {
                         PosterView(
-                            imageUrl: presenter.media.getPosterUrl(),
+                            imageUrl: presenter.media.posterUrl(),
                             height: 300,
                             width: geometry.size.width
                         )

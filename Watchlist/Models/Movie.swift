@@ -14,7 +14,7 @@ struct Movie: Codable, Watchable, Identifiable {
     let adult: Bool?
     let posterPath: String?
     let backdropPath: String?
-    let overview: String
+    let overview: String?
     let releaseDate: String?
     let genreIDS: [Int]
     let originalTitle: String?
@@ -39,18 +39,6 @@ struct Movie: Codable, Watchable, Identifiable {
         case video
         case voteAverage = "vote_average"
     }
-
-    func getTitle() -> String { return title }
-
-    func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
-
-    func getVoteAverage() -> Double? { return voteAverage }
-
-    func getReleaseDate() -> String? { return releaseDate ?? nil }
-
-    func getOverview() -> String { return overview }
-
-    func getID() -> Int { return id }
 }
 
 extension Movie {
@@ -72,7 +60,7 @@ extension Movie {
 }
 
 // MARK: - MovieDetail
-struct MovieDetail: Codable, Watchable, Identifiable {
+struct MovieDetail: Codable, WatchableDetail, Identifiable {
     let id: Int
     let adult: Bool
     let posterPath: String?
@@ -82,21 +70,22 @@ struct MovieDetail: Codable, Watchable, Identifiable {
     let genres: [Genre]
     let belongsToCollection: Collection?
     let budget: Int
-    let homepage: String?
+    var homepage: String?
     let imdbID: String?
-    let originalLanguage, originalTitle: String
+    var originalLanguage: OriginalLanguage?
+    let originalTitle: String?
     let popularity: Double
-    let productionCompanies: [ProductionCompany]?
-    let productionCountries: [ProductionCountry]?
+    var productionCompanies: [ProductionCompany]?
+    var productionCountries: [ProductionCountry]?
     let revenue: Int
     let runtime: Int?
-    let spokenLanguages: [SpokenLanguage]?
+    var spokenLanguages: [SpokenLanguage]?
     let status, title: String
-    let tagline: String?
+    var tagline: String?
     let video: Bool
-    let voteAverage: Double
-    let voteCount: Int
-    let credits: Credits?
+    let voteAverage: Double?
+    var voteCount: Int?
+    var credits: Credits?
 
     enum CodingKeys: String, CodingKey {
         case adult
@@ -120,17 +109,6 @@ struct MovieDetail: Codable, Watchable, Identifiable {
         case credits
     }
 
-    func getTitle() -> String { return title }
-
-    func getImagePath() -> String { return posterPath ?? backdropPath ?? "" }
-
-    func getVoteAverage() -> Double? { return voteAverage }
-
-    func getReleaseDate() -> String? { return releaseDate }
-
-    func getOverview() -> String { return overview ?? "" }
-
-    func getID() -> Int { return id }
 }
 
 extension MovieDetail {
@@ -146,7 +124,7 @@ extension MovieDetail {
         budget: 10000,
         homepage: "www.de.com",
         imdbID: "123",
-        originalLanguage: "English",
+        originalLanguage: .en,
         originalTitle: "Original Title",
         popularity: 10,
         productionCompanies: [],
