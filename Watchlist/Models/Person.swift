@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: Creditable
 protocol Creditable: Codable {
     var id: Int { get }
     func getTitle() -> String
@@ -15,6 +16,7 @@ protocol Creditable: Codable {
     func getPosterUrl() -> String
 }
 
+// MARK: PopularArtists
 struct PopularArtists: Codable {
     let page: Int
     let results: [Artist]?
@@ -27,6 +29,7 @@ struct PopularArtists: Codable {
     }
 }
 
+// MARK: Artist
 struct Artist: Codable, Creditable {
 
     let adult: Bool
@@ -86,6 +89,59 @@ extension Artist {
     )
 }
 
+// MARK: ArtistDetail
+struct ArtistDetail: Codable, Identifiable {
+    let birthday, knownForDepartment: String?
+    let deathday: String?
+    let id: Int
+    let name: String
+    let alsoKnownAs: [String]?
+    let gender: Int?
+    let biography: String?
+    let popularity: Double?
+    let placeOfBirth, profilePath: String?
+    let adult: Bool
+    let imdbID: String?
+    let homepage: String?
+
+    enum CodingKeys: String, CodingKey {
+        case birthday
+        case knownForDepartment = "known_for_department"
+        case deathday, id, name
+        case alsoKnownAs = "also_known_as"
+        case gender, biography, popularity
+        case placeOfBirth = "place_of_birth"
+        case profilePath = "profile_path"
+        case adult
+        case imdbID = "imdb_id"
+        case homepage
+    }
+
+    func getPosterUrl() -> String {
+        APIConstants.defaultScheme + APIConstants.baseImgUrl + APIConstants.baseImgUrlPath + (profilePath ?? "")
+    }
+}
+
+extension ArtistDetail {
+    static let mock = ArtistDetail(
+        birthday: "01-01-1994",
+        knownForDepartment: "Department",
+        deathday: "01-01-2009",
+        id: 1,
+        name: "Name",
+        alsoKnownAs: [],
+        gender: 1,
+        biography: "Biography",
+        popularity: 10,
+        placeOfBirth: "Place",
+        profilePath: "ProfilePath",
+        adult: false,
+        imdbID: "IMDB ID",
+        homepage: "www.homepage.com"
+    )
+}
+
+// MARK: Crew & Cast
 typealias Crew = Cast
 struct Cast: Codable, Creditable, Identifiable {
     let adult: Bool

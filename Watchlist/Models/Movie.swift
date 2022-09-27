@@ -7,8 +7,10 @@
 
 import Foundation
 
+// MARK: - Movie
 struct Movie: Codable, Watchable, Identifiable {
     let id: Int
+    let title: String
     let adult: Bool?
     let posterPath: String?
     let backdropPath: String?
@@ -17,7 +19,6 @@ struct Movie: Codable, Watchable, Identifiable {
     let genreIDS: [Int]
     let originalTitle: String?
     let originalLanguage: OriginalLanguage?
-    let title: String
     let popularity: Double
     let voteCount: Int?
     let video: Bool
@@ -55,7 +56,7 @@ struct Movie: Codable, Watchable, Identifiable {
 extension Movie {
     static let mock = Movie(
         id: 1,
-        adult: true,
+        title: "Title", adult: true,
         posterPath: "posterPath",
         backdropPath: "backdropPath",
         overview: "Good movie",
@@ -63,7 +64,6 @@ extension Movie {
         genreIDS: [],
         originalTitle: "Original Title",
         originalLanguage: nil,
-        title: "Title",
         popularity: 10,
         voteCount: 6,
         video: false,
@@ -71,7 +71,8 @@ extension Movie {
     )
 }
 
-struct MovieDetail: Codable, WatchableDetail, Identifiable {
+// MARK: - MovieDetail
+struct MovieDetail: Codable, Watchable, Identifiable {
     let id: Int
     let adult: Bool
     let posterPath: String?
@@ -163,7 +164,7 @@ extension MovieDetail {
     )
 }
 
-
+// MARK: - Collection
 struct Collection: Codable {
     let backdropPath: String?
     var id: Int

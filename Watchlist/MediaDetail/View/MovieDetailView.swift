@@ -69,7 +69,6 @@ struct MovieDetailView: View {
                             .padding(.top, 25)
                         }
 
-
                         MediaDetailTabView(
                             self.presenter.id,
                             mediaService: MovieService.shared

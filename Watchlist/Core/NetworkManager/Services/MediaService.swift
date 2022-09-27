@@ -9,7 +9,7 @@ import Foundation
 
 protocol MediaService {
     func fetchMedia(request: NetworkRequest) async -> [Watchable]
-    func fetchMediaDetails(id: Int) async -> WatchableDetail?
+    func fetchMediaDetails(id: Int) async -> Watchable?
     func fetchMediaCredits(id: Int) async -> Credits?
 }
 
@@ -23,7 +23,7 @@ final class MediaServiceStub: MediaService {
         return mediaList
     }
 
-    func fetchMediaDetails(id: Int) async -> WatchableDetail? {
+    func fetchMediaDetails(id: Int) async -> Watchable? {
         MovieDetail.mock
     }
 

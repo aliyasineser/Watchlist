@@ -26,7 +26,7 @@ final class MovieService: MediaService {
         }
     }
 
-    func fetchMediaDetails(id: Int) async -> WatchableDetail? {
+    func fetchMediaDetails(id: Int) async -> Watchable? {
         let requestData = MovieRequest.getMovieDetail(id: id)
         do {
             let movie: MovieDetail = try await requestManager.initRequest(with: requestData)

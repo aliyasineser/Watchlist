@@ -11,8 +11,8 @@ import Combine
 class FavoritesPresenter: ObservableObject {
     private let interactor: FavoritesInteractor
     @Published var artists: [ArtistDetail] = []
-    @Published var movies: [WatchableDetail] = []
-    @Published var tvSeries: [WatchableDetail] = []
+    @Published var movies: [Watchable] = []
+    @Published var tvSeries: [Watchable] = []
 
     init(_ interactor: FavoritesInteractor) {
         self.interactor = interactor

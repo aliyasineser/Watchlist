@@ -9,8 +9,8 @@ import Foundation
 
 protocol FavoritesInteractor {
     func getFavoriteArtists() async -> [ArtistDetail]
-    func getFavoriteMovies() async -> [WatchableDetail]
-    func getFavoriteSeries() async -> [WatchableDetail]
+    func getFavoriteMovies() async -> [Watchable]
+    func getFavoriteSeries() async -> [Watchable]
 }
 
 final class DefaultFavoritesInteractor: FavoritesInteractor {
@@ -34,9 +34,9 @@ final class DefaultFavoritesInteractor: FavoritesInteractor {
         return favoriteArtists
     }
 
-    func getFavoriteMovies() async -> [WatchableDetail] {
+    func getFavoriteMovies() async -> [Watchable] {
         let infoList = movieStorage.fetchMovies()
-        var favorites: [WatchableDetail] = []
+        var favorites: [Watchable] = []
         for info in infoList {
             if let details = await movieService.fetchMediaDetails(id: Int(info.id)) {
                 favorites.append(details)
@@ -45,9 +45,9 @@ final class DefaultFavoritesInteractor: FavoritesInteractor {
         return favorites
     }
 
-    func getFavoriteSeries() async -> [WatchableDetail] {
+    func getFavoriteSeries() async -> [Watchable] {
         let infoList = tvSerieStorage.fetchSeries()
-        var favorites: [WatchableDetail] = []
+        var favorites: [Watchable] = []
         for info in infoList {
             if let details = await tvSerieService.fetchMediaDetails(id: Int(info.id)) {
                 favorites.append(details)

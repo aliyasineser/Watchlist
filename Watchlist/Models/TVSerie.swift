@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TvDetail: Codable, WatchableDetail, Identifiable {
+struct TvDetail: Codable, Watchable, Identifiable {
     let backdropPath: String?
     let createdBy: [CreatedBy]?
     let episodeRunTime: [Int]?
@@ -168,9 +168,10 @@ struct LastEpisodeToAir: Codable {
 }
 
 struct TVSerie: Codable, Watchable, Identifiable {
+    let id: Int
+    let name: String
     let posterPath: String?
     let popularity: Double
-    let id: Int
     let backdropPath: String?
     let voteAverage: Double?
     let overview: String
@@ -179,7 +180,6 @@ struct TVSerie: Codable, Watchable, Identifiable {
     let genreIDS: [Int]?
     let originalLanguage: OriginalLanguage?
     let voteCount: Int?
-    let name: String
     let originalName: String?
 
     enum CodingKeys: String, CodingKey {
