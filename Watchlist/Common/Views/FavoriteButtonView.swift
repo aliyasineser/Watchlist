@@ -31,7 +31,7 @@ struct FavoriteButton: View {
             )
             .resizable()
             .frame(width: 35, height: 35)
-            .foregroundColor(.accentColor)
+            .foregroundColor(Color("FavoriteColor"))
         }
         .onAppear {
             isFavorite = favoriteStorage.isFavorite(id: id)

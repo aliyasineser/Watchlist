@@ -69,7 +69,7 @@ struct CustomTopTabBar: View {
         .border(
             width: 1,
             edges: [.bottom],
-            color: Color.secondary
+            color: Color.accentColor
         )
     }
 
@@ -84,12 +84,13 @@ struct TabBarButton: View {
     var body: some View {
         Text(text)
             .fontWeight(isSelected ? .heavy : .regular)
-            .font(.system(size: 16))
+            .font(.system(size: isSelected ? 17 : 16))
             .padding(.bottom, 10)
+            .foregroundColor(.accentColor)
             .border(
-                width: isSelected ? 2 : 1,
+                width: isSelected ? 3 : 1,
                 edges: [.bottom],
-                color: .secondary
+                color: .accentColor
             )
     }
 }
@@ -129,7 +130,11 @@ struct EdgeBorder: Shape {
                 case .leading, .trailing: return rect.height
                 }
             }
-            path.addPath(Path(CGRect(x: x, y: y, width: w, height: h)))
+            path.addPath(
+                Path(
+                    CGRect(x: x, y: y, width: w, height: h)
+                )
+            )
         }
         return path
     }

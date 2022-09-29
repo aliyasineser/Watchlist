@@ -26,9 +26,10 @@ struct ArtistDetailView: View {
             if let artist = self.presenter.artistDetail {
                 ZStack {
                     artistImage(url: artist.getPosterUrl())
-                    gradientView(height: 440)
+                    gradientView()
                 }
-                VStack(spacing: 0) {
+                .frame(height: 200)
+                VStack(alignment: .center, spacing: 0) {
                     ZStack(alignment: .bottomLeading) {
                         artistInfoView(
                             name: artist.name,
@@ -54,9 +55,13 @@ struct ArtistDetailView: View {
 
                     PhotoGrid(presenter: self.presenter)
                         .frame(height: 150)
+                        .padding(.horizontal)
 
-                    ArtistDetailTabView(artist, artistCredits: self.presenter.artistCredits)
-                        .padding(10)
+                    ArtistDetailTabView(
+                        artistDetail: artist,
+                        artistCredits: self.presenter.artistCredits
+                    )
+                    .padding(10)
                 }
             }
         }
@@ -80,7 +85,7 @@ struct ArtistDetailView: View {
         )
     }
 
-    fileprivate func gradientView(height: CGFloat = 200) -> some View {
+    fileprivate func gradientView() -> some View {
         return Rectangle()
             .fill(
                 LinearGradient(gradient: Gradient(stops: [
@@ -126,57 +131,16 @@ struct PhotoGrid: View {
 
         ScrollView(.horizontal) {
             HStack(spacing: 10) {
-                if presenter.artistImages.count > 1 {
-                    ZStack {
-                        artistGridImage()
-                        Rectangle()
-                            .foregroundColor(.accentColor)
-                            .opacity(0.7)
-
-                        numberOfImagesLabel()
-                    }
-                    .onTapGesture {
-                        // Navigation to artist images
-                    }
-                    .cornerRadius(10)
-                }
-
                 LazyHStack(spacing: 10) {
-                    ForEach(self.presenter.artistImages.reversed(), id: \.filePath) { imageEntity in
+                    ForEach(
+                        self.presenter.artistImages.reversed(),
+                        id: \.filePath
+                    ) { imageEntity in
                         artistImageItem(imageEntity)
                             .cornerRadius(10)
                     }
                 }
             }
-        }
-    }
-
-    fileprivate func artistGridImage() -> some View {
-        CachedAsyncImage(
-            url: URL(string: self.presenter.artistDetail?.getPosterUrl() ?? ""),
-            content: { image in
-                image.resizable()
-            },
-            placeholder: {
-                Image(systemName: "person.fill")
-                    .resizable()
-            }
-        )
-        .scaledToFit()
-    }
-
-    fileprivate func numberOfImagesLabel() -> some View {
-        VStack {
-            Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
-                .font(.system(size: 25))
-                .bold()
-                .minimumScaleFactor(0.7)
-                .lineLimit(1)
-
-            Text(ConstantTexts.ButtonTitle.artistDetailScreenPhotoAlbums)
-                .font(.system(size: 16))
-                .bold()
-                .minimumScaleFactor(0.5)
         }
     }
 

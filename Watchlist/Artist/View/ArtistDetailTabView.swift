@@ -15,7 +15,10 @@ struct ArtistDetailTabView: View {
     var artistDetail: ArtistDetail
     var artistCredits: [Cast]
 
-    init(_ artistDetail: ArtistDetail, artistCredits: [Cast]) {
+    init(
+        artistDetail: ArtistDetail,
+        artistCredits: [Cast]
+    ) {
         self.artistDetail = artistDetail
         self.artistCredits = artistCredits
     }
@@ -24,12 +27,10 @@ struct ArtistDetailTabView: View {
         return VStack(alignment: .leading, spacing: 10) {
             Text(credit.getTitle())
                 .font(.title2)
-                .lineLimit(3)
                 .minimumScaleFactor(0.8)
                 .multilineTextAlignment(.leading)
             Text(credit.getRole())
                 .font(.subheadline)
-                .lineLimit(2)
                 .multilineTextAlignment(.leading)
         }
     }
@@ -122,7 +123,7 @@ struct ArtistDetailTopTabBar: View {
         .border(
             width: 2,
             edges: [.bottom],
-            color: Color.secondary
+            color: Color.accentColor
         )
     }
 
@@ -133,6 +134,9 @@ struct ArtistDetailTopTabBar: View {
 
 struct ArtistDetailTabView_Previews: PreviewProvider {
     static var previews: some View {
-        ArtistDetailTabView(ArtistDetail.mock, artistCredits: [])
+        ArtistDetailTabView(
+            artistDetail: ArtistDetail.mock,
+            artistCredits: []
+        )
     }
 }
