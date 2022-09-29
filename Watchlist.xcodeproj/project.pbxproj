@@ -54,7 +54,6 @@
 		DD4B3A6A28E0E82C007308F5 /* TVSerieDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4B3A6928E0E82C007308F5 /* TVSerieDetailInteractor.swift */; };
 		DD4B3A6E28E0FB1C007308F5 /* PosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4B3A6D28E0FB1C007308F5 /* PosterView.swift */; };
 		DD4B3A7028E0FC0C007308F5 /* FavoriteButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4B3A6F28E0FC0C007308F5 /* FavoriteButtonView.swift */; };
-		DD4B3A7228E10F98007308F5 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4B3A7128E10F98007308F5 /* RatingView.swift */; };
 		DD4B3A7428E11431007308F5 /* MediaHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4B3A7328E11431007308F5 /* MediaHeaderView.swift */; };
 		DD4B3A7628E115B3007308F5 /* MediaDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4B3A7528E115B3007308F5 /* MediaDetailsView.swift */; };
 		DD4BB7AF264C54AD00E07C5F /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */; };
@@ -177,7 +176,6 @@
 		DD4B3A6928E0E82C007308F5 /* TVSerieDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVSerieDetailInteractor.swift; sourceTree = "<group>"; };
 		DD4B3A6D28E0FB1C007308F5 /* PosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterView.swift; sourceTree = "<group>"; };
 		DD4B3A6F28E0FC0C007308F5 /* FavoriteButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButtonView.swift; sourceTree = "<group>"; };
-		DD4B3A7128E10F98007308F5 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
 		DD4B3A7328E11431007308F5 /* MediaHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaHeaderView.swift; sourceTree = "<group>"; };
 		DD4B3A7528E115B3007308F5 /* MediaDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDetailsView.swift; sourceTree = "<group>"; };
 		DD4BB7AE264C54AD00E07C5F /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -537,7 +535,6 @@
 			children = (
 				DD4B3A6D28E0FB1C007308F5 /* PosterView.swift */,
 				DD4B3A6F28E0FC0C007308F5 /* FavoriteButtonView.swift */,
-				DD4B3A7128E10F98007308F5 /* RatingView.swift */,
 				DD4B3A7328E11431007308F5 /* MediaHeaderView.swift */,
 				DD4B3A7528E115B3007308F5 /* MediaDetailsView.swift */,
 			);
@@ -916,7 +913,6 @@
 				1E0AA5AB26C41E5100B3C7F5 /* MediaCastPresenter.swift in Sources */,
 				DDB8B98F2899BDF500E7F569 /* Movie.swift in Sources */,
 				DDD9513E278123AA009695C2 /* ConstantTexts.swift in Sources */,
-				DD4B3A7228E10F98007308F5 /* RatingView.swift in Sources */,
 				1EB8DE6126C07FE400DE2522 /* MediaDetailTabView.swift in Sources */,
 				DD4C9EFD28DE108B00BD2B48 /* FavoriteTVSerieStorage.swift in Sources */,
 				DDB8B97F2896DFE600E7F569 /* Common.swift in Sources */,

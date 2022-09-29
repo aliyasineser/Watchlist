@@ -24,12 +24,18 @@ struct ArtistDetailView: View {
     var body: some View {
         ScrollView(.vertical) {
             if let artist = self.presenter.artistDetail {
+                ZStack {
+                    artistImage(url: artist.getPosterUrl())
+                    gradientView(height: 440)
+                }
                 VStack(spacing: 0) {
                     ZStack(alignment: .bottomLeading) {
-                        artistImage(url: artist.getPosterUrl())
-                        gradientView()
-                        artistInfoView(name: artist.name, birthday: artist.birthday)
-                            .padding()
+                        artistInfoView(
+                            name: artist.name,
+                            birthday: artist.birthday
+                        )
+                        .padding(.leading, 30)
+                        .padding(.bottom, 20)
                         HStack {
                             Spacer()
                             VStack {
@@ -65,32 +71,31 @@ struct ArtistDetailView: View {
             content: { image in
                 image.resizable()
                     .scaledToFill()
-                    .frame(height: 400, alignment: .center)
-                    .clipped()
             },
             placeholder: {
                 Image(systemName: "person.fill")
                     .resizable()
-                    .frame(height: 400, alignment: .center)
-                    .clipped()
+                    .scaledToFill()
             }
         )
     }
 
-    fileprivate func gradientView() -> some View {
+    fileprivate func gradientView(height: CGFloat = 200) -> some View {
         return Rectangle()
             .fill(
                 LinearGradient(gradient: Gradient(stops: [
                     .init(color: .accentColor.opacity(0.01), location: 0),
                     .init(color: .accentColor.opacity(0.8), location: 1)
-                ]), startPoint: .top, endPoint: .bottom)
+                ]),
+                               startPoint: .top,
+                               endPoint: .bottom
+                )
             )
-            .frame(height: 200)
-            .frame(maxWidth: .infinity, alignment: .trailing)
+            .frame(maxWidth: .infinity)
     }
 
     fileprivate func artistInfoView(name: String, birthday: String?) -> some View {
-        return VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
             Text(name)
                 .font(.system(size: 30))
                 .bold()
@@ -120,7 +125,7 @@ struct PhotoGrid: View {
     var body: some View {
 
         ScrollView(.horizontal) {
-            HStack(spacing: 0) {
+            HStack(spacing: 10) {
                 if presenter.artistImages.count > 1 {
                     ZStack {
                         artistGridImage()
@@ -129,25 +134,25 @@ struct PhotoGrid: View {
                             .opacity(0.7)
 
                         numberOfImagesLabel()
-                            .onTapGesture {
-                                // Navigation to artist images
-                            }
                     }
-                    .padding(.leading, 9)
+                    .onTapGesture {
+                        // Navigation to artist images
+                    }
+                    .cornerRadius(10)
                 }
 
-                LazyHStack(spacing: 0) {
+                LazyHStack(spacing: 10) {
                     ForEach(self.presenter.artistImages.reversed(), id: \.filePath) { imageEntity in
                         artistImageItem(imageEntity)
+                            .cornerRadius(10)
                     }
                 }
-                .padding(.trailing, 8)
             }
         }
     }
 
     fileprivate func artistGridImage() -> some View {
-        return CachedAsyncImage(
+        CachedAsyncImage(
             url: URL(string: self.presenter.artistDetail?.getPosterUrl() ?? ""),
             content: { image in
                 image.resizable()
@@ -157,12 +162,11 @@ struct PhotoGrid: View {
                     .resizable()
             }
         )
-        .scaledToFill()
-        .clipped()
+        .scaledToFit()
     }
 
-    fileprivate func numberOfImagesLabel() -> VStack<TupleView<(some View, some View)>> {
-        return VStack {
+    fileprivate func numberOfImagesLabel() -> some View {
+        VStack {
             Text("\(presenter.artistImages.count)\(presenter.artistImages.count > 1 ? "+" : "")")
                 .font(.system(size: 25))
                 .bold()
@@ -170,14 +174,14 @@ struct PhotoGrid: View {
                 .lineLimit(1)
 
             Text(ConstantTexts.ButtonTitle.artistDetailScreenPhotoAlbums)
-                .font(.system(size: 14))
+                .font(.system(size: 16))
                 .bold()
                 .minimumScaleFactor(0.5)
         }
     }
 
     fileprivate func artistImageItem(_ imageEntity: ReversedCollection<[Profile]>.Element) -> some View {
-        return CachedAsyncImage(
+        CachedAsyncImage(
             url: URL(string: imageEntity.getPosterUrl()),
             content: { image in
                 image.resizable()
@@ -189,7 +193,6 @@ struct PhotoGrid: View {
         )
         .scaledToFill()
         .clipped()
-        .border(width: 0.4, edges: Edge.allCases, color: .black)
     }
 }
 

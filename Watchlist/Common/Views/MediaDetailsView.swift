@@ -34,7 +34,8 @@ struct MediaDetailsView: View {
             }
 
             if let rating {
-                RatingView(rating: rating)
+                StarsView(rating: CGFloat(rating/2.0), maxRating: 5)
+                    .frame(width: 120, alignment: .center)
             }
 
             if let language {
