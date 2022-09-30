@@ -8,11 +8,20 @@
 import Foundation
 import SwiftUI
 
-@MainActor
-class MediaListPresenter: ObservableObject {
+protocol MediaListPresenter: ObservableObject {
 
-    private let interactor: MediaInteractor
-    private let section: MediaSection
+    var interactor: MediaInteractor { get }
+    var section: MediaSection { get }
+    var mediaList: [Watchable]  { get set }
+
+    func fetchMedia()
+}
+
+
+final class MediaListDefaultPresenter: MediaListPresenter {
+
+    var interactor: MediaInteractor
+    var section: MediaSection
     @Published var mediaList: [Watchable]
 
     init(_ interactor: MediaInteractor, section: MediaSection) {
@@ -25,43 +34,18 @@ class MediaListPresenter: ObservableObject {
         Task {
             switch self.section {
             case .popularMovies:
-                await loadPopularMovies()
+                self.mediaList = await interactor.fetchNextPopularPageAsFullList()
             case .mostRecentMovies:
-                await loadMostRecentMovies()
+                self.mediaList = await interactor.fetchNextMostRecentPageAsFullList()
             case .comingSoonMovies:
-                await loadUpcomingMovies()
+                self.mediaList = await interactor.fetchNextUpcomingPageAsFullList()
             case .airingTodaySeries:
-                await loadAiringToday()
+                self.mediaList = await interactor.fetcthNextAiringTodayPageAsFullList()
             case .onTheAirSeries:
-                await loadOnTheAir()
+                self.mediaList = await interactor.fetcthNextOnTheAirPageAsFullList()
             case .topRatedSeries:
-                await loadTopRated()
+                self.mediaList = await interactor.fetcthNextTopRatedPageAsFullList()
             }
         }
     }
-
-    private func loadPopularMovies() async {
-        self.mediaList = await interactor.fetchNextPopularPageAsFullList()
-    }
-
-    private func loadMostRecentMovies() async {
-        self.mediaList = await interactor.fetchNextMostRecentPageAsFullList()
-    }
-
-    private func loadUpcomingMovies() async {
-        self.mediaList = await interactor.fetchNextUpcomingPageAsFullList()
-    }
-
-    private func loadAiringToday() async {
-        self.mediaList = await interactor.fetcthNextAiringTodayPageAsFullList()
-    }
-
-    private func loadOnTheAir() async {
-        self.mediaList = await interactor.fetcthNextOnTheAirPageAsFullList()
-    }
-
-    private func loadTopRated() async {
-        self.mediaList = await interactor.fetcthNextTopRatedPageAsFullList()
-    }
-
 }

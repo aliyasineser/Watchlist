@@ -51,7 +51,7 @@ struct MediaListItemView: View {
             )
             Spacer()
             if let rating = self.mediaListItem.voteAverage {
-                StarsView(rating: CGFloat(rating), maxRating: 5)
+                StarsView(rating: CGFloat(rating/2), maxRating: 5)
                     .frame(width: 100, alignment: .center)
                     .padding(
                         EdgeInsets(

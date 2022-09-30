@@ -40,7 +40,7 @@ struct DiscoverSlice: View {
                 Spacer()
                 NavigationLink(
                     destination: MediaListView(
-                        mediaListPresenter: MediaListPresenter(
+                        mediaListPresenter: MediaListDefaultPresenter(
                             DefaultMediaInteractor(),
                             section: self.section
                         )

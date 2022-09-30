@@ -10,9 +10,9 @@ import SwiftUI
 @MainActor
 struct MediaListView: View {
 
-    @ObservedObject var presenter: MediaListPresenter
+    @ObservedObject var presenter: MediaListDefaultPresenter
 
-    init(mediaListPresenter: MediaListPresenter) {
+    init(mediaListPresenter: MediaListDefaultPresenter) {
         self.presenter = mediaListPresenter
         self.presenter.fetchMedia()
     }
@@ -23,6 +23,7 @@ struct MediaListView: View {
             LazyVStack(alignment: .center, spacing: 10) {
                 ForEach(self.presenter.mediaList, id: \.id) { media in
                     MediaListItemView(mediaListItem: media)
+                        .padding(.horizontal)
                 }
                 Spacer()
                     .onAppear(perform: {
@@ -37,7 +38,7 @@ struct MediaListView: View {
 struct MediaListView_Previews: PreviewProvider {
     static var previews: some View {
         MediaListView(
-            mediaListPresenter: MediaListPresenter(
+            mediaListPresenter: MediaListDefaultPresenter(
                 MediaInteractorStub(),
                 section: .comingSoonMovies
             )
