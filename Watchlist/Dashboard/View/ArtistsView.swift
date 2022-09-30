@@ -9,14 +9,14 @@ import SwiftUI
 
 struct ArtistsView: View {
 
-    @ObservedObject var presenter: ArtistPresenter
+    @ObservedObject var presenter: ArtistDefaultPresenter
     @State private var position = 0
 
     let columns = [
         GridItem(.adaptive(minimum: 120))
     ]
 
-    init(presenter: ArtistPresenter) {
+    init(presenter: ArtistDefaultPresenter) {
         self.presenter = presenter
         // Spacer manages lading the artists, no need to call
     }
@@ -30,7 +30,7 @@ struct ArtistsView: View {
                             NavigationLink(
                                 destination: ArtistDetailView(
                                     artistId: artist.id,
-                                    presenter: ArtistDetailPresenter(
+                                    presenter: ArtistDetailDefaultPresenter(
                                         interactor: DefaultArtistDetailInteractor()
                                     )
                                 )
@@ -67,7 +67,7 @@ struct ArtistsView: View {
 struct ArtistsView_Previews: PreviewProvider {
     static var previews: some View {
         ArtistsView(
-            presenter: ArtistPresenter(
+            presenter: ArtistDefaultPresenter(
                 ArtistInteractorStub()
             )
         )

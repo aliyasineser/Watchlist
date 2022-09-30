@@ -10,11 +10,11 @@ import CachedAsyncImage
 
 struct MovieDetailView: View {
 
-    @ObservedObject var presenter: MovieDetailPresenter
+    @ObservedObject var presenter: MovieDetailDefaultPresenter
     let favoriteStorage: FavoriteStorage
     @State var isFavorite = false
 
-    init(presenter: MovieDetailPresenter) {
+    init(presenter: MovieDetailDefaultPresenter) {
         self.presenter = presenter
         presenter.getMediaDetail()
         favoriteStorage = FavoriteMovieStorage.shared
@@ -90,7 +90,7 @@ struct MovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             MovieDetailView(
-                presenter: MovieDetailPresenter(
+                presenter: MovieDetailDefaultPresenter(
                     interactor: MovieDetailInteractorStub(),
                     id: 1285
                 )

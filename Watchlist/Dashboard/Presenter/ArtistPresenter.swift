@@ -8,8 +8,16 @@
 import Foundation
 
 @MainActor
-class ArtistPresenter: ObservableObject {
-    private let interactor: ArtistInteractor
+protocol ArtistPresenter: ObservableObject {
+    var interactor: ArtistInteractor { get }
+    var artists: [Artist] { get }
+    var isLoading: Bool { get }
+
+    func loadArtists()
+}
+
+final class ArtistDefaultPresenter: ArtistPresenter {
+    private(set) var interactor: ArtistInteractor
     @Published var artists: [Artist]
     @Published var isLoading: Bool = false
 

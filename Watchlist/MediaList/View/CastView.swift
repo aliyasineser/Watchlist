@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct CastView: View {
-    @ObservedObject private var presenter: CastPresenter
+    @ObservedObject private var presenter: CastDefaultPresenter
 
     let columns = [
         GridItem(.adaptive(minimum: 100))
     ]
 
-    init(presenter: CastPresenter) {
+    init(presenter: CastDefaultPresenter) {
         self.presenter = presenter
     }
 
@@ -50,7 +50,7 @@ struct CastView: View {
 struct CastView_Previews: PreviewProvider {
     static var previews: some View {
         CastView(
-            presenter: CastPresenter(
+            presenter: CastDefaultPresenter(
                 CastInteractorStub(),
                 id: 5
             )

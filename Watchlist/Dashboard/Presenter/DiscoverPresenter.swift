@@ -9,9 +9,22 @@ import Foundation
 import SwiftUI
 
 @MainActor
-class DiscoverPresenter: ObservableObject {
+protocol DiscoverPresenter: ObservableObject {
+    var interactor: MediaInteractor { get }
+    var popularMovies: [Watchable] { get }
+    var mostRecentMovies: [Watchable] { get }
+    var upcomingMovies: [Watchable] { get }
+    var airingTodaySeries: [Watchable] { get }
+    var onTheAirSeries: [Watchable] { get }
+    var topRatedSeries: [Watchable] { get }
+    var isLoading: Bool { get }
 
-    private let interactor: MediaInteractor
+    func fetchMedia()
+}
+
+final class DiscoverDefaultPresenter: DiscoverPresenter {
+
+    private(set) var interactor: MediaInteractor
     @Published var popularMovies: [Watchable]
     @Published var mostRecentMovies: [Watchable]
     @Published var upcomingMovies: [Watchable]
@@ -46,34 +59,34 @@ class DiscoverPresenter: ObservableObject {
         isLoading = true
     }
 
-    func loadPopularMovies() async {
+    private func loadPopularMovies() async {
         let movies = await interactor.fetchNextPopularPageAsFullList()
         mapToMovies(watchables: movies, container: &self.popularMovies)
     }
 
-    func loadMostRecentMovies() async {
+    private func loadMostRecentMovies() async {
 
         let movies = await interactor.fetchNextMostRecentPageAsFullList()
         mapToMovies(watchables: movies, container: &self.mostRecentMovies)
     }
 
-    func loadUpcomingMovies() async {
+    private func loadUpcomingMovies() async {
 
         let movies = await interactor.fetchNextUpcomingPageAsFullList()
         mapToMovies(watchables: movies, container: &self.upcomingMovies)
     }
 
-    func loadAiringToday() async {
+    private func loadAiringToday() async {
         let series = await interactor.fetcthNextAiringTodayPageAsFullList()
         mapToSeries(watchables: series, container: &self.airingTodaySeries)
     }
 
-    func loadOnTheAir() async {
+    private func loadOnTheAir() async {
         let series = await interactor.fetcthNextOnTheAirPageAsFullList()
         mapToSeries(watchables: series, container: &self.onTheAirSeries)
     }
 
-    func loadTopRated() async {
+    private func loadTopRated() async {
         let series = await interactor.fetcthNextTopRatedPageAsFullList()
         mapToSeries(watchables: series, container: &self.topRatedSeries)
     }

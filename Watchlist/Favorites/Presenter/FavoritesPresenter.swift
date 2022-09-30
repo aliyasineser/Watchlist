@@ -8,8 +8,18 @@
 import Foundation
 import Combine
 
-class FavoritesPresenter: ObservableObject {
-    private let interactor: FavoritesInteractor
+@MainActor
+protocol FavoritesPresenter: ObservableObject {
+    var interactor: FavoritesInteractor { get }
+    var artists: [ArtistDetail] { get }
+    var movies: [Watchable] { get }
+    var tvSeries: [Watchable] { get }
+
+    func fetchFavorites()
+}
+
+class FavoritesDefaultPresenter: FavoritesPresenter {
+    private(set) var interactor: FavoritesInteractor
     @Published var artists: [ArtistDetail] = []
     @Published var movies: [Watchable] = []
     @Published var tvSeries: [Watchable] = []
@@ -18,7 +28,7 @@ class FavoritesPresenter: ObservableObject {
         self.interactor = interactor
     }
 
-    @MainActor func fetchFavorites() {
+    func fetchFavorites() {
         Task {
             self.artists = await interactor.getFavoriteArtists()
             self.movies = await interactor.getFavoriteMovies()

@@ -8,10 +8,19 @@
 import Foundation
 
 @MainActor
-class TVSerieDetailPresenter: ObservableObject {
-    let interactor: TVSerieDetailInteractor
+protocol TVSerieDetailPresenter: ObservableObject {
+    var id: Int { get }
+    var interactor: TVSerieDetailInteractor { get }
+    var media: TvDetail { get }
+
+    func getMediaDetail()
+    func getDetail(_ id: Int) async
+}
+
+final class TVSerieDetailDefaultPresenter: TVSerieDetailPresenter {
+    private(set) var interactor: TVSerieDetailInteractor
     @Published var media: TvDetail = TvDetail.mock
-    public let id: Int
+    let id: Int
 
     init(interactor: TVSerieDetailInteractor, id: Int) {
         self.interactor = interactor

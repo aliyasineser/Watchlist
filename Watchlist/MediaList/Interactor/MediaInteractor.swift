@@ -22,10 +22,12 @@ final class DefaultMediaInteractor: MediaInteractor {
         strategy: PopularMoviesFetchStrategy(),
         service: MovieService.shared
     )
+
     let comingSoonMoviesFetcher: Fetchable = MediaFetcher(
         strategy: UpcomingMoviesFetchStrategy(),
         service: MovieService.shared
     )
+
     let mostRecentMoviesFetcher: Fetchable = MediaFetcher(
         strategy: NowPlayingMoviesFetchStrategy(),
         service: MovieService.shared
@@ -35,40 +37,37 @@ final class DefaultMediaInteractor: MediaInteractor {
         strategy: PopularSeriesFetchStrategy(),
         service: TVService.shared
     )
+
     let airingTodaySeriesFetcher: Fetchable = MediaFetcher(
         strategy: AiringTodaySeriesFetchStrategy(),
         service: TVService.shared
     )
+    
     let onTheAirSeriesFetcher: Fetchable = MediaFetcher(
         strategy: OnTheAirSeriesFetchStrategy(),
         service: TVService.shared
     )
 
-    /// Starts from the first page
     func fetchNextPopularPageAsFullList() async -> [Watchable] {
         return await popularMoviesFetcher.fetchWithNextPage()
     }
 
-    /// Starts from the first page
     func fetchNextMostRecentPageAsFullList() async -> [Watchable] {
         return await mostRecentMoviesFetcher.fetchWithNextPage()
     }
 
-    /// Starts from the first page
     func fetchNextUpcomingPageAsFullList() async -> [Watchable] {
         return await comingSoonMoviesFetcher.fetchWithNextPage()
     }
 
-    /// Starts from the first page
     func fetcthNextAiringTodayPageAsFullList() async -> [Watchable] {
         return await airingTodaySeriesFetcher.fetchWithNextPage()
     }
 
-    /// Starts from the first page
     func fetcthNextOnTheAirPageAsFullList() async -> [Watchable] {
         return await onTheAirSeriesFetcher.fetchWithNextPage()
     }
-    /// Starts from the first page
+
     func fetcthNextTopRatedPageAsFullList() async -> [Watchable] {
         return await popularSeriesFetcher.fetchWithNextPage()
     }

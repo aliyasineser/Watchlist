@@ -70,14 +70,14 @@ struct MediaListItemView: View {
         VStack {
             if (mediaType as? Movie.Type) != nil {
                 MovieDetailView(
-                    presenter: MovieDetailPresenter(
+                    presenter: MovieDetailDefaultPresenter(
                         interactor: DefaultMovieDetailInteractor(),
                         id: self.mediaListItem.id
                     )
                 )
             } else {
                 TVSerieDetailView(
-                    presenter: TVSerieDetailPresenter(
+                    presenter: TVSerieDetailDefaultPresenter(
                         interactor: DefaultTVSerieDetailInteractor(),
                         id: self.mediaListItem.id
                     )

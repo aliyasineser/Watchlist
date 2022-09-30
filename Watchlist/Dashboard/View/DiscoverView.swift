@@ -9,9 +9,9 @@ import SwiftUI
 import Combine
 
 struct DiscoverView: View {
-    @ObservedObject var presenter: DiscoverPresenter
+    @ObservedObject var presenter: DiscoverDefaultPresenter
 
-    init(presenter: DiscoverPresenter) {
+    init(presenter: DiscoverDefaultPresenter) {
         self.presenter = presenter
         presenter.fetchMedia()
     }
@@ -76,7 +76,7 @@ struct DiscoverView: View {
 struct DiscoverView_Previews: PreviewProvider {
     static var previews: some View {
         let interactor = MediaInteractorStub()
-        let presenter = DiscoverPresenter(interactor)
+        let presenter = DiscoverDefaultPresenter(interactor)
         DiscoverView(presenter: presenter)
     }
 }

@@ -9,13 +9,13 @@ import SwiftUI
 
 struct MediaCastView: View {
 
-    @ObservedObject var presenter: MediaCastPresenter
+    @ObservedObject var presenter: MediaCastDefaultPresenter
 
     let columns = [
         GridItem(.adaptive(minimum: 100))
     ]
 
-    init(presenter: MediaCastPresenter) {
+    init(presenter: MediaCastDefaultPresenter) {
         self.presenter = presenter
     }
 
@@ -26,7 +26,7 @@ struct MediaCastView: View {
                     NavigationLink(
                         destination: ArtistDetailView(
                             artistId: artist.id,
-                            presenter: ArtistDetailPresenter(
+                            presenter: ArtistDetailDefaultPresenter(
                                 interactor: DefaultArtistDetailInteractor()
                             )
                         )
@@ -57,7 +57,7 @@ struct MovieCastView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
             MediaCastView(
-                presenter: MediaCastPresenter(
+                presenter: MediaCastDefaultPresenter(
                     MediaCastInteractorStub(),
                     id: 1
                 )

@@ -8,10 +8,17 @@
 import Foundation
 
 @MainActor
-class MediaCastPresenter: ObservableObject {
-    private let interactor: MediaCastInteractor
-    @Published var artists: [Cast]
+protocol MediaCastPresenter: ObservableObject {
+    var id: Int { get }
+    var interactor: MediaCastInteractor { get }
+    var artists: [Cast] { get }
 
+    func loadArtists()
+}
+
+final class MediaCastDefaultPresenter: MediaCastPresenter {
+    private(set) var interactor: MediaCastInteractor
+    @Published var artists: [Cast]
     var id: Int
 
     init(_ interactor: MediaCastInteractor, id: Int) {
@@ -20,7 +27,7 @@ class MediaCastPresenter: ObservableObject {
         self.artists = [Cast]()
     }
 
-    public func loadArtists() {
+    func loadArtists() {
         Task {
             self.artists = await interactor.fetchCast(self.id)
         }

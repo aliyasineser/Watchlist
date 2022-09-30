@@ -8,8 +8,17 @@
 import Foundation
 
 @MainActor
-class ArtistDetailPresenter: ObservableObject {
-    var interactor: ArtistDetailInteractor
+protocol ArtistDetailPresenter: ObservableObject {
+    var interactor: ArtistDetailInteractor { get }
+    var artistDetail: ArtistDetail? { get }
+    var artistImages: [Profile] { get }
+    var artistCredits: [Cast] { get }
+
+    func fetchArtist(artistId: Int)
+}
+
+class ArtistDetailDefaultPresenter: ArtistDetailPresenter {
+    private(set) var interactor: ArtistDetailInteractor
     @Published var artistDetail: ArtistDetail?
     @Published var artistImages: [Profile]
     @Published var artistCredits: [Cast]

@@ -7,13 +7,21 @@
 
 import Foundation
 import Combine
-import SwiftUI
 
 @MainActor
-class MovieDetailPresenter: ObservableObject {
-    let interactor: MovieDetailInteractor
+protocol MovieDetailPresenter: ObservableObject {
+    var id: Int { get }
+    var interactor: MovieDetailInteractor { get }
+    var media: MovieDetail { get }
+
+    func getMediaDetail()
+    func getMovieDetail(_ id: Int) async
+}
+
+final class MovieDetailDefaultPresenter: MovieDetailPresenter {
+    private(set) var interactor: MovieDetailInteractor
     @Published var media: MovieDetail = MovieDetail.mock
-    public let id: Int
+    let id: Int
 
     init(interactor: MovieDetailInteractor, id: Int) {
         self.interactor = interactor

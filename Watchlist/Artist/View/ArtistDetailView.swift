@@ -10,13 +10,13 @@ import CachedAsyncImage
 
 struct ArtistDetailView: View {
 
-    @ObservedObject var presenter: ArtistDetailPresenter
+    @ObservedObject var presenter: ArtistDetailDefaultPresenter
     var artistId: Int
 
     let favoriteStorage: FavoriteStorage = FavoriteArtistStorage.shared
     @State var isFavorite = false
 
-    init(artistId: Int, presenter: ArtistDetailPresenter) {
+    init(artistId: Int, presenter: ArtistDetailDefaultPresenter) {
         self.presenter = presenter
         self.artistId = artistId
     }
@@ -121,9 +121,9 @@ struct ArtistDetailView: View {
 
 struct PhotoGrid: View {
 
-    @ObservedObject var presenter: ArtistDetailPresenter
+    @ObservedObject var presenter: ArtistDetailDefaultPresenter
 
-    init(presenter: ArtistDetailPresenter) {
+    init(presenter: ArtistDetailDefaultPresenter) {
         self.presenter = presenter
     }
 
@@ -165,7 +165,7 @@ struct ArtistDetailView_Previews: PreviewProvider {
         NavigationView {
             ArtistDetailView(
                 artistId: 21,
-                presenter: ArtistDetailPresenter(
+                presenter: ArtistDetailDefaultPresenter(
                     interactor: ArtistDetailInteractorStub()
                 )
             )

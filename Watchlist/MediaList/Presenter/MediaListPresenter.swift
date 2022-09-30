@@ -6,22 +6,21 @@
 //
 
 import Foundation
-import SwiftUI
 
+@MainActor
 protocol MediaListPresenter: ObservableObject {
 
     var interactor: MediaInteractor { get }
     var section: MediaSection { get }
-    var mediaList: [Watchable]  { get set }
+    var mediaList: [Watchable] { get set }
 
     func fetchMedia()
 }
 
-
 final class MediaListDefaultPresenter: MediaListPresenter {
 
-    var interactor: MediaInteractor
-    var section: MediaSection
+    private(set) var interactor: MediaInteractor
+    private(set) var section: MediaSection
     @Published var mediaList: [Watchable]
 
     init(_ interactor: MediaInteractor, section: MediaSection) {

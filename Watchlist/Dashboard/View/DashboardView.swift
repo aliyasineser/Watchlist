@@ -30,7 +30,7 @@ struct DashboardView: View {
     var body: some View {
         TabView(selection: $selectedTabIndex) {
             DiscoverView(
-                presenter: DiscoverPresenter(
+                presenter: DiscoverDefaultPresenter(
                     DefaultMediaInteractor()
                 )
             )
@@ -43,7 +43,7 @@ struct DashboardView: View {
             .tag(TabViewSection.discover.tag)
 
             ArtistsView(
-                presenter: ArtistPresenter(
+                presenter: ArtistDefaultPresenter(
                     DefaultArtistInteractor()
                 )
             )
@@ -56,7 +56,7 @@ struct DashboardView: View {
             .tag(TabViewSection.artists.tag)
 
             FavoritesView(
-                presenter: FavoritesPresenter(
+                presenter: FavoritesDefaultPresenter(
                     DefaultFavoritesInteractor()
                 )
             )

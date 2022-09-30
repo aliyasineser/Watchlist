@@ -14,14 +14,13 @@ protocol FavoritesInteractor {
 }
 
 final class DefaultFavoritesInteractor: FavoritesInteractor {
+    private let artistStorage = FavoriteArtistStorage.shared
+    private let movieStorage = FavoriteMovieStorage.shared
+    private let tvSerieStorage = FavoriteTVSerieStorage.shared
 
-    let artistStorage = FavoriteArtistStorage.shared
-    let movieStorage = FavoriteMovieStorage.shared
-    let tvSerieStorage = FavoriteTVSerieStorage.shared
-
-    let artistService = ArtistService.shared
-    let movieService = MovieService.shared
-    let tvSerieService = TVService.shared
+    private let artistService = ArtistService.shared
+    private let movieService = MovieService.shared
+    private let tvSerieService = TVService.shared
 
     func getFavoriteArtists() async -> [ArtistDetail] {
         let artistsInfoList = artistStorage.fetchArtists()

@@ -45,14 +45,14 @@ struct DiscoverSliceItem: View {
         VStack {
             if mediaType == Movie.self {
                 MovieDetailView(
-                    presenter: MovieDetailPresenter(
+                    presenter: MovieDetailDefaultPresenter(
                         interactor: DefaultMovieDetailInteractor(),
                         id: item.id
                     )
                 )
             } else {
                 TVSerieDetailView(
-                    presenter: TVSerieDetailPresenter(
+                    presenter: TVSerieDetailDefaultPresenter(
                         interactor: DefaultTVSerieDetailInteractor(),
                         id: item.id
                     )

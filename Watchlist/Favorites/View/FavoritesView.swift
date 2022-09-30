@@ -10,9 +10,9 @@ import CachedAsyncImage
 import Combine
 
 struct FavoritesView: View {
-    @ObservedObject private var presenter: FavoritesPresenter
+    @ObservedObject private var presenter: FavoritesDefaultPresenter
 
-    init(presenter: FavoritesPresenter) {
+    init(presenter: FavoritesDefaultPresenter) {
         self.presenter = presenter
     }
 
@@ -101,7 +101,7 @@ struct FavoritesView: View {
 struct FavoritesView_Previews: PreviewProvider {
     static var previews: some View {
         FavoritesView(
-            presenter: FavoritesPresenter(
+            presenter: FavoritesDefaultPresenter(
                 DefaultFavoritesInteractor()
             )
         )

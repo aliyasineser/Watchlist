@@ -24,7 +24,7 @@ struct MediaDetailTabView: View {
             CustomTopTabBar(tabIndex: $tabIndex)
             if tabIndex == 0 {
                 MediaCastView(
-                    presenter: MediaCastPresenter(
+                    presenter: MediaCastDefaultPresenter(
                         DefaultMediaCastInteractor(mediaService: mediaService),
                         id: self.id
                     )

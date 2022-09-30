@@ -8,12 +8,20 @@
 import Foundation
 
 @MainActor
-class CastPresenter: ObservableObject {
+protocol CastPresenter: ObservableObject {
 
-    private let interactor: CastInteractor
-    @Published var casts: [Cast]
+    var interactor: CastInteractor { get }
+    var casts: [Cast] { get }
+    var id: Int { get }
+
+    func loadArtists()
+}
+
+final class CastDefaultPresenter: CastPresenter {
 
     var id: Int
+    private(set) var interactor: CastInteractor
+    @Published var casts: [Cast]
 
     init(_ interactor: CastInteractor, id: Int) {
         self.id = id
