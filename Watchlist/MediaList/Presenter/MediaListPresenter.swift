@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @MainActor
-class MediaListPresenter {
+class MediaListPresenter: ObservableObject {
 
     private let interactor: MediaInteractor
     private let section: MediaSection
@@ -41,34 +41,27 @@ class MediaListPresenter {
     }
 
     private func loadPopularMovies() async {
-        let movies = await interactor.fetchNextPopularPageAsFullList()
-        self.mediaList.append(contentsOf: movies)
+        self.mediaList = await interactor.fetchNextPopularPageAsFullList()
     }
 
     private func loadMostRecentMovies() async {
-        let movies = await interactor.fetchNextMostRecentPageAsFullList()
-        self.mediaList.append(contentsOf: movies)
+        self.mediaList = await interactor.fetchNextMostRecentPageAsFullList()
     }
 
     private func loadUpcomingMovies() async {
-        let movies = await interactor.fetchNextUpcomingPageAsFullList()
-        self.mediaList.append(contentsOf: movies)
+        self.mediaList = await interactor.fetchNextUpcomingPageAsFullList()
     }
 
     private func loadAiringToday() async {
-
-        let series = await interactor.fetcthNextAiringTodayPageAsFullList()
-        self.mediaList.append(contentsOf: series)
+        self.mediaList = await interactor.fetcthNextAiringTodayPageAsFullList()
     }
 
     private func loadOnTheAir() async {
-        let series = await interactor.fetcthNextOnTheAirPageAsFullList()
-        self.mediaList.append(contentsOf: series)
+        self.mediaList = await interactor.fetcthNextOnTheAirPageAsFullList()
     }
 
     private func loadTopRated() async {
-        let series = await interactor.fetcthNextTopRatedPageAsFullList()
-        self.mediaList.append(contentsOf: series)
+        self.mediaList = await interactor.fetcthNextTopRatedPageAsFullList()
     }
 
 }

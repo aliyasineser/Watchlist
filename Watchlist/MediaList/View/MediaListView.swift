@@ -10,21 +10,26 @@ import SwiftUI
 @MainActor
 struct MediaListView: View {
 
+    @ObservedObject var presenter: MediaListPresenter
+
     init(mediaListPresenter: MediaListPresenter) {
         self.presenter = mediaListPresenter
         self.presenter.fetchMedia()
     }
 
-    var presenter: MediaListPresenter
-
     var body: some View {
 
         ScrollView {
-            VStack(alignment: .center, spacing: 10) {
+            LazyVStack(alignment: .center, spacing: 10) {
                 ForEach(self.presenter.mediaList, id: \.id) { media in
                     MediaListItemView(mediaListItem: media)
                 }
+                Spacer()
+                    .onAppear(perform: {
+                        presenter.fetchMedia()
+                    })
             }
+
         }
     }
 }

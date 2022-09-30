@@ -80,7 +80,7 @@ struct ArtistDetailTabView: View {
                     }
                 } else if tabIndex == 1 {
                     ScrollView(.vertical) {
-                        VStack(alignment: .leading) {
+                        LazyVStack(alignment: .leading) {
                             ForEach(artistCredits, id: \.id) { showCredit in
                                 HStack {
                                     creditMediaPoster(showCredit: showCredit)
