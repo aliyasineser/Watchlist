@@ -59,7 +59,8 @@ struct ArtistDetailView: View {
 
                     ArtistDetailTabView(
                         artistDetail: artist,
-                        artistCredits: self.presenter.artistCredits
+                        artistMovieCredits: self.presenter.artistMovieCredits,
+                        artistTVSerieCredits: self.presenter.artistTVSerieCredits
                     )
                     .padding(10)
                 }

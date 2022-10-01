@@ -49,13 +49,6 @@ struct TVSerieDetailView: View {
             GeometryReader { geometry in
                 ScrollView {
                     VStack {
-                        PosterView(
-                            imageUrl: presenter.media.posterUrl(),
-                            height: 300,
-                            width: geometry.size.width
-                        )
-                        .frame(alignment: .center)
-
                         mediaView()
                             .padding(.horizontal, 10)
                             .frame(width: geometry.size.width, alignment: .top)

@@ -13,14 +13,17 @@ struct ArtistDetailTabView: View {
     @State var tabIndex = 0
 
     var artistDetail: ArtistDetail
-    var artistCredits: [Cast]
+    var artistMovieCredits: [Cast]
+    var artistTVSerieCredits: [Cast]
 
     init(
         artistDetail: ArtistDetail,
-        artistCredits: [Cast]
+        artistMovieCredits: [Cast],
+        artistTVSerieCredits: [Cast]
     ) {
         self.artistDetail = artistDetail
-        self.artistCredits = artistCredits
+        self.artistMovieCredits = artistMovieCredits
+        self.artistTVSerieCredits = artistTVSerieCredits
     }
 
     func mediaCard(credit: Cast) -> some View {
@@ -80,13 +83,38 @@ struct ArtistDetailTabView: View {
                     }
                 } else if tabIndex == 1 {
                     ScrollView(.vertical) {
-                        LazyVStack(alignment: .leading) {
-                            ForEach(artistCredits, id: \.id) { showCredit in
-                                HStack {
-                                    creditMediaPoster(showCredit: showCredit)
-                                    mediaCard(credit: showCredit)
+                        VStack(alignment: .leading) {
+                                ForEach(artistMovieCredits, id: \.id) { showCredit in
+                                    NavigationLink(
+                                        destination: MovieDetailView(
+                                            presenter: MovieDetailDefaultPresenter(
+                                                interactor: DefaultMovieDetailInteractor(),
+                                                id: showCredit.id
+                                            )
+                                        )
+                                    ) {
+                                        HStack {
+                                            creditMediaPoster(showCredit: showCredit)
+                                            mediaCard(credit: showCredit)
+                                        }
+                                    }
                                 }
-                            }
+
+                                ForEach(artistTVSerieCredits, id: \.id) { showCredit in
+                                    NavigationLink(
+                                        destination: TVSerieDetailView(
+                                            presenter: TVSerieDetailDefaultPresenter(
+                                                interactor: DefaultTVSerieDetailInteractor(),
+                                                id: showCredit.id
+                                            )
+                                        )
+                                    ) {
+                                        HStack {
+                                            creditMediaPoster(showCredit: showCredit)
+                                            mediaCard(credit: showCredit)
+                                        }
+                                    }
+                                }
                         }
                     }
                 }
@@ -136,7 +164,8 @@ struct ArtistDetailTabView_Previews: PreviewProvider {
     static var previews: some View {
         ArtistDetailTabView(
             artistDetail: ArtistDetail.mock,
-            artistCredits: []
+            artistMovieCredits: [],
+            artistTVSerieCredits: []
         )
     }
 }
