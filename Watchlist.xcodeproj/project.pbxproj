@@ -47,6 +47,8 @@
 		DD04547E260A171C00DFEFE6 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD04547C260A171C00DFEFE6 /* Watchlist.xcdatamodeld */; };
 		DD045489260A171D00DFEFE6 /* WatchlistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045488260A171D00DFEFE6 /* WatchlistTests.swift */; };
 		DD045494260A171D00DFEFE6 /* WatchlistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */; };
+		DD1B3EAB28E894F7001F0C91 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EAA28E894F7001F0C91 /* Color+Extension.swift */; };
+		DD1B3EAD28E89564001F0C91 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EAC28E89564001F0C91 /* Icons.swift */; };
 		DD358CFE28D67A77004F62F6 /* CastInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */; };
 		DD358D0028D67C29004F62F6 /* MovieListInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358CFF28D67C29004F62F6 /* MovieListInteractorMock.swift */; };
 		DD4B3A6628E0E7A8007308F5 /* TVSerieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4B3A6528E0E7A8007308F5 /* TVSerieDetailView.swift */; };
@@ -168,6 +170,8 @@
 		DD04548F260A171D00DFEFE6 /* WatchlistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatchlistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistUITests.swift; sourceTree = "<group>"; };
 		DD045495260A171D00DFEFE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD1B3EAA28E894F7001F0C91 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		DD1B3EAC28E89564001F0C91 /* Icons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icons.swift; sourceTree = "<group>"; };
 		DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastInteractorMock.swift; sourceTree = "<group>"; };
 		DD358CFF28D67C29004F62F6 /* MovieListInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListInteractorMock.swift; sourceTree = "<group>"; };
 		DD4B3A6528E0E7A8007308F5 /* TVSerieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVSerieDetailView.swift; sourceTree = "<group>"; };
@@ -510,6 +514,15 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		DD1B3EA928E894DE001F0C91 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				DD1B3EAA28E894F7001F0C91 /* Color+Extension.swift */,
+				DD1B3EAC28E89564001F0C91 /* Icons.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
 		DD358CFC28D67A57004F62F6 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,6 +536,7 @@
 		DD4B3A6B28E0FB0A007308F5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				DD1B3EA928E894DE001F0C91 /* Theme */,
 				DD4B3A6C28E0FB10007308F5 /* Views */,
 			);
 			path = Common;
@@ -901,6 +915,7 @@
 				DDB8B9872896E99700E7F569 /* TVService.swift in Sources */,
 				DD4C9EF928DE0C2A00BD2B48 /* FavoriteMovieStorage.swift in Sources */,
 				DDB8B9912899BE2700E7F569 /* TVSerie.swift in Sources */,
+				DD1B3EAB28E894F7001F0C91 /* Color+Extension.swift in Sources */,
 				DDB8B9742896D32900E7F569 /* TVRequest.swift in Sources */,
 				DDCDE57B28DA77740081AD87 /* MediaService.swift in Sources */,
 				DD04547E260A171C00DFEFE6 /* Watchlist.xcdatamodeld in Sources */,
@@ -911,6 +926,7 @@
 				DDB8B98F2899BDF500E7F569 /* Movie.swift in Sources */,
 				DDD9513E278123AA009695C2 /* ConstantTexts.swift in Sources */,
 				1EB8DE6126C07FE400DE2522 /* MediaDetailTabView.swift in Sources */,
+				DD1B3EAD28E89564001F0C91 /* Icons.swift in Sources */,
 				DD4C9EFD28DE108B00BD2B48 /* FavoriteTVSerieStorage.swift in Sources */,
 				DDB8B97F2896DFE600E7F569 /* Common.swift in Sources */,
 				1ED9C3A126755D0B0030A62B /* StarsView.swift in Sources */,

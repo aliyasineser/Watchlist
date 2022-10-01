@@ -24,7 +24,7 @@ struct MediaListItemView: View {
                     .scaledToFill()
             },
             placeholder: {
-                Image(systemName: "film")
+                Image(systemName: Icons.posterBackdrop.rawValue)
                     .imageScale(.large)
             }
         )

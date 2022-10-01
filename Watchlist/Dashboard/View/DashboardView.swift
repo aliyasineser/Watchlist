@@ -36,7 +36,7 @@ struct DashboardView: View {
             )
             .tabItem {
                 TabItemView(
-                    systemName: "square.grid.2x2.fill",
+                    systemName: Icons.TabBar.discover.rawValue,
                     text: ConstantTexts.TabBarItemTitle.discoverScreen
                 )
             }
@@ -49,7 +49,7 @@ struct DashboardView: View {
             )
             .tabItem {
                 TabItemView(
-                    systemName: "person.crop.circle",
+                    systemName: Icons.TabBar.artist.rawValue,
                     text: ConstantTexts.TabBarItemTitle.artistsScreen
                 )
             }
@@ -62,7 +62,7 @@ struct DashboardView: View {
             )
             .tabItem {
                 TabItemView(
-                    systemName: "star.circle.fill",
+                    systemName: Icons.TabBar.favorites.rawValue,
                     text: ConstantTexts.TabBarItemTitle.favoritesScreen
                 )
             }

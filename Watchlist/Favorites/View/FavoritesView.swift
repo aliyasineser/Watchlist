@@ -27,7 +27,7 @@ struct FavoritesView: View {
                     .clipped()
             },
             placeholder: {
-                Image(systemName: "person.fill")
+                Image(systemName: Icons.artistImageBackdrop.rawValue)
                     .resizable()
                     .aspectRatio(0.66, contentMode: .fit)
                     .frame(height: 300)
@@ -50,7 +50,7 @@ struct FavoritesView: View {
                         .padding(.horizontal, 20)
                     }
                 } header: {
-                    Text("Artists")
+                    Text(ConstantTexts.FavoritesSections.artists)
                         .fontWeight(.heavy)
                         .font(.largeTitle)
                 }
@@ -65,7 +65,7 @@ struct FavoritesView: View {
                         .padding(.horizontal, 20)
                     }
                 } header: {
-                    Text("Movies")
+                    Text(ConstantTexts.FavoritesSections.movies)
                         .fontWeight(.heavy)
                         .font(.largeTitle)
                 }
@@ -80,7 +80,7 @@ struct FavoritesView: View {
                         .padding(.horizontal, 20)
                     }
                 } header: {
-                    Text("TV Series")
+                    Text(ConstantTexts.FavoritesSections.tvSeries)
                         .fontWeight(.heavy)
                         .font(.largeTitle)
                 }

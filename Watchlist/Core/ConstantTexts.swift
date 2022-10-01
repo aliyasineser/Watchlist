@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ConstantTexts {
+enum ConstantTexts {
 
     // MARK: Section Header
     public enum SectionHeader {
@@ -40,5 +40,12 @@ struct ConstantTexts {
     public enum ButtonTitle {
         static let sliceSeeAll: String = "See All"
         static let artistDetailScreenPhotoAlbums = "Photo Albums"
+    }
+
+    // MARK: FavoritesSections
+    public enum FavoritesSections {
+        static let movies: String = "Movies"
+        static let artists = "Artists"
+        static let tvSeries = "TV Series"
     }
 }

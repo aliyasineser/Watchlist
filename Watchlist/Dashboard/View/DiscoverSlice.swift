@@ -25,7 +25,7 @@ struct DiscoverSlice: View {
                 .foregroundColor(.accentColor)
                 .font(.system(size: 20))
                 .bold()
-            Image(systemName: "chevron.right")
+            Image(systemName: Icons.seeAllButton.rawValue)
                 .foregroundColor(.accentColor)
                 .padding(.bottom, 4)
         }.padding(.trailing, 10)

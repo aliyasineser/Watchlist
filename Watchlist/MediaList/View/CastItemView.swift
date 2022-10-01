@@ -25,7 +25,7 @@ struct CastItemView: View {
                     .clipped()
             },
             placeholder: {
-                Image(systemName: "person.fill")
+                Image(systemName: Icons.artistImageBackdrop.rawValue)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 100, height: 150)

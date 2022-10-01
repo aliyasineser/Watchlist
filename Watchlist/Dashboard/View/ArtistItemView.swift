@@ -23,7 +23,7 @@ struct ArtistItemView: View {
                 image.resizable()
             },
             placeholder: {
-                Image(systemName: "person.fill")
+                Image(systemName: Icons.artistImageBackdrop.rawValue)
                     .resizable()
             }
         )

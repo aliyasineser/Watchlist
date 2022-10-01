@@ -79,7 +79,7 @@ struct ArtistDetailView: View {
                     .scaledToFill()
             },
             placeholder: {
-                Image(systemName: "person.fill")
+                Image(systemName: Icons.artistImageBackdrop.rawValue)
                     .resizable()
                     .scaledToFill()
             }
@@ -152,7 +152,7 @@ struct PhotoGrid: View {
                 image.resizable()
             },
             placeholder: {
-                Image(systemName: "person.fill")
+                Image(systemName: Icons.artistImageBackdrop.rawValue)
                     .resizable()
             }
         )

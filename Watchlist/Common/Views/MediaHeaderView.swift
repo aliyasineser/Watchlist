@@ -19,7 +19,7 @@ struct MediaHeaderView: View {
                     .clipped()
             },
             placeholder: {
-                Image(systemName: "film")
+                Image(systemName: Icons.posterBackdrop.rawValue)
                     .scaledToFill()
                     .clipped()
             }
