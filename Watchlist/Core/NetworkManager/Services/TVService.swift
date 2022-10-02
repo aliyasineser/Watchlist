@@ -49,6 +49,17 @@ final class TVService: MediaService {
         }
     }
 
+    func fetchSimilar(id: Int, page: Int) async -> [Watchable] {
+        let requestData = TVRequest.getSimilarSeriesTo(id: id, page: page)
+        do {
+            let response: TVSerieSimilarResponse = try await requestManager.initRequest(with: requestData)
+            return response.results
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+
     func fetchMediaCredits(id: Int) async -> Credits? {
         let requestData = TVRequest.getCredits(id: id)
         do {

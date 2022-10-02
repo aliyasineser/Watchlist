@@ -12,9 +12,19 @@ protocol MediaService {
     func fetchMediaDetails(id: Int) async -> WatchableDetail?
     func fetchMediaCredits(id: Int) async -> Credits?
     func fetchReviews(id: Int, page: Int) async -> [Review]
+    func fetchSimilar(id: Int, page: Int) async -> [Watchable]
 }
 
 final class MediaServiceStub: MediaService {
+    func fetchSimilar(id: Int, page: Int) async -> [Watchable] {
+        [
+            Movie.mock,
+            Movie.mock,
+            Movie.mock,
+            Movie.mock,
+            Movie.mock
+        ]
+    }
 
     func fetchMedia(request: NetworkRequest) async -> [Watchable] {
         var mediaList: [Watchable] = []

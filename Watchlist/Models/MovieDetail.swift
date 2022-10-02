@@ -155,13 +155,19 @@ struct MovieDetail: Codable, WatchableDetail, Identifiable {
 
 }
 
+// swiftlint:disable:all line_length
 extension MovieDetail {
     static let mock = MovieDetail(
         id: 1,
         adult: true,
         posterPath: "posterPath",
         backdropPath: "backdropPath",
-        overview: "overview",
+        overview:
+"""
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam orci neque, convallis id bibendum et, dignissim ut diam. In at eros imperdiet, pharetra dui sed, scelerisque est. In fringilla purus eget odio iaculis, nec semper dolor euismod. Curabitur aliquet elementum ligula ut consectetur. Maecenas interdum interdum orci at congue. Vestibulum molestie auctor fringilla. Pellentesque eros mauris, sodales quis sapien blandit, finibus vestibulum quam. Sed iaculis sit amet lorem vulputate aliquet. Aliquam maximus, tellus at laoreet consequat, lacus turpis ultricies orci, sit amet vulputate arcu dolor a magna. Ut sit amet ante turpis. In sit amet dolor porttitor, hendrerit urna non, fringilla nisl. Quisque elementum ac magna eu sodales. Aliquam at malesuada velit. Vestibulum eu purus at massa tempus gravida. Quisque vel leo scelerisque nisl vehicula posuere a at metus.
+
+Nullam elit mauris, hendrerit et nunc at, interdum auctor nibh. Integer nec odio viverra magna sagittis pellentesque. Praesent hendrerit leo eget facilisis condimentum. In nec nisi sit amet felis luctus rutrum nec eget elit. Proin vel libero dui. Donec eu magna bibendum, ultricies felis vitae, vehicula purus. Nulla venenatis euismod enim id fringilla. Sed ipsum urna, tincidunt mollis libero nec, finibus lobortis libero. Donec quis posuere mauris, sed vestibulum ipsum. Pellentesque ultrices hendrerit ipsum, nec vulputate est ornare vitae. Mauris porttitor dolor sed turpis scelerisque, ut aliquet nisi ornare. Donec rhoncus, mauris in interdum aliquam, lorem ligula auctor odio, non rhoncus purus est sit amet felis. Curabitur pulvinar justo molestie, vulputate urna id, mollis justo. Nam blandit pulvinar mi, imperdiet lacinia lacus hendrerit non. Proin scelerisque lacus eu risus egestas, vel finibus erat ultricies.
+""",
         releaseDate: .distantPast,
         genres: [],
         belongsToCollection: nil,

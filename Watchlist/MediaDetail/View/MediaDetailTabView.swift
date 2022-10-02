@@ -37,12 +37,15 @@ struct MediaDetailTabView: View {
                     )
                 )
             } else {
-                Text("More")
+                SimilarMediaView(
+                    presenter: MediaSimilarDefaultPresenter(
+                        interactor: MediaSimilarDefaultInteractor(mediaService: mediaService),
+                        id: id
+                    )
+                )
             }
-            Spacer()
         }
         .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
-        .padding(.horizontal, 12)
     }
 }
 

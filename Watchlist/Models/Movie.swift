@@ -106,7 +106,7 @@ extension Movie {
         releaseDate: .distantPast,
         genreIDS: [],
         originalTitle: "Original Title",
-        originalLanguage: nil,
+        originalLanguage: OriginalLanguage.en,
         popularity: 10,
         voteCount: 6,
         video: false,

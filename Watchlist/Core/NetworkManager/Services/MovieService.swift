@@ -48,6 +48,17 @@ final class MovieService: MediaService {
         }
     }
 
+    func fetchSimilar(id: Int, page: Int) async -> [Watchable] {
+        let requestData = MovieRequest.getSimilarMoviesTo(id: id, page: page)
+        do {
+            let response: MovieSimilarResponse = try await requestManager.initRequest(with: requestData)
+            return response.results
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+
     func fetchMediaCredits(id: Int) async -> Credits? {
         let requestData = MovieRequest.getCredits(id: id)
         do {

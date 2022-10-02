@@ -23,7 +23,7 @@ struct MediaListView: View {
             LazyVStack(alignment: .center, spacing: 10) {
                 ForEach(self.presenter.mediaList, id: \.id) { media in
                     MediaListItemView(mediaListItem: media)
-                        .padding(.horizontal)
+                        .padding(.horizontal, 20)
                 }
                 Spacer()
                     .onAppear(perform: {

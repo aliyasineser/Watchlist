@@ -13,7 +13,7 @@ enum TVRequest: MediaNetworkRequest {
     case getOnTheAirSeries(page: Int)
     case getSeriesDetail(id: Int)
     case getSeriesReviews(id: Int, page: Int)
-    case getSimilarSeriesTo(id: Int)
+    case getSimilarSeriesTo(id: Int, page: Int)
     case getCredits(id: Int)
 
     func mediaType() -> MediaType {
@@ -32,7 +32,7 @@ enum TVRequest: MediaNetworkRequest {
             return "/tv/\(id)"
         case .getSeriesReviews(let id, _):
             return "/tv/\(id)/reviews"
-        case .getSimilarSeriesTo(id: let id):
+        case .getSimilarSeriesTo(id: let id, _):
             return "/tv/\(id)/similar"
         case .getCredits(id: let id):
             return "/tv/\(id)/credits"
@@ -67,10 +67,11 @@ enum TVRequest: MediaNetworkRequest {
                     "language": APIConstants.language,
                     "page": String(page)
             ]
-        case .getSimilarSeriesTo(id: let id):
+        case .getSimilarSeriesTo(let id, let page):
             return ["tv_id": String(id),
                     "api_key": APIConstants.apiKey,
-                    "append_to_response": "credits"
+                    "language": APIConstants.language,
+                    "page": String(page)
             ]
         case .getCredits(id: let id):
             return ["tv_id": String(id),

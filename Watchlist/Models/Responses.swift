@@ -88,6 +88,32 @@ struct TVSerieResponse: Codable {
     }
 }
 
+// MARK: - MovieSimilarResponse
+struct MovieSimilarResponse: Codable {
+    let page: Int
+    var results: [Movie]
+    let totalPages, totalResults: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case page, results
+        case totalPages = "total_pages"
+        case totalResults = "total_results"
+    }
+}
+
+// MARK: - TVSerieSimilarResponse
+struct TVSerieSimilarResponse: Codable {
+    let page: Int
+    var results: [TVSerie]
+    let totalPages, totalResults: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case page, results
+        case totalPages = "total_pages"
+        case totalResults = "total_results"
+    }
+}
+
 // MARK: - MediaReviewResponse
 struct MediaReviewResponse: Codable {
     let id, page: Int

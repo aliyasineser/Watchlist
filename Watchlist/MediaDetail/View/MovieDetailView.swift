@@ -49,14 +49,14 @@ struct MovieDetailView: View {
                 ScrollView {
                     VStack {
                         mediaView()
-                            .padding(.horizontal, 10)
+                            .padding(.horizontal, 20)
                             .frame(width: geometry.size.width, alignment: .top)
                         if let overview = presenter.media.overview {
                             ScrollView {
                                 Text(overview)
                                     .font(.system(size: 16))
                             }
-                            .padding(.horizontal, 10)
+                            .padding(.horizontal, 12)
                             .padding(.top, 25)
                         }
 

@@ -21,46 +21,38 @@ struct MediaListItemView: View {
             url: URL(string: self.mediaListItem.posterUrl()),
             content: { image in
                 image.resizable()
-                    .scaledToFill()
+                    .scaledToFit()
             },
             placeholder: {
                 Image(systemName: Icons.posterBackdrop.rawValue)
                     .imageScale(.large)
             }
         )
-        .frame(height: 210)
+        .frame(height: 200)
         .clipped()
     }
 
     fileprivate func movieInfoStack() -> some View {
-        return HStack {
-            VStack {
-                Text(self.mediaListItem.title)
-                    .font(.system(size: 20))
+        return VStack(alignment: .leading, spacing: 5) {
+            Text(self.mediaListItem.title)
+                .font(.title)
+                .minimumScaleFactor(0.7)
+                .bold()
+                .foregroundColor(.primary)
+                .multilineTextAlignment(.leading)
+
+            if let originalLanguage = self.mediaListItem.originalLanguage?.language {
+                Text(originalLanguage)
+                    .font(.title3)
+                    .minimumScaleFactor(0.7)
                     .bold()
                     .foregroundColor(.primary)
-                    .minimumScaleFactor(0.8)
+                    .multilineTextAlignment(.leading)
             }
-            .padding(
-                EdgeInsets(
-                    top: 0,
-                    leading: 10,
-                    bottom: 0,
-                    trailing: 0
-                )
-            )
-            Spacer()
+
             if let rating = self.mediaListItem.voteAverage {
                 StarsView(rating: CGFloat(rating/2), maxRating: 5)
                     .frame(width: 100, alignment: .center)
-                    .padding(
-                        EdgeInsets(
-                            top: 0,
-                            leading: 0,
-                            bottom: 0,
-                            trailing: 10
-                        )
-                    )
             }
         }
     }
@@ -91,18 +83,13 @@ struct MediaListItemView: View {
             destination:
                 getMediaDetailView(mediaType: type(of: mediaListItem))
         ) {
-            VStack(alignment: .center, spacing: 5) {
+            HStack(alignment: .center, spacing: 15) {
                 posterImage()
                 movieInfoStack()
+                Spacer()
             }
-            .frame(width: 400, height: 250)
+            .frame(height: 250)
             .cornerRadius(10)
-            .shadow(
-                color: Color.black.opacity(0.2),
-                radius: 20,
-                x: 0,
-                y: 0
-            )
         }
     }
 }
@@ -110,5 +97,6 @@ struct MediaListItemView: View {
 struct MediaListItemView_Previews: PreviewProvider {
     static var previews: some View {
         MediaListItemView(mediaListItem: Movie.mock)
+            .background(.red)
     }
 }
