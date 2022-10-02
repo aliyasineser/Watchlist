@@ -21,6 +21,7 @@ struct SimilarMediaView: View {
             LazyVStack(alignment: .center, spacing: 10) {
                 ForEach(self.presenter.media, id: \.id) { media in
                     MediaListItemView(mediaListItem: media)
+                        .padding(.horizontal)
                 }
                 Spacer()
                     .onAppear(perform: {

@@ -20,22 +20,23 @@ struct DiscoverSlice: View {
     }
 
     var seeAllView: some View {
-        HStack(alignment: .center, spacing: 1.0) {
+        HStack(alignment: .bottom, spacing: 3) {
             Text(ConstantTexts.ButtonTitle.sliceSeeAll)
                 .foregroundColor(.accentColor)
-                .font(.system(size: 20))
+                .font(.title2)
                 .bold()
             Image(systemName: Icons.seeAllButton.rawValue)
                 .foregroundColor(.accentColor)
                 .padding(.bottom, 4)
-        }.padding(.trailing, 10)
+        }
+        .padding(.trailing, 10)
     }
 
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             HStack(alignment: .center) {
                 Text(self.sliceTitle)
-                    .font(.system(size: 20))
+                    .font(.title)
                     .bold()
                 Spacer()
                 NavigationLink(
@@ -49,14 +50,8 @@ struct DiscoverSlice: View {
                     seeAllView
                 }
             }
-            .padding(
-                EdgeInsets(
-                    top: 0,
-                    leading: 15,
-                    bottom: 0,
-                    trailing: 5
-                )
-            )
+            .padding(.leading, 15)
+            .padding(.trailing, 5)
 
             if sliceItems.isEmpty {
                 ProgressView()

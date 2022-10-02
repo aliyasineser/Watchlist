@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
 import Combine
 
 struct FavoritesView: View {
@@ -17,7 +16,7 @@ struct FavoritesView: View {
     }
 
     fileprivate func artistImage(url: String) -> some View {
-        return CachedAsyncImage(
+        return AsyncImage(
             url: URL(string: url),
             content: { image in
                 image.resizable()

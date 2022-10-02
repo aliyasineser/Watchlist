@@ -79,7 +79,6 @@
 		DD5D490D28D745A400FD1B10 /* RequestManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D490C28D745A400FD1B10 /* RequestManagerMock.swift */; };
 		DD5D490F28D7AE7400FD1B10 /* MediaNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D490E28D7AE7400FD1B10 /* MediaNetworkRequest.swift */; };
 		DD5DE043265D96D500E06B4B /* DiscoverSliceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DE042265D96D500E06B4B /* DiscoverSliceItem.swift */; };
-		DD951E9128A1037D00701111 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = DD951E9028A1037D00701111 /* CachedAsyncImage */; };
 		DDB8B9612896C0AC00E7F569 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB8B9602896C0AC00E7F569 /* DataParser.swift */; };
 		DDB8B9632896C0BF00E7F569 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB8B9622896C0BF00E7F569 /* APIManager.swift */; };
 		DDB8B9652896C0CF00E7F569 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB8B9642896C0CF00E7F569 /* NetworkError.swift */; };
@@ -254,7 +253,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5B082B06436BA27328E9165 /* Pods_Watchlist.framework in Frameworks */,
-				DD951E9128A1037D00701111 /* CachedAsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,7 +755,6 @@
 			);
 			name = Watchlist;
 			packageProductDependencies = (
-				DD951E9028A1037D00701111 /* CachedAsyncImage */,
 			);
 			productName = Watchlist;
 			productReference = DD04546E260A171900DFEFE6 /* Watchlist.app */;
@@ -831,7 +828,6 @@
 			);
 			mainGroup = DD045465260A171900DFEFE6;
 			packageReferences = (
-				DD951E8F28A1037D00701111 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = DD04546F260A171900DFEFE6 /* Products */;
 			projectDirPath = "";
@@ -1334,25 +1330,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		DD951E8F28A1037D00701111 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		DD951E9028A1037D00701111 /* CachedAsyncImage */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DD951E8F28A1037D00701111 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
-			productName = CachedAsyncImage;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		DD04547C260A171C00DFEFE6 /* Watchlist.xcdatamodeld */ = {

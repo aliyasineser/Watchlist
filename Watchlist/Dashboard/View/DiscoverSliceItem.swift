@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
 
 @MainActor
 struct DiscoverSliceItem: View {
@@ -21,7 +20,7 @@ struct DiscoverSliceItem: View {
     fileprivate func posterImage() -> some View {
         return VStack {
             if isAppeared {
-                CachedAsyncImage(
+                AsyncImage(
                     url: URL(string: self.item.posterUrl()),
                     content: { image in
                         image.resizable()

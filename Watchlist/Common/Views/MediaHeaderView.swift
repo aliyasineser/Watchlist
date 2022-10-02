@@ -6,12 +6,11 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
 
 struct MediaHeaderView: View {
     var imageUrl: String
     var body: some View {
-        CachedAsyncImage(
+        AsyncImage(
             url: URL(string: imageUrl),
             content: { image in
                 image.resizable()

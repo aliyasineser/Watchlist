@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
 
 struct ArtistItemView: View {
 
@@ -17,7 +16,7 @@ struct ArtistItemView: View {
     }
 
     fileprivate func artistImage() -> some View {
-        return CachedAsyncImage(
+        return AsyncImage(
             url: URL(string: artist.getPosterUrl()),
             content: { image in
                 image.resizable()

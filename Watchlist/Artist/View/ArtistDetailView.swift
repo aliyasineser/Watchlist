@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import CachedAsyncImage
 
 struct ArtistDetailView: View {
 
@@ -71,7 +70,7 @@ struct ArtistDetailView: View {
     }
 
     fileprivate func artistImage(url: String) -> some View {
-        return CachedAsyncImage(
+        return AsyncImage(
             url: URL(string: url),
             content: { image in
                 image.resizable()
@@ -145,7 +144,7 @@ struct PhotoGrid: View {
     }
 
     fileprivate func artistImageItem(_ imageEntity: ReversedCollection<[Profile]>.Element) -> some View {
-        CachedAsyncImage(
+        AsyncImage(
             url: URL(string: imageEntity.getPosterUrl()),
             content: { image in
                 image.resizable()
