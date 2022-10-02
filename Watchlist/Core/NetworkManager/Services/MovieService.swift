@@ -37,6 +37,17 @@ final class MovieService: MediaService {
         }
     }
 
+    func fetchReviews(id: Int, page: Int) async -> [Review] {
+        let requestData = MovieRequest.getMovieReviews(id: id, page: page)
+        do {
+            let reviewResponse: MovieReviewResponse = try await requestManager.initRequest(with: requestData)
+            return reviewResponse.results
+        } catch {
+            print(error.localizedDescription)
+            return []
+        }
+    }
+
     func fetchMediaCredits(id: Int) async -> Credits? {
         let requestData = MovieRequest.getCredits(id: id)
         do {

@@ -8,6 +8,7 @@
 import Foundation
 
 struct TVSerie: Codable, Watchable, Identifiable {
+
     let id: Int
     let title: String
     let posterPath: String?
@@ -15,7 +16,7 @@ struct TVSerie: Codable, Watchable, Identifiable {
     let backdropPath: String?
     let voteAverage: Double?
     let overview: String?
-    let firstAirDate: String?
+    let firstAirDate: Date?
     let originCountry: [OriginCountry]?
     let genreIDS: [Int]?
     let originalLanguage: OriginalLanguage?
@@ -36,153 +37,62 @@ struct TVSerie: Codable, Watchable, Identifiable {
         case title = "name"
         case originalTitle = "original_name"
     }
-}
 
-struct TvDetail: Codable, WatchableDetail, Identifiable {
-    let id: Int
-    let backdropPath: String?
-    let createdBy: [CreatedBy]?
-    let episodeRunTime: [Int]?
-    let firstAirDate: String
-    let genres: [Genre]
-    var homepage: String?
-    let inProduction: Bool
-    let languages: [String]
-    let lastAirDate: String?
-    let lastEpisodeToAir: LastEpisodeToAir?
-    let title: String
-    let nextEpisodeToAir: LastEpisodeToAir?
-    let networks: [ProductionCompany]?
-    let numberOfEpisodes, numberOfSeasons: Int
-    let originCountry: [String]
-    let originalLanguage: OriginalLanguage?
-    let overview: String?
-    let originalTitle: String?
-    let popularity: Double
-    let posterPath: String?
-    var productionCompanies: [ProductionCompany]?
-    var productionCountries: [ProductionCountry]?
-    let seasons: [Season]?
-    var spokenLanguages: [SpokenLanguage]?
-    var status, tagline, type: String?
-    let voteAverage: Double?
-    var voteCount: Int?
-    var credits: Credits?
-
-    enum CodingKeys: String, CodingKey {
-        case backdropPath = "backdrop_path"
-        case createdBy = "created_by"
-        case episodeRunTime = "episode_run_time"
-        case firstAirDate = "first_air_date"
-        case genres, homepage, id
-        case inProduction = "in_production"
-        case languages
-        case lastAirDate = "last_air_date"
-        case lastEpisodeToAir = "last_episode_to_air"
-        case title = "name"
-        case nextEpisodeToAir = "next_episode_to_air"
-        case networks
-        case numberOfEpisodes = "number_of_episodes"
-        case numberOfSeasons = "number_of_seasons"
-        case originCountry = "origin_country"
-        case originalLanguage = "original_language"
-        case originalTitle = "original_name"
-        case overview, popularity
-        case posterPath = "poster_path"
-        case productionCompanies = "production_companies"
-        case productionCountries = "production_countries"
-        case seasons
-        case spokenLanguages = "spoken_languages"
-        case status, tagline, type
-        case voteAverage = "vote_average"
-        case voteCount = "vote_count"
-        case credits
+    internal init(
+        id: Int,
+        title: String,
+        posterPath: String? = nil,
+        popularity: Double,
+        backdropPath: String? = nil,
+        voteAverage: Double? = nil,
+        overview: String? = nil,
+        firstAirDate: Date? = nil,
+        originCountry: [OriginCountry]? = nil,
+        genreIDS: [Int]? = nil,
+        originalLanguage: OriginalLanguage? = nil,
+        voteCount: Int? = nil,
+        originalTitle: String? = nil
+    ) {
+        self.id = id
+        self.title = title
+        self.posterPath = posterPath
+        self.popularity = popularity
+        self.backdropPath = backdropPath
+        self.voteAverage = voteAverage
+        self.overview = overview
+        self.firstAirDate = firstAirDate
+        self.originCountry = originCountry
+        self.genreIDS = genreIDS
+        self.originalLanguage = originalLanguage
+        self.voteCount = voteCount
+        self.originalTitle = originalTitle
     }
-}
 
-extension TvDetail {
-    static let mock = TvDetail(
-        id: 1, backdropPath: "Backdrop",
-        createdBy: [],
-        episodeRunTime: [1, 2, 3],
-        firstAirDate: "01-01-1994",
-        genres: [],
-        homepage: "",
-        inProduction: false,
-        languages: ["en"],
-        lastAirDate: "01-04-2001",
-        lastEpisodeToAir: nil,
-        title: "TV Serie",
-        nextEpisodeToAir: nil,
-        networks: [],
-        numberOfEpisodes: 10,
-        numberOfSeasons: 5,
-        originCountry: [],
-        originalLanguage: .en,
-        overview: "Good serie",
-        originalTitle: "TV Serie original name",
-        popularity: 5,
-        posterPath: "postar path",
-        productionCompanies: [],
-        productionCountries: [],
-        seasons: [],
-        spokenLanguages: [],
-        status: "online",
-        tagline: "tagline",
-        type: "type",
-        voteAverage: 9,
-        voteCount: 1000,
-        credits: nil
-    )
-}
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.posterPath = try container.decodeIfPresent(String.self, forKey: .posterPath)
+        self.popularity = try container.decode(Double.self, forKey: .popularity)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.backdropPath = try container.decodeIfPresent(String.self, forKey: .backdropPath)
+        self.voteAverage = try container.decodeIfPresent(Double.self, forKey: .voteAverage)
+        self.overview = try container.decodeIfPresent(String.self, forKey: .overview)
+        self.originCountry = try container.decodeIfPresent([OriginCountry].self, forKey: .originCountry)
+        self.genreIDS = try container.decodeIfPresent([Int].self, forKey: .genreIDS)
+        self.originalLanguage = try container.decodeIfPresent(OriginalLanguage.self, forKey: .originalLanguage)
+        self.voteCount = try container.decodeIfPresent(Int.self, forKey: .voteCount)
+        self.title = try container.decode(String.self, forKey: .title)
+        self.originalTitle = try container.decodeIfPresent(String.self, forKey: .originalTitle)
 
-struct CreatedBy: Codable {
-    let id: Int
-    let creditID, name: String
-    let gender: Int?
-    let profilePath: String?
-
-    enum CodingKeys: String, CodingKey {
-        case id
-        case creditID = "credit_id"
-        case name, gender
-        case profilePath = "profile_path"
-    }
-}
-
-struct Season: Codable {
-    let airDate: String?
-    let episodeCount, id: Int
-    let name, overview: String
-    let posterPath: String?
-    let seasonNumber: Int
-
-    enum CodingKeys: String, CodingKey {
-        case airDate = "air_date"
-        case episodeCount = "episode_count"
-        case id, name, overview
-        case posterPath = "poster_path"
-        case seasonNumber = "season_number"
-    }
-}
-
-struct LastEpisodeToAir: Codable {
-    let airDate: String?
-    let episodeNumber, id: Int
-    let name, overview, productionCode: String
-    let seasonNumber: Int
-    let stillPath: String?
-    let voteAverage: Double
-    let voteCount: Int
-
-    enum CodingKeys: String, CodingKey {
-        case airDate = "air_date"
-        case episodeNumber = "episode_number"
-        case id, name, overview
-        case productionCode = "production_code"
-        case seasonNumber = "season_number"
-        case stillPath = "still_path"
-        case voteAverage = "vote_average"
-        case voteCount = "vote_count"
+        let release = try container.decodeIfPresent(String.self, forKey: .firstAirDate)
+        let formatter = DateFormatter.yyyyMMdd
+        if let release, let date = formatter.date(from: release) {
+            self.firstAirDate = date
+        } else {
+            throw DecodingError.dataCorruptedError(
+                forKey: .firstAirDate,
+                in: container,
+                debugDescription: "Date string does not match format expected by formatter."
+            )
+        }
     }
 }

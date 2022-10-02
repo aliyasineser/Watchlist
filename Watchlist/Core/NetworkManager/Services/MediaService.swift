@@ -11,6 +11,7 @@ protocol MediaService {
     func fetchMedia(request: NetworkRequest) async -> [Watchable]
     func fetchMediaDetails(id: Int) async -> WatchableDetail?
     func fetchMediaCredits(id: Int) async -> Credits?
+    func fetchReviews(id: Int, page: Int) async -> [Review]
 }
 
 final class MediaServiceStub: MediaService {
@@ -21,6 +22,10 @@ final class MediaServiceStub: MediaService {
             mediaList.append(Movie.mock)
         }
         return mediaList
+    }
+
+    func fetchReviews(id: Int, page: Int) async -> [Review] {
+        [Review.mock, Review.mock]
     }
 
     func fetchMediaDetails(id: Int) async -> WatchableDetail? {

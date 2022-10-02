@@ -9,13 +9,14 @@ import Foundation
 
 // MARK: - Movie
 struct Movie: Codable, Watchable, Identifiable {
+
     let id: Int
     let title: String
     let adult: Bool?
     let posterPath: String?
     let backdropPath: String?
     let overview: String?
-    let releaseDate: String?
+    let releaseDate: Date?
     let genreIDS: [Int]
     let originalTitle: String?
     let originalLanguage: OriginalLanguage?
@@ -39,16 +40,70 @@ struct Movie: Codable, Watchable, Identifiable {
         case video
         case voteAverage = "vote_average"
     }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.posterPath = try container.decodeIfPresent(String.self, forKey: .posterPath)
+        self.adult = try container.decodeIfPresent(Bool.self, forKey: .adult)
+        self.overview = try container.decodeIfPresent(String.self, forKey: .overview)
+        self.genreIDS = try container.decode([Int].self, forKey: .genreIDS)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.originalTitle = try container.decodeIfPresent(String.self, forKey: .originalTitle)
+        self.originalLanguage = try container.decodeIfPresent(OriginalLanguage.self, forKey: .originalLanguage)
+        self.title = try container.decode(String.self, forKey: .title)
+        self.backdropPath = try container.decodeIfPresent(String.self, forKey: .backdropPath)
+        self.popularity = try container.decode(Double.self, forKey: .popularity)
+        self.voteCount = try container.decodeIfPresent(Int.self, forKey: .voteCount)
+        self.video = try container.decode(Bool.self, forKey: .video)
+        self.voteAverage = try container.decodeIfPresent(Double.self, forKey: .voteAverage)
+
+        let release = try container.decodeIfPresent(String.self, forKey: .releaseDate)
+        let formatter = DateFormatter.yyyyMMdd
+        self.releaseDate = formatter.date(from: release ?? "")
+    }
+
+    internal init(
+        id: Int,
+        title: String,
+        adult: Bool? = nil,
+        posterPath: String? = nil,
+        backdropPath: String? = nil,
+        overview: String? = nil,
+        releaseDate: Date? = nil,
+        genreIDS: [Int],
+        originalTitle: String? = nil,
+        originalLanguage: OriginalLanguage? = nil,
+        popularity: Double,
+        voteCount: Int? = nil,
+        video: Bool,
+        voteAverage: Double? = nil
+    ) {
+        self.id = id
+        self.title = title
+        self.adult = adult
+        self.posterPath = posterPath
+        self.backdropPath = backdropPath
+        self.overview = overview
+        self.releaseDate = releaseDate
+        self.genreIDS = genreIDS
+        self.originalTitle = originalTitle
+        self.originalLanguage = originalLanguage
+        self.popularity = popularity
+        self.voteCount = voteCount
+        self.video = video
+        self.voteAverage = voteAverage
+    }
 }
 
 extension Movie {
     static let mock = Movie(
         id: 1,
-        title: "Title", adult: true,
+        title: "Title",
+        adult: true,
         posterPath: "posterPath",
         backdropPath: "backdropPath",
         overview: "Good movie",
-        releaseDate: "01-01-2001",
+        releaseDate: .distantPast,
         genreIDS: [],
         originalTitle: "Original Title",
         originalLanguage: nil,
@@ -56,89 +111,6 @@ extension Movie {
         voteCount: 6,
         video: false,
         voteAverage: 10000
-    )
-}
-
-// MARK: - MovieDetail
-struct MovieDetail: Codable, WatchableDetail, Identifiable {
-    let id: Int
-    let adult: Bool
-    let posterPath: String?
-    let backdropPath: String?
-    let overview: String?
-    let releaseDate: String
-    let genres: [Genre]
-    let belongsToCollection: Collection?
-    let budget: Int
-    var homepage: String?
-    let imdbID: String?
-    var originalLanguage: OriginalLanguage?
-    let originalTitle: String?
-    let popularity: Double
-    var productionCompanies: [ProductionCompany]?
-    var productionCountries: [ProductionCountry]?
-    let revenue: Int
-    let runtime: Int?
-    var spokenLanguages: [SpokenLanguage]?
-    let status, title: String
-    var tagline: String?
-    let video: Bool
-    let voteAverage: Double?
-    var voteCount: Int?
-    var credits: Credits?
-
-    enum CodingKeys: String, CodingKey {
-        case adult
-        case backdropPath = "backdrop_path"
-        case belongsToCollection = "belongs_to_collection"
-        case budget, genres, homepage, id
-        case imdbID = "imdb_id"
-        case originalLanguage = "original_language"
-        case originalTitle = "original_title"
-        case overview = "overview"
-        case popularity
-        case posterPath = "poster_path"
-        case productionCompanies = "production_companies"
-        case productionCountries = "production_countries"
-        case releaseDate = "release_date"
-        case revenue, runtime
-        case spokenLanguages = "spoken_languages"
-        case status, tagline, title, video
-        case voteAverage = "vote_average"
-        case voteCount = "vote_count"
-        case credits
-    }
-
-}
-
-extension MovieDetail {
-    static let mock = MovieDetail(
-        id: 1,
-        adult: true,
-        posterPath: "posterPath",
-        backdropPath: "backdropPath",
-        overview: "overview",
-        releaseDate: "01-01-1945",
-        genres: [],
-        belongsToCollection: nil,
-        budget: 10000,
-        homepage: "www.de.com",
-        imdbID: "123",
-        originalLanguage: .en,
-        originalTitle: "Original Title",
-        popularity: 10,
-        productionCompanies: [],
-        productionCountries: [],
-        revenue: 100000,
-        runtime: 123,
-        spokenLanguages: [],
-        status: "Status",
-        title: "Title",
-        tagline: "Tagline",
-        video: false,
-        voteAverage: 6.5,
-        voteCount: 10000,
-        credits: .mock
     )
 }
 

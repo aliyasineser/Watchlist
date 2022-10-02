@@ -42,7 +42,7 @@ final class DefaultMediaInteractor: MediaInteractor {
         strategy: AiringTodaySeriesFetchStrategy(),
         service: TVService.shared
     )
-    
+
     let onTheAirSeriesFetcher: Fetchable = MediaFetcher(
         strategy: OnTheAirSeriesFetchStrategy(),
         service: TVService.shared

@@ -26,11 +26,16 @@ struct MediaDetailTabView: View {
                 MediaCastView(
                     presenter: MediaCastDefaultPresenter(
                         DefaultMediaCastInteractor(mediaService: mediaService),
-                        id: self.id
+                        id: id
                     )
                 )
             } else if tabIndex == 1 {
-                Text("Reviews")
+                MovieReviewView(
+                    presenter: MovieReviewDefaultPresenter(
+                        interactor: MovieReviewDefaultInteractor(mediaService: mediaService),
+                        id: id
+                    )
+                )
             } else {
                 Text("More")
             }

@@ -144,6 +144,92 @@ extension ArtistDetail {
 // MARK: Crew & Cast
 typealias Crew = Cast
 struct Cast: Codable, Creditable, Identifiable {
+    internal init(
+        adult: Bool,
+        gender: Int? = nil,
+        id: Int,
+        knownForDepartment: Department? = nil,
+        name: String? = nil,
+        originalName: String? = nil,
+        popularity: Double,
+        profilePath: String? = nil,
+        castID: Int? = nil,
+        character: String? = nil,
+        creditID: String,
+        order: Int? = nil,
+        department: Department? = nil,
+        job: String? = nil,
+        backdropPath: String? = nil,
+        genreIDS: [Int]? = nil,
+        originalLanguage: OriginalLanguage? = nil,
+        originalTitle: String? = nil,
+        overview: String? = nil,
+        posterPath: String? = nil,
+        releaseDate: Date? = nil,
+        title: String? = nil,
+        video: Bool? = nil,
+        voteAverage: Double? = nil,
+        voteCount: Int? = nil
+    ) {
+        self.adult = adult
+        self.gender = gender
+        self.id = id
+        self.knownForDepartment = knownForDepartment
+        self.name = name
+        self.originalName = originalName
+        self.popularity = popularity
+        self.profilePath = profilePath
+        self.castID = castID
+        self.character = character
+        self.creditID = creditID
+        self.order = order
+        self.department = department
+        self.job = job
+        self.backdropPath = backdropPath
+        self.genreIDS = genreIDS
+        self.originalLanguage = originalLanguage
+        self.originalTitle = originalTitle
+        self.overview = overview
+        self.posterPath = posterPath
+        self.releaseDate = releaseDate
+        self.title = title
+        self.video = video
+        self.voteAverage = voteAverage
+        self.voteCount = voteCount
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.adult = try container.decode(Bool.self, forKey: .adult)
+        self.gender = try container.decodeIfPresent(Int.self, forKey: .gender)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.knownForDepartment = try container.decodeIfPresent(Department.self, forKey: .knownForDepartment)
+        self.name = try container.decodeIfPresent(String.self, forKey: .name)
+        self.originalName = try container.decodeIfPresent(String.self, forKey: .originalName)
+        self.popularity = try container.decode(Double.self, forKey: .popularity)
+        self.profilePath = try container.decodeIfPresent(String.self, forKey: .profilePath)
+        self.castID = try container.decodeIfPresent(Int.self, forKey: .castID)
+        self.character = try container.decodeIfPresent(String.self, forKey: .character)
+        self.creditID = try container.decode(String.self, forKey: .creditID)
+        self.order = try container.decodeIfPresent(Int.self, forKey: .order)
+        self.department = try container.decodeIfPresent(Department.self, forKey: .department)
+        self.job = try container.decodeIfPresent(String.self, forKey: .job)
+        self.backdropPath = try container.decodeIfPresent(String.self, forKey: .backdropPath)
+        self.genreIDS = try container.decodeIfPresent([Int].self, forKey: .genreIDS)
+        self.originalLanguage = try container.decodeIfPresent(OriginalLanguage.self, forKey: .originalLanguage)
+        self.originalTitle = try container.decodeIfPresent(String.self, forKey: .originalTitle)
+        self.overview = try container.decodeIfPresent(String.self, forKey: .overview)
+        self.posterPath = try container.decodeIfPresent(String.self, forKey: .posterPath)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.video = try container.decodeIfPresent(Bool.self, forKey: .video)
+        self.voteAverage = try container.decodeIfPresent(Double.self, forKey: .voteAverage)
+        self.voteCount = try container.decodeIfPresent(Int.self, forKey: .voteCount)
+
+        let release = try container.decodeIfPresent(String.self, forKey: .releaseDate)
+        let formatter = DateFormatter.yyyyMMdd
+        self.releaseDate = formatter.date(from: release ?? "")
+    }
+    
     let adult: Bool
     let gender: Int?
     let id: Int
@@ -163,7 +249,8 @@ struct Cast: Codable, Creditable, Identifiable {
     let originalLanguage: OriginalLanguage?
     let originalTitle, overview: String?
     let posterPath: String?
-    let releaseDate, title: String?
+    let releaseDate: Date?
+    let title: String?
     let video: Bool?
     let voteAverage: Double?
     let voteCount: Int?
@@ -228,7 +315,7 @@ extension Cast {
         originalTitle: "Original Title",
         overview: "Overview",
         posterPath: "PostPath",
-        releaseDate: "01-01-1994",
+        releaseDate: .distantPast,
         title: "Title",
         video: false,
         voteAverage: 7.2,

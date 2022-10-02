@@ -12,7 +12,7 @@ struct MediaDetailsView: View {
     var genres: String?
     var rating: Double?
     var language: OriginalLanguage?
-    var date: String
+    var date: Date
     var time: String?
 
     var body: some View {
@@ -46,7 +46,7 @@ struct MediaDetailsView: View {
                     .minimumScaleFactor(0.8)
             }
 
-            Text(date)
+            Text(date.formatted(date: .abbreviated, time: .omitted))
                 .font(.system(size: 17))
                 .bold()
                 .foregroundColor(.primary)
@@ -74,7 +74,7 @@ struct MediaDetailsView_Previews: PreviewProvider {
             title: "Title",
             rating: 5.5,
             language: .en,
-            date: "24-05-1588"
+            date: .distantPast
         )
     }
 }
