@@ -143,7 +143,7 @@ struct PhotoGrid: View {
         }
     }
 
-    fileprivate func artistImageItem(_ imageEntity: ReversedCollection<[Profile]>.Element) -> some View {
+    fileprivate func artistImageItem(_ imageEntity: Profile) -> some View {
         AsyncImage(
             url: URL(string: imageEntity.getPosterUrl()),
             content: { image in

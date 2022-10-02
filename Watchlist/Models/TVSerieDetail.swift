@@ -13,7 +13,7 @@ struct TvDetail: Codable, WatchableDetail, Identifiable {
     let backdropPath: String?
     let createdBy: [CreatedBy]?
     let episodeRunTime: [Int]?
-    let firstAirDate: Date
+    let firstAirDate: Date?
     let genres: [Genre]
     var homepage: String?
     let inProduction: Bool
@@ -74,7 +74,7 @@ struct TvDetail: Codable, WatchableDetail, Identifiable {
         backdropPath: String? = nil,
         createdBy: [CreatedBy]? = nil,
         episodeRunTime: [Int]? = nil,
-        firstAirDate: Date,
+        firstAirDate: Date?,
         genres: [Genre],
         homepage: String? = nil,
         inProduction: Bool,
@@ -174,26 +174,10 @@ struct TvDetail: Codable, WatchableDetail, Identifiable {
         let formatter = DateFormatter.yyyyMMdd
 
         let firstRelease = try container.decodeIfPresent(String.self, forKey: .firstAirDate)
-        if let firstRelease, let date = formatter.date(from: firstRelease) {
-            self.firstAirDate = date
-        } else {
-            throw DecodingError.dataCorruptedError(
-                forKey: .firstAirDate,
-                in: container,
-                debugDescription: "Date string does not match format expected by formatter."
-            )
-        }
+        self.firstAirDate = formatter.date(from: firstRelease ?? "")
 
         let lastRelease = try container.decodeIfPresent(String.self, forKey: .lastAirDate)
-        if let lastRelease, let date = formatter.date(from: lastRelease) {
-            self.lastAirDate = date
-        } else {
-            throw DecodingError.dataCorruptedError(
-                forKey: .lastAirDate,
-                in: container,
-                debugDescription: "Date string does not match format expected by formatter."
-            )
-        }
+        self.lastAirDate = formatter.date(from: lastRelease ?? "")
     }
 }
 

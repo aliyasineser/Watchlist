@@ -66,6 +66,7 @@ enum Department: String, Codable {
     case writing = "Writing"
     case lighting = "Lighting"
     case creator = "Creator"
+    case actor = "Actors"
 }
 
 struct ProductionCompany: Codable {

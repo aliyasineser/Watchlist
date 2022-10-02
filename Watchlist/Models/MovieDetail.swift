@@ -14,7 +14,7 @@ struct MovieDetail: Codable, WatchableDetail, Identifiable {
     let posterPath: String?
     let backdropPath: String?
     let overview: String?
-    let releaseDate: Date
+    let releaseDate: Date?
     let genres: [Genre]
     let belongsToCollection: Collection?
     let budget: Int
@@ -63,7 +63,7 @@ struct MovieDetail: Codable, WatchableDetail, Identifiable {
         posterPath: String? = nil,
         backdropPath: String? = nil,
         overview: String? = nil,
-        releaseDate: Date,
+        releaseDate: Date?,
         genres: [Genre],
         belongsToCollection: Collection? = nil,
         budget: Int,
@@ -142,15 +142,7 @@ struct MovieDetail: Codable, WatchableDetail, Identifiable {
 
         let release = try container.decodeIfPresent(String.self, forKey: .releaseDate)
         let formatter = DateFormatter.yyyyMMdd
-        if let release, let date = formatter.date(from: release) {
-            self.releaseDate = date
-        } else {
-            throw DecodingError.dataCorruptedError(
-                forKey: .releaseDate,
-                in: container,
-                debugDescription: "Date string does not match format expected by formatter."
-            )
-        }
+        self.releaseDate = formatter.date(from: release ?? "")
     }
 
 }

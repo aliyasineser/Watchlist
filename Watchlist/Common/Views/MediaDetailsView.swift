@@ -12,25 +12,22 @@ struct MediaDetailsView: View {
     var genres: String?
     var rating: Double?
     var language: OriginalLanguage?
-    var date: Date
+    var date: Date?
     var time: String?
 
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 5) {
             Text(title)
-                .font(.system(size: 25))
+                .font(.title)
                 .bold()
                 .minimumScaleFactor(0.65)
-                .lineLimit(2)
-                .padding(.bottom, 2)
 
             if let genres {
                 Text(genres)
-                    .font(.system(size: 17))
+                    .font(.title2)
                     .foregroundColor(.primary)
                     .bold()
                     .minimumScaleFactor(0.7)
-                    .lineLimit(1)
             }
 
             if let rating {
@@ -40,29 +37,26 @@ struct MediaDetailsView: View {
 
             if let language {
                 Text(language.language)
-                    .font(.system(size: 18))
+                    .font(.title3)
+                    .bold()
+                    .foregroundColor(.primary)
+                    .minimumScaleFactor(0.8)
+            }
+            if let date {
+                Text(date.formatted(date: .abbreviated, time: .omitted))
+                    .font(.title3)
                     .bold()
                     .foregroundColor(.primary)
                     .minimumScaleFactor(0.8)
             }
 
-            Text(date.formatted(date: .abbreviated, time: .omitted))
-                .font(.system(size: 17))
-                .bold()
-                .foregroundColor(.primary)
-                .minimumScaleFactor(0.8)
-                .lineLimit(1)
-                .padding(.top, 3)
-
+            
             if let time = time {
                 Text(time)
-                    .font(.system(size: 17))
+                    .font(.title3)
                     .bold()
                     .foregroundColor(.primary)
                     .minimumScaleFactor(0.8)
-                    .lineLimit(1)
-                    .padding(.top, 3)
-                    .padding(.bottom, 5)
             }
         }
     }

@@ -38,38 +38,27 @@ struct ArtistDetailTabView: View {
     }
 
     fileprivate func creditMediaPoster(showCredit: Cast) -> some View {
-        return AsyncImage(
+        AsyncImage(
             url: URL(string: showCredit.getPosterUrl()),
             content: { image in
                 image.resizable()
-                    .scaledToFill()
-                    .frame(
-                        width: 130,
-                        height: 200,
-                        alignment: .center
-                    )
-                    .border(
-                        width: 1,
-                        edges: Edge.allCases,
-                        color: .black
-                    )
-                    .clipped()
+                    .scaledToFit()
             },
             placeholder: {
                 Image(systemName: "film")
-                    .frame(
-                        width: 130,
-                        height: 200,
-                        alignment: .center
-                    )
-                    .border(
-                        width: 1,
-                        edges: Edge.allCases,
-                        color: .black
-                    )
-                    .clipped()
             }
         )
+        .frame(
+            width: 130,
+            height: 200,
+            alignment: .center
+        )
+        .border(
+            width: 1,
+            edges: Edge.allCases,
+            color: .accentColor
+        )
+        .clipped()
     }
 
     var body: some View {
