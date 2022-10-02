@@ -11,13 +11,11 @@ import CachedAsyncImage
 struct MovieDetailView: View {
 
     @ObservedObject var presenter: MovieDetailDefaultPresenter
-    let favoriteStorage: FavoriteStorage
     @State var isFavorite = false
 
     init(presenter: MovieDetailDefaultPresenter) {
         self.presenter = presenter
         presenter.getMediaDetail()
-        favoriteStorage = FavoriteMovieStorage.shared
     }
 
     fileprivate func mediaView() -> some View {
@@ -36,7 +34,7 @@ struct MovieDetailView: View {
             }
             .padding(.leading, 5)
             Spacer()
-            FavoriteButton(favoriteStorage: favoriteStorage,
+            FavoriteButton(favoriteStorage: presenter.favoriteStorage,
                            isFavorite: $isFavorite,
                            id: presenter.id,
                            title: presenter.media.title

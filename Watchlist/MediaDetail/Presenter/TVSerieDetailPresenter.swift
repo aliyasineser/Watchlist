@@ -12,6 +12,7 @@ protocol TVSerieDetailPresenter: ObservableObject {
     var id: Int { get }
     var interactor: TVSerieDetailInteractor { get }
     var media: TvDetail { get }
+    var favoriteStorage: FavoriteStorage { get }
 
     func getMediaDetail()
     func getDetail(_ id: Int) async
@@ -21,6 +22,7 @@ final class TVSerieDetailDefaultPresenter: TVSerieDetailPresenter {
     private(set) var interactor: TVSerieDetailInteractor
     @Published var media: TvDetail = TvDetail.mock
     let id: Int
+    var favoriteStorage: FavoriteStorage = FavoriteTVSerieStorage.shared
 
     init(interactor: TVSerieDetailInteractor, id: Int) {
         self.interactor = interactor

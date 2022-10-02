@@ -14,6 +14,7 @@ protocol ArtistDetailPresenter: ObservableObject {
     var artistImages: [Profile] { get }
     var artistMovieCredits: [Cast] { get }
     var artistTVSerieCredits: [Cast] { get }
+    var favoriteStorage: FavoriteStorage { get }
 
     func fetchArtist(artistId: Int)
 }
@@ -24,6 +25,7 @@ class ArtistDetailDefaultPresenter: ArtistDetailPresenter {
     @Published var artistImages: [Profile]
     @Published var artistMovieCredits: [Cast]
     @Published var artistTVSerieCredits: [Cast]
+    var favoriteStorage: FavoriteStorage = FavoriteArtistStorage.shared
 
     init(interactor: ArtistDetailInteractor) {
         self.interactor = interactor

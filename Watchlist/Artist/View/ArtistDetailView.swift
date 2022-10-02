@@ -13,7 +13,6 @@ struct ArtistDetailView: View {
     @ObservedObject var presenter: ArtistDetailDefaultPresenter
     var artistId: Int
 
-    let favoriteStorage: FavoriteStorage = FavoriteArtistStorage.shared
     @State var isFavorite = false
 
     init(artistId: Int, presenter: ArtistDetailDefaultPresenter) {
@@ -41,7 +40,7 @@ struct ArtistDetailView: View {
                             Spacer()
                             VStack {
                                 FavoriteButton(
-                                    favoriteStorage: favoriteStorage,
+                                    favoriteStorage: presenter.favoriteStorage,
                                     isFavorite: $isFavorite,
                                     id: artist.id,
                                     title: artist.name
