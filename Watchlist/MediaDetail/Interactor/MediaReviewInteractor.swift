@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol MovieReviewInteractor {
+protocol MediaReviewInteractor {
     func getMovieReview(_ id: Int, page: Int) async -> [Review]
     var mediaService: MediaService { get }
 }
 
-final class MovieReviewDefaultInteractor: MovieReviewInteractor {
+final class MediaReviewDefaultInteractor: MediaReviewInteractor {
 
     private(set) var mediaService: MediaService
 
@@ -25,7 +25,7 @@ final class MovieReviewDefaultInteractor: MovieReviewInteractor {
     }
 }
 
-final class MovieReviewInteractorStub: MovieReviewInteractor {
+final class MediaReviewInteractorStub: MediaReviewInteractor {
     let mediaService: MediaService = MovieService.shared
     func getMovieReview(_ id: Int, page: Int) async -> [Review] {
         return [

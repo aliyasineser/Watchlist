@@ -31,8 +31,8 @@ struct MediaDetailTabView: View {
                 )
             } else if tabIndex == 1 {
                 MovieReviewView(
-                    presenter: MovieReviewDefaultPresenter(
-                        interactor: MovieReviewDefaultInteractor(mediaService: mediaService),
+                    presenter: MediaReviewDefaultPresenter(
+                        interactor: MediaReviewDefaultInteractor(mediaService: mediaService),
                         id: id
                     )
                 )

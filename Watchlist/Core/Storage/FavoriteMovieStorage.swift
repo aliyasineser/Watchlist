@@ -21,7 +21,6 @@ class FavoriteMovieStorage: FavoriteStorage {
         movie.id = Int32(id)
         movie.name = name
         saveContext()
-        print("added")
     }
 
     func deleteFavorite(id: Int) {
@@ -33,7 +32,6 @@ class FavoriteMovieStorage: FavoriteStorage {
 
             if let movie = movies.first {
                 viewContext.delete(movie)
-                print("removed")
             }
         } catch {
             fatalError("Failed to delete favorite movie: \(error)")

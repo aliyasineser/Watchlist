@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MovieReviewView: View {
 
-    @ObservedObject var presenter: MovieReviewDefaultPresenter
+    @ObservedObject var presenter: MediaReviewDefaultPresenter
 
     var body: some View {
         ScrollView(.vertical) {
@@ -26,8 +26,8 @@ struct MovieReviewView: View {
 struct MovieReviewView_Previews: PreviewProvider {
     static var previews: some View {
         MovieReviewView(
-            presenter: MovieReviewDefaultPresenter(
-                interactor: MovieReviewInteractorStub(),
+            presenter: MediaReviewDefaultPresenter(
+                interactor: MediaReviewInteractorStub(),
                 id: 1
             )
         )

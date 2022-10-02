@@ -41,7 +41,7 @@ final class TVService: MediaService {
     func fetchReviews(id: Int, page: Int) async -> [Review] {
         let requestData = TVRequest.getSeriesReviews(id: id, page: page)
         do {
-            let reviewResponse: MovieReviewResponse = try await requestManager.initRequest(with: requestData)
+            let reviewResponse: MediaReviewResponse = try await requestManager.initRequest(with: requestData)
             return reviewResponse.results
         } catch {
             print(error.localizedDescription)

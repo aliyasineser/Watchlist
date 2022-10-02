@@ -88,8 +88,8 @@ struct TVSerieResponse: Codable {
     }
 }
 
-// MARK: - MovieReview
-struct MovieReviewResponse: Codable {
+// MARK: - MediaReviewResponse
+struct MediaReviewResponse: Codable {
     let id, page: Int
     let results: [Review]
     let totalPages, totalResults: Int
@@ -101,7 +101,7 @@ struct MovieReviewResponse: Codable {
     }
 }
 
-// MARK: - Result
+// MARK: - Review
 struct Review: Codable, Identifiable {
     internal init(
         author: String,

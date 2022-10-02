@@ -1,5 +1,5 @@
 //
-//  MovieReviewPresenter.swift
+//  MediaReviewPresenter.swift
 //  Watchlist
 //
 //  Created by Ali Yasin Eser on 2.10.2022.
@@ -8,21 +8,21 @@
 import Foundation
 
 @MainActor
-protocol MovieReviewPresenter: ObservableObject {
+protocol MediaReviewPresenter: ObservableObject {
     var id: Int { get }
-    var interactor: MovieReviewInteractor { get }
+    var interactor: MediaReviewInteractor { get }
     var reviews: [Review] { get }
 
     func fetchReviews()
 }
 
-final class MovieReviewDefaultPresenter: MovieReviewPresenter {
-    private(set) var interactor: MovieReviewInteractor
+final class MediaReviewDefaultPresenter: MediaReviewPresenter {
+    private(set) var interactor: MediaReviewInteractor
     @Published var reviews: [Review] = []
     let id: Int
     private var page: Int
 
-    init(interactor: MovieReviewInteractor, id: Int) {
+    init(interactor: MediaReviewInteractor, id: Int) {
         self.interactor = interactor
         self.id = id
         self.page = 0
