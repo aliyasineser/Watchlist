@@ -72,7 +72,7 @@ struct ArtistDetailTabView: View {
                 } else if tabIndex == 1 {
                     ScrollView(.vertical) {
                         VStack(alignment: .leading) {
-                                ForEach(artistMovieCredits, id: \.id) { showCredit in
+                                ForEach(artistMovieCredits, id: \.creditID) { showCredit in
                                     NavigationLink(
                                         destination: MovieDetailView(
                                             presenter: MovieDetailDefaultPresenter(
@@ -88,7 +88,7 @@ struct ArtistDetailTabView: View {
                                     }
                                 }
 
-                                ForEach(artistTVSerieCredits, id: \.id) { showCredit in
+                                ForEach(artistTVSerieCredits, id: \.creditID) { showCredit in
                                     NavigationLink(
                                         destination: TVSerieDetailView(
                                             presenter: TVSerieDetailDefaultPresenter(

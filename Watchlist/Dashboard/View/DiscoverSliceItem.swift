@@ -11,31 +11,26 @@ import SwiftUI
 struct DiscoverSliceItem: View {
 
     var item: Watchable
-    @State var isAppeared = false
 
     init(item: Watchable) {
         self.item = item
     }
 
     fileprivate func posterImage() -> some View {
-        return VStack {
-            if isAppeared {
-                AsyncImage(
-                    url: URL(string: self.item.posterUrl()),
-                    content: { image in
-                        image.resizable()
-                    },
-                    placeholder: {
-                        VStack {
-                            Image(systemName: "film")
-                                .padding(.bottom, 10)
-                            ProgressView()
-                        }
+        VStack {
+            AsyncImage(
+                url: URL(string: self.item.posterUrl()),
+                content: { image in
+                    image.resizable()
+                },
+                placeholder: {
+                    VStack {
+                        Image(systemName: "film")
+                            .padding(.bottom, 10)
+                        ProgressView()
                     }
-                )
-            } else {
-                Image(systemName: "film")
-            }
+                }
+            )
         }
     }
 
@@ -76,9 +71,6 @@ struct DiscoverSliceItem: View {
                 Color.primary,
                 width: 1
             )
-            .onAppear {
-                isAppeared = true
-            }
         }
     }
 }
