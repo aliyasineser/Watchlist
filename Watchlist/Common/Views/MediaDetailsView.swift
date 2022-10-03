@@ -18,13 +18,13 @@ struct MediaDetailsView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
-                .font(.title)
+                .font(.title2)
                 .bold()
                 .minimumScaleFactor(0.65)
 
             if let genres {
                 Text(genres)
-                    .font(.title2)
+                    .font(.title3)
                     .foregroundColor(.primary)
                     .bold()
                     .minimumScaleFactor(0.7)
@@ -37,23 +37,22 @@ struct MediaDetailsView: View {
 
             if let language {
                 Text(language.language)
-                    .font(.title3)
+                    .font(.headline)
                     .bold()
                     .foregroundColor(.primary)
                     .minimumScaleFactor(0.8)
             }
             if let date {
                 Text(date.formatted(date: .abbreviated, time: .omitted))
-                    .font(.title3)
+                    .font(.headline)
                     .bold()
                     .foregroundColor(.primary)
                     .minimumScaleFactor(0.8)
             }
 
-            
             if let time = time {
                 Text(time)
-                    .font(.title3)
+                    .font(.headline)
                     .bold()
                     .foregroundColor(.primary)
                     .minimumScaleFactor(0.8)
