@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ArtistItemView: View {
 
@@ -16,19 +17,11 @@ struct ArtistItemView: View {
     }
 
     fileprivate func artistImage() -> some View {
-        return AsyncImage(
-            url: URL(string: artist.getPosterUrl()),
-            content: { image in
-                image.resizable()
-            },
-            placeholder: {
-                Image(systemName: Icons.artistImageBackdrop.rawValue)
-                    .resizable()
-            }
-        )
-        .scaledToFill()
-        .frame(width: 105, height: 160)
-        .clipped()
+        KFImage(URL(string: artist.getPosterUrl()))
+            .resizable()
+            .scaledToFill()
+            .frame(width: 105, height: 160)
+            .clipped()
     }
 
     fileprivate func artistLabel() -> some View {

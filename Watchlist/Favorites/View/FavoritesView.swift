@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Kingfisher
 
 struct FavoritesView: View {
     @ObservedObject private var presenter: FavoritesDefaultPresenter
@@ -16,24 +17,14 @@ struct FavoritesView: View {
     }
 
     fileprivate func artistImage(url: String) -> some View {
-        return AsyncImage(
-            url: URL(string: url),
-            content: { image in
-                image.resizable()
-                    .scaledToFill()
-                    .aspectRatio(0.66, contentMode: .fit)
-                    .frame(height: 300)
-                    .clipped()
-            },
-            placeholder: {
-                Image(systemName: Icons.artistImageBackdrop.rawValue)
-                    .resizable()
-                    .aspectRatio(0.66, contentMode: .fit)
-                    .frame(height: 300)
-                    .clipped()
-            }
-        )
-        .border(width: 1, edges: Edge.allCases, color: .primary)
+        return KFImage(URL(string: url))
+            .cacheOriginalImage()
+            .resizable()
+            .scaledToFill()
+            .aspectRatio(0.66, contentMode: .fit)
+            .frame(height: 300)
+            .clipped()
+            .border(width: 1, edges: Edge.allCases, color: .primary)
     }
 
     var body: some View {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MediaListItemView: View {
 
@@ -16,19 +17,11 @@ struct MediaListItemView: View {
     }
 
     fileprivate func posterImage() -> some View {
-        return AsyncImage(
-            url: URL(string: self.mediaListItem.posterUrl()),
-            content: { image in
-                image.resizable()
-                    .scaledToFit()
-            },
-            placeholder: {
-                Image(systemName: Icons.posterBackdrop.rawValue)
-                    .imageScale(.large)
-            }
-        )
-        .frame(height: 200)
-        .clipped()
+        KFImage(URL(string: self.mediaListItem.posterUrl()))
+            .resizable()
+            .scaledToFit()
+            .frame(height: 200)
+            .clipped()
     }
 
     fileprivate func movieInfoStack() -> some View {

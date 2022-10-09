@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ArtistDetailView: View {
 
@@ -70,18 +71,9 @@ struct ArtistDetailView: View {
     }
 
     fileprivate func artistImage(url: String) -> some View {
-        return AsyncImage(
-            url: URL(string: url),
-            content: { image in
-                image.resizable()
-                    .scaledToFill()
-            },
-            placeholder: {
-                Image(systemName: Icons.artistImageBackdrop.rawValue)
-                    .resizable()
-                    .scaledToFill()
-            }
-        )
+        return KFImage(URL(string: url))
+            .resizable()
+            .scaledToFill()
     }
 
     fileprivate func gradientView() -> some View {
@@ -144,18 +136,10 @@ struct PhotoGrid: View {
     }
 
     fileprivate func artistImageItem(_ imageEntity: Profile) -> some View {
-        AsyncImage(
-            url: URL(string: imageEntity.getPosterUrl()),
-            content: { image in
-                image.resizable()
-            },
-            placeholder: {
-                Image(systemName: Icons.artistImageBackdrop.rawValue)
-                    .resizable()
-            }
-        )
-        .scaledToFill()
-        .clipped()
+        return KFImage(URL(string: imageEntity.getPosterUrl()))
+            .resizable()
+            .scaledToFill()
+            .clipped()
     }
 }
 

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ReviewItem: View {
 
@@ -16,20 +17,11 @@ struct ReviewItem: View {
         VStack {
             HStack {
                 if let avatarUrl = review.authorDetails.getAvatarUrl() {
-                    AsyncImage(
-                        url: avatarUrl,
-                        content: { image in
-                            image.resizable()
-                                .scaledToFit()
-                                .clipped()
-                        },
-                        placeholder: {
-                            Image(systemName: Icons.artistImageBackdrop.rawValue)
-                                .scaledToFit()
-                                .clipped()
-                        }
-                    )
-                    .frame(width: 50, height: 50)
+                    KFImage(avatarUrl)
+                        .resizable()
+                            .scaledToFit()
+                            .clipped()
+                            .frame(width: 50, height: 50)
                 }
 
                 Text(review.author)

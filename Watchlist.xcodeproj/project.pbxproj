@@ -60,6 +60,7 @@
 		DD1B3EBF28E9C1CC001F0C91 /* SimilarMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EBE28E9C1CC001F0C91 /* SimilarMediaView.swift */; };
 		DD1B3EC128E9C1EA001F0C91 /* SimilarMediaViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EC028E9C1EA001F0C91 /* SimilarMediaViewPresenter.swift */; };
 		DD1B3EC328E9C24F001F0C91 /* MediaSimilarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EC228E9C24F001F0C91 /* MediaSimilarInteractor.swift */; };
+		DD2C0BF528F2FDFE0037B554 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = DD2C0BF428F2FDFE0037B554 /* Podfile */; };
 		DD358CFE28D67A77004F62F6 /* CastInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */; };
 		DD358D0028D67C29004F62F6 /* MovieListInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358CFF28D67C29004F62F6 /* MovieListInteractorMock.swift */; };
 		DD4B3A6628E0E7A8007308F5 /* TVSerieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4B3A6528E0E7A8007308F5 /* TVSerieDetailView.swift */; };
@@ -193,6 +194,7 @@
 		DD1B3EBE28E9C1CC001F0C91 /* SimilarMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarMediaView.swift; sourceTree = "<group>"; };
 		DD1B3EC028E9C1EA001F0C91 /* SimilarMediaViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarMediaViewPresenter.swift; sourceTree = "<group>"; };
 		DD1B3EC228E9C24F001F0C91 /* MediaSimilarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSimilarInteractor.swift; sourceTree = "<group>"; };
+		DD2C0BF428F2FDFE0037B554 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 		DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastInteractorMock.swift; sourceTree = "<group>"; };
 		DD358CFF28D67C29004F62F6 /* MovieListInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListInteractorMock.swift; sourceTree = "<group>"; };
 		DD4B3A6528E0E7A8007308F5 /* TVSerieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVSerieDetailView.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				DD04547A260A171C00DFEFE6 /* Persistence.swift */,
 				DD04547F260A171C00DFEFE6 /* Info.plist */,
 				DD04547C260A171C00DFEFE6 /* Watchlist.xcdatamodeld */,
+				DD2C0BF428F2FDFE0037B554 /* Podfile */,
 				DD045477260A171C00DFEFE6 /* Preview Content */,
 			);
 			path = Watchlist;
@@ -748,14 +751,13 @@
 				DD04546B260A171900DFEFE6 /* Frameworks */,
 				DD04546C260A171900DFEFE6 /* Resources */,
 				DD951E8E28A0EBFC00701111 /* ShellScript */,
+				F9A7CBC8C04DDDC28B1A6650 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Watchlist;
-			packageProductDependencies = (
-			);
 			productName = Watchlist;
 			productReference = DD04546E260A171900DFEFE6 /* Watchlist.app */;
 			productType = "com.apple.product-type.application";
@@ -827,8 +829,6 @@
 				Base,
 			);
 			mainGroup = DD045465260A171900DFEFE6;
-			packageReferences = (
-			);
 			productRefGroup = DD04546F260A171900DFEFE6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -845,6 +845,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD2C0BF528F2FDFE0037B554 /* Podfile in Resources */,
 				DD045479260A171C00DFEFE6 /* Preview Assets.xcassets in Resources */,
 				DD045476260A171C00DFEFE6 /* Assets.xcassets in Resources */,
 			);
@@ -904,6 +905,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9A7CBC8C04DDDC28B1A6650 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Watchlist/Pods-Watchlist-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Watchlist/Pods-Watchlist-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Watchlist/Pods-Watchlist-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ArtistDetailTabView: View {
 
@@ -38,16 +39,7 @@ struct ArtistDetailTabView: View {
     }
 
     fileprivate func creditMediaPoster(showCredit: Cast) -> some View {
-        AsyncImage(
-            url: URL(string: showCredit.getPosterUrl()),
-            content: { image in
-                image.resizable()
-                    .scaledToFit()
-            },
-            placeholder: {
-                Image(systemName: "film")
-            }
-        )
+        KFImage(URL(string: showCredit.getPosterUrl()))
         .frame(
             width: 130,
             height: 200,

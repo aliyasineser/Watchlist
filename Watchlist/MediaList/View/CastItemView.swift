@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CastItemView: View {
 
@@ -16,22 +17,11 @@ struct CastItemView: View {
     }
 
     fileprivate func castImage() -> some View {
-        return AsyncImage(
-            url: URL(string: cast.getPosterUrl()),
-            content: { image in
-                image.resizable()
-                    .scaledToFill()
-                    .frame(width: 100, height: 150)
-                    .clipped()
-            },
-            placeholder: {
-                Image(systemName: Icons.artistImageBackdrop.rawValue)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 100, height: 150)
-                    .clipped()
-            }
-        )
+        return KFImage(URL(string: cast.getPosterUrl()))
+            .resizable()
+                .scaledToFill()
+                .frame(width: 100, height: 150)
+                .clipped()
     }
 
     fileprivate func castName() -> some View {

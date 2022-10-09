@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 @MainActor
 struct DiscoverSliceItem: View {
@@ -18,19 +19,8 @@ struct DiscoverSliceItem: View {
 
     fileprivate func posterImage() -> some View {
         VStack {
-            AsyncImage(
-                url: URL(string: self.item.posterUrl()),
-                content: { image in
-                    image.resizable()
-                },
-                placeholder: {
-                    VStack {
-                        Image(systemName: "film")
-                            .padding(.bottom, 10)
-                        ProgressView()
-                    }
-                }
-            )
+            KFImage(URL(string: self.item.posterUrl()))
+                .resizable()
         }
     }
 

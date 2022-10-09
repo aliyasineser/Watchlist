@@ -6,24 +6,15 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MediaHeaderView: View {
     var imageUrl: String
     var body: some View {
-        AsyncImage(
-            url: URL(string: imageUrl),
-            content: { image in
-                image.resizable()
-                    .scaledToFill()
-                    .clipped()
-            },
-            placeholder: {
-                Image(systemName: Icons.posterBackdrop.rawValue)
-                    .scaledToFill()
-                    .clipped()
-            }
-        )
-
+        KFImage(URL(string: imageUrl))
+            .resizable()
+            .scaledToFill()
+            .clipped()
     }
 }
 
