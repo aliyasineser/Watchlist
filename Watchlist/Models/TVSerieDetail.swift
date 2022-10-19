@@ -7,8 +7,7 @@
 
 import Foundation
 
-
-struct TvDetail: Codable, WatchableDetail, Identifiable {
+struct TvDetail: Codable, WatchableDetail, Identifiable, Equatable {
     let id: Int
     let backdropPath: String?
     let createdBy: [CreatedBy]?
@@ -137,7 +136,6 @@ struct TvDetail: Codable, WatchableDetail, Identifiable {
         self.credits = credits
     }
 
-    // swiftlint:disable:all function_body_length
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.backdropPath = try container.decodeIfPresent(String.self, forKey: .backdropPath)

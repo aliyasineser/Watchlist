@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Credits: Codable {
+struct Credits: Codable, Equatable {
     let cast, crew: [Cast]
     let id: Int?
 }
@@ -16,7 +16,7 @@ extension Credits {
     static let mock = Credits(cast: [], crew: [], id: 1)
 }
 
-struct SpokenLanguage: Codable {
+struct SpokenLanguage: Codable, Equatable {
     let englishName, iso639_1, name: String // swiftlint:disable:this identifier_name
 
     enum CodingKeys: String, CodingKey {
@@ -26,7 +26,7 @@ struct SpokenLanguage: Codable {
     }
 }
 
-struct ProductionCountry: Codable {
+struct ProductionCountry: Codable, Equatable {
     let iso3166_1, name: String // swiftlint:disable:this identifier_name
 
     enum CodingKeys: String, CodingKey {
@@ -35,24 +35,24 @@ struct ProductionCountry: Codable {
     }
 }
 
-struct Genre: Codable {
+struct Genre: Codable, Equatable {
     var id: Int
     var name: String
 }
 
-struct Company: Codable {
+struct Company: Codable, Equatable {
     var id: Int
     var name: String
     var logoPath: String
     var originCountry: String
 }
 
-struct Production: Codable {
+struct Production: Codable, Equatable {
     var iso3166_1: String // swiftlint:disable:this identifier_name
     var name: String
 }
 
-enum Department: String, Codable {
+enum Department: String, Codable, Equatable {
     case acting = "Acting"
     case art = "Art"
     case camera = "Camera"
@@ -69,7 +69,7 @@ enum Department: String, Codable {
     case actor = "Actors"
 }
 
-struct ProductionCompany: Codable {
+struct ProductionCompany: Codable, Equatable {
     let id: Int
     let logoPath: String?
     let name, originCountry: String

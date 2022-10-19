@@ -128,7 +128,7 @@ struct MediaReviewResponse: Codable {
 }
 
 // MARK: - Review
-struct Review: Codable, Identifiable {
+struct Review: Codable, Identifiable, Equatable {
     internal init(
         author: String,
         authorDetails: AuthorDetails,
@@ -199,7 +199,7 @@ Nullam elit mauris, hendrerit et nunc at, interdum auctor nibh. Integer nec odio
 }
 
 // MARK: - AuthorDetails
-struct AuthorDetails: Codable {
+struct AuthorDetails: Codable, Equatable {
     let name, username: String
     let avatarPath: String?
     let rating: Int?

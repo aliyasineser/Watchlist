@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TVSerie: Codable, Watchable, Identifiable {
+struct TVSerie: Codable, Watchable, Identifiable, Equatable {
 
     let id: Int
     let title: String
@@ -95,4 +95,22 @@ struct TVSerie: Codable, Watchable, Identifiable {
             )
         }
     }
+}
+
+extension TVSerie {
+    static let mock = TVSerie(
+        id: 1,
+        title: "TV Serie Title",
+        posterPath: "Poster Path",
+        popularity: 100,
+        backdropPath: "Backdrop Path",
+        voteAverage: 5.8,
+        overview: "TV Serie Overview",
+        firstAirDate: .distantFuture,
+        originCountry: [.de],
+        genreIDS: [1, 2, 3],
+        originalLanguage: .en,
+        voteCount: 1000,
+        originalTitle: "Original Title"
+    )
 }

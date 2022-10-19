@@ -8,7 +8,7 @@
 import Foundation
 
 
-public enum OriginalLanguage: String, CaseIterable, Codable {
+public enum OriginalLanguage: String, CaseIterable, Codable, Equatable {
     case ab = "ab"
     case aa = "aa"
     case af = "af"

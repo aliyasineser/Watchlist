@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CreatedBy: Codable {
+struct CreatedBy: Codable, Equatable {
     let id: Int
     let creditID, name: String
     let gender: Int?
@@ -21,7 +21,7 @@ struct CreatedBy: Codable {
     }
 }
 
-struct Season: Codable {
+struct Season: Codable, Equatable {
     let airDate: String?
     let episodeCount, id: Int
     let name, overview: String
@@ -37,7 +37,7 @@ struct Season: Codable {
     }
 }
 
-struct LastEpisodeToAir: Codable {
+struct LastEpisodeToAir: Codable, Equatable {
 
     let airDate: Date?
     let episodeNumber, id: Int

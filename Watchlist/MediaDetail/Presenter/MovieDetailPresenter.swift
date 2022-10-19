@@ -16,7 +16,6 @@ protocol MovieDetailPresenter: ObservableObject {
     var favoriteStorage: FavoriteStorage { get }
 
     func getMediaDetail()
-    func getMovieDetail(_ id: Int) async
 }
 
 final class MovieDetailDefaultPresenter: MovieDetailPresenter {
@@ -32,13 +31,9 @@ final class MovieDetailDefaultPresenter: MovieDetailPresenter {
 
     func getMediaDetail() {
         Task {
-            await getMovieDetail(self.id)
+            guard let movieDetail = await interactor.getMovieDetail(id) else { return }
+            guard let detail = movieDetail as? MovieDetail else { return }
+            self.media = detail
         }
-    }
-
-    func getMovieDetail(_ id: Int) async {
-        guard let movieDetail = await interactor.getMovieDetail(id) else { return }
-        guard let detail = movieDetail as? MovieDetail else { return }
-        self.media = detail
     }
 }

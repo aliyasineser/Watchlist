@@ -31,7 +31,8 @@ final class MediaSimilarDefaultPresenter: MediaSimilarPresenter {
     func fetchSimilar() {
         Task {
             page += 1
-            self.media.append(contentsOf: await interactor.getSimilarMedia(id, page: page))
+            let similarPage = await interactor.getSimilarMedia(id, page: page)
+            self.media.append(contentsOf: similarPage)
         }
     }
 }

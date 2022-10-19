@@ -15,7 +15,6 @@ protocol TVSerieDetailPresenter: ObservableObject {
     var favoriteStorage: FavoriteStorage { get }
 
     func getMediaDetail()
-    func getDetail(_ id: Int) async
 }
 
 final class TVSerieDetailDefaultPresenter: TVSerieDetailPresenter {
@@ -31,13 +30,9 @@ final class TVSerieDetailDefaultPresenter: TVSerieDetailPresenter {
 
     func getMediaDetail() {
         Task {
-            await getDetail(self.id)
+            let tvDetail = await interactor.getMediaDetail(id)
+            guard let detail = tvDetail as? TvDetail else { return }
+            self.media = detail
         }
-    }
-
-    func getDetail(_ id: Int) async {
-        let tvDetail = await interactor.getDetail(id)
-        guard let detail = tvDetail as? TvDetail else { return }
-        self.media = detail
     }
 }

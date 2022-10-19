@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Movie
-struct Movie: Codable, Watchable, Identifiable {
+struct Movie: Codable, Watchable, Identifiable, Equatable {
 
     let id: Int
     let title: String
@@ -115,7 +115,7 @@ extension Movie {
 }
 
 // MARK: - Collection
-struct Collection: Codable {
+struct Collection: Codable, Equatable {
     let backdropPath: String?
     var id: Int
     let name: String

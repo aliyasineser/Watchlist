@@ -30,7 +30,7 @@ struct PopularArtists: Codable {
 }
 
 // MARK: Artist
-struct Artist: Codable, Creditable {
+struct Artist: Codable, Creditable, Equatable {
 
     let adult: Bool
     let alsoKnownAs: [String]?
@@ -143,7 +143,7 @@ extension ArtistDetail {
 
 // MARK: Crew & Cast
 typealias Crew = Cast
-struct Cast: Codable, Creditable, Identifiable {
+struct Cast: Codable, Creditable, Identifiable, Equatable {
     internal init(
         adult: Bool,
         gender: Int? = nil,
@@ -229,7 +229,7 @@ struct Cast: Codable, Creditable, Identifiable {
         let formatter = DateFormatter.yyyyMMdd
         self.releaseDate = formatter.date(from: release ?? "")
     }
-    
+
     let adult: Bool
     let gender: Int?
     let id: Int

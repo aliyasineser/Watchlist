@@ -31,7 +31,8 @@ final class MediaReviewDefaultPresenter: MediaReviewPresenter {
     func fetchReviews() {
         Task {
             page += 1
-            self.reviews = await interactor.getMovieReview(id, page: page)
+            let reviewPage = await interactor.getMovieReview(id, page: page)
+            self.reviews.append(contentsOf: reviewPage)
         }
     }
 }
