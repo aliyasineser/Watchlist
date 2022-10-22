@@ -90,7 +90,7 @@ extension Artist {
 }
 
 // MARK: ArtistDetail
-struct ArtistDetail: Codable, Identifiable {
+struct ArtistDetail: Codable, Identifiable, Equatable {
     let birthday, knownForDepartment: String?
     let deathday: String?
     let id: Int

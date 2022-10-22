@@ -19,7 +19,7 @@ struct ArtistImageResponse: Codable {
 }
 
 // MARK: - Profile
-struct Profile: Codable {
+struct Profile: Codable, Equatable {
     let aspectRatio: Double
     let filePath: String
     let height: Int

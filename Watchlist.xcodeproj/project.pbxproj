@@ -57,7 +57,6 @@
 		DD045479260A171C00DFEFE6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD045478260A171C00DFEFE6 /* Preview Assets.xcassets */; };
 		DD04547B260A171C00DFEFE6 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD04547A260A171C00DFEFE6 /* Persistence.swift */; };
 		DD04547E260A171C00DFEFE6 /* Watchlist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD04547C260A171C00DFEFE6 /* Watchlist.xcdatamodeld */; };
-		DD045489260A171D00DFEFE6 /* WatchlistTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045488260A171D00DFEFE6 /* WatchlistTests.swift */; };
 		DD045494260A171D00DFEFE6 /* WatchlistUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */; };
 		DD1B3EAB28E894F7001F0C91 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EAA28E894F7001F0C91 /* Color+Extension.swift */; };
 		DD1B3EAD28E89564001F0C91 /* Icons.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EAC28E89564001F0C91 /* Icons.swift */; };
@@ -94,6 +93,10 @@
 		DD4C9EFF28DE16B900BD2B48 /* FavoriteArtistStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4C9EFE28DE16B900BD2B48 /* FavoriteArtistStorage.swift */; };
 		DD5D490F28D7AE7400FD1B10 /* MediaNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5D490E28D7AE7400FD1B10 /* MediaNetworkRequest.swift */; };
 		DD5DE043265D96D500E06B4B /* DiscoverSliceItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD5DE042265D96D500E06B4B /* DiscoverSliceItem.swift */; };
+		DD6B9E6729047C44006C0D97 /* ArtistDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6B9E6629047C44006C0D97 /* ArtistDetailPresenterTests.swift */; };
+		DD6B9E692904815D006C0D97 /* FavoritesInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6B9E682904815D006C0D97 /* FavoritesInteractorMock.swift */; };
+		DD6B9E6B29048203006C0D97 /* FavoritesPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6B9E6A29048203006C0D97 /* FavoritesPresenterTests.swift */; };
+		DD7990792900B4DE005849E0 /* ArtistDetailInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7990782900B4DE005849E0 /* ArtistDetailInteractorMock.swift */; };
 		DD99A017290079A900076A44 /* SimilarMediaPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD99A016290079A900076A44 /* SimilarMediaPresenterTests.swift */; };
 		DDB309C728F4CE2E002C912D /* CastPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB309C628F4CE2E002C912D /* CastPresenterTests.swift */; };
 		DDB8B9612896C0AC00E7F569 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB8B9602896C0AC00E7F569 /* DataParser.swift */; };
@@ -204,7 +207,6 @@
 		DD04547D260A171C00DFEFE6 /* Watchlist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Watchlist.xcdatamodel; sourceTree = "<group>"; };
 		DD04547F260A171C00DFEFE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD045484260A171D00DFEFE6 /* WatchlistTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatchlistTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DD045488260A171D00DFEFE6 /* WatchlistTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTests.swift; sourceTree = "<group>"; };
 		DD04548A260A171D00DFEFE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD04548F260A171D00DFEFE6 /* WatchlistUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WatchlistUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD045493260A171D00DFEFE6 /* WatchlistUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistUITests.swift; sourceTree = "<group>"; };
@@ -244,6 +246,10 @@
 		DD4C9EFE28DE16B900BD2B48 /* FavoriteArtistStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteArtistStorage.swift; sourceTree = "<group>"; };
 		DD5D490E28D7AE7400FD1B10 /* MediaNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaNetworkRequest.swift; sourceTree = "<group>"; };
 		DD5DE042265D96D500E06B4B /* DiscoverSliceItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverSliceItem.swift; sourceTree = "<group>"; };
+		DD6B9E6629047C44006C0D97 /* ArtistDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailPresenterTests.swift; sourceTree = "<group>"; };
+		DD6B9E682904815D006C0D97 /* FavoritesInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesInteractorMock.swift; sourceTree = "<group>"; };
+		DD6B9E6A29048203006C0D97 /* FavoritesPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenterTests.swift; sourceTree = "<group>"; };
+		DD7990782900B4DE005849E0 /* ArtistDetailInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailInteractorMock.swift; sourceTree = "<group>"; };
 		DD99A016290079A900076A44 /* SimilarMediaPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarMediaPresenterTests.swift; sourceTree = "<group>"; };
 		DDB309C628F4CE2E002C912D /* CastPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastPresenterTests.swift; sourceTree = "<group>"; };
 		DDB8B9602896C0AC00E7F569 /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
@@ -548,7 +554,6 @@
 				DD489F0928F6E88900D11830 /* Utils */,
 				DD489F0628F6E85100D11830 /* PresenterTests */,
 				DD358CFC28D67A57004F62F6 /* Mocks */,
-				DD045488260A171D00DFEFE6 /* WatchlistTests.swift */,
 				DD04548A260A171D00DFEFE6 /* Info.plist */,
 			);
 			path = WatchlistTests;
@@ -598,6 +603,8 @@
 				DD00E61028FEC4A600286E63 /* MediaReviewInteractorMock.swift */,
 				DD00E61428FEC68600286E63 /* MediaSimilarInteractorMock.swift */,
 				DD00E61228FEC55D00286E63 /* MediaServiceMock.swift */,
+				DD7990782900B4DE005849E0 /* ArtistDetailInteractorMock.swift */,
+				DD6B9E682904815D006C0D97 /* FavoritesInteractorMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -605,15 +612,17 @@
 		DD489F0628F6E85100D11830 /* PresenterTests */ = {
 			isa = PBXGroup;
 			children = (
-				DD489F0728F6E87600D11830 /* MediaListPresenterTests.swift */,
-				DDB309C628F4CE2E002C912D /* CastPresenterTests.swift */,
 				DD489F0E28F6F10700D11830 /* DiscoverPresenterTests.swift */,
 				DD00E60828FEACB600286E63 /* ArtistPresenterTests.swift */,
+				DD489F0728F6E87600D11830 /* MediaListPresenterTests.swift */,
+				DDB309C628F4CE2E002C912D /* CastPresenterTests.swift */,
 				DD00E61628FEC7AD00286E63 /* MediaCastPresenterTests.swift */,
 				DD00E61828FEC82D00286E63 /* TVSerieDetailPresenterTests.swift */,
 				DD00E61A28FECF8B00286E63 /* MovieDetailPresenterTests.swift */,
 				DD00E61C28FED02900286E63 /* MediaReviewPresenterTests.swift */,
 				DD99A016290079A900076A44 /* SimilarMediaPresenterTests.swift */,
+				DD6B9E6629047C44006C0D97 /* ArtistDetailPresenterTests.swift */,
+				DD6B9E6A29048203006C0D97 /* FavoritesPresenterTests.swift */,
 			);
 			path = PresenterTests;
 			sourceTree = "<group>";
@@ -1099,6 +1108,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD6B9E6B29048203006C0D97 /* FavoritesPresenterTests.swift in Sources */,
 				DD489F0828F6E87600D11830 /* MediaListPresenterTests.swift in Sources */,
 				DD00E60D28FEBE8100286E63 /* TVSerieDetailInteractorMock.swift in Sources */,
 				DD00E61B28FECF8B00286E63 /* MovieDetailPresenterTests.swift in Sources */,
@@ -1107,15 +1117,17 @@
 				DD00E61328FEC55D00286E63 /* MediaServiceMock.swift in Sources */,
 				DD00E61928FEC82D00286E63 /* TVSerieDetailPresenterTests.swift in Sources */,
 				DD00E61D28FED02900286E63 /* MediaReviewPresenterTests.swift in Sources */,
+				DD6B9E692904815D006C0D97 /* FavoritesInteractorMock.swift in Sources */,
 				DDB309C728F4CE2E002C912D /* CastPresenterTests.swift in Sources */,
 				DD00E61128FEC4A600286E63 /* MediaReviewInteractorMock.swift in Sources */,
 				DD358D0028D67C29004F62F6 /* MediaInteractorMock.swift in Sources */,
+				DD7990792900B4DE005849E0 /* ArtistDetailInteractorMock.swift in Sources */,
 				DD00E60F28FEC43F00286E63 /* MovieDetailInteractorMock.swift in Sources */,
-				DD045489260A171D00DFEFE6 /* WatchlistTests.swift in Sources */,
 				DD00E60B28FEBE2400286E63 /* MediaCastInteractorMock.swift in Sources */,
 				DD99A017290079A900076A44 /* SimilarMediaPresenterTests.swift in Sources */,
 				DD00E61528FEC68600286E63 /* MediaSimilarInteractorMock.swift in Sources */,
 				DD489F0B28F6E89A00D11830 /* XCTestCase+Extension.swift in Sources */,
+				DD6B9E6729047C44006C0D97 /* ArtistDetailPresenterTests.swift in Sources */,
 				DD358CFE28D67A77004F62F6 /* CastInteractorMock.swift in Sources */,
 				DD00E61728FEC7AD00286E63 /* MediaCastPresenterTests.swift in Sources */,
 				DD489F0F28F6F10700D11830 /* DiscoverPresenterTests.swift in Sources */,
