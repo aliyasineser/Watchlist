@@ -71,6 +71,7 @@
 		DD1B3EBF28E9C1CC001F0C91 /* SimilarMediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EBE28E9C1CC001F0C91 /* SimilarMediaView.swift */; };
 		DD1B3EC128E9C1EA001F0C91 /* MediaSimilarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EC028E9C1EA001F0C91 /* MediaSimilarPresenter.swift */; };
 		DD1B3EC328E9C24F001F0C91 /* MediaSimilarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EC228E9C24F001F0C91 /* MediaSimilarInteractor.swift */; };
+		DD1CD3FE29072ACE00A0D1E8 /* secret.json in Resources */ = {isa = PBXBuildFile; fileRef = DD1CD3FD29072ACE00A0D1E8 /* secret.json */; };
 		DD2C0BF528F2FDFE0037B554 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = DD2C0BF428F2FDFE0037B554 /* Podfile */; };
 		DD358CFE28D67A77004F62F6 /* CastInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */; };
 		DD358D0028D67C29004F62F6 /* MediaInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358CFF28D67C29004F62F6 /* MediaInteractorMock.swift */; };
@@ -224,6 +225,7 @@
 		DD1B3EBE28E9C1CC001F0C91 /* SimilarMediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarMediaView.swift; sourceTree = "<group>"; };
 		DD1B3EC028E9C1EA001F0C91 /* MediaSimilarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSimilarPresenter.swift; sourceTree = "<group>"; };
 		DD1B3EC228E9C24F001F0C91 /* MediaSimilarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSimilarInteractor.swift; sourceTree = "<group>"; };
+		DD1CD3FD29072ACE00A0D1E8 /* secret.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secret.json; sourceTree = "<group>"; };
 		DD2C0BF428F2FDFE0037B554 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 		DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastInteractorMock.swift; sourceTree = "<group>"; };
 		DD358CFF28D67C29004F62F6 /* MediaInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaInteractorMock.swift; sourceTree = "<group>"; };
@@ -519,6 +521,7 @@
 		DD045470260A171900DFEFE6 /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
+				DD1CD3FC29072AB500A0D1E8 /* Resources */,
 				DD4B3A6B28E0FB0A007308F5 /* Common */,
 				DD02ECC828DF9C3000D230F9 /* Favorites */,
 				DDB8B97C2896DFCB00E7F569 /* Models */,
@@ -590,6 +593,14 @@
 				DD1B3EAC28E89564001F0C91 /* Icons.swift */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		DD1CD3FC29072AB500A0D1E8 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DD1CD3FD29072ACE00A0D1E8 /* secret.json */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		DD358CFC28D67A57004F62F6 /* InteractorMocks */ = {
@@ -927,6 +938,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD2C0BF528F2FDFE0037B554 /* Podfile in Resources */,
+				DD1CD3FE29072ACE00A0D1E8 /* secret.json in Resources */,
 				DD045479260A171C00DFEFE6 /* Preview Assets.xcassets in Resources */,
 				DD045476260A171C00DFEFE6 /* Assets.xcassets in Resources */,
 			);

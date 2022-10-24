@@ -16,6 +16,23 @@ enum APIConstants {
     static let baseImgUrl = "image.tmdb.org"
     static let baseImgUrlPath = "/t/p/w500"
 
-    static let apiKey = "dc190303aea87bdf6e4faa3d59de8c59"
+    static let apiKey = loadAPIKey()
     static let language = "en-US"
+
+    static private func loadAPIKey(jsonFileName: String = "secret") -> String? {
+        if let path = Bundle.main.path(forResource: jsonFileName, ofType: "json") {
+            if let jsonData = try? NSData(contentsOfFile: path, options: .mappedIfSafe) {
+                if let jsonResult: NSDictionary =
+                    try? JSONSerialization.jsonObject(
+                        with: jsonData as Data,
+                        options: .mutableContainers
+                    ) as? NSDictionary {
+                    if let apiKey: NSString = jsonResult["apiKey"] as? NSString {
+                        return String(apiKey)
+                    }
+                }
+            }
+        }
+        return nil
+    }
 }
