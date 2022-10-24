@@ -16,13 +16,12 @@ struct FavoritesView: View {
         self.presenter = presenter
     }
 
-    fileprivate func artistImage(url: String) -> some View {
+    fileprivate func imageView(url: String) -> some View {
         return KFImage(URL(string: url))
             .cacheOriginalImage()
             .resizable()
-            .scaledToFill()
+            .frame(height: 200)
             .aspectRatio(0.66, contentMode: .fit)
-            .frame(height: 300)
             .clipped()
             .border(width: 1, edges: Edge.allCases, color: .primary)
     }
@@ -32,9 +31,8 @@ struct FavoritesView: View {
             ScrollView(showsIndicators: false) {
                 Section {
                     ForEach(presenter.artists) { artist in
-                        HStack {
-                            artistImage(url: artist.getPosterUrl())
-                            Spacer()
+                        HStack(spacing: 30) {
+                            imageView(url: artist.getPosterUrl())
                             Text(artist.name)
                         }
                         .padding(.horizontal, 20)
@@ -47,9 +45,8 @@ struct FavoritesView: View {
 
                 Section {
                     ForEach(presenter.movies, id: \.id) { movie in
-                        HStack {
-                            artistImage(url: movie.posterUrl())
-                            Spacer()
+                        HStack(spacing: 30) {
+                            imageView(url: movie.posterUrl())
                             Text(movie.title)
                         }
                         .padding(.horizontal, 20)
@@ -62,9 +59,8 @@ struct FavoritesView: View {
 
                 Section {
                     ForEach(presenter.tvSeries, id: \.id) { tvSerie in
-                        HStack {
-                            artistImage(url: tvSerie.posterUrl())
-                            Spacer()
+                        HStack(spacing: 30) {
+                            imageView(url: tvSerie.posterUrl())
                             Text(tvSerie.title)
                         }
                         .padding(.horizontal, 20)
