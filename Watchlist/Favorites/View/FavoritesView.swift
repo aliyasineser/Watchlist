@@ -20,7 +20,7 @@ struct FavoritesView: View {
         return KFImage(URL(string: url))
             .cacheOriginalImage()
             .resizable()
-            .frame(height: 200)
+            .frame(height: 175)
             .aspectRatio(0.66, contentMode: .fit)
             .clipped()
             .border(width: 1, edges: Edge.allCases, color: .primary)
@@ -30,12 +30,13 @@ struct FavoritesView: View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 Section {
-                    ForEach(presenter.artists) { artist in
-                        HStack(spacing: 30) {
+                    LazyVGrid(
+                        columns: [GridItem(.adaptive(minimum: 100))],
+                        alignment: .center
+                    ) {
+                        ForEach(presenter.artists) { artist in
                             imageView(url: artist.getPosterUrl())
-                            Text(artist.name)
                         }
-                        .padding(.horizontal, 20)
                     }
                 } header: {
                     Text(ConstantTexts.FavoritesSections.artists)
@@ -44,12 +45,13 @@ struct FavoritesView: View {
                 }
 
                 Section {
-                    ForEach(presenter.movies, id: \.id) { movie in
-                        HStack(spacing: 30) {
+                    LazyVGrid(
+                        columns: [GridItem(.adaptive(minimum: 100))],
+                        alignment: .center
+                    ) {
+                        ForEach(presenter.movies, id: \.id) { movie in
                             imageView(url: movie.posterUrl())
-                            Text(movie.title)
                         }
-                        .padding(.horizontal, 20)
                     }
                 } header: {
                     Text(ConstantTexts.FavoritesSections.movies)
@@ -58,12 +60,13 @@ struct FavoritesView: View {
                 }
 
                 Section {
-                    ForEach(presenter.tvSeries, id: \.id) { tvSerie in
-                        HStack(spacing: 30) {
+                    LazyVGrid(
+                        columns: [GridItem(.adaptive(minimum: 100))],
+                        alignment: .center
+                    ) {
+                        ForEach(presenter.tvSeries, id: \.id) { tvSerie in
                             imageView(url: tvSerie.posterUrl())
-                            Text(tvSerie.title)
                         }
-                        .padding(.horizontal, 20)
                     }
                 } header: {
                     Text(ConstantTexts.FavoritesSections.tvSeries)
