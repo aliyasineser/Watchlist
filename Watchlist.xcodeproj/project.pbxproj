@@ -553,7 +553,8 @@
 			children = (
 				DD489F0928F6E88900D11830 /* Utils */,
 				DD489F0628F6E85100D11830 /* PresenterTests */,
-				DD358CFC28D67A57004F62F6 /* Mocks */,
+				DD6B9E6C29048501006C0D97 /* CommonMocks */,
+				DD358CFC28D67A57004F62F6 /* InteractorMocks */,
 				DD04548A260A171D00DFEFE6 /* Info.plist */,
 			);
 			path = WatchlistTests;
@@ -591,7 +592,7 @@
 			path = Theme;
 			sourceTree = "<group>";
 		};
-		DD358CFC28D67A57004F62F6 /* Mocks */ = {
+		DD358CFC28D67A57004F62F6 /* InteractorMocks */ = {
 			isa = PBXGroup;
 			children = (
 				DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */,
@@ -602,11 +603,10 @@
 				DD00E60E28FEC43F00286E63 /* MovieDetailInteractorMock.swift */,
 				DD00E61028FEC4A600286E63 /* MediaReviewInteractorMock.swift */,
 				DD00E61428FEC68600286E63 /* MediaSimilarInteractorMock.swift */,
-				DD00E61228FEC55D00286E63 /* MediaServiceMock.swift */,
 				DD7990782900B4DE005849E0 /* ArtistDetailInteractorMock.swift */,
 				DD6B9E682904815D006C0D97 /* FavoritesInteractorMock.swift */,
 			);
-			path = Mocks;
+			path = InteractorMocks;
 			sourceTree = "<group>";
 		};
 		DD489F0628F6E85100D11830 /* PresenterTests */ = {
@@ -705,6 +705,14 @@
 				DD4C9EFE28DE16B900BD2B48 /* FavoriteArtistStorage.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		DD6B9E6C29048501006C0D97 /* CommonMocks */ = {
+			isa = PBXGroup;
+			children = (
+				DD00E61228FEC55D00286E63 /* MediaServiceMock.swift */,
+			);
+			path = CommonMocks;
 			sourceTree = "<group>";
 		};
 		DD9DB3412798889C00F26D5A /* Static */ = {
