@@ -72,6 +72,9 @@
 		DD1B3EC128E9C1EA001F0C91 /* MediaSimilarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EC028E9C1EA001F0C91 /* MediaSimilarPresenter.swift */; };
 		DD1B3EC328E9C24F001F0C91 /* MediaSimilarInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD1B3EC228E9C24F001F0C91 /* MediaSimilarInteractor.swift */; };
 		DD1CD3FE29072ACE00A0D1E8 /* secret.json in Resources */ = {isa = PBXBuildFile; fileRef = DD1CD3FD29072ACE00A0D1E8 /* secret.json */; };
+		DD1CD4002907307200A0D1E8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = DD1CD3FF2907307200A0D1E8 /* README.md */; };
+		DD1CD4022907309800A0D1E8 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = DD1CD4012907309800A0D1E8 /* .gitignore */; };
+		DD1CD404290730A000A0D1E8 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = DD1CD403290730A000A0D1E8 /* .swiftlint.yml */; };
 		DD2C0BF528F2FDFE0037B554 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = DD2C0BF428F2FDFE0037B554 /* Podfile */; };
 		DD358CFE28D67A77004F62F6 /* CastInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */; };
 		DD358D0028D67C29004F62F6 /* MediaInteractorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD358CFF28D67C29004F62F6 /* MediaInteractorMock.swift */; };
@@ -226,7 +229,10 @@
 		DD1B3EC028E9C1EA001F0C91 /* MediaSimilarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSimilarPresenter.swift; sourceTree = "<group>"; };
 		DD1B3EC228E9C24F001F0C91 /* MediaSimilarInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaSimilarInteractor.swift; sourceTree = "<group>"; };
 		DD1CD3FD29072ACE00A0D1E8 /* secret.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = secret.json; sourceTree = "<group>"; };
-		DD2C0BF428F2FDFE0037B554 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		DD1CD3FF2907307200A0D1E8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		DD1CD4012907309800A0D1E8 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = SOURCE_ROOT; };
+		DD1CD403290730A000A0D1E8 /* .swiftlint.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
+		DD2C0BF428F2FDFE0037B554 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		DD358CFD28D67A77004F62F6 /* CastInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastInteractorMock.swift; sourceTree = "<group>"; };
 		DD358CFF28D67C29004F62F6 /* MediaInteractorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaInteractorMock.swift; sourceTree = "<group>"; };
 		DD489F0728F6E87600D11830 /* MediaListPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaListPresenterTests.swift; sourceTree = "<group>"; };
@@ -537,6 +543,9 @@
 				DD04547F260A171C00DFEFE6 /* Info.plist */,
 				DD04547C260A171C00DFEFE6 /* Watchlist.xcdatamodeld */,
 				DD2C0BF428F2FDFE0037B554 /* Podfile */,
+				DD1CD4012907309800A0D1E8 /* .gitignore */,
+				DD1CD403290730A000A0D1E8 /* .swiftlint.yml */,
+				DD1CD3FF2907307200A0D1E8 /* README.md */,
 				DD045477260A171C00DFEFE6 /* Preview Content */,
 			);
 			path = Watchlist;
@@ -939,7 +948,10 @@
 			files = (
 				DD2C0BF528F2FDFE0037B554 /* Podfile in Resources */,
 				DD1CD3FE29072ACE00A0D1E8 /* secret.json in Resources */,
+				DD1CD4002907307200A0D1E8 /* README.md in Resources */,
+				DD1CD404290730A000A0D1E8 /* .swiftlint.yml in Resources */,
 				DD045479260A171C00DFEFE6 /* Preview Assets.xcassets in Resources */,
+				DD1CD4022907309800A0D1E8 /* .gitignore in Resources */,
 				DD045476260A171C00DFEFE6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
