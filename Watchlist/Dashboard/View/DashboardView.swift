@@ -11,6 +11,7 @@ enum TabViewSection {
     case discover
     case artists
     case favorites
+    case auth
 
     var tag: Int {
         switch self {
@@ -20,6 +21,8 @@ enum TabViewSection {
             return 1
         case .favorites:
             return 2
+        case .auth:
+            return 3
         }
     }
 }
@@ -67,6 +70,15 @@ struct DashboardView: View {
                 )
             }
             .tag(TabViewSection.favorites.tag)
+
+            AuthWebView()
+            .tabItem {
+                TabItemView(
+                    systemName: "person.fill.checkmark.rtl",
+                    text: "Auth"
+                )
+            }
+            .tag(TabViewSection.auth.tag)
         }
         .navigationBarTitle(ConstantTexts.NavigationBarTitle.dashboardScreen)
         .navigationBarHidden(false)

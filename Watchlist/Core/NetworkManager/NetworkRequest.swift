@@ -8,7 +8,9 @@
 import Foundation
 
 protocol NetworkRequest {
+    var host: String { get }
     var path: String { get }
+    var hostPath: String { get }
     var requestType: RequestType { get }
     var headers: [String: String] { get }
     var params: [String: Any] { get }

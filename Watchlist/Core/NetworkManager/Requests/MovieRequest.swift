@@ -16,9 +16,7 @@ enum MovieRequest: MediaNetworkRequest {
     case getSimilarMoviesTo(id: Int, page: Int)
     case getCredits(id: Int)
 
-    func mediaType() -> MediaType {
-        .movie
-    }
+    var mediaType: MediaType { .movie }
 
     var path: String {
         switch self {

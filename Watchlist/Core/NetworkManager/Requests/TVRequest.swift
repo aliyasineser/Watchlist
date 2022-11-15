@@ -16,9 +16,7 @@ enum TVRequest: MediaNetworkRequest {
     case getSimilarSeriesTo(id: Int, page: Int)
     case getCredits(id: Int)
 
-    func mediaType() -> MediaType {
-        .tv
-    }
+    var mediaType: MediaType { .tv }
 
     var path: String {
         switch self {

@@ -8,5 +8,5 @@
 import Foundation
 
 protocol MediaNetworkRequest: NetworkRequest {
-    func mediaType() -> MediaType
+    var mediaType: MediaType { get }
 }
