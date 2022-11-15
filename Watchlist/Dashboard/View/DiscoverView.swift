@@ -56,6 +56,7 @@ struct DiscoverView: View {
                     section: MediaSection.topRatedSeries
                 )
             }
+            .errorAlert(error: $presenter.fetchError)
             .navigationBarTitle(ConstantTexts.NavigationBarTitle.discoverScreen)
             .navigationBarHidden(false)
             .navigationBarBackButtonHidden(true)

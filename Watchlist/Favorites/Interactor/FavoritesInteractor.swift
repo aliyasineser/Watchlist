@@ -8,9 +8,9 @@
 import Foundation
 
 protocol FavoritesInteractor {
-    func getFavoriteArtists() async -> [ArtistDetail]
-    func getFavoriteMovies() async -> [Watchable]
-    func getFavoriteSeries() async -> [Watchable]
+    func getFavoriteArtists() async throws -> [ArtistDetail]
+    func getFavoriteMovies() async throws -> [Watchable]
+    func getFavoriteSeries() async throws -> [Watchable]
 }
 
 final class DefaultFavoritesInteractor: FavoritesInteractor {
@@ -22,7 +22,7 @@ final class DefaultFavoritesInteractor: FavoritesInteractor {
     private let movieService = MovieService.shared
     private let tvSerieService = TVService.shared
 
-    func getFavoriteArtists() async -> [ArtistDetail] {
+    func getFavoriteArtists() async throws -> [ArtistDetail] {
         let artistsInfoList = artistStorage.fetchArtists()
         var favoriteArtists: [ArtistDetail] = []
         for artistInfo in artistsInfoList {
@@ -33,22 +33,22 @@ final class DefaultFavoritesInteractor: FavoritesInteractor {
         return favoriteArtists
     }
 
-    func getFavoriteMovies() async -> [Watchable] {
+    func getFavoriteMovies() async throws -> [Watchable] {
         let infoList = movieStorage.fetchMovies()
         var favorites: [Watchable] = []
         for info in infoList {
-            if let details = await movieService.fetchMediaDetails(id: Int(info.id)) {
+            if let details = try await movieService.fetchMediaDetails(id: Int(info.id)) {
                 favorites.append(details)
             }
         }
         return favorites
     }
 
-    func getFavoriteSeries() async -> [Watchable] {
+    func getFavoriteSeries() async throws -> [Watchable] {
         let infoList = tvSerieStorage.fetchSeries()
         var favorites: [Watchable] = []
         for info in infoList {
-            if let details = await tvSerieService.fetchMediaDetails(id: Int(info.id)) {
+            if let details = try await tvSerieService.fetchMediaDetails(id: Int(info.id)) {
                 favorites.append(details)
             }
         }

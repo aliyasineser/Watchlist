@@ -30,9 +30,9 @@ class FavoritesDefaultPresenter: FavoritesPresenter {
 
     func fetchFavorites() {
         Task {
-            self.artists = await interactor.getFavoriteArtists()
-            self.movies = await interactor.getFavoriteMovies()
-            self.tvSeries = await interactor.getFavoriteSeries()
+            self.artists = try await interactor.getFavoriteArtists()
+            self.movies = try await interactor.getFavoriteMovies()
+            self.tvSeries = try await interactor.getFavoriteSeries()
         }
     }
 }

@@ -20,15 +20,15 @@ class MediaFetcher: Fetchable {
         self.mediaService = service
     }
 
-    func fetchSinglePage() async -> [Watchable] {
+    func fetchSinglePage() async throws -> [Watchable] {
         pageCounter += 1
         var watchables: [Watchable] = []
-        watchables =  await mediaService.fetchMedia(request: mediaStrategy.fetch(page: pageCounter))
+        watchables = try await mediaService.fetchMedia(request: mediaStrategy.fetch(page: pageCounter))
         return watchables
     }
 
-    func fetchWithNextPage() async -> [Watchable] {
-        let page = await fetchSinglePage()
+    func fetchWithNextPage() async throws -> [Watchable] {
+        let page = try await fetchSinglePage()
         self.mediaList.append(contentsOf: page)
         return self.mediaList
     }

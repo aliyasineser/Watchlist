@@ -30,7 +30,7 @@ final class TVSerieDetailDefaultPresenter: TVSerieDetailPresenter {
 
     func getMediaDetail() {
         Task {
-            let tvDetail = await interactor.getMediaDetail(id)
+            let tvDetail = try await interactor.getMediaDetail(id)
             guard let detail = tvDetail as? TvDetail else { return }
             self.media = detail
         }

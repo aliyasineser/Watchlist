@@ -22,6 +22,7 @@ final class CastDefaultPresenter: CastPresenter {
     var id: Int
     private(set) var interactor: CastInteractor
     @Published var casts: [Cast]
+    @Published var error: Error?
 
     init(_ interactor: CastInteractor, id: Int) {
         self.id = id
@@ -31,7 +32,7 @@ final class CastDefaultPresenter: CastPresenter {
 
     func loadArtists() {
         Task {
-            self.casts = await interactor.fetchCast(self.id)
+            self.casts = try await interactor.fetchCast(self.id)
         }
     }
 }

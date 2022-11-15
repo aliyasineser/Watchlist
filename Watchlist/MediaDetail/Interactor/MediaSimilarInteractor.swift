@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MediaSimilarInteractor {
-    func getSimilarMedia(_ id: Int, page: Int) async -> [Watchable]
+    func getSimilarMedia(_ id: Int, page: Int) async throws -> [Watchable]
     var mediaService: MediaService { get }
 }
 
@@ -20,14 +20,14 @@ final class MediaSimilarDefaultInteractor: MediaSimilarInteractor {
         self.mediaService = mediaService
     }
 
-    func getSimilarMedia(_ id: Int, page: Int) async -> [Watchable] {
-        return await mediaService.fetchSimilar(id: id, page: page)
+    func getSimilarMedia(_ id: Int, page: Int) async throws -> [Watchable] {
+        return try await mediaService.fetchSimilar(id: id, page: page)
     }
 }
 
 final class MediaSimilarInteractorStub: MediaSimilarInteractor {
     let mediaService: MediaService = MovieService.shared
-    func getSimilarMedia(_ id: Int, page: Int) async -> [Watchable] {
+    func getSimilarMedia(_ id: Int, page: Int) async throws -> [Watchable] {
         return [
             Movie.mock,
             Movie.mock,

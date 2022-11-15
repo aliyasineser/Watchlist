@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MediaReviewInteractor {
-    func getMovieReview(_ id: Int, page: Int) async -> [Review]
+    func getMovieReview(_ id: Int, page: Int) async throws -> [Review]
     var mediaService: MediaService { get }
 }
 
@@ -20,14 +20,14 @@ final class MediaReviewDefaultInteractor: MediaReviewInteractor {
         self.mediaService = mediaService
     }
 
-    func getMovieReview(_ id: Int, page: Int) async -> [Review] {
-        return await mediaService.fetchReviews(id: id, page: page)
+    func getMovieReview(_ id: Int, page: Int) async throws -> [Review] {
+        return try await mediaService.fetchReviews(id: id, page: page)
     }
 }
 
 final class MediaReviewInteractorStub: MediaReviewInteractor {
     let mediaService: MediaService = MovieService.shared
-    func getMovieReview(_ id: Int, page: Int) async -> [Review] {
+    func getMovieReview(_ id: Int, page: Int) async throws -> [Review] {
         return [
             Review.mock,
             Review.mock,

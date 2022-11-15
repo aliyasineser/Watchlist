@@ -31,7 +31,7 @@ final class MovieDetailDefaultPresenter: MovieDetailPresenter {
 
     func getMediaDetail() {
         Task {
-            guard let movieDetail = await interactor.getMovieDetail(id) else { return }
+            guard let movieDetail = try await interactor.getMovieDetail(id) else { return }
             guard let detail = movieDetail as? MovieDetail else { return }
             self.media = detail
         }
