@@ -19,7 +19,7 @@ struct DiscoverSliceItem: View {
 
     fileprivate func posterImage() -> some View {
         VStack {
-            KFImage(URL(string: self.item.posterUrl()))
+            KFImage(URL(string: self.item.posterUrl))
                 .resizable()
         }
     }

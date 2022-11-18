@@ -19,17 +19,19 @@ protocol Watchable: Codable {
     var voteCount: Int? { get }
     var popularity: Double { get }
 
-    func posterUrl() -> String
+    var posterUrl: String { get }
 }
 
 extension Watchable {
-    func imagePath() -> String { return posterPath ?? backdropPath ?? "" }
 
-    func posterUrl() -> String {
+    var posterUrl: String {
         APIConstants.defaultScheme +
-        APIConstants.baseImgUrl + APIConstants.baseImgUrlPath +
-        imagePath()
+        APIConstants.baseImgUrl +
+        APIConstants.baseImgUrlPath +
+        imagePath
     }
+
+    var imagePath: String { return posterPath ?? backdropPath ?? "" }
 }
 
 protocol WatchableDetail: Watchable {

@@ -17,7 +17,7 @@ struct MediaListItemView: View {
     }
 
     fileprivate func posterImage() -> some View {
-        KFImage(URL(string: self.mediaListItem.posterUrl()))
+        KFImage(URL(string: self.mediaListItem.posterUrl))
             .resizable()
             .scaledToFit()
             .frame(height: 200)

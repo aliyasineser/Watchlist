@@ -50,7 +50,7 @@ struct FavoritesView: View {
                         alignment: .center
                     ) {
                         ForEach(presenter.movies, id: \.id) { movie in
-                            imageView(url: movie.posterUrl())
+                            imageView(url: movie.posterUrl)
                         }
                     }
                 } header: {
@@ -65,7 +65,7 @@ struct FavoritesView: View {
                         alignment: .center
                     ) {
                         ForEach(presenter.tvSeries, id: \.id) { tvSerie in
-                            imageView(url: tvSerie.posterUrl())
+                            imageView(url: tvSerie.posterUrl)
                         }
                     }
                 } header: {

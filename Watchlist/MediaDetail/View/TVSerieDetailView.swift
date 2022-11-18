@@ -19,7 +19,7 @@ struct TVSerieDetailView: View {
 
     fileprivate func mediaView() -> some View {
         HStack(alignment: .top) {
-            MediaHeaderView(imageUrl: presenter.media.posterUrl())
+            MediaHeaderView(imageUrl: presenter.media.posterUrl)
             VStack(alignment: .leading) {
                 MediaDetailsView(
                     title: presenter.media.title,
