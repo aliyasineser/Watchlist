@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CastInteractor {
-    func fetchCast(_ id: Int) async -> [Cast]
+    func fetchCast(_ id: Int) async throws -> [Cast]
 }
 
 final class DefaultCastInteractor: CastInteractor {
@@ -21,12 +21,12 @@ final class DefaultCastInteractor: CastInteractor {
         self.mediaService = mediaService
     }
 
-    func fetchCast(_ id: Int) async -> [Cast] {
+    func fetchCast(_ id: Int) async throws -> [Cast] {
 
         self.credits.removeAll()
         var credits: Credits?
 
-        credits = await mediaService.fetchMediaCredits(id: id)
+        credits = try await mediaService.fetchMediaCredits(id: id)
         guard let credits = credits else { return self.credits }
         let filteredCredits = credits.cast.filter { $0.castID != nil && $0.character != nil }
         self.credits.append(contentsOf: filteredCredits)
@@ -35,7 +35,7 @@ final class DefaultCastInteractor: CastInteractor {
 }
 
 final class CastInteractorStub: CastInteractor {
-    func fetchCast(_ id: Int) async -> [Cast] {
+    func fetchCast(_ id: Int) async throws -> [Cast] {
         var casts: [Cast] = []
         for _ in 0..<9 {
             casts.append(

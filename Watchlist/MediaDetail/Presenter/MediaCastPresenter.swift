@@ -29,7 +29,7 @@ final class MediaCastDefaultPresenter: MediaCastPresenter {
 
     func loadArtists() {
         Task {
-            self.artists = await interactor.fetchCast(self.id)
+            self.artists = try await interactor.fetchCast(self.id)
         }
     }
 }

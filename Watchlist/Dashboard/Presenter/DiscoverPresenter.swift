@@ -32,6 +32,8 @@ final class DiscoverDefaultPresenter: DiscoverPresenter {
     @Published var onTheAirSeries: [Watchable]
     @Published var topRatedSeries: [Watchable]
 
+    @Published var fetchError: Error?
+
     @Published var isLoading: Bool = false
 
     init(_ interactor: MediaInteractor) {
@@ -50,44 +52,46 @@ final class DiscoverDefaultPresenter: DiscoverPresenter {
         isLoading = false
         Task {
             await loadPopularMovies()
-            await loadUpcomingMovies()
-            await loadMostRecentMovies()
-            await loadAiringToday()
-            await loadOnTheAir()
-            await loadTopRated()
+            try await loadUpcomingMovies()
+            try await loadMostRecentMovies()
+            try await loadAiringToday()
+            try await loadOnTheAir()
+            try await loadTopRated()
         }
         isLoading = true
     }
 
     private func loadPopularMovies() async {
-        let movies = await interactor.fetchNextPopularPageAsFullList()
-        mapToMovies(watchables: movies, container: &self.popularMovies)
+        do {
+            let movies = try await interactor.fetchNextPopularPageAsFullList()
+            mapToMovies(watchables: movies, container: &self.popularMovies)
+        } catch {
+            fetchError = FetchError.popularMovies
+        }
     }
 
-    private func loadMostRecentMovies() async {
-
-        let movies = await interactor.fetchNextMostRecentPageAsFullList()
+    private func loadMostRecentMovies() async throws {
+        let movies = try await interactor.fetchNextMostRecentPageAsFullList()
         mapToMovies(watchables: movies, container: &self.mostRecentMovies)
     }
 
-    private func loadUpcomingMovies() async {
-
-        let movies = await interactor.fetchNextUpcomingPageAsFullList()
+    private func loadUpcomingMovies() async throws {
+        let movies = try await interactor.fetchNextUpcomingPageAsFullList()
         mapToMovies(watchables: movies, container: &self.upcomingMovies)
     }
 
-    private func loadAiringToday() async {
-        let series = await interactor.fetcthNextAiringTodayPageAsFullList()
+    private func loadAiringToday() async throws {
+        let series = try await interactor.fetcthNextAiringTodayPageAsFullList()
         mapToSeries(watchables: series, container: &self.airingTodaySeries)
     }
 
-    private func loadOnTheAir() async {
-        let series = await interactor.fetcthNextOnTheAirPageAsFullList()
+    private func loadOnTheAir() async throws {
+        let series = try await interactor.fetcthNextOnTheAirPageAsFullList()
         mapToSeries(watchables: series, container: &self.onTheAirSeries)
     }
 
-    private func loadTopRated() async {
-        let series = await interactor.fetcthNextTopRatedPageAsFullList()
+    private func loadTopRated() async throws {
+        let series = try await interactor.fetcthNextTopRatedPageAsFullList()
         mapToSeries(watchables: series, container: &self.topRatedSeries)
     }
 

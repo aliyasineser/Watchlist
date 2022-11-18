@@ -33,17 +33,17 @@ final class MediaListDefaultPresenter: MediaListPresenter {
         Task {
             switch self.section {
             case .popularMovies:
-                self.mediaList = await interactor.fetchNextPopularPageAsFullList()
+                self.mediaList = try await interactor.fetchNextPopularPageAsFullList()
             case .mostRecentMovies:
-                self.mediaList = await interactor.fetchNextMostRecentPageAsFullList()
+                self.mediaList = try await interactor.fetchNextMostRecentPageAsFullList()
             case .comingSoonMovies:
-                self.mediaList = await interactor.fetchNextUpcomingPageAsFullList()
+                self.mediaList = try await interactor.fetchNextUpcomingPageAsFullList()
             case .airingTodaySeries:
-                self.mediaList = await interactor.fetcthNextAiringTodayPageAsFullList()
+                self.mediaList = try await interactor.fetcthNextAiringTodayPageAsFullList()
             case .onTheAirSeries:
-                self.mediaList = await interactor.fetcthNextOnTheAirPageAsFullList()
+                self.mediaList = try await interactor.fetcthNextOnTheAirPageAsFullList()
             case .topRatedSeries:
-                self.mediaList = await interactor.fetcthNextTopRatedPageAsFullList()
+                self.mediaList = try await interactor.fetcthNextTopRatedPageAsFullList()
             }
         }
     }

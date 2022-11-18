@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MediaCastInteractor {
-    func fetchCast(_ id: Int) async -> [Cast]
+    func fetchCast(_ id: Int) async throws -> [Cast]
 }
 
 final class DefaultMediaCastInteractor: MediaCastInteractor {
@@ -18,15 +18,15 @@ final class DefaultMediaCastInteractor: MediaCastInteractor {
         self.mediaService = mediaService
     }
 
-    func fetchCast(_ id: Int) async -> [Cast] {
+    func fetchCast(_ id: Int) async throws -> [Cast] {
         var credits: Credits?
-        credits = await mediaService.fetchMediaCredits(id: id)
+        credits = try await mediaService.fetchMediaCredits(id: id)
         return credits?.cast ?? []
     }
 }
 
 final class MediaCastInteractorStub: MediaCastInteractor {
-    func fetchCast(_ id: Int) async -> [Cast] {
+    func fetchCast(_ id: Int) async throws -> [Cast] {
         var casts: [Cast] = []
         for _ in 0..<9 {
             casts.append(.mock)

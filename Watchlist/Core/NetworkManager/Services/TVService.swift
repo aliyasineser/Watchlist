@@ -15,60 +15,35 @@ final class TVService: MediaService {
     init(requestManager: RequestManager = DefaultRequestManager()) {
         self.requestManager = requestManager
     }
-
-    func fetchMedia(request: NetworkRequest) async -> [Watchable] {
-        do {
-            let series: TVSerieResponse = try await requestManager.initRequest(with: request)
-            return series.results
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
+    
+    func fetchMedia(request: NetworkRequest) async throws -> [Watchable] {
+        let series: TVSerieResponse = try await requestManager.initRequest(with: request)
+        return series.results
     }
 
-    func fetchMediaDetails(id: Int) async -> WatchableDetail? {
+    func fetchMediaDetails(id: Int) async throws -> WatchableDetail? {
         let requestData = TVRequest.getSeriesDetail(id: id)
-        do {
-            let serie: TvDetail = try await
-            requestManager.initRequest(with: requestData)
-            return serie
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
+        let serie: TvDetail = try await
+        requestManager.initRequest(with: requestData)
+        return serie
     }
 
-    func fetchReviews(id: Int, page: Int) async -> [Review] {
+    func fetchReviews(id: Int, page: Int) async throws -> [Review] {
         let requestData = TVRequest.getSeriesReviews(id: id, page: page)
-        do {
-            let reviewResponse: MediaReviewResponse = try await requestManager.initRequest(with: requestData)
-            return reviewResponse.results
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
+        let reviewResponse: MediaReviewResponse = try await requestManager.initRequest(with: requestData)
+        return reviewResponse.results
     }
 
-    func fetchSimilar(id: Int, page: Int) async -> [Watchable] {
+    func fetchSimilar(id: Int, page: Int) async throws -> [Watchable] {
         let requestData = TVRequest.getSimilarSeriesTo(id: id, page: page)
-        do {
-            let response: TVSerieSimilarResponse = try await requestManager.initRequest(with: requestData)
-            return response.results
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
+        let response: TVSerieSimilarResponse = try await requestManager.initRequest(with: requestData)
+        return response.results
     }
 
-    func fetchMediaCredits(id: Int) async -> Credits? {
+    func fetchMediaCredits(id: Int) async throws -> Credits? {
         let requestData = TVRequest.getCredits(id: id)
-        do {
-            let credits: Credits = try await
-            requestManager.initRequest(with: requestData)
-            return credits
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
+        let credits: Credits = try await
+        requestManager.initRequest(with: requestData)
+        return credits
     }
 }

@@ -8,15 +8,15 @@
 import Foundation
 
 protocol MediaService {
-    func fetchMedia(request: NetworkRequest) async -> [Watchable]
-    func fetchMediaDetails(id: Int) async -> WatchableDetail?
-    func fetchMediaCredits(id: Int) async -> Credits?
-    func fetchReviews(id: Int, page: Int) async -> [Review]
-    func fetchSimilar(id: Int, page: Int) async -> [Watchable]
+    func fetchMedia(request: NetworkRequest) async throws -> [Watchable]
+    func fetchMediaDetails(id: Int) async throws -> WatchableDetail?
+    func fetchMediaCredits(id: Int) async throws -> Credits?
+    func fetchReviews(id: Int, page: Int) async throws -> [Review]
+    func fetchSimilar(id: Int, page: Int) async throws -> [Watchable]
 }
 
 final class MediaServiceStub: MediaService {
-    func fetchSimilar(id: Int, page: Int) async -> [Watchable] {
+    func fetchSimilar(id: Int, page: Int) async throws -> [Watchable] {
         [
             Movie.mock,
             Movie.mock,
@@ -26,7 +26,7 @@ final class MediaServiceStub: MediaService {
         ]
     }
 
-    func fetchMedia(request: NetworkRequest) async -> [Watchable] {
+    func fetchMedia(request: NetworkRequest) async throws -> [Watchable] {
         var mediaList: [Watchable] = []
         for _ in 0..<9 {
             mediaList.append(Movie.mock)
@@ -34,15 +34,15 @@ final class MediaServiceStub: MediaService {
         return mediaList
     }
 
-    func fetchReviews(id: Int, page: Int) async -> [Review] {
+    func fetchReviews(id: Int, page: Int) async throws -> [Review] {
         [Review.mock, Review.mock]
     }
 
-    func fetchMediaDetails(id: Int) async -> WatchableDetail? {
+    func fetchMediaDetails(id: Int) async throws -> WatchableDetail? {
         MovieDetail.mock
     }
 
-    func fetchMediaCredits(id: Int) async -> Credits? {
+    func fetchMediaCredits(id: Int) async throws -> Credits? {
         Credits.mock
     }
 }
