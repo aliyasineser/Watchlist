@@ -104,9 +104,6 @@
 		DD8517B72924499C00D7A560 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8517B62924499C00D7A560 /* View+Extension.swift */; };
 		DD8517B9292449C000D7A560 /* LocalizedAlertError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8517B8292449C000D7A560 /* LocalizedAlertError.swift */; };
 		DD8517BC2924556800D7A560 /* DiscoverFetchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD8517BB2924556800D7A560 /* DiscoverFetchError.swift */; };
-		DD884A902919CD7600CED500 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD884A8F2919CD7600CED500 /* WebView.swift */; };
-		DD884A922919CE1400CED500 /* AuthPermissionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD884A912919CE1400CED500 /* AuthPermissionViewModel.swift */; };
-		DD884A942919CF5F00CED500 /* AuthWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD884A932919CF5F00CED500 /* AuthWebView.swift */; };
 		DD99A017290079A900076A44 /* SimilarMediaPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD99A016290079A900076A44 /* SimilarMediaPresenterTests.swift */; };
 		DDB309C728F4CE2E002C912D /* CastPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB309C628F4CE2E002C912D /* CastPresenterTests.swift */; };
 		DDB8B9612896C0AC00E7F569 /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDB8B9602896C0AC00E7F569 /* DataParser.swift */; };
@@ -145,7 +142,6 @@
 		DDF9645029133E3900517465 /* AuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF9644F29133E3900517465 /* AuthRequest.swift */; };
 		DDF9645229133F1C00517465 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF9645129133F1C00517465 /* Authentication.swift */; };
 		DDF96454291341B900517465 /* AuthNetworkRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF96453291341B900517465 /* AuthNetworkRequest.swift */; };
-		DDF96457291343CF00517465 /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF96456291343CF00517465 /* AuthInteractor.swift */; };
 		DDF964592913444A00517465 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF964582913444A00517465 /* AuthService.swift */; };
 		DDF9645B29134E4E00517465 /* AuthPermissionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF9645A29134E4E00517465 /* AuthPermissionRequest.swift */; };
 /* End PBXBuildFile section */
@@ -273,9 +269,6 @@
 		DD8517B62924499C00D7A560 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		DD8517B8292449C000D7A560 /* LocalizedAlertError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedAlertError.swift; sourceTree = "<group>"; };
 		DD8517BB2924556800D7A560 /* DiscoverFetchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverFetchError.swift; sourceTree = "<group>"; };
-		DD884A8F2919CD7600CED500 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
-		DD884A912919CE1400CED500 /* AuthPermissionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPermissionViewModel.swift; sourceTree = "<group>"; };
-		DD884A932919CF5F00CED500 /* AuthWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWebView.swift; sourceTree = "<group>"; };
 		DD99A016290079A900076A44 /* SimilarMediaPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarMediaPresenterTests.swift; sourceTree = "<group>"; };
 		DDB309C628F4CE2E002C912D /* CastPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastPresenterTests.swift; sourceTree = "<group>"; };
 		DDB8B9602896C0AC00E7F569 /* DataParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
@@ -314,7 +307,6 @@
 		DDF9644F29133E3900517465 /* AuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRequest.swift; sourceTree = "<group>"; };
 		DDF9645129133F1C00517465 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		DDF96453291341B900517465 /* AuthNetworkRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNetworkRequest.swift; sourceTree = "<group>"; };
-		DDF96456291343CF00517465 /* AuthInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
 		DDF964582913444A00517465 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		DDF9645A29134E4E00517465 /* AuthPermissionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPermissionRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -551,7 +543,6 @@
 		DD045470260A171900DFEFE6 /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
-				DDF96455291343BC00517465 /* Auth */,
 				DD1CD3FC29072AB500A0D1E8 /* Resources */,
 				DD4B3A6B28E0FB0A007308F5 /* Common */,
 				DD02ECC828DF9C3000D230F9 /* Favorites */,
@@ -881,17 +872,6 @@
 			path = MediaStrategy;
 			sourceTree = "<group>";
 		};
-		DDF96455291343BC00517465 /* Auth */ = {
-			isa = PBXGroup;
-			children = (
-				DDF96456291343CF00517465 /* AuthInteractor.swift */,
-				DD884A8F2919CD7600CED500 /* WebView.swift */,
-				DD884A912919CE1400CED500 /* AuthPermissionViewModel.swift */,
-				DD884A932919CF5F00CED500 /* AuthWebView.swift */,
-			);
-			path = Auth;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1088,7 +1068,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD884A922919CE1400CED500 /* AuthPermissionViewModel.swift in Sources */,
 				DDB8B9632896C0BF00E7F569 /* APIManager.swift in Sources */,
 				DDB8B98D2899BD6D00E7F569 /* Person.swift in Sources */,
 				1E632C6D26ECF5C5005780FD /* ArtistDetailInteractor.swift in Sources */,
@@ -1124,15 +1103,12 @@
 				DD1B3EC128E9C1EA001F0C91 /* MediaSimilarPresenter.swift in Sources */,
 				DD04547B260A171C00DFEFE6 /* Persistence.swift in Sources */,
 				DDB8B9872896E99700E7F569 /* TVService.swift in Sources */,
-				DDF96457291343CF00517465 /* AuthInteractor.swift in Sources */,
 				DD4C9EF928DE0C2A00BD2B48 /* FavoriteMovieStorage.swift in Sources */,
-				DD884A942919CF5F00CED500 /* AuthWebView.swift in Sources */,
 				DDB8B9912899BE2700E7F569 /* TVSerie.swift in Sources */,
 				DD1B3EAB28E894F7001F0C91 /* Color+Extension.swift in Sources */,
 				DDB8B9742896D32900E7F569 /* TVRequest.swift in Sources */,
 				DDCDE57B28DA77740081AD87 /* MediaService.swift in Sources */,
 				DD04547E260A171C00DFEFE6 /* Watchlist.xcdatamodeld in Sources */,
-				DD884A902919CD7600CED500 /* WebView.swift in Sources */,
 				DDB8B9612896C0AC00E7F569 /* DataParser.swift in Sources */,
 				DD1B3EB728E9AC68001F0C91 /* DateFormatter+Extension.swift in Sources */,
 				DD4C9EFB28DE0DF800BD2B48 /* FavoriteStorage.swift in Sources */,

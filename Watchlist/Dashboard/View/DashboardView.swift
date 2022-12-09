@@ -70,15 +70,6 @@ struct DashboardView: View {
                 )
             }
             .tag(TabViewSection.favorites.tag)
-
-            AuthWebView()
-            .tabItem {
-                TabItemView(
-                    systemName: "person.fill.checkmark.rtl",
-                    text: "Auth"
-                )
-            }
-            .tag(TabViewSection.auth.tag)
         }
         .navigationBarTitle(ConstantTexts.NavigationBarTitle.dashboardScreen)
         .navigationBarHidden(false)
