@@ -33,8 +33,8 @@ class ArtistDetailDefaultPresenter: ArtistDetailPresenter {
     var artistTVSerieCredits: [Cast]
     let favoriteStorage: FavoriteStorage
 
-    init(interactor: ArtistDetailInteractor, favoriteStorage: FavoriteStorage = FavoriteArtistStorage.shared) {
-        self.favoriteStorage = favoriteStorage
+    init(interactor: ArtistDetailInteractor, favoriteStorage: FavoriteStorage? = nil) {
+        self.favoriteStorage = favoriteStorage ?? FavoriteArtistStorage.shared
         self.interactor = interactor
         self.artistDetail = nil
         self.artistImages = [Profile]()

@@ -22,7 +22,7 @@ class ArtistFetcher {
         let nextPage = pageCounter + 1
         guard let artistsPage = await artistService.fetchArtists(page: nextPage), !Task.isCancelled else { return [] }
         pageCounter = nextPage
-        return artistsPage.results
+        return artistsPage.results ?? []
     }
 
     func fetchWithNextPage() async -> [Artist] {

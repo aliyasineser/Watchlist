@@ -33,7 +33,8 @@ struct DashboardView: View {
     @State private var artistPresenter: ArtistDefaultPresenter
     @State private var favoritesPresenter: FavoritesDefaultPresenter
 
-    init(dependencies: AppDependencies = AppDependenciesImpl()) {
+    init(dependencies: AppDependencies? = nil) {
+        let dependencies = dependencies ?? AppDependenciesImpl()
         _discoverPresenter = State(initialValue: dependencies.makeDiscoverPresenter())
         _artistPresenter = State(initialValue: dependencies.makeArtistPresenter())
         _favoritesPresenter = State(initialValue: dependencies.makeFavoritesPresenter())

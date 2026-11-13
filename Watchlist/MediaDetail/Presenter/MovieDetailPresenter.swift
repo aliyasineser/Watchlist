@@ -29,8 +29,8 @@ final class MovieDetailDefaultPresenter: MovieDetailPresenter {
     let id: Int
     let favoriteStorage: FavoriteStorage
 
-    init(interactor: MovieDetailInteractor, id: Int, favoriteStorage: FavoriteStorage = FavoriteMovieStorage.shared) {
-        self.favoriteStorage = favoriteStorage
+    init(interactor: MovieDetailInteractor, id: Int, favoriteStorage: FavoriteStorage? = nil) {
+        self.favoriteStorage = favoriteStorage ?? FavoriteMovieStorage.shared
         self.interactor = interactor
         self.id = id
     }
