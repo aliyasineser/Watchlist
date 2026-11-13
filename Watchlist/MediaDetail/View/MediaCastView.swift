@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MediaCastView: View {
 
-    @ObservedObject var presenter: MediaCastDefaultPresenter
+    @State var presenter: MediaCastDefaultPresenter
 
     let columns = [
         GridItem(.adaptive(minimum: 100))
@@ -35,9 +35,9 @@ struct MediaCastView: View {
                     }
                 }
                 Spacer()
-                    .onAppear(perform: {
-                        presenter.loadArtists()
-                    })
+                    .task {
+                        await presenter.loadArtists()
+                    }
             }
         }
         .navigationBarBackButtonHidden(true)
@@ -49,13 +49,13 @@ struct MediaCastView: View {
                 trailing: 0
             )
         )
-
+        .errorAlert(error: $presenter.fetchError)
     }
 }
 
 struct MovieCastView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             MediaCastView(
                 presenter: MediaCastDefaultPresenter(
                     MediaCastInteractorStub(),

@@ -10,7 +10,7 @@ import Kingfisher
 
 struct ArtistDetailView: View {
 
-    @ObservedObject var presenter: ArtistDetailDefaultPresenter
+    @State var presenter: ArtistDetailDefaultPresenter
     var artistId: Int
 
     @State var isFavorite = false
@@ -65,9 +65,10 @@ struct ArtistDetailView: View {
                 }
             }
         }
-        .onAppear(perform: {
-            self.presenter.fetchArtist(artistId: artistId)
-        })
+        .task {
+            await self.presenter.fetchArtist(artistId: artistId)
+        }
+        .errorAlert(error: $presenter.fetchError)
     }
 
     fileprivate func artistImage(url: String) -> some View {
@@ -112,7 +113,7 @@ struct ArtistDetailView: View {
 
 struct PhotoGrid: View {
 
-    @ObservedObject var presenter: ArtistDetailDefaultPresenter
+    let presenter: ArtistDetailDefaultPresenter
 
     init(presenter: ArtistDetailDefaultPresenter) {
         self.presenter = presenter
@@ -145,7 +146,7 @@ struct PhotoGrid: View {
 
 struct ArtistDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             ArtistDetailView(
                 artistId: 21,
                 presenter: ArtistDetailDefaultPresenter(

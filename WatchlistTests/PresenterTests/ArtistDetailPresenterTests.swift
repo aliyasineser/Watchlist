@@ -6,7 +6,6 @@
 //
 
 import XCTest
-import Combine
 @testable import Watchlist
 
 @MainActor
@@ -24,71 +23,66 @@ final class ArtistDetailPresenterTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_artistDetail() throws {
-        let sut = ArtistDetailDefaultPresenter(interactor: interactor)
+    func test_artistDetail() async throws {
+        let sut = ArtistDetailDefaultPresenter(interactor: interactor, favoriteStorage: FavoriteStorageStub())
 
         interactor.fetchArtistCallStub = ArtistDetail.mock
 
-        let publisher = sut.$artistDetail
-            .dropFirst()
-            .first()
+        await sut.fetchArtist(artistId: 1)
 
-        sut.fetchArtist(artistId: 1)
-
-        let detail = try awaitPublisher(publisher)
+        let detail = sut.artistDetail
 
         XCTAssertTrue(interactor.fetchArtistCallCalledOnce)
         XCTAssertEqual(detail, ArtistDetail.mock)
     }
 
-    func test_artistImages() throws {
-        let sut = ArtistDetailDefaultPresenter(interactor: interactor)
+    func test_artistImages() async throws {
+        let sut = ArtistDetailDefaultPresenter(interactor: interactor, favoriteStorage: FavoriteStorageStub())
 
         interactor.fetchArtistImagesCallStub = [Profile.mock]
 
-        let publisher = sut.$artistImages
-            .dropFirst()
-            .first()
+        await sut.fetchArtist(artistId: 1)
 
-        sut.fetchArtist(artistId: 1)
-
-        let images = try awaitPublisher(publisher)
+        let images = sut.artistImages
 
         XCTAssertTrue(interactor.fetchArtistImagesCallCalledOnce)
         XCTAssertEqual(images.first, Profile.mock)
     }
 
-    func test_artistMovieCredits() throws {
-        let sut = ArtistDetailDefaultPresenter(interactor: interactor)
+    func test_artistMovieCredits() async throws {
+        let sut = ArtistDetailDefaultPresenter(interactor: interactor, favoriteStorage: FavoriteStorageStub())
 
         interactor.fetchArtistMoviesCallStub = [Cast.mock]
 
-        let publisher = sut.$artistMovieCredits
-            .dropFirst()
-            .first()
+        await sut.fetchArtist(artistId: 1)
 
-        sut.fetchArtist(artistId: 1)
-
-        let images = try awaitPublisher(publisher)
+        let images = sut.artistMovieCredits
 
         XCTAssertTrue(interactor.fetchArtistMoviesCallCalledOnce)
         XCTAssertEqual(images.first, Cast.mock)
     }
 
-    func test_artistTVSerieCredits() throws {
-        let sut = ArtistDetailDefaultPresenter(interactor: interactor)
+    func test_artistTVSerieCredits() async throws {
+        let sut = ArtistDetailDefaultPresenter(interactor: interactor, favoriteStorage: FavoriteStorageStub())
 
         interactor.fetchArtistTVCallStub = [Cast.mock]
 
-        let publisher = sut.$artistTVSerieCredits
-            .dropFirst()
-            .first()
+        await sut.fetchArtist(artistId: 1)
 
-        sut.fetchArtist(artistId: 1)
-
-        let images = try awaitPublisher(publisher)
+        let images = sut.artistTVSerieCredits
 
         XCTAssertTrue(interactor.fetchArtistTVCallCalledOnce)
         XCTAssertEqual(images.first, Cast.mock)
+    }
+
+    func test_reloadingDoesNotDuplicateCredits() async {
+        interactor.fetchArtistMoviesCallStub = [Cast.mock]
+        interactor.fetchArtistTVCallStub = [Cast.mock]
+        let sut = ArtistDetailDefaultPresenter(interactor: interactor, favoriteStorage: FavoriteStorageStub())
+        await sut.fetchArtist(artistId: 1)
+        await sut.fetchArtist(artistId: 1)
+        XCTAssertEqual(sut.artistMovieCredits.count, 1)
+        XCTAssertEqual(sut.artistTVSerieCredits.count, 1)
+        XCTAssertFalse(sut.isLoading)
     }
 }

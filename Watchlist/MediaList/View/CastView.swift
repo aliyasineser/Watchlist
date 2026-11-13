@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CastView: View {
-    @ObservedObject private var presenter: CastDefaultPresenter
+    @State private var presenter: CastDefaultPresenter
 
     let columns = [
         GridItem(.adaptive(minimum: 100))
@@ -26,15 +26,12 @@ struct CastView: View {
                         cast: artist
                     )
                 }
-                Spacer()
-                    .onAppear(perform: {
-                        presenter.loadArtists()
-                    })
+
             }
         }
-        .onAppear(perform: {
-            presenter.loadArtists()
-        })
+        .task {
+            await presenter.loadArtists()
+        }
         .padding(
             EdgeInsets(
                 top: 15,
@@ -43,7 +40,7 @@ struct CastView: View {
                 trailing: 0
             )
         )
-
+        .errorAlert(error: $presenter.fetchError)
     }
 }
 

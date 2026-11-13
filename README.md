@@ -46,3 +46,66 @@ Watchlist is a Movie/Series Listing app. Will be used as a workspace for learnin
 
 <img src="./Screenshots/seeAll.png" width="300" height="649">
 
+
+## Modern iOS architecture
+
+The app supports **iOS 18 and later**. `SDKROOT = iphoneos` uses the SDK bundled
+with the selected Xcode, rather than pinning an SDK version. The modernization
+was prepared with locally installed Xcode 27.2 / iOS 27.2 SDK; Swift language mode
+and the existing Kingfisher requirement remain unchanged.
+
+- `Core/AppDependencies.swift` is the root composition boundary. Production and
+  offline UI-test implementations build feature presenters with independent state.
+  Factory is not currently a dependency; constructor injection avoids adding one.
+- Feature folders retain their VIPER interfaces and existing implementation names.
+  Presenters use `@MainActor` and `@Observable`; screen-owned references use `@State`.
+- Loading methods are now `async`. Call them with `await` from `.task` or an
+  explicit user-action task, never from a view initializer. Tests await completion
+  directly, without Combine subscriptions or timing delays.
+- Root screens use `NavigationStack`, and the dashboard uses typed iOS 18 `Tab`
+  items. Detail layouts size themselves to their container instead of the screen.
+- Loading flags prevent overlapping requests and reset with `defer`. Failures are
+  exposed to alerts; cancellation does not display an error. Discovery sections
+  load independently, and cumulative results replace previous section contents.
+- Review, similar-media and media-fetcher page counters advance only after a
+  successful, uncancelled response. Media fetchers deduplicate cumulative IDs.
+- Favorite stores accept injected contexts, avoid duplicate insertion and reject
+  IDs that cannot fit the existing Core Data model. Favorite storage and its
+  interactor run on the main actor to respect the view context's queue.
+- The request manager accepts both transport and parser dependencies. HTTP
+  transport accepts the full successful 2xx range without logging request URLs.
+
+## Verification and coverage
+
+Use the **project**, not the legacy workspace. Select an installed simulator:
+
+```sh
+xcodebuild -project Watchlist.xcodeproj -scheme Watchlist -showdestinations
+xcodebuild -project Watchlist.xcodeproj -scheme Watchlist \
+  -destination 'platform=iOS Simulator,name=<installed simulator name>' \
+  -enableCodeCoverage YES -resultBundlePath /tmp/WatchlistTests.xcresult test
+xcrun xccov view --report /tmp/WatchlistTests.xcresult
+```
+
+The suite includes all 11 presenter test classes, failure/recovery and cancellation
+cases, overlapping artist loads, pagination retries, repeated-load regressions,
+request encoding, response decoding, HTTP status validation, strategy routing,
+in-memory favorite storage, and offline root-tab navigation. UI tests launch with
+`--ui-testing`; this dependency override is compiled only in Debug.
+
+**Verification status:** Swift syntax parsing and project-file validation passed.
+An executable build/test run could not be completed in the editing environment:
+CoreSimulator access was denied, the initial package fetch could not resolve
+GitHub, and the cached-package attempt was blocked by SwiftPM's sandbox setup.
+Consequently, test success and full-codebase coverage are **not verified**.
+Syntax parsing does not replace compilation, macro expansion, or simulator tests.
+
+Remaining work before calling coverage complete includes measured line/branch
+coverage, model decoding edge cases, every service/interactor forwarding path,
+persistent-store failure/migration behavior, detail navigation and favorite
+interaction UI tests, accessibility, and device/layout checks. Existing
+persistent-store and favorite-storage fatal-error handling also remains to be
+redesigned rather than silently substituting an empty database on failure.
+
+The unused legacy `AppSettings`, `TabItemView`, and Combine test helper remain
+in place, per the project rule against deleting unused code without a request.

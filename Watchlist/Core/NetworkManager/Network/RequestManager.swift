@@ -15,11 +15,14 @@ protocol RequestManager {
 
 final class DefaultRequestManager: RequestManager {
     let apiManager: APIManager
+    let parser: DataParser
 
     init(
-        apiManager: APIManager = DefaultAPIManager()
+        apiManager: APIManager = DefaultAPIManager(),
+        parser: DataParser = DefaultDataParser()
     ) {
         self.apiManager = apiManager
+        self.parser = parser
     }
 
     func initRequest<T: Decodable>(with data: NetworkRequest) async throws -> T {

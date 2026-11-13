@@ -6,22 +6,28 @@
 //
 
 import Foundation
+import Observation
 
 @MainActor
-protocol MediaListPresenter: ObservableObject {
+protocol MediaListPresenter: AnyObject {
 
     var interactor: MediaInteractor { get }
     var section: MediaSection { get }
     var mediaList: [Watchable] { get set }
 
-    func fetchMedia()
+    func fetchMedia() async
 }
 
+@MainActor
+@Observable
 final class MediaListDefaultPresenter: MediaListPresenter {
+
+    private(set) var isLoading = false
+    var fetchError: Error?
 
     private(set) var interactor: MediaInteractor
     private(set) var section: MediaSection
-    @Published var mediaList: [Watchable]
+    var mediaList: [Watchable]
 
     init(_ interactor: MediaInteractor, section: MediaSection) {
         self.interactor = interactor
@@ -29,22 +35,18 @@ final class MediaListDefaultPresenter: MediaListPresenter {
         self.mediaList = [Watchable]()
     }
 
-    func fetchMedia() {
-        Task {
-            switch self.section {
-            case .popularMovies:
-                self.mediaList = try await interactor.fetchNextPopularPageAsFullList()
-            case .mostRecentMovies:
-                self.mediaList = try await interactor.fetchNextMostRecentPageAsFullList()
-            case .comingSoonMovies:
-                self.mediaList = try await interactor.fetchNextUpcomingPageAsFullList()
-            case .airingTodaySeries:
-                self.mediaList = try await interactor.fetcthNextAiringTodayPageAsFullList()
-            case .onTheAirSeries:
-                self.mediaList = try await interactor.fetcthNextOnTheAirPageAsFullList()
-            case .topRatedSeries:
-                self.mediaList = try await interactor.fetcthNextTopRatedPageAsFullList()
-            }
+    func fetchMedia() async {
+        guard !isLoading, !Task.isCancelled else { return }
+        isLoading = true
+        fetchError = nil
+        defer { isLoading = false }
+        do {
+            let media = try await interactor.fetchMedia(in: section)
+            try Task.checkCancellation()
+            mediaList = media
+        } catch {
+            guard !Task.isCancelled, !(error is CancellationError) else { return }
+            fetchError = error
         }
     }
 }

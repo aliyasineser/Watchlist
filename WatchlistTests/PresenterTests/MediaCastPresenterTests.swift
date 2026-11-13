@@ -6,7 +6,6 @@
 //
 
 import XCTest
-import Combine
 @testable import Watchlist
 
 @MainActor
@@ -24,7 +23,7 @@ final class MediaCastPresenterTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_LoadArtists() throws {
+    func test_LoadArtists() async throws {
         let sut = MediaCastDefaultPresenter(
             interactor,
             id: 1
@@ -32,16 +31,33 @@ final class MediaCastPresenterTests: XCTestCase {
 
         interactor.fetchCastCallStub = [Cast.mock]
 
-        let castPublisher = sut.$artists
-            .dropFirst()
-            .first()
+        await sut.loadArtists()
 
-        sut.loadArtists()
-
-        let artists = try awaitPublisher(castPublisher)
+        let artists = sut.artists
 
         XCTAssertTrue(interactor.fetchCastCallCalledOnce)
         XCTAssertEqual(artists.count, 1)
         XCTAssertEqual(artists.first, Cast.mock)
+    }
+
+    func test_failureIsVisibleAndLoadingResets() async {
+        let sut = MediaCastDefaultPresenter(interactor, id: 1)
+        interactor.error = NetworkError.invalidServerResponse
+        await sut.loadArtists()
+        XCTAssertNotNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+
+        interactor.error = nil
+        await sut.loadArtists()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_cancellationDoesNotShowAlert() async {
+        let sut = MediaCastDefaultPresenter(interactor, id: 1)
+        interactor.error = CancellationError()
+        await sut.loadArtists()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
     }
 }

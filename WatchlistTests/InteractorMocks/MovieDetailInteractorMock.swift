@@ -10,13 +10,14 @@ import Foundation
 @testable import Watchlist
 
 final class MovieDetailInteractorMock: MovieDetailInteractor {
+    var error: Error?
+    var requestedPages: [Int] = []
     var getMovieDetailCallStub: Watchlist.WatchableDetail?
     var getMovieDetailCallCalledOnce: Bool = false
 
-    func getMovieDetail(_ id: Int) async -> Watchlist.Watchable? {
-        return try! await withCheckedThrowingContinuation { continuation in
-            getMovieDetailCallCalledOnce = true
-            continuation.resume(returning: getMovieDetailCallStub)
-        }
+    func getMovieDetail(_ id: Int) async throws -> Watchlist.Watchable? {
+        if let error { throw error }
+        getMovieDetailCallCalledOnce = true
+        return getMovieDetailCallStub
     }
 }

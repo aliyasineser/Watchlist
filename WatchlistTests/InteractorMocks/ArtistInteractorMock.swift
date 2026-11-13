@@ -15,9 +15,7 @@ final class ArtistInteractorMock: ArtistInteractor {
     var fetchArtistsCallCalledOnce: Bool = false
 
     func fetchArtists() async -> [Watchlist.Artist] {
-        return try! await withCheckedThrowingContinuation { continuation in
-            fetchArtistsCallCalledOnce = true
-            continuation.resume(returning: fetchArtistsCallStub)
-        }
+        fetchArtistsCallCalledOnce = true
+        return fetchArtistsCallStub
     }
 }

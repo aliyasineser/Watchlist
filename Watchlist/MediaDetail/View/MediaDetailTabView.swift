@@ -45,7 +45,7 @@ struct MediaDetailTabView: View {
                 )
             }
         }
-        .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 }
 

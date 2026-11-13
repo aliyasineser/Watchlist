@@ -6,7 +6,6 @@
 //
 
 import XCTest
-import Combine
 @testable import Watchlist
 
 @MainActor
@@ -24,7 +23,7 @@ final class MediaReviewPresenterTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_fetchReviews() throws {
+    func test_fetchReviews() async throws {
         let sut = MediaReviewDefaultPresenter(
             interactor: interactor,
             id: 1
@@ -32,15 +31,42 @@ final class MediaReviewPresenterTests: XCTestCase {
 
         interactor.getMovieReviewCallStub = [Review.mock]
 
-        let publisher = sut.$reviews
-            .dropFirst()
-            .first()
+        await sut.fetchReviews()
 
-        sut.fetchReviews()
-
-        let reviews = try awaitPublisher(publisher)
+        let reviews = sut.reviews
 
         XCTAssertTrue(interactor.getMovieReviewCallCalledOnce)
         XCTAssertEqual(reviews.first, Review.mock)
+    }
+
+    func test_failureIsVisibleAndLoadingResets() async {
+        let sut = MediaReviewDefaultPresenter(interactor: interactor, id: 1)
+        interactor.error = NetworkError.invalidServerResponse
+        await sut.fetchReviews()
+        XCTAssertNotNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+
+        interactor.error = nil
+        await sut.fetchReviews()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_cancellationDoesNotShowAlert() async {
+        let sut = MediaReviewDefaultPresenter(interactor: interactor, id: 1)
+        interactor.error = CancellationError()
+        await sut.fetchReviews()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_failedPageIsRetriedBeforeAdvancing() async {
+        let sut = MediaReviewDefaultPresenter(interactor: interactor, id: 1)
+        interactor.error = NetworkError.invalidServerResponse
+        await sut.fetchReviews()
+        interactor.error = nil
+        await sut.fetchReviews()
+        await sut.fetchReviews()
+        XCTAssertEqual(interactor.requestedPages, [1, 1, 2])
     }
 }

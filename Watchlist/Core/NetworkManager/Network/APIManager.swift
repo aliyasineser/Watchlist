@@ -23,8 +23,7 @@ class DefaultAPIManager: APIManager {
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkError.invalidServerResponse
         }
-        guard httpResponse.statusCode == 200 else {
-            print("Error is: \(httpResponse)")
+        guard (200..<300).contains(httpResponse.statusCode) else {
             throw NetworkError.invalidServerResponse
         }
         return data

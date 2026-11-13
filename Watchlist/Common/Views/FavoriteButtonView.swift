@@ -27,7 +27,7 @@ struct FavoriteButton: View {
             isFavorite = favoriteStorage.isFavorite(id: id)
         } label: {
             Image(
-                systemName: isFavorite ? Icons.favoriteOn.rawValue : Icons.favoriteOff.rawValue
+                systemName: isFavorite ? Icons.Favorite.favorite.rawValue : Icons.Favorite.notFavorite.rawValue
             )
             .resizable()
             .frame(width: 35, height: 35)

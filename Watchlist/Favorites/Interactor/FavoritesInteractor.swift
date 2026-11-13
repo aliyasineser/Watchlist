@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 protocol FavoritesInteractor {
     func getFavoriteArtists() async throws -> [ArtistDetail]
     func getFavoriteMovies() async throws -> [Watchable]

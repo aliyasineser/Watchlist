@@ -6,33 +6,48 @@
 //
 
 import Foundation
+import Observation
 
 @MainActor
-protocol TVSerieDetailPresenter: ObservableObject {
+protocol TVSerieDetailPresenter: AnyObject {
     var id: Int { get }
     var interactor: TVSerieDetailInteractor { get }
     var media: TvDetail { get }
     var favoriteStorage: FavoriteStorage { get }
 
-    func getMediaDetail()
+    func getMediaDetail() async
 }
 
+@MainActor
+@Observable
 final class TVSerieDetailDefaultPresenter: TVSerieDetailPresenter {
-    private(set) var interactor: TVSerieDetailInteractor
-    @Published var media: TvDetail = TvDetail.mock
-    let id: Int
-    var favoriteStorage: FavoriteStorage = FavoriteTVSerieStorage.shared
+    private(set) var isLoading = false
+    var fetchError: Error?
 
-    init(interactor: TVSerieDetailInteractor, id: Int) {
+    private(set) var interactor: TVSerieDetailInteractor
+    var media: TvDetail = TvDetail.mock
+    let id: Int
+    let favoriteStorage: FavoriteStorage
+
+    init(interactor: TVSerieDetailInteractor, id: Int, favoriteStorage: FavoriteStorage = FavoriteTVSerieStorage.shared) {
+        self.favoriteStorage = favoriteStorage
         self.interactor = interactor
         self.id = id
     }
 
-    func getMediaDetail() {
-        Task {
+    func getMediaDetail() async {
+        guard !isLoading, !Task.isCancelled else { return }
+        isLoading = true
+        fetchError = nil
+        defer { isLoading = false }
+        do {
             let tvDetail = try await interactor.getMediaDetail(id)
             guard let detail = tvDetail as? TvDetail else { return }
+            try Task.checkCancellation()
             self.media = detail
+        } catch {
+            guard !Task.isCancelled, !(error is CancellationError) else { return }
+            fetchError = error
         }
     }
 }

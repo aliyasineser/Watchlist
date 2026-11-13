@@ -10,15 +10,17 @@ import Foundation
 @testable import Watchlist
 
 final class MediaSimilarInteractorMock: MediaSimilarInteractor {
+    var error: Error?
+    var requestedPages: [Int] = []
 
     var getSimilarMediaCallStub: [Watchlist.Watchable] = []
     var getSimilarMediaCallCalledOnce: Bool = false
 
-    func getSimilarMedia(_ id: Int, page: Int) async -> [Watchlist.Watchable] {
-        return try! await withCheckedThrowingContinuation { continuation in
-            getSimilarMediaCallCalledOnce = true
-            continuation.resume(returning: getSimilarMediaCallStub)
-        }
+    func getSimilarMedia(_ id: Int, page: Int) async throws -> [Watchlist.Watchable] {
+        requestedPages.append(page)
+        if let error { throw error }
+        getSimilarMediaCallCalledOnce = true
+        return getSimilarMediaCallStub
     }
 
     var mediaServiceStub: Watchlist.MediaService = MediaServiceMock()

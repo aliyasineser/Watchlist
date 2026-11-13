@@ -9,12 +9,11 @@ import SwiftUI
 
 struct MovieDetailView: View {
 
-    @ObservedObject var presenter: MovieDetailDefaultPresenter
+    @State var presenter: MovieDetailDefaultPresenter
     @State var isFavorite = false
 
     init(presenter: MovieDetailDefaultPresenter) {
         self.presenter = presenter
-        presenter.getMediaDetail()
     }
 
     fileprivate func mediaView() -> some View {
@@ -70,15 +69,16 @@ struct MovieDetailView: View {
         }
         .navigationBarBackButtonHidden(false)
         .navigationTitle(self.presenter.media.title)
-        .onAppear {
-            presenter.getMediaDetail()
+        .task {
+            await presenter.getMediaDetail()
         }
+        .errorAlert(error: $presenter.fetchError)
     }
 }
 
 struct MovieDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
+        NavigationStack {
             MovieDetailView(
                 presenter: MovieDetailDefaultPresenter(
                     interactor: MovieDetailInteractorStub(),

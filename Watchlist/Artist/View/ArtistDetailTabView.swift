@@ -59,7 +59,7 @@ struct ArtistDetailTabView: View {
             ScrollView(.vertical) {
                 if tabIndex == 0 {
                     ScrollView {
-                        Text(self.artistDetail.biography!)
+                        Text(artistDetail.biography ?? "No biography available.")
                     }
                 } else if tabIndex == 1 {
                     ScrollView(.vertical) {
@@ -102,7 +102,7 @@ struct ArtistDetailTabView: View {
             }
         }
         .frame(
-            width: UIScreen.main.bounds.width - 24,
+            maxWidth: .infinity,
             alignment: .center
         )
         .padding(.horizontal, 12)

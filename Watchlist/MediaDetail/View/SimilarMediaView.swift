@@ -9,11 +9,10 @@ import SwiftUI
 
 struct SimilarMediaView: View {
 
-    @ObservedObject var presenter: MediaSimilarDefaultPresenter
+    @State var presenter: MediaSimilarDefaultPresenter
 
     init(presenter: MediaSimilarDefaultPresenter) {
         self.presenter = presenter
-        presenter.fetchSimilar()
     }
 
     var body: some View {
@@ -24,12 +23,13 @@ struct SimilarMediaView: View {
                         .padding(.horizontal)
                 }
                 Spacer()
-                    .onAppear(perform: {
-                        presenter.fetchSimilar()
-                    })
+                    .task {
+                        await presenter.fetchSimilar()
+                    }
             }
 
         }
+        .errorAlert(error: $presenter.fetchError)
     }
 }
 

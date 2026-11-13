@@ -10,11 +10,10 @@ import SwiftUI
 @MainActor
 struct MediaListView: View {
 
-    @ObservedObject var presenter: MediaListDefaultPresenter
+    @State var presenter: MediaListDefaultPresenter
 
     init(mediaListPresenter: MediaListDefaultPresenter) {
         self.presenter = mediaListPresenter
-        self.presenter.fetchMedia()
     }
 
     var body: some View {
@@ -26,12 +25,13 @@ struct MediaListView: View {
                         .padding(.horizontal, 20)
                 }
                 Spacer()
-                    .onAppear(perform: {
-                        presenter.fetchMedia()
-                    })
+                    .task {
+                        await presenter.fetchMedia()
+                    }
             }
 
         }
+        .errorAlert(error: $presenter.fetchError)
     }
 }
 

@@ -9,12 +9,11 @@ import SwiftUI
 
 struct TVSerieDetailView: View {
 
-    @ObservedObject var presenter: TVSerieDetailDefaultPresenter
+    @State var presenter: TVSerieDetailDefaultPresenter
     @State var isFavorite = false
 
     init(presenter: TVSerieDetailDefaultPresenter) {
         self.presenter = presenter
-        presenter.getMediaDetail()
     }
 
     fileprivate func mediaView() -> some View {
@@ -70,9 +69,10 @@ struct TVSerieDetailView: View {
         }
         .navigationBarBackButtonHidden(false)
         .navigationTitle(self.presenter.media.title)
-        .onAppear {
-            presenter.getMediaDetail()
+        .task {
+            await presenter.getMediaDetail()
         }
+        .errorAlert(error: $presenter.fetchError)
     }
 }
 

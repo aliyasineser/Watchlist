@@ -9,14 +9,15 @@ import Foundation
 @testable import Watchlist
 
 final class CastInteractorMock: CastInteractor {
+    var error: Error?
+    var requestedPages: [Int] = []
 
     var fetchCastCallStub: [Cast] = []
     var fetchCastCallCalledOnce: Bool = false
 
-    func fetchCast(_ id: Int) async -> [Cast] {
-        return try! await withCheckedThrowingContinuation { continuation in
-            fetchCastCallCalledOnce = true
-            continuation.resume(returning: fetchCastCallStub)
-        }
+    func fetchCast(_ id: Int) async throws -> [Cast] {
+        if let error { throw error }
+        fetchCastCallCalledOnce = true
+        return fetchCastCallStub
     }
 }

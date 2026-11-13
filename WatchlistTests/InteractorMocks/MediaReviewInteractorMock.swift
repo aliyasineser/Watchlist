@@ -10,15 +10,17 @@ import Foundation
 @testable import Watchlist
 
 final class MediaReviewInteractorMock: MediaReviewInteractor {
+    var error: Error?
+    var requestedPages: [Int] = []
 
     var getMovieReviewCallStub: [Watchlist.Review] = []
     var getMovieReviewCallCalledOnce: Bool = false
 
-    func getMovieReview(_ id: Int, page: Int) async -> [Watchlist.Review] {
-        return try! await withCheckedThrowingContinuation { continuation in
-            getMovieReviewCallCalledOnce = true
-            continuation.resume(returning: getMovieReviewCallStub)
-        }
+    func getMovieReview(_ id: Int, page: Int) async throws -> [Watchlist.Review] {
+        requestedPages.append(page)
+        if let error { throw error }
+        getMovieReviewCallCalledOnce = true
+        return getMovieReviewCallStub
     }
 
     var mediaServiceStub: Watchlist.MediaService = MediaServiceMock()

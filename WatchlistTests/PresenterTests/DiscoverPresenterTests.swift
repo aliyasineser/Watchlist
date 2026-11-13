@@ -23,20 +23,16 @@ final class DiscoverPresenterTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_mostRecentMovies() throws {
+    func test_mostRecentMovies() async throws {
         let sut = DiscoverDefaultPresenter(
             interactor
         )
 
         interactor.fetchNextMostRecentPageAsFullListStub = [Movie.mock]
 
-        let publisher = sut.$mostRecentMovies
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.mostRecentMovies
 
         XCTAssertTrue(interactor.fetchNextMostRecentPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
@@ -44,20 +40,16 @@ final class DiscoverPresenterTests: XCTestCase {
         XCTAssertEqual(media, Movie.mock)
     }
 
-    func test_comingSoonMovies() throws {
+    func test_comingSoonMovies() async throws {
         let sut = DiscoverDefaultPresenter(
             interactor
         )
 
         interactor.fetchNextUpcomingPageAsFullListStub = [Movie.mock]
 
-        let publisher = sut.$upcomingMovies
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.upcomingMovies
 
         XCTAssertTrue(interactor.fetchNextUpcomingPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
@@ -65,20 +57,16 @@ final class DiscoverPresenterTests: XCTestCase {
         XCTAssertEqual(media, Movie.mock)
     }
 
-    func test_popularMovies() throws {
+    func test_popularMovies() async throws {
         let sut = DiscoverDefaultPresenter(
             interactor
         )
 
         interactor.fetchNextPopularPageAsFullListStub = [Movie.mock]
 
-        let publisher = sut.$popularMovies
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.popularMovies
 
         XCTAssertTrue(interactor.fetchNextPopularPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
@@ -86,20 +74,16 @@ final class DiscoverPresenterTests: XCTestCase {
         XCTAssertEqual(media, Movie.mock)
     }
 
-    func test_airingTodaySeries() throws {
+    func test_airingTodaySeries() async throws {
         let sut = DiscoverDefaultPresenter(
             interactor
         )
 
         interactor.fetcthAiringTodayPageAsFullListStub = [TVSerie.mock]
 
-        let publisher = sut.$airingTodaySeries
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.airingTodaySeries
 
         XCTAssertTrue(interactor.fetcthAiringTodayPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
@@ -107,20 +91,16 @@ final class DiscoverPresenterTests: XCTestCase {
         XCTAssertEqual(media, TVSerie.mock)
     }
 
-    func test_onTheAirSeries() throws {
+    func test_onTheAirSeries() async throws {
         let sut = DiscoverDefaultPresenter(
             interactor
         )
 
         interactor.fetcthOnTheAirPageAsFullListStub = [TVSerie.mock]
 
-        let publisher = sut.$onTheAirSeries
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.onTheAirSeries
 
         XCTAssertTrue(interactor.fetcthOnTheAirPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
@@ -128,20 +108,16 @@ final class DiscoverPresenterTests: XCTestCase {
         XCTAssertEqual(media, TVSerie.mock)
     }
 
-    func test_topRatedSeries() throws {
+    func test_topRatedSeries() async throws {
         let sut = DiscoverDefaultPresenter(
             interactor
         )
 
         interactor.fetcthTopRatedPageAsFullListStub = [TVSerie.mock]
 
-        let publisher = sut.$topRatedSeries
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.topRatedSeries
 
         XCTAssertTrue(interactor.fetcthTopRatedPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
@@ -149,4 +125,34 @@ final class DiscoverPresenterTests: XCTestCase {
         XCTAssertEqual(media, TVSerie.mock)
     }
 
+
+    func test_failureIsVisibleAndLoadingResets() async {
+        let sut = DiscoverDefaultPresenter(interactor)
+        interactor.error = NetworkError.invalidServerResponse
+        await sut.fetchMedia()
+        XCTAssertNotNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+
+        interactor.error = nil
+        await sut.fetchMedia()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_cancellationDoesNotShowAlert() async {
+        let sut = DiscoverDefaultPresenter(interactor)
+        interactor.error = CancellationError()
+        await sut.fetchMedia()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_cumulativeResultsReplaceExistingSections() async {
+        interactor.fetchNextPopularPageAsFullListStub = [Movie.mock]
+        let sut = DiscoverDefaultPresenter(interactor)
+        await sut.fetchMedia()
+        await sut.fetchMedia()
+        XCTAssertEqual(sut.popularMovies.count, 1)
+        XCTAssertFalse(sut.isLoading)
+    }
 }

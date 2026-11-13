@@ -10,7 +10,7 @@ import Combine
 import Kingfisher
 
 struct FavoritesView: View {
-    @ObservedObject private var presenter: FavoritesDefaultPresenter
+    @State private var presenter: FavoritesDefaultPresenter
 
     init(presenter: FavoritesDefaultPresenter) {
         self.presenter = presenter
@@ -27,7 +27,7 @@ struct FavoritesView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView(showsIndicators: false) {
                 Section {
                     LazyVGrid(
@@ -76,14 +76,14 @@ struct FavoritesView: View {
 
             }
             .navigationTitle(ConstantTexts.NavigationBarTitle.favoritesScreen)
-            .navigationBarHidden(false)
+            .toolbar(.visible, for: .navigationBar)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                presenter.fetchFavorites()
+            .task {
+                await presenter.fetchFavorites()
             }
         }
-
+        .errorAlert(error: $presenter.fetchError)
     }
 }
 

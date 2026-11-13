@@ -9,34 +9,33 @@ import Foundation
 @testable import Watchlist
 
 final class FavoritesInteractorMock: FavoritesInteractor {
+    var error: Error?
+    var requestedPages: [Int] = []
 
     var getFavoriteArtistsCallStub: [Watchlist.ArtistDetail] = []
     var getFavoriteArtistsCallCalledOnce: Bool = false
 
-    func getFavoriteArtists() async -> [Watchlist.ArtistDetail] {
-        return try! await withCheckedThrowingContinuation { continuation in
-            getFavoriteArtistsCallCalledOnce = true
-            continuation.resume(returning: getFavoriteArtistsCallStub)
-        }
+    func getFavoriteArtists() async throws -> [Watchlist.ArtistDetail] {
+        if let error { throw error }
+        getFavoriteArtistsCallCalledOnce = true
+        return getFavoriteArtistsCallStub
     }
 
     var getFavoriteMoviesCallStub: [Watchlist.Watchable] = []
     var getFavoriteMoviesCallCalledOnce: Bool = false
 
-    func getFavoriteMovies() async -> [Watchlist.Watchable] {
-        return try! await withCheckedThrowingContinuation { continuation in
-            getFavoriteMoviesCallCalledOnce = true
-            continuation.resume(returning: getFavoriteMoviesCallStub)
-        }
+    func getFavoriteMovies() async throws -> [Watchlist.Watchable] {
+        if let error { throw error }
+        getFavoriteMoviesCallCalledOnce = true
+        return getFavoriteMoviesCallStub
     }
 
     var getFavoriteSeriesCallStub: [Watchlist.Watchable] = []
     var getFavoriteSeriesCallCalledOnce: Bool = false
 
-    func getFavoriteSeries() async -> [Watchlist.Watchable] {
-        return try! await withCheckedThrowingContinuation { continuation in
-            getFavoriteSeriesCallCalledOnce = true
-            continuation.resume(returning: getFavoriteSeriesCallStub)
-        }
+    func getFavoriteSeries() async throws -> [Watchlist.Watchable] {
+        if let error { throw error }
+        getFavoriteSeriesCallCalledOnce = true
+        return getFavoriteSeriesCallStub
     }
 }

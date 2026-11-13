@@ -9,16 +9,15 @@ import SwiftUI
 import Combine
 
 struct DiscoverView: View {
-    @ObservedObject var presenter: DiscoverDefaultPresenter
+    @State var presenter: DiscoverDefaultPresenter
 
     init(presenter: DiscoverDefaultPresenter) {
         self.presenter = presenter
-        presenter.fetchMedia()
     }
 
     var body: some View {
 
-        NavigationView {
+        NavigationStack {
             ScrollView(.vertical, showsIndicators: true ) {
                 DiscoverSlice(
                     sliceTitle: ConstantTexts.SectionHeader.mostPopular,
@@ -56,9 +55,10 @@ struct DiscoverView: View {
                     section: MediaSection.topRatedSeries
                 )
             }
+            .task { await presenter.fetchMedia() }
             .errorAlert(error: $presenter.fetchError)
-            .navigationBarTitle(ConstantTexts.NavigationBarTitle.discoverScreen)
-            .navigationBarHidden(false)
+            .navigationTitle(ConstantTexts.NavigationBarTitle.discoverScreen)
+            .toolbar(.visible, for: .navigationBar)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
             .padding(

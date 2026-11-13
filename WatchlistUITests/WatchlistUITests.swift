@@ -1,41 +1,21 @@
-//
-//  WatchlistUITests.swift
-//  WatchlistUITests
-//
-//  Created by Ali Yasin Eser on 23.03.2021.
-//
-
 import XCTest
 
-class WatchlistUITests: XCTestCase {
-
+final class WatchlistUITests: XCTestCase {
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func test_rootTabsNavigateOffline() {
         let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing"]
         app.launch()
 
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
-        }
+        XCTAssertTrue(app.navigationBars["Discover"].waitForExistence(timeout: 5))
+        app.tabBars.buttons["Artists"].tap()
+        XCTAssertTrue(app.navigationBars["Artists"].waitForExistence(timeout: 5))
+        app.tabBars.buttons["Favorites"].tap()
+        XCTAssertTrue(app.navigationBars["Favorites"].waitForExistence(timeout: 5))
+        app.tabBars.buttons["Discover"].tap()
+        XCTAssertTrue(app.navigationBars["Discover"].exists)
     }
 }

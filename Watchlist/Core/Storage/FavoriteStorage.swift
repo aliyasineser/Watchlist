@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 
+@MainActor
 protocol FavoriteStorage {
 
     var viewContext: NSManagedObjectContext { get }

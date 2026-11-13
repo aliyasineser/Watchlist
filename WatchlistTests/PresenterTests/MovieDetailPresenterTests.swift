@@ -6,7 +6,6 @@
 //
 
 import XCTest
-import Combine
 @testable import Watchlist
 
 @MainActor
@@ -24,23 +23,41 @@ final class MovieDetailPresenterTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_getMediaDetail() throws {
+    func test_getMediaDetail() async throws {
         let sut = MovieDetailDefaultPresenter(
             interactor: interactor,
-            id: 1
+            id: 1,
+            favoriteStorage: FavoriteStorageStub()
         )
 
         interactor.getMovieDetailCallStub = MovieDetail.mock
 
-        let mediaPublisher = sut.$media
-            .dropFirst()
-            .first()
+        await sut.getMediaDetail()
 
-        sut.getMediaDetail()
-
-        let media = try awaitPublisher(mediaPublisher)
+        let media = sut.media
 
         XCTAssertTrue(interactor.getMovieDetailCallCalledOnce)
         XCTAssertEqual(media, MovieDetail.mock)
+    }
+
+    func test_failureIsVisibleAndLoadingResets() async {
+        let sut = MovieDetailDefaultPresenter(interactor: interactor, id: 1, favoriteStorage: FavoriteStorageStub())
+        interactor.error = NetworkError.invalidServerResponse
+        await sut.getMediaDetail()
+        XCTAssertNotNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+
+        interactor.error = nil
+        await sut.getMediaDetail()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_cancellationDoesNotShowAlert() async {
+        let sut = MovieDetailDefaultPresenter(interactor: interactor, id: 1, favoriteStorage: FavoriteStorageStub())
+        interactor.error = CancellationError()
+        await sut.getMediaDetail()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
     }
 }

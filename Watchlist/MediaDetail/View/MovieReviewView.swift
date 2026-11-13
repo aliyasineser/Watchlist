@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MovieReviewView: View {
 
-    @ObservedObject var presenter: MediaReviewDefaultPresenter
+    @State var presenter: MediaReviewDefaultPresenter
 
     var body: some View {
         ScrollView(.vertical) {
@@ -17,9 +17,10 @@ struct MovieReviewView: View {
                 ReviewItem(review: review)
             }
         }
-        .onAppear {
-            presenter.fetchReviews()
+        .task {
+            await presenter.fetchReviews()
         }
+        .errorAlert(error: $presenter.fetchError)
     }
 }
 

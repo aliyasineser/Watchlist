@@ -90,3 +90,16 @@ final class MediaInteractorStub: MediaInteractor {
     func fetcthNextOnTheAirPageAsFullList() async throws -> [Watchable] { getMediaList() }
     func fetcthNextTopRatedPageAsFullList() async throws -> [Watchable] { getMediaList() }
 }
+
+extension MediaInteractor {
+    func fetchMedia(in section: MediaSection) async throws -> [Watchable] {
+        switch section {
+        case .popularMovies: return try await fetchNextPopularPageAsFullList()
+        case .mostRecentMovies: return try await fetchNextMostRecentPageAsFullList()
+        case .comingSoonMovies: return try await fetchNextUpcomingPageAsFullList()
+        case .airingTodaySeries: return try await fetcthNextAiringTodayPageAsFullList()
+        case .onTheAirSeries: return try await fetcthNextOnTheAirPageAsFullList()
+        case .topRatedSeries: return try await fetcthNextTopRatedPageAsFullList()
+        }
+    }
+}

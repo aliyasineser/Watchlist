@@ -9,6 +9,8 @@ import Foundation
 @testable import Watchlist
 
 final class MediaInteractorMock: MediaInteractor {
+    var error: Error?
+    var requestedPages: [Int] = []
 
     var fetchNextPopularPageAsFullListStub: [Watchable] = []
     var fetchNextMostRecentPageAsFullListStub: [Watchable] = []
@@ -24,32 +26,38 @@ final class MediaInteractorMock: MediaInteractor {
     var fetcthOnTheAirPageAsFullListWasCalledOnce: Bool = false
     var fetcthTopRatedPageAsFullListWasCalledOnce: Bool = false
 
-    func fetchNextPopularPageAsFullList() async -> [Watchable] {
+    func fetchNextPopularPageAsFullList() async throws -> [Watchable] {
+        if let error { throw error }
         fetchNextPopularPageAsFullListWasCalledOnce = true
         return fetchNextPopularPageAsFullListStub
     }
 
-    func fetchNextMostRecentPageAsFullList() async -> [Watchable] {
+    func fetchNextMostRecentPageAsFullList() async throws -> [Watchable] {
+        if let error { throw error }
         fetchNextMostRecentPageAsFullListWasCalledOnce = true
         return fetchNextMostRecentPageAsFullListStub
     }
 
-    func fetchNextUpcomingPageAsFullList() async -> [Watchable] {
+    func fetchNextUpcomingPageAsFullList() async throws -> [Watchable] {
+        if let error { throw error }
         fetchNextUpcomingPageAsFullListWasCalledOnce = true
         return fetchNextUpcomingPageAsFullListStub
     }
 
-    func fetcthNextAiringTodayPageAsFullList() async -> [Watchable] {
+    func fetcthNextAiringTodayPageAsFullList() async throws -> [Watchable] {
+        if let error { throw error }
         fetcthAiringTodayPageAsFullListWasCalledOnce = true
         return fetcthAiringTodayPageAsFullListStub
     }
 
-    func fetcthNextOnTheAirPageAsFullList() async -> [Watchable] {
+    func fetcthNextOnTheAirPageAsFullList() async throws -> [Watchable] {
+        if let error { throw error }
         fetcthOnTheAirPageAsFullListWasCalledOnce = true
         return fetcthOnTheAirPageAsFullListStub
     }
 
-    func fetcthNextTopRatedPageAsFullList() async -> [Watchable] {
+    func fetcthNextTopRatedPageAsFullList() async throws -> [Watchable] {
+        if let error { throw error }
         fetcthTopRatedPageAsFullListWasCalledOnce = true
         return fetcthTopRatedPageAsFullListStub
     }

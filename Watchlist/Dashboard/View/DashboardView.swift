@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum TabViewSection {
+enum TabViewSection: Hashable {
     case discover
     case artists
     case favorites
@@ -28,53 +28,29 @@ enum TabViewSection {
 }
 
 struct DashboardView: View {
-    @State var selectedTabIndex: Int = 0
+    @State private var selectedTab: TabViewSection = .discover
+    @State private var discoverPresenter: DiscoverDefaultPresenter
+    @State private var artistPresenter: ArtistDefaultPresenter
+    @State private var favoritesPresenter: FavoritesDefaultPresenter
+
+    init(dependencies: AppDependencies = AppDependenciesImpl()) {
+        _discoverPresenter = State(initialValue: dependencies.makeDiscoverPresenter())
+        _artistPresenter = State(initialValue: dependencies.makeArtistPresenter())
+        _favoritesPresenter = State(initialValue: dependencies.makeFavoritesPresenter())
+    }
 
     var body: some View {
-        TabView(selection: $selectedTabIndex) {
-            DiscoverView(
-                presenter: DiscoverDefaultPresenter(
-                    DefaultMediaInteractor()
-                )
-            )
-            .tabItem {
-                TabItemView(
-                    systemName: Icons.TabBar.discover.rawValue,
-                    text: ConstantTexts.TabBarItemTitle.discoverScreen
-                )
+        TabView(selection: $selectedTab) {
+            Tab("Discover", systemImage: Icons.TabBar.discover.rawValue, value: .discover) {
+                DiscoverView(presenter: discoverPresenter)
             }
-            .tag(TabViewSection.discover.tag)
-
-            ArtistsView(
-                presenter: ArtistDefaultPresenter(
-                    DefaultArtistInteractor()
-                )
-            )
-            .tabItem {
-                TabItemView(
-                    systemName: Icons.TabBar.artist.rawValue,
-                    text: ConstantTexts.TabBarItemTitle.artistsScreen
-                )
+            Tab("Artists", systemImage: Icons.TabBar.artist.rawValue, value: .artists) {
+                ArtistsView(presenter: artistPresenter)
             }
-            .tag(TabViewSection.artists.tag)
-
-            FavoritesView(
-                presenter: FavoritesDefaultPresenter(
-                    DefaultFavoritesInteractor()
-                )
-            )
-            .tabItem {
-                TabItemView(
-                    systemName: Icons.TabBar.favorites.rawValue,
-                    text: ConstantTexts.TabBarItemTitle.favoritesScreen
-                )
+            Tab("Favorites", systemImage: Icons.TabBar.favorites.rawValue, value: .favorites) {
+                FavoritesView(presenter: favoritesPresenter)
             }
-            .tag(TabViewSection.favorites.tag)
         }
-        .navigationBarTitle(ConstantTexts.NavigationBarTitle.dashboardScreen)
-        .navigationBarHidden(false)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

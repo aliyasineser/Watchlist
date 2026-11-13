@@ -6,7 +6,6 @@
 //
 
 import XCTest
-import Combine
 @testable import Watchlist
 
 @MainActor
@@ -24,7 +23,7 @@ final class SimilarMediaPresenterTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_fetchSimilar() throws {
+    func test_fetchSimilar() async throws {
         let sut = MediaSimilarDefaultPresenter(
             interactor: interactor,
             id: 1
@@ -32,16 +31,43 @@ final class SimilarMediaPresenterTests: XCTestCase {
 
         interactor.getSimilarMediaCallStub = [Movie.mock]
 
-        let publisher = sut.$media
-            .dropFirst()
-            .first()
+        await sut.fetchSimilar()
 
-        sut.fetchSimilar()
-
-        let reviews = try awaitPublisher(publisher)
+        let reviews = sut.media
 
         XCTAssertTrue(interactor.getSimilarMediaCallCalledOnce)
         let unwrappedMedia = try XCTUnwrap(reviews.first as? Movie)
         XCTAssertEqual(unwrappedMedia, Movie.mock)
+    }
+
+    func test_failureIsVisibleAndLoadingResets() async {
+        let sut = MediaSimilarDefaultPresenter(interactor: interactor, id: 1)
+        interactor.error = NetworkError.invalidServerResponse
+        await sut.fetchSimilar()
+        XCTAssertNotNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+
+        interactor.error = nil
+        await sut.fetchSimilar()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_cancellationDoesNotShowAlert() async {
+        let sut = MediaSimilarDefaultPresenter(interactor: interactor, id: 1)
+        interactor.error = CancellationError()
+        await sut.fetchSimilar()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_failedPageIsRetriedBeforeAdvancing() async {
+        let sut = MediaSimilarDefaultPresenter(interactor: interactor, id: 1)
+        interactor.error = NetworkError.invalidServerResponse
+        await sut.fetchSimilar()
+        interactor.error = nil
+        await sut.fetchSimilar()
+        await sut.fetchSimilar()
+        XCTAssertEqual(interactor.requestedPages, [1, 1, 2])
     }
 }

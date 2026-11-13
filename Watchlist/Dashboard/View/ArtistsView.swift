@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ArtistsView: View {
 
-    @ObservedObject var presenter: ArtistDefaultPresenter
+    @State var presenter: ArtistDefaultPresenter
     @State private var position = 0
 
     let columns = [
@@ -22,7 +22,7 @@ struct ArtistsView: View {
     }
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView(showsIndicators: true) {
                 ScrollViewReader { proxy in
                     LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
@@ -39,18 +39,18 @@ struct ArtistsView: View {
                             }
                         }
                         Spacer()
-                            .onAppear(perform: {
-                                presenter.loadArtists()
-                            })
-                    }.onChange(of: position) { _ in
+                            .task {
+                                await presenter.loadArtists()
+                            }
+                    }.onChange(of: position) {
                         withAnimation {
                             proxy.scrollTo(150, anchor: .center)
                         }
                     }
                 }
             }
-            .navigationBarTitle(ConstantTexts.NavigationBarTitle.artistsScreen)
-            .navigationBarHidden(false)
+            .navigationTitle(ConstantTexts.NavigationBarTitle.artistsScreen)
+            .toolbar(.visible, for: .navigationBar)
             .navigationBarBackButtonHidden(true)
             .navigationBarTitleDisplayMode(.inline)
             .padding(
@@ -61,6 +61,7 @@ struct ArtistsView: View {
                     trailing: 0)
             )
         }
+        .errorAlert(error: $presenter.fetchError)
     }
 }
 
