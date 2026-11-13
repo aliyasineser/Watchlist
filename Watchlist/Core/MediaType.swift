@@ -7,6 +7,6 @@
 
 import Foundation
 
-public enum MediaType: String, Codable {
+public enum MediaType: String, Codable, Sendable {
     case tv, movie // swiftlint:disable:this identifier_name
 }

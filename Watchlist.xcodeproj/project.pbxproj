@@ -158,6 +158,14 @@
 		83A02C821B714D14AA4F9389 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851502CA1BBD4C10A879C402 /* SearchPresenter.swift */; };
 		D59F3D2CEC344903BDA4C6FC /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F856698A7034E39B114420A /* SearchView.swift */; };
 		9603DCFD1F2B4F22BDA8D7A9 /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AEEC85B5E34C108046882D /* SearchTests.swift */; };
+		381316E627BD4281BF06959C /* WatchEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6266B6E2582A4CDAA394E22F /* WatchEntry.swift */; };
+		3344336C68F24623BA87E310 /* WatchLibraryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C9B401DD6524B3C9A6F32B3 /* WatchLibraryRepository.swift */; };
+		8A2F32E6ACC04D9B869EAB5B /* ArtworkCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = D939C6AB1CD2415786485050 /* ArtworkCache.swift */; };
+		C62A4EE9801A49B0ABAAF249 /* WatchLibraryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E27B70318A48A1BD129AF6 /* WatchLibraryStore.swift */; };
+		467A90FEC5D44B85BF83B7CF /* WatchStatusControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD78067FF789443F81C8E507 /* WatchStatusControl.swift */; };
+		617F2E7B48A74A83ABDF1668 /* SavedTitleDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92FDE3D5D269458E9BF5DD76 /* SavedTitleDetailView.swift */; };
+		54C9761476DE4F74B3206941 /* SavedArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F2D2535B574072AB312831 /* SavedArtistsView.swift */; };
+		9DBB18516B2F40D1938AD30D /* WatchLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE28DE3AEDB4BA183EE5369 /* WatchLibraryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -334,6 +342,14 @@
 		851502CA1BBD4C10A879C402 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Search/Presenter/SearchPresenter.swift; sourceTree = SOURCE_ROOT; };
 		2F856698A7034E39B114420A /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Search/View/SearchView.swift; sourceTree = SOURCE_ROOT; };
 		45AEEC85B5E34C108046882D /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTests/CoreTests/SearchTests.swift; sourceTree = SOURCE_ROOT; };
+		6266B6E2582A4CDAA394E22F /* WatchEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Library/Entity/WatchEntry.swift; sourceTree = SOURCE_ROOT; };
+		3C9B401DD6524B3C9A6F32B3 /* WatchLibraryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Library/Storage/WatchLibraryRepository.swift; sourceTree = SOURCE_ROOT; };
+		D939C6AB1CD2415786485050 /* ArtworkCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Library/Storage/ArtworkCache.swift; sourceTree = SOURCE_ROOT; };
+		99E27B70318A48A1BD129AF6 /* WatchLibraryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Library/Presenter/WatchLibraryStore.swift; sourceTree = SOURCE_ROOT; };
+		BD78067FF789443F81C8E507 /* WatchStatusControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Library/View/WatchStatusControl.swift; sourceTree = SOURCE_ROOT; };
+		92FDE3D5D269458E9BF5DD76 /* SavedTitleDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Library/View/SavedTitleDetailView.swift; sourceTree = SOURCE_ROOT; };
+		64F2D2535B574072AB312831 /* SavedArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Library/View/SavedArtistsView.swift; sourceTree = SOURCE_ROOT; };
+		8BE28DE3AEDB4BA183EE5369 /* WatchLibraryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTests/CoreTests/WatchLibraryTests.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -549,6 +565,13 @@
 		DD045470260A171900DFEFE6 /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
+				64F2D2535B574072AB312831 /* SavedArtistsView.swift */,
+				92FDE3D5D269458E9BF5DD76 /* SavedTitleDetailView.swift */,
+				BD78067FF789443F81C8E507 /* WatchStatusControl.swift */,
+				99E27B70318A48A1BD129AF6 /* WatchLibraryStore.swift */,
+				D939C6AB1CD2415786485050 /* ArtworkCache.swift */,
+				3C9B401DD6524B3C9A6F32B3 /* WatchLibraryRepository.swift */,
+				6266B6E2582A4CDAA394E22F /* WatchEntry.swift */,
 				2F856698A7034E39B114420A /* SearchView.swift */,
 				851502CA1BBD4C10A879C402 /* SearchPresenter.swift */,
 				9874B8CE36E2475C8C1F9286 /* RecentSearchStore.swift */,
@@ -590,6 +613,7 @@
 		DD045487260A171D00DFEFE6 /* WatchlistTests */ = {
 			isa = PBXGroup;
 			children = (
+				8BE28DE3AEDB4BA183EE5369 /* WatchLibraryTests.swift */,
 				45AEEC85B5E34C108046882D /* SearchTests.swift */,
 				FA28837210D84D70BB057384 /* FavoriteStorageTests.swift */,
 				AB75B35BA6BF43CEB4421D62 /* NetworkTests.swift */,
@@ -1057,6 +1081,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54C9761476DE4F74B3206941 /* SavedArtistsView.swift in Sources */,
+				617F2E7B48A74A83ABDF1668 /* SavedTitleDetailView.swift in Sources */,
+				467A90FEC5D44B85BF83B7CF /* WatchStatusControl.swift in Sources */,
+				C62A4EE9801A49B0ABAAF249 /* WatchLibraryStore.swift in Sources */,
+				8A2F32E6ACC04D9B869EAB5B /* ArtworkCache.swift in Sources */,
+				3344336C68F24623BA87E310 /* WatchLibraryRepository.swift in Sources */,
+				381316E627BD4281BF06959C /* WatchEntry.swift in Sources */,
 				D59F3D2CEC344903BDA4C6FC /* SearchView.swift in Sources */,
 				83A02C821B714D14AA4F9389 /* SearchPresenter.swift in Sources */,
 				92CD34019A2342CAB12F5906 /* RecentSearchStore.swift in Sources */,
@@ -1181,6 +1212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DBB18516B2F40D1938AD30D /* WatchLibraryTests.swift in Sources */,
 				9603DCFD1F2B4F22BDA8D7A9 /* SearchTests.swift in Sources */,
 				7745B85E924D4826AA2CD816 /* FavoriteStorageTests.swift in Sources */,
 				DC39FF9B47314585A71DD528 /* NetworkTests.swift in Sources */,

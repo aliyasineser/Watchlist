@@ -35,14 +35,14 @@ struct DashboardView: View {
     @State private var selectedTab: TabViewSection = .discover
     @State private var discoverPresenter: DiscoverDefaultPresenter
     @State private var artistPresenter: ArtistDefaultPresenter
-    @State private var favoritesPresenter: FavoritesDefaultPresenter
+    @State private var libraryStore: WatchLibraryStoreImpl
 
     init(dependencies: AppDependencies? = nil) {
         let dependencies = dependencies ?? AppDependenciesImpl()
         _searchPresenter = State(initialValue: dependencies.makeSearchPresenter())
         _discoverPresenter = State(initialValue: dependencies.makeDiscoverPresenter())
         _artistPresenter = State(initialValue: dependencies.makeArtistPresenter())
-        _favoritesPresenter = State(initialValue: dependencies.makeFavoritesPresenter())
+        _libraryStore = State(initialValue: dependencies.makeWatchLibraryStore())
     }
 
     var body: some View {
@@ -57,7 +57,7 @@ struct DashboardView: View {
                 ArtistsView(presenter: artistPresenter)
             }
             Tab("Favorites", systemImage: Icons.TabBar.favorites.rawValue, value: .favorites) {
-                FavoritesView(presenter: favoritesPresenter)
+                FavoritesView(store: libraryStore)
             }
         }
     }
