@@ -48,6 +48,7 @@ final class SimilarMediaPresenterTests: XCTestCase {
         XCTAssertFalse(sut.isLoading)
 
         interactor.error = nil
+        interactor.getSimilarMediaCallStub = [Movie.mock]
         await sut.fetchSimilar()
         XCTAssertNil(sut.fetchError)
         XCTAssertFalse(sut.isLoading)
@@ -66,8 +67,17 @@ final class SimilarMediaPresenterTests: XCTestCase {
         interactor.error = NetworkError.invalidServerResponse
         await sut.fetchSimilar()
         interactor.error = nil
+        interactor.getSimilarMediaCallStub = [Movie.mock]
         await sut.fetchSimilar()
         await sut.fetchSimilar()
         XCTAssertEqual(interactor.requestedPages, [1, 1, 2])
+    }
+
+    func test_emptyPageEndsPagination() async {
+        let sut = MediaSimilarDefaultPresenter(interactor: interactor, id: 1)
+        await sut.fetchSimilar()
+        await sut.fetchSimilar()
+        XCTAssertFalse(sut.hasMore)
+        XCTAssertEqual(interactor.requestedPages, [1])
     }
 }

@@ -8,21 +8,21 @@
 import Foundation
 
 protocol ArtistInteractor {
-    func fetchArtists() async -> [Artist]
+    func fetchArtists() async throws -> [Artist]
 }
 
 final class DefaultArtistInteractor: ArtistInteractor {
 
     let artistFetcher: ArtistFetcher = ArtistFetcher()
 
-    func fetchArtists() async -> [Artist] {
-        return await artistFetcher.fetchSinglePage()
+    func fetchArtists() async throws -> [Artist] {
+        return try await artistFetcher.fetchSinglePage()
     }
 
 }
 
 final class ArtistInteractorStub: ArtistInteractor {
-    func fetchArtists() async -> [Artist] {
+    func fetchArtists() async throws -> [Artist] {
         var artists: [Artist] = []
         for _ in 0..<9 {
             artists.append(Artist.mock)

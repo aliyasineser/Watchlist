@@ -131,3 +131,14 @@ private final class HTTPStatusURLProtocol: URLProtocol {
 
     override func stopLoading() { }
 }
+
+extension NetworkTests {
+    func test_emptyMediaPageDoesNotRequestAgain() async throws {
+        let strategy = PageRecordingStrategy()
+        let fetcher = MediaFetcher(strategy: strategy, service: MediaServiceMock())
+        _ = try await fetcher.fetchWithNextPage()
+        _ = try await fetcher.fetchWithNextPage()
+        XCTAssertEqual(strategy.pages, [1])
+        XCTAssertFalse(fetcher.hasMore)
+    }
+}

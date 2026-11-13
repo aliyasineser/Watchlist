@@ -16,63 +16,38 @@ final class ArtistService {
         self.requestManager = requestManager
     }
 
-    func fetchArtistDetail(id: Int) async -> ArtistDetail? {
+    func fetchArtistDetail(id: Int) async throws -> ArtistDetail? {
         let requestData = ArtistRequest.getArtist(id: id)
-        do {
-            let artist: ArtistDetail = try await
-            requestManager.initRequest(with: requestData)
-            return artist
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
+        let artist: ArtistDetail = try await
+        requestManager.initRequest(with: requestData)
+        return artist
     }
 
-    func fetchArtists(page: Int) async -> PopularArtists? {
+    func fetchArtists(page: Int) async throws -> PopularArtists? {
         let requestData = ArtistRequest.getPopularArtists(page: page)
-        do {
-            let artists: PopularArtists = try await
-            requestManager.initRequest(with: requestData)
-            return artists
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
+        let artists: PopularArtists = try await
+        requestManager.initRequest(with: requestData)
+        return artists
     }
 
-    func fetchTVCredits(id: Int) async -> Credits? {
+    func fetchTVCredits(id: Int) async throws -> Credits? {
         let requestData = ArtistRequest.getTVCredits(id: id)
-        do {
-            let credits: Credits = try await
-            requestManager.initRequest(with: requestData)
-            return credits
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
+        let credits: Credits = try await
+        requestManager.initRequest(with: requestData)
+        return credits
     }
 
-    func fetchMovieCredits(id: Int) async -> Credits? {
+    func fetchMovieCredits(id: Int) async throws -> Credits? {
         let requestData = ArtistRequest.getMovieCredits(id: id)
-        do {
-            let credits: Credits = try await
-            requestManager.initRequest(with: requestData)
-            return credits
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
+        let credits: Credits = try await
+        requestManager.initRequest(with: requestData)
+        return credits
     }
 
-    func fetchImages(id: Int) async -> [Profile] {
+    func fetchImages(id: Int) async throws -> [Profile] {
         let requestData = ArtistRequest.getImages(id: id)
-        do {
-            let imageResponse: ArtistImageResponse = try await
-            requestManager.initRequest(with: requestData)
-            return imageResponse.profiles
-        } catch {
-            print(error.localizedDescription)
-            return []
-        }
+        let imageResponse: ArtistImageResponse = try await
+        requestManager.initRequest(with: requestData)
+        return imageResponse.profiles
     }
 }

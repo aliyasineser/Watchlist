@@ -24,6 +24,7 @@ final class ArtistDefaultPresenter: ArtistPresenter {
     var artists: [Artist]
     var fetchError: Error?
     var isLoading: Bool = false
+    private(set) var hasMore = true
 
     init(_ interactor: ArtistInteractor) {
         self.interactor = interactor
@@ -31,12 +32,19 @@ final class ArtistDefaultPresenter: ArtistPresenter {
     }
 
     func loadArtists() async {
-        guard !isLoading, !Task.isCancelled else { return }
+        guard hasMore, !isLoading, !Task.isCancelled else { return }
         isLoading = true
         fetchError = nil
         defer { isLoading = false }
-        let artists = await interactor.fetchArtists()
-        guard !Task.isCancelled else { return }
-        self.artists.append(contentsOf: artists)
+        do {
+            let artists = try await interactor.fetchArtists()
+            guard !Task.isCancelled else { return }
+            hasMore = !artists.isEmpty
+            var identifiers = Set(self.artists.map(\.id))
+            self.artists.append(contentsOf: artists.filter { identifiers.insert($0.id).inserted })
+        } catch {
+            guard !Task.isCancelled, !(error is CancellationError) else { return }
+            fetchError = error
+        }
     }
 }

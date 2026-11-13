@@ -24,10 +24,10 @@ final class DefaultFavoritesInteractor: FavoritesInteractor {
     private let tvSerieService = TVService.shared
 
     func getFavoriteArtists() async throws -> [ArtistDetail] {
-        let artistsInfoList = artistStorage.fetchArtists()
+        let artistsInfoList = try artistStorage.fetchArtists()
         var favoriteArtists: [ArtistDetail] = []
         for artistInfo in artistsInfoList {
-            if let artist = await artistService.fetchArtistDetail(id: Int(artistInfo.id)) {
+            if let artist = try await artistService.fetchArtistDetail(id: Int(artistInfo.id)) {
                 favoriteArtists.append(artist)
             }
         }
@@ -35,7 +35,7 @@ final class DefaultFavoritesInteractor: FavoritesInteractor {
     }
 
     func getFavoriteMovies() async throws -> [Watchable] {
-        let infoList = movieStorage.fetchMovies()
+        let infoList = try movieStorage.fetchMovies()
         var favorites: [Watchable] = []
         for info in infoList {
             if let details = try await movieService.fetchMediaDetails(id: Int(info.id)) {
@@ -46,7 +46,7 @@ final class DefaultFavoritesInteractor: FavoritesInteractor {
     }
 
     func getFavoriteSeries() async throws -> [Watchable] {
-        let infoList = tvSerieStorage.fetchSeries()
+        let infoList = try tvSerieStorage.fetchSeries()
         var favorites: [Watchable] = []
         for info in infoList {
             if let details = try await tvSerieService.fetchMediaDetails(id: Int(info.id)) {

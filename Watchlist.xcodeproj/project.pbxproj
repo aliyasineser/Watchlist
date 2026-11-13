@@ -151,6 +151,7 @@
 		56BBA5F1DE734034BFDE44D0 /* MediaDetailContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CDCE42F6D24B30986DE455 /* MediaDetailContent.swift */; };
 		3368460B2BAC454CB0622C7C /* MediaPosterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC91C5D3DB048AEB0EECB03 /* MediaPosterCard.swift */; };
 		83D9D1CEDC924ECE8FAE1BC8 /* PosterArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35711BCBCF93442FB56A2615 /* PosterArtwork.swift */; };
+		697DF5CD8B944C07B66C2AE3 /* LoadStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA56C0FE017419CB4BD76AD /* LoadStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -320,6 +321,7 @@
 		49CDCE42F6D24B30986DE455 /* MediaDetailContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Common/Views/Catalog/MediaDetailContent.swift; sourceTree = SOURCE_ROOT; };
 		5FC91C5D3DB048AEB0EECB03 /* MediaPosterCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Common/Views/Catalog/MediaPosterCard.swift; sourceTree = SOURCE_ROOT; };
 		35711BCBCF93442FB56A2615 /* PosterArtwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Common/Views/Catalog/PosterArtwork.swift; sourceTree = SOURCE_ROOT; };
+		9DA56C0FE017419CB4BD76AD /* LoadStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Common/Views/Catalog/LoadStateView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -535,6 +537,7 @@
 		DD045470260A171900DFEFE6 /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
+				9DA56C0FE017419CB4BD76AD /* LoadStateView.swift */,
 				DD1CD3FC29072AB500A0D1E8 /* Resources */,
 				DD4B3A6B28E0FB0A007308F5 /* Common */,
 				DD02ECC828DF9C3000D230F9 /* Favorites */,
@@ -1036,6 +1039,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				697DF5CD8B944C07B66C2AE3 /* LoadStateView.swift in Sources */,
 				83D9D1CEDC924ECE8FAE1BC8 /* PosterArtwork.swift in Sources */,
 				3368460B2BAC454CB0622C7C /* MediaPosterCard.swift in Sources */,
 				56BBA5F1DE734034BFDE44D0 /* MediaDetailContent.swift in Sources */,
