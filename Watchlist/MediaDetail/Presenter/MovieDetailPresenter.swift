@@ -22,6 +22,7 @@ protocol MovieDetailPresenter: AnyObject {
 @Observable
 final class MovieDetailDefaultPresenter: MovieDetailPresenter {
     private(set) var isLoading = false
+    private(set) var hasLoaded = false
     var fetchError: Error?
 
     private(set) var interactor: MovieDetailInteractor
@@ -41,10 +42,13 @@ final class MovieDetailDefaultPresenter: MovieDetailPresenter {
         fetchError = nil
         defer { isLoading = false }
         do {
-            guard let movieDetail = try await interactor.getMovieDetail(id) else { return }
-            guard let detail = movieDetail as? MovieDetail else { return }
+            guard let movieDetail = try await interactor.getMovieDetail(id) else {
+                throw NetworkError.invalidServerResponse
+            }
+            guard let detail = movieDetail as? MovieDetail else { throw NetworkError.invalidServerResponse }
             try Task.checkCancellation()
             self.media = detail
+            hasLoaded = true
         } catch {
             guard !Task.isCancelled, !(error is CancellationError) else { return }
             fetchError = error

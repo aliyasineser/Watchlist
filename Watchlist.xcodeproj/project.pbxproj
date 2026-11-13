@@ -146,6 +146,11 @@
 		603153ABCA94456FAC575860 /* AppDependencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20F5D4D2AA0406D9E5CF081 /* AppDependencies.swift */; };
 		DC39FF9B47314585A71DD528 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB75B35BA6BF43CEB4421D62 /* NetworkTests.swift */; };
 		7745B85E924D4826AA2CD816 /* FavoriteStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28837210D84D70BB057384 /* FavoriteStorageTests.swift */; };
+		BD561A5808964163AD0B9337 /* CatalogSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD670DE1789E4FDD9A7B9487 /* CatalogSectionHeader.swift */; };
+		3D7D03B69E344A84AED1B045 /* MediaDestinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0665385AD26A48D0BB9CBCD4 /* MediaDestinationView.swift */; };
+		56BBA5F1DE734034BFDE44D0 /* MediaDetailContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CDCE42F6D24B30986DE455 /* MediaDetailContent.swift */; };
+		3368460B2BAC454CB0622C7C /* MediaPosterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FC91C5D3DB048AEB0EECB03 /* MediaPosterCard.swift */; };
+		83D9D1CEDC924ECE8FAE1BC8 /* PosterArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35711BCBCF93442FB56A2615 /* PosterArtwork.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -310,6 +315,11 @@
 		B20F5D4D2AA0406D9E5CF081 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Core/AppDependencies.swift; sourceTree = SOURCE_ROOT; };
 		AB75B35BA6BF43CEB4421D62 /* NetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTests/CoreTests/NetworkTests.swift; sourceTree = SOURCE_ROOT; };
 		FA28837210D84D70BB057384 /* FavoriteStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTests/CoreTests/FavoriteStorageTests.swift; sourceTree = SOURCE_ROOT; };
+		BD670DE1789E4FDD9A7B9487 /* CatalogSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Common/Views/Catalog/CatalogSectionHeader.swift; sourceTree = SOURCE_ROOT; };
+		0665385AD26A48D0BB9CBCD4 /* MediaDestinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Common/Views/Catalog/MediaDestinationView.swift; sourceTree = SOURCE_ROOT; };
+		49CDCE42F6D24B30986DE455 /* MediaDetailContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Common/Views/Catalog/MediaDetailContent.swift; sourceTree = SOURCE_ROOT; };
+		5FC91C5D3DB048AEB0EECB03 /* MediaPosterCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Common/Views/Catalog/MediaPosterCard.swift; sourceTree = SOURCE_ROOT; };
+		35711BCBCF93442FB56A2615 /* PosterArtwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Common/Views/Catalog/PosterArtwork.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -658,6 +668,7 @@
 		DD4B3A6B28E0FB0A007308F5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D3837B7EBBDB4A5EA5EE9C5F /* Catalog */,
 				DD1B3EA928E894DE001F0C91 /* Theme */,
 				DD4B3A6C28E0FB10007308F5 /* Views */,
 				DD1B3EB628E9AC68001F0C91 /* DateFormatter+Extension.swift */,
@@ -856,6 +867,18 @@
 			path = MediaStrategy;
 			sourceTree = "<group>";
 		};
+		D3837B7EBBDB4A5EA5EE9C5F /* Catalog */ = {
+			isa = PBXGroup;
+			children = (
+				BD670DE1789E4FDD9A7B9487 /* CatalogSectionHeader.swift */,
+				0665385AD26A48D0BB9CBCD4 /* MediaDestinationView.swift */,
+				49CDCE42F6D24B30986DE455 /* MediaDetailContent.swift */,
+				5FC91C5D3DB048AEB0EECB03 /* MediaPosterCard.swift */,
+				35711BCBCF93442FB56A2615 /* PosterArtwork.swift */,
+			);
+			name = Catalog;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1013,6 +1036,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83D9D1CEDC924ECE8FAE1BC8 /* PosterArtwork.swift in Sources */,
+				3368460B2BAC454CB0622C7C /* MediaPosterCard.swift in Sources */,
+				56BBA5F1DE734034BFDE44D0 /* MediaDetailContent.swift in Sources */,
+				3D7D03B69E344A84AED1B045 /* MediaDestinationView.swift in Sources */,
+				BD561A5808964163AD0B9337 /* CatalogSectionHeader.swift in Sources */,
 				603153ABCA94456FAC575860 /* AppDependencies.swift in Sources */,
 				DDB8B9632896C0BF00E7F569 /* APIManager.swift in Sources */,
 				DDB8B98D2899BD6D00E7F569 /* Person.swift in Sources */,

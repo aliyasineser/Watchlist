@@ -36,7 +36,10 @@ struct UITestAppDependencies: AppDependencies {
     }
 
     func makeFavoritesPresenter() -> FavoritesDefaultPresenter {
-        FavoritesDefaultPresenter(EmptyFavoritesInteractor())
+        if ProcessInfo.processInfo.arguments.contains("--ui-testing-favorites") {
+            return FavoritesDefaultPresenter(SeededFavoritesInteractor())
+        }
+        return FavoritesDefaultPresenter(EmptyFavoritesInteractor())
     }
 }
 
@@ -57,5 +60,15 @@ private struct EmptyFavoritesInteractor: FavoritesInteractor {
     func getFavoriteArtists() async throws -> [ArtistDetail] { [] }
     func getFavoriteMovies() async throws -> [Watchable] { [] }
     func getFavoriteSeries() async throws -> [Watchable] { [] }
+}
+private struct SeededFavoritesInteractor: FavoritesInteractor {
+    func getFavoriteArtists() async throws -> [ArtistDetail] { [ArtistDetail.mock] }
+    func getFavoriteMovies() async throws -> [Watchable] {
+        [
+            MovieDetail.mock,
+            Movie(id: 2, title: "Another saved movie", genreIDS: [], popularity: 1, video: false)
+        ]
+    }
+    func getFavoriteSeries() async throws -> [Watchable] { [TvDetail.mock] }
 }
 #endif

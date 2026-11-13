@@ -19,7 +19,7 @@ struct MediaListView: View {
     var body: some View {
 
         ScrollView {
-            LazyVStack(alignment: .center, spacing: 10) {
+            LazyVStack(alignment: .center, spacing: 16) {
                 ForEach(self.presenter.mediaList, id: \.id) { media in
                     MediaListItemView(mediaListItem: media)
                         .padding(.horizontal, 20)
@@ -29,8 +29,9 @@ struct MediaListView: View {
                         await presenter.fetchMedia()
                     }
             }
-
+            .padding(.vertical, 20)
         }
+        .background(Color(.systemGroupedBackground))
         .errorAlert(error: $presenter.fetchError)
     }
 }

@@ -109,3 +109,30 @@ redesigned rather than silently substituting an empty database on failure.
 
 The unused legacy `AppSettings`, `TabItemView`, and Combine test helper remain
 in place, per the project rule against deleting unused code without a request.
+
+## Catalog UI refresh
+
+The shared UI components live in `Watchlist/Common/Views/Catalog` and are
+registered in the application target. Poster sizing, card metadata, section
+headers, detail content, and movie/TV destination selection are shared across
+Discover, Favorites and lists.
+
+- Discover features a backdrop spotlight, smaller section headings, snapping
+  poster rows, titles and ratings. The existing TV endpoint is labeled Popular TV.
+- Favorites has All / Movies / TV / Artists filters, section counts, tappable
+  cards, pull-to-refresh, and one consistent 20-point inset around all grids.
+- Artist grids use larger adaptive cards with readable names. Profile pages use
+  bounded portraits, a photo strip and native About / Filmography controls;
+  biography emphasis is rendered without losing paragraph breaks.
+- Movie/TV details share a readable summary and native segmented controls.
+  Nested vertical scrolling was removed from the embedded cast/review/similar
+  sections. Preview data is hidden until a real detail payload loads successfully.
+- Cards have image placeholders, system light/dark surfaces and semantic fonts.
+  Favorite buttons have labeled 48-point hit targets and selection feedback.
+
+Regression coverage adds offline Favorites filter/empty-state/margin UI checks
+and unit cases for missing and incorrect detail payloads. Run the UI test on
+both a compact iPhone and a larger device, in light/dark mode and at larger text
+sizes. These new UI tests and the visual layouts still require simulator
+verification: the latest `xcodebuild build-for-testing` attempt was blocked at
+SwiftPM cache access by the editing environment, before compilation.

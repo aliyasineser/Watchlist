@@ -23,6 +23,6 @@ final class DefaultTVSerieDetailInteractor: TVSerieDetailInteractor {
 final class TVSerieDetailInteractorStub: TVSerieDetailInteractor {
 
     func getMediaDetail(_ id: Int ) async throws -> WatchableDetail? {
-        return MovieDetail.mock
+        return TvDetail.mock
     }
 }

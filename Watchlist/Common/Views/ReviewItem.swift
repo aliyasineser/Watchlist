@@ -52,18 +52,14 @@ struct ReviewItem: View {
                             isExpanded.toggle()
                         }
                     } label: {
-                        Text(isExpanded ? "less" : "more")
+                        Text(isExpanded ? "Show less" : "Read more")
+                            .frame(minHeight: 44)
                     }
                 }
             }
         }
         .padding()
-        .border(
-            width: 1,
-            edges: Edge.allCases,
-            color: .accentColor
-        )
-        .cornerRadius(10)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 18))
     }
 }
 

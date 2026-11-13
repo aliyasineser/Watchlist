@@ -22,6 +22,7 @@ protocol TVSerieDetailPresenter: AnyObject {
 @Observable
 final class TVSerieDetailDefaultPresenter: TVSerieDetailPresenter {
     private(set) var isLoading = false
+    private(set) var hasLoaded = false
     var fetchError: Error?
 
     private(set) var interactor: TVSerieDetailInteractor
@@ -42,9 +43,10 @@ final class TVSerieDetailDefaultPresenter: TVSerieDetailPresenter {
         defer { isLoading = false }
         do {
             let tvDetail = try await interactor.getMediaDetail(id)
-            guard let detail = tvDetail as? TvDetail else { return }
+            guard let detail = tvDetail as? TvDetail else { throw NetworkError.invalidServerResponse }
             try Task.checkCancellation()
             self.media = detail
+            hasLoaded = true
         } catch {
             guard !Task.isCancelled, !(error is CancellationError) else { return }
             fetchError = error

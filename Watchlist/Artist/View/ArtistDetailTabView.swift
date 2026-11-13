@@ -1,151 +1,89 @@
-//
-//  ArtistDetailTabView.swift
-//  Watchlist
-//
-//  Created by ali.yasin.eser on 11.09.2021.
-//
-
 import SwiftUI
-import Kingfisher
 
 struct ArtistDetailTabView: View {
-
-    @State var tabIndex = 0
-
-    var artistDetail: ArtistDetail
-    var artistMovieCredits: [Cast]
-    var artistTVSerieCredits: [Cast]
-
-    init(
-        artistDetail: ArtistDetail,
-        artistMovieCredits: [Cast],
-        artistTVSerieCredits: [Cast]
-    ) {
-        self.artistDetail = artistDetail
-        self.artistMovieCredits = artistMovieCredits
-        self.artistTVSerieCredits = artistTVSerieCredits
-    }
-
-    func mediaCard(credit: Cast) -> some View {
-        return VStack(alignment: .leading, spacing: 10) {
-            Text(credit.getTitle())
-                .font(.title2)
-                .minimumScaleFactor(0.8)
-                .multilineTextAlignment(.leading)
-            Text(credit.getRole())
-                .font(.subheadline)
-                .multilineTextAlignment(.leading)
-        }
-    }
-
-    fileprivate func creditMediaPoster(showCredit: Cast) -> some View {
-        KFImage(URL(string: showCredit.getPosterUrl()))
-        .frame(
-            width: 130,
-            height: 200,
-            alignment: .center
-        )
-        .border(
-            width: 1,
-            edges: Edge.allCases,
-            color: .accentColor
-        )
-        .clipped()
-    }
+    @State private var tabIndex = 0
+    let artistDetail: ArtistDetail
+    let artistMovieCredits: [Cast]
+    let artistTVSerieCredits: [Cast]
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 20) {
             ArtistDetailTopTabBar(tabIndex: $tabIndex)
-            ScrollView(.vertical) {
-                if tabIndex == 0 {
-                    ScrollView {
-                        Text(artistDetail.biography ?? "No biography available.")
-                    }
-                } else if tabIndex == 1 {
-                    ScrollView(.vertical) {
-                        VStack(alignment: .leading) {
-                                ForEach(artistMovieCredits, id: \.creditID) { showCredit in
-                                    NavigationLink(
-                                        destination: MovieDetailView(
-                                            presenter: MovieDetailDefaultPresenter(
-                                                interactor: DefaultMovieDetailInteractor(),
-                                                id: showCredit.id
-                                            )
-                                        )
-                                    ) {
-                                        HStack {
-                                            creditMediaPoster(showCredit: showCredit)
-                                            mediaCard(credit: showCredit)
-                                        }
-                                    }
-                                }
-
-                                ForEach(artistTVSerieCredits, id: \.creditID) { showCredit in
-                                    NavigationLink(
-                                        destination: TVSerieDetailView(
-                                            presenter: TVSerieDetailDefaultPresenter(
-                                                interactor: DefaultTVSerieDetailInteractor(),
-                                                id: showCredit.id
-                                            )
-                                        )
-                                    ) {
-                                        HStack {
-                                            creditMediaPoster(showCredit: showCredit)
-                                            mediaCard(credit: showCredit)
-                                        }
-                                    }
-                                }
-                        }
-                    }
+            if tabIndex == 0 {
+                Text(biography)
+                    .font(.body)
+                    .lineSpacing(5)
+                    .textSelection(.enabled)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                if artistMovieCredits.isEmpty && artistTVSerieCredits.isEmpty {
+                    ContentUnavailableView("No credits available", systemImage: "film")
                 }
-                Spacer()
+                ForEach(artistMovieCredits, id: \.creditID) { credit in
+                    NavigationLink {
+                        MovieDetailView(
+                            presenter: MovieDetailDefaultPresenter(
+                                interactor: DefaultMovieDetailInteractor(), id: credit.id
+                            )
+                        )
+                    } label: {
+                        creditRow(credit)
+                    }
+                    .buttonStyle(.plain)
+                }
+                ForEach(artistTVSerieCredits, id: \.creditID) { credit in
+                    NavigationLink {
+                        TVSerieDetailView(
+                            presenter: TVSerieDetailDefaultPresenter(
+                                interactor: DefaultTVSerieDetailInteractor(), id: credit.id
+                            )
+                        )
+                    } label: {
+                        creditRow(credit)
+                    }
+                    .buttonStyle(.plain)
+                }
             }
         }
-        .frame(
-            maxWidth: .infinity,
-            alignment: .center
-        )
-        .padding(.horizontal, 12)
+    }
+
+    private var biography: AttributedString {
+        let text = artistDetail.biography.flatMap { $0.isEmpty ? nil : $0 } ?? "No biography available."
+        let options = AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+        return (try? AttributedString(markdown: text, options: options))
+            ?? AttributedString(text)
+    }
+
+    private func creditRow(_ credit: Cast) -> some View {
+        HStack(spacing: 16) {
+            PosterArtwork(url: credit.getPosterUrl())
+                .frame(width: 72)
+            VStack(alignment: .leading, spacing: 6) {
+                Text(credit.getTitle())
+                    .font(.headline)
+                    .foregroundStyle(.primary)
+                Text(credit.getRole())
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer(minLength: 0)
+            Image(systemName: "chevron.right")
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.tertiary)
+        }
+        .padding(12)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 18))
     }
 }
 
 struct ArtistDetailTopTabBar: View {
-
     @Binding var tabIndex: Int
+
     var body: some View {
-        HStack {
-            Spacer()
-            TabBarButton(
-                text: "Summary",
-                isSelected: .constant(tabIndex == 0)
-            )
-            .onTapGesture { onButtonTapped(index: 0) }
-            Spacer()
-            TabBarButton(
-                text: "Movies",
-                isSelected: .constant(tabIndex == 1)
-            )
-            .onTapGesture { onButtonTapped(index: 1) }
-            Spacer()
+        Picker("Artist details", selection: $tabIndex) {
+            Text("About").tag(0)
+            Text("Filmography").tag(1)
         }
-        .border(
-            width: 2,
-            edges: [.bottom],
-            color: Color.accentColor
-        )
-    }
-
-    private func onButtonTapped(index: Int) {
-        withAnimation { tabIndex = index }
-    }
-}
-
-struct ArtistDetailTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        ArtistDetailTabView(
-            artistDetail: ArtistDetail.mock,
-            artistMovieCredits: [],
-            artistTVSerieCredits: []
-        )
+        .pickerStyle(.segmented)
     }
 }
