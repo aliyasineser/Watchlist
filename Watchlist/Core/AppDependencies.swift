@@ -4,12 +4,17 @@ import Foundation
 @MainActor
 protocol AppDependencies {
     func makeDiscoverPresenter() -> DiscoverDefaultPresenter
+    func makeSearchPresenter() -> SearchPresenterImpl
     func makeArtistPresenter() -> ArtistDefaultPresenter
     func makeFavoritesPresenter() -> FavoritesDefaultPresenter
 }
 
 @MainActor
 struct AppDependenciesImpl: AppDependencies {
+    func makeSearchPresenter() -> SearchPresenterImpl {
+        SearchPresenterImpl(service: SearchServiceImpl(), history: RecentSearchStoreImpl())
+    }
+
     func makeDiscoverPresenter() -> DiscoverDefaultPresenter {
         DiscoverDefaultPresenter(DefaultMediaInteractor())
     }
@@ -27,6 +32,10 @@ struct AppDependenciesImpl: AppDependencies {
 /// Offline root features keep navigation smoke tests independent of TMDB and local favorites.
 @MainActor
 struct UITestAppDependencies: AppDependencies {
+    func makeSearchPresenter() -> SearchPresenterImpl {
+        SearchPresenterImpl(service: EmptySearchService(), history: EmptyRecentSearchStore())
+    }
+
     func makeDiscoverPresenter() -> DiscoverDefaultPresenter {
         DiscoverDefaultPresenter(EmptyMediaInteractor())
     }
@@ -70,5 +79,16 @@ private struct SeededFavoritesInteractor: FavoritesInteractor {
         ]
     }
     func getFavoriteSeries() async throws -> [Watchable] { [TvDetail.mock] }
+}
+private struct EmptySearchService: SearchService {
+    func search(query: String, category: SearchCategory, page: Int) async throws -> SearchPage {
+        SearchPage(results: [], page: page, totalPages: 0)
+    }
+}
+
+private final class EmptyRecentSearchStore: RecentSearchStore {
+    var queries: [String] = []
+    func remember(_ query: String) { queries = [query] }
+    func clear() { queries = [] }
 }
 #endif

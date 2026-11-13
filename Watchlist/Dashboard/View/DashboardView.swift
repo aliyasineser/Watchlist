@@ -12,6 +12,7 @@ enum TabViewSection: Hashable {
     case artists
     case favorites
     case auth
+    case search
 
     var tag: Int {
         switch self {
@@ -23,11 +24,14 @@ enum TabViewSection: Hashable {
             return 2
         case .auth:
             return 3
+        case .search:
+            return 4
         }
     }
 }
 
 struct DashboardView: View {
+    @State private var searchPresenter: SearchPresenterImpl
     @State private var selectedTab: TabViewSection = .discover
     @State private var discoverPresenter: DiscoverDefaultPresenter
     @State private var artistPresenter: ArtistDefaultPresenter
@@ -35,6 +39,7 @@ struct DashboardView: View {
 
     init(dependencies: AppDependencies? = nil) {
         let dependencies = dependencies ?? AppDependenciesImpl()
+        _searchPresenter = State(initialValue: dependencies.makeSearchPresenter())
         _discoverPresenter = State(initialValue: dependencies.makeDiscoverPresenter())
         _artistPresenter = State(initialValue: dependencies.makeArtistPresenter())
         _favoritesPresenter = State(initialValue: dependencies.makeFavoritesPresenter())
@@ -44,6 +49,9 @@ struct DashboardView: View {
         TabView(selection: $selectedTab) {
             Tab("Discover", systemImage: Icons.TabBar.discover.rawValue, value: .discover) {
                 DiscoverView(presenter: discoverPresenter)
+            }
+            Tab("Search", systemImage: "magnifyingglass", value: .search) {
+                SearchView(presenter: searchPresenter)
             }
             Tab("Artists", systemImage: Icons.TabBar.artist.rawValue, value: .artists) {
                 ArtistsView(presenter: artistPresenter)
