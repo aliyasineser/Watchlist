@@ -1,90 +1,41 @@
-//
-//  DiscoverSlice.swift
-//  Watchlist
-//
-//  Created by ali.yasin.eser on 1.06.2021.
-//
-
 import SwiftUI
 
 struct DiscoverSlice: View {
-
-    var sliceTitle: String
-    var sliceItems: [Watchable]
-    var section: MediaSection
-
-    internal init(sliceTitle: String, sliceItems: [Watchable], section: MediaSection) {
-        self.sliceTitle = sliceTitle
-        self.sliceItems = sliceItems
-        self.section = section
-    }
-
-    var seeAllView: some View {
-        HStack(alignment: .bottom, spacing: 3) {
-            Text(ConstantTexts.ButtonTitle.sliceSeeAll)
-                .foregroundColor(.accentColor)
-                .font(.title2)
-                .bold()
-            Image(systemName: Icons.seeAllButton.rawValue)
-                .foregroundColor(.accentColor)
-                .padding(.bottom, 4)
-        }
-        .padding(.trailing, 10)
-    }
+    let sliceTitle: String
+    let sliceItems: [Watchable]
+    let section: MediaSection
 
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
-            HStack(alignment: .center) {
-                Text(self.sliceTitle)
-                    .font(.title)
-                    .bold()
-                Spacer()
-                NavigationLink(
-                    destination: MediaListView(
-                        mediaListPresenter: MediaListDefaultPresenter(
-                            DefaultMediaInteractor(),
-                            section: self.section
-                        )
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                CatalogSectionHeader(title: sliceTitle)
+                NavigationLink {
+                    MediaListView(
+                        mediaListPresenter: MediaListDefaultPresenter(DefaultMediaInteractor(), section: section)
                     )
-                ) {
-                    seeAllView
+                    .navigationTitle(sliceTitle)
+                } label: {
+                    Label("See all", systemImage: "chevron.right")
+                        .font(.subheadline.weight(.semibold))
+                        .fixedSize()
+                        .frame(minHeight: 44)
                 }
+                .accessibilityLabel("See all \(sliceTitle.lowercased())")
             }
-            .padding(.leading, 15)
-            .padding(.trailing, 5)
+            .padding(.horizontal, 20)
 
-            if sliceItems.isEmpty {
-                ProgressView()
-            } else {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(alignment: .center, spacing: 10) {
-                        ForEach(self.sliceItems, id: \.id) { item in
-                            DiscoverSliceItem(item: item)
-                                .frame(width: 140, height: 240, alignment: .center)
-                        }
+            ScrollView(.horizontal) {
+                LazyHStack(alignment: .top, spacing: 16) {
+                    ForEach(sliceItems, id: \.id) { item in
+                        DiscoverSliceItem(item: item)
+                            .frame(width: 144)
                     }
-                    .padding(.horizontal)
                 }
+                .scrollTargetLayout()
             }
+            .contentMargins(.horizontal, 20, for: .scrollContent)
+            .scrollTargetBehavior(.viewAligned)
+            .scrollIndicators(.hidden)
         }
-    }
-}
-
-struct DiscoverSlice_Previews: PreviewProvider {
-
-    static var previews: some View {
-        DiscoverSlice(
-            sliceTitle: "Title",
-            sliceItems: [Movie.mock,
-                         Movie.mock,
-                         Movie.mock,
-                         Movie.mock,
-                         Movie.mock,
-                         Movie.mock,
-                         Movie.mock,
-                         Movie.mock
-                        ],
-            section: MediaSection.popularMovies
-        )
     }
 }

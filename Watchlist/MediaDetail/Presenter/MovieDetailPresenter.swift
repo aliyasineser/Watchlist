@@ -6,34 +6,52 @@
 //
 
 import Foundation
-import Combine
+import Observation
 
 @MainActor
-protocol MovieDetailPresenter: ObservableObject {
+protocol MovieDetailPresenter: AnyObject {
     var id: Int { get }
     var interactor: MovieDetailInteractor { get }
     var media: MovieDetail { get }
     var favoriteStorage: FavoriteStorage { get }
 
-    func getMediaDetail()
+    func getMediaDetail() async
 }
 
+@MainActor
+@Observable
 final class MovieDetailDefaultPresenter: MovieDetailPresenter {
-    private(set) var interactor: MovieDetailInteractor
-    @Published var media: MovieDetail = MovieDetail.mock
-    let id: Int
-    var favoriteStorage: FavoriteStorage = FavoriteMovieStorage.shared
+    private(set) var isLoading = false
+    private(set) var hasLoaded = false
+    var fetchError: Error?
 
-    init(interactor: MovieDetailInteractor, id: Int) {
+    private(set) var interactor: MovieDetailInteractor
+    var media: MovieDetail = MovieDetail.mock
+    let id: Int
+    let favoriteStorage: FavoriteStorage
+
+    init(interactor: MovieDetailInteractor, id: Int, favoriteStorage: FavoriteStorage? = nil) {
+        self.favoriteStorage = favoriteStorage ?? FavoriteMovieStorage.shared
         self.interactor = interactor
         self.id = id
     }
 
-    func getMediaDetail() {
-        Task {
-            guard let movieDetail = try await interactor.getMovieDetail(id) else { return }
-            guard let detail = movieDetail as? MovieDetail else { return }
+    func getMediaDetail() async {
+        guard !isLoading, !Task.isCancelled else { return }
+        isLoading = true
+        fetchError = nil
+        defer { isLoading = false }
+        do {
+            guard let movieDetail = try await interactor.getMovieDetail(id) else {
+                throw NetworkError.invalidServerResponse
+            }
+            guard let detail = movieDetail as? MovieDetail else { throw NetworkError.invalidServerResponse }
+            try Task.checkCancellation()
             self.media = detail
+            hasLoaded = true
+        } catch {
+            guard !Task.isCancelled, !(error is CancellationError) else { return }
+            fetchError = error
         }
     }
 }

@@ -27,12 +27,17 @@ struct FavoriteButton: View {
             isFavorite = favoriteStorage.isFavorite(id: id)
         } label: {
             Image(
-                systemName: isFavorite ? Icons.favoriteOn.rawValue : Icons.favoriteOff.rawValue
+                systemName: isFavorite ? Icons.Favorite.favorite.rawValue : Icons.Favorite.notFavorite.rawValue
             )
-            .resizable()
-            .frame(width: 35, height: 35)
-            .foregroundColor(.favoriteColor)
+            .font(.title3.weight(.semibold))
+            .foregroundStyle(Color.accentColor)
+            .frame(width: 48, height: 48)
+            .background(Color.accentColor.opacity(0.12), in: Circle())
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel(isFavorite ? "Remove \(title) from favorites" : "Add \(title) to favorites")
+        .accessibilityValue(isFavorite ? "Saved" : "Not saved")
+        .sensoryFeedback(.selection, trigger: isFavorite)
         .onAppear {
             isFavorite = favoriteStorage.isFavorite(id: id)
         }

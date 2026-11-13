@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import Observation
 
 @MainActor
-protocol ArtistDetailPresenter: ObservableObject {
+protocol ArtistDetailPresenter: AnyObject {
     var interactor: ArtistDetailInteractor { get }
     var artistDetail: ArtistDetail? { get }
     var artistImages: [Profile] { get }
@@ -16,18 +17,24 @@ protocol ArtistDetailPresenter: ObservableObject {
     var artistTVSerieCredits: [Cast] { get }
     var favoriteStorage: FavoriteStorage { get }
 
-    func fetchArtist(artistId: Int)
+    func fetchArtist(artistId: Int) async
 }
 
+@MainActor
+@Observable
 class ArtistDetailDefaultPresenter: ArtistDetailPresenter {
-    private(set) var interactor: ArtistDetailInteractor
-    @Published var artistDetail: ArtistDetail?
-    @Published var artistImages: [Profile]
-    @Published var artistMovieCredits: [Cast]
-    @Published var artistTVSerieCredits: [Cast]
-    var favoriteStorage: FavoriteStorage = FavoriteArtistStorage.shared
+    private(set) var isLoading = false
+    var fetchError: Error?
 
-    init(interactor: ArtistDetailInteractor) {
+    private(set) var interactor: ArtistDetailInteractor
+    var artistDetail: ArtistDetail?
+    var artistImages: [Profile]
+    var artistMovieCredits: [Cast]
+    var artistTVSerieCredits: [Cast]
+    let favoriteStorage: FavoriteStorage
+
+    init(interactor: ArtistDetailInteractor, favoriteStorage: FavoriteStorage? = nil) {
+        self.favoriteStorage = favoriteStorage ?? FavoriteArtistStorage.shared
         self.interactor = interactor
         self.artistDetail = nil
         self.artistImages = [Profile]()
@@ -35,17 +42,22 @@ class ArtistDetailDefaultPresenter: ArtistDetailPresenter {
         self.artistTVSerieCredits = [Cast]()
     }
 
-    func fetchArtist(artistId: Int) {
-        Task {
-            self.artistDetail = await interactor.fetchArtist(artistId)
-
-            self.artistImages = await interactor.fetchArtistImages(artistId)
-
-            let movies = await interactor.fetchArtistMovies(artistId)
-            self.artistMovieCredits.append(contentsOf: movies)
-
-            let shows = await interactor.fetchArtistTV(artistId)
-            self.artistTVSerieCredits.append(contentsOf: shows)
-        }
+    func fetchArtist(artistId: Int) async {
+        guard !isLoading, !Task.isCancelled else { return }
+        isLoading = true
+        fetchError = nil
+        defer { isLoading = false }
+        let detail = await interactor.fetchArtist(artistId)
+        guard !Task.isCancelled else { return }
+        let images = await interactor.fetchArtistImages(artistId)
+        guard !Task.isCancelled else { return }
+        let movies = await interactor.fetchArtistMovies(artistId)
+        guard !Task.isCancelled else { return }
+        let shows = await interactor.fetchArtistTV(artistId)
+        guard !Task.isCancelled else { return }
+        artistDetail = detail
+        artistImages = images
+        artistMovieCredits = movies
+        artistTVSerieCredits = shows
     }
 }

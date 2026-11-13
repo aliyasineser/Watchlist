@@ -20,7 +20,7 @@ struct MediaDetailTabView: View {
     }
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading, spacing: 20) {
             CustomTopTabBar(tabIndex: $tabIndex)
             if tabIndex == 0 {
                 MediaCastView(
@@ -45,44 +45,20 @@ struct MediaDetailTabView: View {
                 )
             }
         }
-        .frame(width: UIScreen.main.bounds.width - 24, alignment: .center)
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 }
 
 struct CustomTopTabBar: View {
-
     @Binding var tabIndex: Int
-    var body: some View {
-        HStack {
-            Spacer()
-            TabBarButton(
-                text: "Cast",
-                isSelected: .constant(tabIndex == 0)
-            )
-            .onTapGesture { onButtonTapped(index: 0) }
-            Spacer()
-            TabBarButton(
-                text: "Reviews",
-                isSelected: .constant(tabIndex == 1)
-            )
-            .onTapGesture { onButtonTapped(index: 1) }
-            Spacer()
-            TabBarButton(
-                text: "More",
-                isSelected: .constant(tabIndex == 2)
-            )
-            .onTapGesture { onButtonTapped(index: 2) }
-            Spacer()
-        }
-        .border(
-            width: 1,
-            edges: [.bottom],
-            color: Color.accentColor
-        )
-    }
 
-    private func onButtonTapped(index: Int) {
-        withAnimation { tabIndex = index }
+    var body: some View {
+        Picker("Title details", selection: $tabIndex) {
+            Text("Cast").tag(0)
+            Text("Reviews").tag(1)
+            Text("Similar").tag(2)
+        }
+        .pickerStyle(.segmented)
     }
 }
 
@@ -160,3 +136,5 @@ struct MediaDetailTabView_Previews: PreviewProvider {
         MediaDetailTabView(1234, mediaService: MediaServiceStub())
     }
 }
+
+// swiftlint:enable all

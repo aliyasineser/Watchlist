@@ -8,18 +8,23 @@
 import Foundation
 
 enum Icons: String, RawRepresentable {
-    case favoriteOn = "heart.fill"
-    case favoriteOff = "heart"
+
+    enum Favorite: String, RawRepresentable {
+        case favorite = "heart.fill"
+        case notFavorite = "heart"
+    }
 
     case posterBackdrop = "film"
 
     case artistImageBackdrop = "person.fill"
 
-    public enum TabBar: String {
+    enum TabBar: String {
         case discover = "square.grid.2x2.fill"
         case artist = "person.crop.circle"
         case favorites = "star.circle.fill"
     }
 
-    case seeAllButton = "chevron.right"
+    enum Buttons: String {
+        case seeAll = "chevron.right"
+    }
 }

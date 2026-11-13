@@ -9,9 +9,10 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    var dependencies: AppDependencies = AppDependenciesImpl()
 
     var body: some View {
-        DashboardView()
+        DashboardView(dependencies: dependencies)
     }
 }
 

@@ -8,16 +8,16 @@
 import Foundation
 
 struct LocalizedAlertError: LocalizedError {
-    let underlyingError: LocalizedError
+    let underlyingError: Error
     var errorDescription: String? {
-        underlyingError.errorDescription
+        underlyingError.localizedDescription
     }
     var recoverySuggestion: String? {
-        underlyingError.recoverySuggestion
+        (underlyingError as? LocalizedError)?.recoverySuggestion
     }
 
     init?(error: Error?) {
-        guard let localizedError = error as? LocalizedError else { return nil }
-        underlyingError = localizedError
+        guard let error else { return nil }
+        underlyingError = error
     }
 }

@@ -1,75 +1,54 @@
-//
-//  ArtistsView.swift
-//  Watchlist
-//
-//  Created by Ali Yasin Eser on 13.05.2021.
-//
-
 import SwiftUI
 
 struct ArtistsView: View {
-
-    @ObservedObject var presenter: ArtistDefaultPresenter
-    @State private var position = 0
-
-    let columns = [
-        GridItem(.adaptive(minimum: 120))
-    ]
-
-    init(presenter: ArtistDefaultPresenter) {
-        self.presenter = presenter
-        // Spacer manages lading the artists, no need to call
-    }
+    @State var presenter: ArtistDefaultPresenter
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
-        NavigationView {
-            ScrollView(showsIndicators: true) {
-                ScrollViewReader { proxy in
-                    LazyVGrid(columns: columns, alignment: .center, spacing: 20) {
-                        ForEach(self.presenter.artists, id: \.id) { (artist) in
-                            NavigationLink(
-                                destination: ArtistDetailView(
+        NavigationStack {
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 24) {
+                    Text("The people behind your favorites.")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                    LazyVGrid(
+                        columns: [
+                            GridItem(.adaptive(minimum: dynamicTypeSize.isAccessibilitySize ? 240 : 140), spacing: 16)
+                        ],
+                        alignment: .leading,
+                        spacing: 24
+                    ) {
+                        ForEach(presenter.artists, id: \.id) { artist in
+                            NavigationLink {
+                                ArtistDetailView(
                                     artistId: artist.id,
-                                    presenter: ArtistDetailDefaultPresenter(
-                                        interactor: DefaultArtistDetailInteractor()
-                                    )
+                                    presenter: ArtistDetailDefaultPresenter(interactor: DefaultArtistDetailInteractor())
                                 )
-                            ) {
+                            } label: {
                                 ArtistItemView(artist: artist)
                             }
-                        }
-                        Spacer()
-                            .onAppear(perform: {
-                                presenter.loadArtists()
-                            })
-                    }.onChange(of: position) { _ in
-                        withAnimation {
-                            proxy.scrollTo(150, anchor: .center)
+                            .buttonStyle(.plain)
                         }
                     }
+                    if presenter.isLoading {
+                        ProgressView("Loading artists…")
+                            .frame(maxWidth: .infinity)
+                    } else {
+                        Button("Load more artists") {
+                            Task { await presenter.loadArtists() }
+                        }
+                        .buttonStyle(.bordered)
+                        .frame(maxWidth: .infinity)
+                    }
                 }
+                .padding(20)
             }
-            .navigationBarTitle(ConstantTexts.NavigationBarTitle.artistsScreen)
-            .navigationBarHidden(false)
-            .navigationBarBackButtonHidden(true)
-            .navigationBarTitleDisplayMode(.inline)
-            .padding(
-                EdgeInsets(
-                    top: 15,
-                    leading: 0,
-                    bottom: 0,
-                    trailing: 0)
-            )
+            .background(Color(.systemGroupedBackground))
+            .navigationTitle("Artists")
+            .task {
+                if presenter.artists.isEmpty { await presenter.loadArtists() }
+            }
+            .errorAlert(error: $presenter.fetchError)
         }
-    }
-}
-
-struct ArtistsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ArtistsView(
-            presenter: ArtistDefaultPresenter(
-                ArtistInteractorStub()
-            )
-        )
     }
 }

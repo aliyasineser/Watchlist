@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import Observation
 import SwiftUI
 
 @MainActor
-protocol DiscoverPresenter: ObservableObject {
+protocol DiscoverPresenter: AnyObject {
     var interactor: MediaInteractor { get }
     var popularMovies: [Watchable] { get }
     var mostRecentMovies: [Watchable] { get }
@@ -19,22 +20,24 @@ protocol DiscoverPresenter: ObservableObject {
     var topRatedSeries: [Watchable] { get }
     var isLoading: Bool { get }
 
-    func fetchMedia()
+    func fetchMedia() async
 }
 
+@MainActor
+@Observable
 final class DiscoverDefaultPresenter: DiscoverPresenter {
 
     private(set) var interactor: MediaInteractor
-    @Published var popularMovies: [Watchable]
-    @Published var mostRecentMovies: [Watchable]
-    @Published var upcomingMovies: [Watchable]
-    @Published var airingTodaySeries: [Watchable]
-    @Published var onTheAirSeries: [Watchable]
-    @Published var topRatedSeries: [Watchable]
+    var popularMovies: [Watchable]
+    var mostRecentMovies: [Watchable]
+    var upcomingMovies: [Watchable]
+    var airingTodaySeries: [Watchable]
+    var onTheAirSeries: [Watchable]
+    var topRatedSeries: [Watchable]
 
-    @Published var fetchError: Error?
+    var fetchError: Error?
 
-    @Published var isLoading: Bool = false
+    var isLoading: Bool = false
 
     init(_ interactor: MediaInteractor) {
         self.interactor = interactor
@@ -48,62 +51,70 @@ final class DiscoverDefaultPresenter: DiscoverPresenter {
         self.isLoading = false
     }
 
-    func fetchMedia() {
-        isLoading = false
-        Task {
-            await loadPopularMovies()
-            try await loadUpcomingMovies()
-            try await loadMostRecentMovies()
-            try await loadAiringToday()
-            try await loadOnTheAir()
-            try await loadTopRated()
-        }
+    func fetchMedia() async {
+        guard !isLoading, !Task.isCancelled else { return }
         isLoading = true
+        fetchError = nil
+        defer { isLoading = false }
+        // Each section can succeed even if another section is unavailable.
+        let loaders: [() async throws -> Void] = [
+            loadPopularMovies, loadUpcomingMovies, loadMostRecentMovies,
+            loadAiringToday, loadOnTheAir, loadTopRated
+        ]
+        for load in loaders {
+            do {
+                try Task.checkCancellation()
+                try await load()
+            } catch {
+                guard !Task.isCancelled, !(error is CancellationError) else { return }
+                fetchError = error
+            }
+        }
     }
 
-    private func loadPopularMovies() async {
-        do {
-            let movies = try await interactor.fetchNextPopularPageAsFullList()
-            mapToMovies(watchables: movies, container: &self.popularMovies)
-        } catch {
-            fetchError = FetchError.popularMovies
-        }
+    private func loadPopularMovies() async throws {
+        let movies = try await interactor.fetchNextPopularPageAsFullList()
+        try Task.checkCancellation()
+        mapToMovies(watchables: movies, container: &popularMovies)
     }
 
     private func loadMostRecentMovies() async throws {
         let movies = try await interactor.fetchNextMostRecentPageAsFullList()
+        try Task.checkCancellation()
         mapToMovies(watchables: movies, container: &self.mostRecentMovies)
     }
 
     private func loadUpcomingMovies() async throws {
         let movies = try await interactor.fetchNextUpcomingPageAsFullList()
+        try Task.checkCancellation()
         mapToMovies(watchables: movies, container: &self.upcomingMovies)
     }
 
     private func loadAiringToday() async throws {
         let series = try await interactor.fetcthNextAiringTodayPageAsFullList()
+        try Task.checkCancellation()
         mapToSeries(watchables: series, container: &self.airingTodaySeries)
     }
 
     private func loadOnTheAir() async throws {
         let series = try await interactor.fetcthNextOnTheAirPageAsFullList()
+        try Task.checkCancellation()
         mapToSeries(watchables: series, container: &self.onTheAirSeries)
     }
 
     private func loadTopRated() async throws {
         let series = try await interactor.fetcthNextTopRatedPageAsFullList()
+        try Task.checkCancellation()
         mapToSeries(watchables: series, container: &self.topRatedSeries)
     }
 
     private func mapToMovies(watchables: [Watchable], container: inout [Watchable]) {
-        watchables.compactMap { $0 as? Movie }
+        container = watchables.compactMap { $0 as? Movie }
             .filter { $0.releaseDate != nil }
-            .forEach { container.append($0) }
     }
 
     private func mapToSeries(watchables: [Watchable], container: inout [Watchable]) {
-        watchables.compactMap { $0 as? TVSerie }
+        container = watchables.compactMap { $0 as? TVSerie }
             .filter { $0.firstAirDate != nil }
-            .forEach { container.append($0) }
     }
 }

@@ -1,158 +1,94 @@
-//
-//  ArtistDetailView.swift
-//  Watchlist
-//
-//  Created by ali.yasin.eser on 11.09.2021.
-//
-
 import SwiftUI
-import Kingfisher
 
 struct ArtistDetailView: View {
-
-    @ObservedObject var presenter: ArtistDetailDefaultPresenter
-    var artistId: Int
-
-    @State var isFavorite = false
+    @State var presenter: ArtistDetailDefaultPresenter
+    let artistId: Int
+    @State private var isFavorite = false
 
     init(artistId: Int, presenter: ArtistDetailDefaultPresenter) {
-        self.presenter = presenter
         self.artistId = artistId
+        self.presenter = presenter
     }
 
     var body: some View {
-        ScrollView(.vertical) {
-            if let artist = self.presenter.artistDetail {
-                ZStack {
-                    artistImage(url: artist.getPosterUrl())
-                    gradientView()
-                }
-                .frame(height: 200)
-                VStack(alignment: .center, spacing: 0) {
-                    ZStack(alignment: .bottomLeading) {
-                        artistInfoView(
-                            name: artist.name,
-                            birthday: artist.birthday
-                        )
-                        .padding(.leading, 30)
-                        .padding(.bottom, 20)
-                        HStack {
-                            Spacer()
-                            VStack {
-                                FavoriteButton(
-                                    favoriteStorage: presenter.favoriteStorage,
-                                    isFavorite: $isFavorite,
-                                    id: artist.id,
-                                    title: artist.name
-                                )
-                                Spacer()
-                            }
-                            .padding(.trailing, 30)
-                            .padding(.top, 20)
+        ScrollView {
+            if let artist = presenter.artistDetail {
+                VStack(alignment: .leading, spacing: 24) {
+                    profileHeader(artist)
+                    if !presenter.artistImages.isEmpty {
+                        VStack(alignment: .leading, spacing: 16) {
+                            CatalogSectionHeader(title: "Photos", count: presenter.artistImages.count)
+                            PhotoGrid(presenter: presenter)
                         }
                     }
-
-                    PhotoGrid(presenter: self.presenter)
-                        .frame(height: 150)
-                        .padding(.horizontal)
-
                     ArtistDetailTabView(
                         artistDetail: artist,
-                        artistMovieCredits: self.presenter.artistMovieCredits,
-                        artistTVSerieCredits: self.presenter.artistTVSerieCredits
+                        artistMovieCredits: presenter.artistMovieCredits,
+                        artistTVSerieCredits: presenter.artistTVSerieCredits
                     )
-                    .padding(10)
                 }
+                .padding(20)
+            } else if presenter.isLoading {
+                ProgressView("Loading artist…")
+                    .frame(maxWidth: .infinity, minHeight: 240)
+            } else {
+                ContentUnavailableView("Artist unavailable", systemImage: "person.crop.rectangle")
             }
         }
-        .onAppear(perform: {
-            self.presenter.fetchArtist(artistId: artistId)
-        })
+        .background(Color(.systemGroupedBackground))
+        .navigationTitle(presenter.artistDetail?.name ?? "Artist")
+        .navigationBarTitleDisplayMode(.inline)
+        .task(id: artistId) { await presenter.fetchArtist(artistId: artistId) }
+        .errorAlert(error: $presenter.fetchError)
     }
 
-    fileprivate func artistImage(url: String) -> some View {
-        return KFImage(URL(string: url))
-            .resizable()
-            .scaledToFill()
-    }
-
-    fileprivate func gradientView() -> some View {
-        return Rectangle()
-            .fill(
-                LinearGradient(gradient: Gradient(stops: [
-                    .init(color: .accentColor.opacity(0.01), location: 0),
-                    .init(color: .accentColor.opacity(0.8), location: 1)
-                ]),
-                               startPoint: .top,
-                               endPoint: .bottom
+    private func profileHeader(_ artist: ArtistDetail) -> some View {
+        VStack(alignment: .leading, spacing: 20) {
+            PosterArtwork(url: artist.getPosterUrl(), aspectRatio: 4 / 5, symbol: "person.crop.rectangle")
+                .frame(maxWidth: 260)
+                .frame(maxWidth: .infinity)
+            HStack(alignment: .top, spacing: 16) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(artist.name)
+                        .font(.title.weight(.bold))
+                        .fixedSize(horizontal: false, vertical: true)
+                    if let department = artist.knownForDepartment {
+                        Text(department)
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                    if let birthday = artist.birthday {
+                        Label(birthday, systemImage: "birthday.cake")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                Spacer(minLength: 0)
+                FavoriteButton(
+                    favoriteStorage: presenter.favoriteStorage,
+                    isFavorite: $isFavorite,
+                    id: artist.id,
+                    title: artist.name
                 )
-            )
-            .frame(maxWidth: .infinity)
-    }
-
-    fileprivate func artistInfoView(name: String, birthday: String?) -> some View {
-        VStack(alignment: .leading) {
-            Text(name)
-                .font(.system(size: 30))
-                .bold()
-                .minimumScaleFactor(0.7)
-                .lineLimit(1)
-
-            if let birthday = birthday {
-                Text(birthday)
-                    .font(.system(size: 16))
-                    .bold()
-                    .minimumScaleFactor(0.7)
-                    .lineLimit(1)
             }
         }
+        .padding(20)
+        .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 24))
     }
-
 }
 
 struct PhotoGrid: View {
-
-    @ObservedObject var presenter: ArtistDetailDefaultPresenter
-
-    init(presenter: ArtistDetailDefaultPresenter) {
-        self.presenter = presenter
-    }
+    let presenter: ArtistDetailDefaultPresenter
 
     var body: some View {
-
         ScrollView(.horizontal) {
-            HStack(spacing: 10) {
-                LazyHStack(spacing: 10) {
-                    ForEach(
-                        self.presenter.artistImages.reversed(),
-                        id: \.filePath
-                    ) { imageEntity in
-                        artistImageItem(imageEntity)
-                            .cornerRadius(10)
-                    }
+            LazyHStack(spacing: 12) {
+                ForEach(presenter.artistImages.reversed(), id: \.filePath) { photo in
+                    PosterArtwork(url: photo.getPosterUrl(), aspectRatio: 4 / 5, symbol: "photo")
+                        .frame(width: 112)
                 }
             }
         }
-    }
-
-    fileprivate func artistImageItem(_ imageEntity: Profile) -> some View {
-        return KFImage(URL(string: imageEntity.getPosterUrl()))
-            .resizable()
-            .scaledToFill()
-            .clipped()
-    }
-}
-
-struct ArtistDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            ArtistDetailView(
-                artistId: 21,
-                presenter: ArtistDetailDefaultPresenter(
-                    interactor: ArtistDetailInteractorStub()
-                )
-            )
-            .navigationBarTitleDisplayMode(.inline)
-        }
+        .scrollIndicators(.hidden)
     }
 }

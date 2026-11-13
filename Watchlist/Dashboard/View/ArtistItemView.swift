@@ -1,61 +1,22 @@
-//
-//  ArtistItemView.swift
-//  Watchlist
-//
-//  Created by ali.yasin.eser on 11.06.2021.
-//
-
 import SwiftUI
-import Kingfisher
 
 struct ArtistItemView: View {
-
-    private var artist: Creditable
-
-    internal init(artist: Creditable) {
-        self.artist = artist
-    }
-
-    fileprivate func artistImage() -> some View {
-        KFImage(URL(string: artist.getPosterUrl()))
-            .resizable()
-            .scaledToFill()
-            .frame(width: 105, height: 160)
-            .clipped()
-    }
-
-    fileprivate func artistLabel() -> some View {
-        return Text(artist.getTitle())
-            .font(.system(size: 15))
-            .foregroundColor(.primary)
-            .fontWeight(.regular)
-            .multilineTextAlignment(.center)
-            .lineLimit(2)
-            .minimumScaleFactor(0.7)
-            .padding(
-                EdgeInsets(
-                    top: 4,
-                    leading: 2,
-                    bottom: 4,
-                    trailing: 2)
-            )
-    }
+    let artist: Creditable
 
     var body: some View {
-        VStack(alignment: .center) {
-            artistImage()
-            artistLabel()
+        VStack(alignment: .leading, spacing: 10) {
+            PosterArtwork(url: artist.getPosterUrl(), aspectRatio: 4 / 5, symbol: "person.crop.rectangle")
+            Text(artist.getTitle())
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.primary)
+                .lineLimit(2, reservesSpace: true)
+                .multilineTextAlignment(.leading)
+            if let department = artist.getKnownForDepartment() {
+                Text(department)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
         }
-        .frame(width: 105, height: 190)
-        .border(Color.primary, width: 1)
-    }
-}
-
-struct ArtistItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        HStack {
-            ArtistItemView(artist: Artist.mock)
-        }
-        .padding()
+        .accessibilityElement(children: .combine)
     }
 }

@@ -6,19 +6,25 @@
 //
 
 import Foundation
+import Observation
 
 @MainActor
-protocol MediaSimilarPresenter: ObservableObject {
+protocol MediaSimilarPresenter: AnyObject {
     var id: Int { get }
     var interactor: MediaSimilarInteractor { get }
     var media: [Watchable] { get }
 
-    func fetchSimilar()
+    func fetchSimilar() async
 }
 
+@MainActor
+@Observable
 final class MediaSimilarDefaultPresenter: MediaSimilarPresenter {
+    private(set) var isLoading = false
+    var fetchError: Error?
+
     private(set) var interactor: MediaSimilarInteractor
-    @Published var media: [Watchable] = []
+    var media: [Watchable] = []
     let id: Int
     private var page: Int
 
@@ -28,11 +34,20 @@ final class MediaSimilarDefaultPresenter: MediaSimilarPresenter {
         self.page = 0
     }
 
-    func fetchSimilar() {
-        Task {
-            page += 1
-            let similarPage = try await interactor.getSimilarMedia(id, page: page)
+    func fetchSimilar() async {
+        guard !isLoading, !Task.isCancelled else { return }
+        isLoading = true
+        fetchError = nil
+        defer { isLoading = false }
+        do {
+            let nextPage = page + 1
+            let similarPage = try await interactor.getSimilarMedia(id, page: nextPage)
+            try Task.checkCancellation()
+            page = nextPage
             self.media.append(contentsOf: similarPage)
+        } catch {
+            guard !Task.isCancelled, !(error is CancellationError) else { return }
+            fetchError = error
         }
     }
 }

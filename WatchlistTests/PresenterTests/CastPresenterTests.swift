@@ -6,7 +6,6 @@
 //
 
 import XCTest
-import Combine
 @testable import Watchlist
 
 @MainActor
@@ -24,7 +23,7 @@ final class CastPresenterTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_LoadArtists() throws {
+    func test_LoadArtists() async throws {
         let sut = CastDefaultPresenter(
             interactor,
             id: 1
@@ -32,16 +31,33 @@ final class CastPresenterTests: XCTestCase {
 
         interactor.fetchCastCallStub = [Cast.mock]
 
-        let castPublisher = sut.$casts
-            .dropFirst()
-            .first()
+        await sut.loadArtists()
 
-        sut.loadArtists()
-
-        let casts = try awaitPublisher(castPublisher)
+        let casts = sut.casts
 
         XCTAssertTrue(interactor.fetchCastCallCalledOnce)
         XCTAssertEqual(casts.count, 1)
         XCTAssertEqual(casts.first, Cast.mock)
+    }
+
+    func test_failureIsVisibleAndLoadingResets() async {
+        let sut = CastDefaultPresenter(interactor, id: 1)
+        interactor.error = NetworkError.invalidServerResponse
+        await sut.loadArtists()
+        XCTAssertNotNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+
+        interactor.error = nil
+        await sut.loadArtists()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_cancellationDoesNotShowAlert() async {
+        let sut = CastDefaultPresenter(interactor, id: 1)
+        interactor.error = CancellationError()
+        await sut.loadArtists()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
     }
 }

@@ -6,7 +6,6 @@
 //
 
 import XCTest
-import Combine
 @testable import Watchlist
 
 @MainActor
@@ -24,23 +23,59 @@ final class TVSerieDetailPresenterTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_getMediaDetail() throws {
+    func test_getMediaDetail() async throws {
         let sut = TVSerieDetailDefaultPresenter(
             interactor: interactor,
-            id: 1
+            id: 1,
+            favoriteStorage: FavoriteStorageStub()
         )
 
         interactor.getMediaDetailCallStub = TvDetail.mock
 
-        let mediaPublisher = sut.$media
-            .dropFirst()
-            .first()
+        await sut.getMediaDetail()
 
-        sut.getMediaDetail()
-
-        let media = try awaitPublisher(mediaPublisher)
+        let media = sut.media
 
         XCTAssertTrue(interactor.getMediaDetailCallCalledOnce)
         XCTAssertEqual(media, TvDetail.mock)
+        XCTAssertTrue(sut.hasLoaded)
+    }
+
+    func test_failureIsVisibleAndLoadingResets() async {
+        let sut = TVSerieDetailDefaultPresenter(interactor: interactor, id: 1, favoriteStorage: FavoriteStorageStub())
+        interactor.error = NetworkError.invalidServerResponse
+        await sut.getMediaDetail()
+        XCTAssertNotNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+
+        interactor.error = nil
+        interactor.getMediaDetailCallStub = TvDetail.mock
+        await sut.getMediaDetail()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_cancellationDoesNotShowAlert() async {
+        let sut = TVSerieDetailDefaultPresenter(interactor: interactor, id: 1, favoriteStorage: FavoriteStorageStub())
+        interactor.error = CancellationError()
+        await sut.getMediaDetail()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_missingPayloadDoesNotDisplayPreviewData() async {
+        let sut = TVSerieDetailDefaultPresenter(interactor: interactor, id: 1, favoriteStorage: FavoriteStorageStub())
+        await sut.getMediaDetail()
+        XCTAssertFalse(sut.hasLoaded)
+        XCTAssertNotNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_wrongPayloadDoesNotDisplayPreviewData() async {
+        interactor.getMediaDetailCallStub = MovieDetail.mock
+        let sut = TVSerieDetailDefaultPresenter(interactor: interactor, id: 1, favoriteStorage: FavoriteStorageStub())
+        await sut.getMediaDetail()
+        XCTAssertFalse(sut.hasLoaded)
+        XCTAssertNotNil(sut.fetchError)
     }
 }

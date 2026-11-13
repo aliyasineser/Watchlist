@@ -10,28 +10,29 @@ import SwiftUI
 @MainActor
 struct MediaListView: View {
 
-    @ObservedObject var presenter: MediaListDefaultPresenter
+    @State var presenter: MediaListDefaultPresenter
 
     init(mediaListPresenter: MediaListDefaultPresenter) {
         self.presenter = mediaListPresenter
-        self.presenter.fetchMedia()
     }
 
     var body: some View {
 
         ScrollView {
-            LazyVStack(alignment: .center, spacing: 10) {
+            LazyVStack(alignment: .center, spacing: 16) {
                 ForEach(self.presenter.mediaList, id: \.id) { media in
                     MediaListItemView(mediaListItem: media)
                         .padding(.horizontal, 20)
                 }
                 Spacer()
-                    .onAppear(perform: {
-                        presenter.fetchMedia()
-                    })
+                    .task {
+                        await presenter.fetchMedia()
+                    }
             }
-
+            .padding(.vertical, 20)
         }
+        .background(Color(.systemGroupedBackground))
+        .errorAlert(error: $presenter.fetchError)
     }
 }
 

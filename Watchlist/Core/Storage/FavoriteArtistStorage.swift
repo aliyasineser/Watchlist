@@ -12,13 +12,16 @@ class FavoriteArtistStorage: FavoriteStorage {
 
     public static let shared: FavoriteArtistStorage = FavoriteArtistStorage()
 
-    let viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext
+    let viewContext: NSManagedObjectContext
 
-    private init() {}
+    init(viewContext: NSManagedObjectContext = PersistenceController.shared.container.viewContext) {
+        self.viewContext = viewContext
+    }
 
     func addFavorite(id: Int, name: String) {
+        guard let storedID = Int32(exactly: id), !isFavorite(id: id) else { return }
         let movie = FavoriteArtist(context: viewContext)
-        movie.id = Int32(id)
+        movie.id = storedID
         movie.name = name
         saveContext()
     }

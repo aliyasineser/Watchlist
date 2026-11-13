@@ -9,13 +9,18 @@ import SwiftUI
 
 @main
 struct WatchlistApp: App {
-    //    let persistenceController = PersistenceController.shared
-    init() {
+    private var dependencies: AppDependencies {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("--ui-testing") {
+            return UITestAppDependencies()
+        }
+        #endif
+        return AppDependenciesImpl()
     }
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(dependencies: dependencies)
         }
     }
 }

@@ -12,12 +12,17 @@ class ArtistFetcher {
     private var artists: [Artist] = []
     private var pageCounter: Int = 0
 
-    private let artistService: ArtistService = .shared
+    private let artistService: ArtistService
+
+    init(artistService: ArtistService = .shared) {
+        self.artistService = artistService
+    }
 
     func fetchSinglePage() async -> [Artist] {
-        pageCounter += 1
-        let artistsPage = await artistService.fetchArtists(page: pageCounter)
-        if let artists = artistsPage?.results { return artists } else { return [] }
+        let nextPage = pageCounter + 1
+        guard let artistsPage = await artistService.fetchArtists(page: nextPage), !Task.isCancelled else { return [] }
+        pageCounter = nextPage
+        return artistsPage.results ?? []
     }
 
     func fetchWithNextPage() async -> [Artist] {

@@ -1,45 +1,23 @@
-//
-//  SimilarMediaView.swift
-//  Watchlist
-//
-//  Created by Ali Yasin Eser on 2.10.2022.
-//
-
 import SwiftUI
 
 struct SimilarMediaView: View {
-
-    @ObservedObject var presenter: MediaSimilarDefaultPresenter
-
-    init(presenter: MediaSimilarDefaultPresenter) {
-        self.presenter = presenter
-        presenter.fetchSimilar()
-    }
+    @State var presenter: MediaSimilarDefaultPresenter
 
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .center, spacing: 10) {
-                ForEach(self.presenter.media, id: \.id) { media in
-                    MediaListItemView(mediaListItem: media)
-                        .padding(.horizontal)
-                }
-                Spacer()
-                    .onAppear(perform: {
-                        presenter.fetchSimilar()
-                    })
+        LazyVStack(spacing: 16) {
+            ForEach(presenter.media, id: \.id) { media in
+                MediaListItemView(mediaListItem: media)
             }
-
+            if presenter.isLoading {
+                ProgressView()
+            } else if presenter.media.isEmpty {
+                ContentUnavailableView("No similar titles yet", systemImage: "film")
+            } else {
+                Button("Load more titles") { Task { await presenter.fetchSimilar() } }
+                    .buttonStyle(.bordered)
+            }
         }
-    }
-}
-
-struct SimilarMediaView_Previews: PreviewProvider {
-    static var previews: some View {
-        SimilarMediaView(
-            presenter: MediaSimilarDefaultPresenter(
-                interactor: MediaSimilarInteractorStub(),
-                id: 1
-            )
-        )
+        .task { if presenter.media.isEmpty { await presenter.fetchSimilar() } }
+        .errorAlert(error: $presenter.fetchError)
     }
 }

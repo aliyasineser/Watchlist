@@ -6,19 +6,25 @@
 //
 
 import Foundation
+import Observation
 
 @MainActor
-protocol MediaCastPresenter: ObservableObject {
+protocol MediaCastPresenter: AnyObject {
     var id: Int { get }
     var interactor: MediaCastInteractor { get }
     var artists: [Cast] { get }
 
-    func loadArtists()
+    func loadArtists() async
 }
 
+@MainActor
+@Observable
 final class MediaCastDefaultPresenter: MediaCastPresenter {
+    private(set) var isLoading = false
+    var fetchError: Error?
+
     private(set) var interactor: MediaCastInteractor
-    @Published var artists: [Cast]
+    var artists: [Cast]
     var id: Int
 
     init(_ interactor: MediaCastInteractor, id: Int) {
@@ -27,9 +33,18 @@ final class MediaCastDefaultPresenter: MediaCastPresenter {
         self.artists = [Cast]()
     }
 
-    func loadArtists() {
-        Task {
-            self.artists = try await interactor.fetchCast(self.id)
+    func loadArtists() async {
+        guard !isLoading, !Task.isCancelled else { return }
+        isLoading = true
+        fetchError = nil
+        defer { isLoading = false }
+        do {
+            let cast = try await interactor.fetchCast(id)
+            try Task.checkCancellation()
+            artists = cast
+        } catch {
+            guard !Task.isCancelled, !(error is CancellationError) else { return }
+            fetchError = error
         }
     }
 }

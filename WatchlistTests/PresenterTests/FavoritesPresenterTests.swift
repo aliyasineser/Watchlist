@@ -23,56 +23,65 @@ final class FavoritesPresenterTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_favoriteArtists() throws {
+    func test_favoriteArtists() async throws {
         let sut = FavoritesDefaultPresenter(interactor)
 
         interactor.getFavoriteArtistsCallStub = [ArtistDetail.mock]
 
-        let publisher = sut.$artists
-            .dropFirst()
-            .first()
+        await sut.fetchFavorites()
 
-        sut.fetchFavorites()
-
-        let artists = try awaitPublisher(publisher)
+        let artists = sut.artists
 
         XCTAssertTrue(interactor.getFavoriteArtistsCallCalledOnce)
         XCTAssertEqual(artists.first, ArtistDetail.mock)
     }
 
-    func test_favoriteMovies() throws {
+    func test_favoriteMovies() async throws {
         let sut = FavoritesDefaultPresenter(interactor)
 
         interactor.getFavoriteMoviesCallStub = [Movie.mock]
 
-        let publisher = sut.$movies
-            .dropFirst()
-            .first()
+        await sut.fetchFavorites()
 
-        sut.fetchFavorites()
-
-        let movies = try awaitPublisher(publisher)
+        let movies = sut.movies
 
         XCTAssertTrue(interactor.getFavoriteMoviesCallCalledOnce)
         let unwrappedMedia = try XCTUnwrap(movies.first as? Movie)
         XCTAssertEqual(unwrappedMedia, Movie.mock)
     }
 
-    func test_favoriteTVSeries() throws {
+    func test_favoriteTVSeries() async throws {
         let sut = FavoritesDefaultPresenter(interactor)
 
         interactor.getFavoriteSeriesCallStub = [TVSerie.mock]
 
-        let publisher = sut.$tvSeries
-            .dropFirst()
-            .first()
+        await sut.fetchFavorites()
 
-        sut.fetchFavorites()
-
-        let movies = try awaitPublisher(publisher)
+        let movies = sut.tvSeries
 
         XCTAssertTrue(interactor.getFavoriteSeriesCallCalledOnce)
         let unwrappedMedia = try XCTUnwrap(movies.first as? TVSerie)
         XCTAssertEqual(unwrappedMedia, TVSerie.mock)
+    }
+
+    func test_failureIsVisibleAndLoadingResets() async {
+        let sut = FavoritesDefaultPresenter(interactor)
+        interactor.error = NetworkError.invalidServerResponse
+        await sut.fetchFavorites()
+        XCTAssertNotNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+
+        interactor.error = nil
+        await sut.fetchFavorites()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_cancellationDoesNotShowAlert() async {
+        let sut = FavoritesDefaultPresenter(interactor)
+        interactor.error = CancellationError()
+        await sut.fetchFavorites()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
     }
 }

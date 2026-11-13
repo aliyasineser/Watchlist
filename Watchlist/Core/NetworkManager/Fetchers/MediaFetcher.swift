@@ -21,15 +21,17 @@ class MediaFetcher: Fetchable {
     }
 
     func fetchSinglePage() async throws -> [Watchable] {
-        pageCounter += 1
-        var watchables: [Watchable] = []
-        watchables = try await mediaService.fetchMedia(request: mediaStrategy.fetch(page: pageCounter))
+        let nextPage = pageCounter + 1
+        let watchables = try await mediaService.fetchMedia(request: mediaStrategy.fetch(page: nextPage))
+        try Task.checkCancellation()
+        pageCounter = nextPage
         return watchables
     }
 
     func fetchWithNextPage() async throws -> [Watchable] {
         let page = try await fetchSinglePage()
-        self.mediaList.append(contentsOf: page)
+        var identifiers = Set(mediaList.map(\.id))
+        mediaList.append(contentsOf: page.filter { identifiers.insert($0.id).inserted })
         return self.mediaList
     }
 }

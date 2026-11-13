@@ -10,54 +10,53 @@ import Foundation
 @testable import Watchlist
 
 final class MediaServiceMock: MediaService {
+    var error: Error?
+    var requestedPages: [Int] = []
 
     var fetchMediaCallStub: [Watchlist.Watchable] = []
     var fetchMediaCallCalledOnce: Bool = false
 
-    func fetchMedia(request: Watchlist.NetworkRequest) async -> [Watchlist.Watchable] {
-        return try! await withCheckedThrowingContinuation { continuation in
-            fetchMediaCallCalledOnce = true
-            continuation.resume(returning: fetchMediaCallStub)
-        }
+    func fetchMedia(request: Watchlist.NetworkRequest) async throws -> [Watchlist.Watchable] {
+        if let error { throw error }
+        fetchMediaCallCalledOnce = true
+        return fetchMediaCallStub
     }
 
     var fetchMediaDetailsCallStub: Watchlist.WatchableDetail?
     var fetchMediaDetailsCallCalledOnce: Bool = false
 
-    func fetchMediaDetails(id: Int) async -> Watchlist.WatchableDetail? {
-        return try! await withCheckedThrowingContinuation { continuation in
-            fetchMediaDetailsCallCalledOnce = true
-            continuation.resume(returning: fetchMediaDetailsCallStub)
-        }
+    func fetchMediaDetails(id: Int) async throws -> Watchlist.WatchableDetail? {
+        if let error { throw error }
+        fetchMediaDetailsCallCalledOnce = true
+        return fetchMediaDetailsCallStub
     }
 
     var fetchMediaCreditsCallStub: Watchlist.Credits?
     var fetchMediaCreditsCallCalledOnce: Bool = false
 
-    func fetchMediaCredits(id: Int) async -> Watchlist.Credits? {
-        return try! await withCheckedThrowingContinuation { continuation in
-            fetchMediaCreditsCallCalledOnce = true
-            continuation.resume(returning: fetchMediaCreditsCallStub)
-        }
+    func fetchMediaCredits(id: Int) async throws -> Watchlist.Credits? {
+        if let error { throw error }
+        fetchMediaCreditsCallCalledOnce = true
+        return fetchMediaCreditsCallStub
     }
 
     var fetchReviewsCallStub: [Watchlist.Review] = []
     var fetchReviewsCallCalledOnce: Bool = false
 
-    func fetchReviews(id: Int, page: Int) async -> [Watchlist.Review] {
-        return try! await withCheckedThrowingContinuation { continuation in
-            fetchReviewsCallCalledOnce = true
-            continuation.resume(returning: fetchReviewsCallStub)
-        }
+    func fetchReviews(id: Int, page: Int) async throws -> [Watchlist.Review] {
+        requestedPages.append(page)
+        if let error { throw error }
+        fetchReviewsCallCalledOnce = true
+        return fetchReviewsCallStub
     }
 
     var fetchSimilarCallStub: [Watchlist.Watchable] = []
     var fetchSimilarCallCalledOnce: Bool = false
 
-    func fetchSimilar(id: Int, page: Int) async -> [Watchlist.Watchable] {
-        return try! await withCheckedThrowingContinuation { continuation in
-            fetchSimilarCallCalledOnce = true
-            continuation.resume(returning: fetchSimilarCallStub)
-        }
+    func fetchSimilar(id: Int, page: Int) async throws -> [Watchlist.Watchable] {
+        requestedPages.append(page)
+        if let error { throw error }
+        fetchSimilarCallCalledOnce = true
+        return fetchSimilarCallStub
     }
 }

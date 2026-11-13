@@ -1,14 +1,7 @@
-//
-//  MediaDetailsView.swift
-//  Watchlist
-//
-//  Created by Ali Yasin Eser on 26.09.2022.
-//
-
 import SwiftUI
 
 struct MediaDetailsView: View {
-    var title: String
+    let title: String
     var genres: String?
     var rating: Double?
     var language: OriginalLanguage?
@@ -16,58 +9,34 @@ struct MediaDetailsView: View {
     var time: String?
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading, spacing: 10) {
             Text(title)
-                .font(.title2)
-                .bold()
-                .minimumScaleFactor(0.65)
-
-            if let genres {
+                .font(.title2.weight(.bold))
+                .fixedSize(horizontal: false, vertical: true)
+            if let genres, !genres.isEmpty {
                 Text(genres)
-                    .font(.title3)
-                    .foregroundColor(.primary)
-                    .bold()
-                    .minimumScaleFactor(0.7)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
             }
-
-            if let rating {
-                StarsView(rating: CGFloat(rating/2.0), maxRating: 5)
-                    .frame(width: 120, alignment: .center)
-            }
-
-            if let language {
-                Text(language.language)
-                    .font(.headline)
-                    .bold()
-                    .foregroundColor(.primary)
-                    .minimumScaleFactor(0.8)
+            if let rating, rating > 0 {
+                Label("\(rating.formatted(.number.precision(.fractionLength(1)))) / 10", systemImage: "star.fill")
+                    .font(.subheadline.weight(.semibold))
             }
             if let date {
                 Text(date.formatted(date: .abbreviated, time: .omitted))
-                    .font(.headline)
-                    .bold()
-                    .foregroundColor(.primary)
-                    .minimumScaleFactor(0.8)
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
             }
-
-            if let time = time {
+            if let language {
+                Text(language.language)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            if let time {
                 Text(time)
-                    .font(.headline)
-                    .bold()
-                    .foregroundColor(.primary)
-                    .minimumScaleFactor(0.8)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
         }
-    }
-}
-
-struct MediaDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        MediaDetailsView(
-            title: "Title",
-            rating: 5.5,
-            language: .en,
-            date: .distantPast
-        )
     }
 }

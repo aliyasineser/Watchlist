@@ -1,35 +1,23 @@
-//
-//  MovieReviewView.swift
-//  Watchlist
-//
-//  Created by Ali Yasin Eser on 2.10.2022.
-//
-
 import SwiftUI
 
 struct MovieReviewView: View {
-
-    @ObservedObject var presenter: MediaReviewDefaultPresenter
+    @State var presenter: MediaReviewDefaultPresenter
 
     var body: some View {
-        ScrollView(.vertical) {
+        LazyVStack(spacing: 16) {
             ForEach(presenter.reviews) { review in
                 ReviewItem(review: review)
             }
+            if presenter.isLoading {
+                ProgressView()
+            } else if presenter.reviews.isEmpty {
+                ContentUnavailableView("No reviews yet", systemImage: "text.bubble")
+            } else {
+                Button("Load more reviews") { Task { await presenter.fetchReviews() } }
+                    .buttonStyle(.bordered)
+            }
         }
-        .onAppear {
-            presenter.fetchReviews()
-        }
-    }
-}
-
-struct MovieReviewView_Previews: PreviewProvider {
-    static var previews: some View {
-        MovieReviewView(
-            presenter: MediaReviewDefaultPresenter(
-                interactor: MediaReviewInteractorStub(),
-                id: 1
-            )
-        )
+        .task { if presenter.reviews.isEmpty { await presenter.fetchReviews() } }
+        .errorAlert(error: $presenter.fetchError)
     }
 }

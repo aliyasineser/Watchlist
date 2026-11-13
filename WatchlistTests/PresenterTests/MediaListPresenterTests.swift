@@ -23,7 +23,7 @@ final class MediaListPresenterTests: XCTestCase {
         super.tearDown()
     }
 
-    func test_mostRecentMovies() throws {
+    func test_mostRecentMovies() async throws {
         let sut = MediaListDefaultPresenter(
             interactor,
             section: .mostRecentMovies
@@ -31,13 +31,9 @@ final class MediaListPresenterTests: XCTestCase {
 
         interactor.fetchNextMostRecentPageAsFullListStub = [Movie.mock]
 
-        let publisher = sut.$mediaList
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.mediaList
 
         XCTAssertTrue(interactor.fetchNextMostRecentPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
@@ -45,7 +41,7 @@ final class MediaListPresenterTests: XCTestCase {
         XCTAssertEqual(media, Movie.mock)
     }
 
-    func test_comingSoonMovies() throws {
+    func test_comingSoonMovies() async throws {
         let sut = MediaListDefaultPresenter(
             interactor,
             section: .comingSoonMovies
@@ -53,13 +49,9 @@ final class MediaListPresenterTests: XCTestCase {
 
         interactor.fetchNextUpcomingPageAsFullListStub = [Movie.mock]
 
-        let publisher = sut.$mediaList
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.mediaList
 
         XCTAssertTrue(interactor.fetchNextUpcomingPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
@@ -67,7 +59,7 @@ final class MediaListPresenterTests: XCTestCase {
         XCTAssertEqual(media, Movie.mock)
     }
 
-    func test_popularMovies() throws {
+    func test_popularMovies() async throws {
         let sut = MediaListDefaultPresenter(
             interactor,
             section: .popularMovies
@@ -75,13 +67,9 @@ final class MediaListPresenterTests: XCTestCase {
 
         interactor.fetchNextPopularPageAsFullListStub = [Movie.mock]
 
-        let publisher = sut.$mediaList
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.mediaList
 
         XCTAssertTrue(interactor.fetchNextPopularPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
@@ -89,7 +77,7 @@ final class MediaListPresenterTests: XCTestCase {
         XCTAssertEqual(media, Movie.mock)
     }
 
-    func test_airingTodaySeries() throws {
+    func test_airingTodaySeries() async throws {
         let sut = MediaListDefaultPresenter(
             interactor,
             section: .airingTodaySeries
@@ -97,13 +85,9 @@ final class MediaListPresenterTests: XCTestCase {
 
         interactor.fetcthAiringTodayPageAsFullListStub = [TVSerie.mock]
 
-        let publisher = sut.$mediaList
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.mediaList
 
         XCTAssertTrue(interactor.fetcthAiringTodayPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
@@ -111,7 +95,7 @@ final class MediaListPresenterTests: XCTestCase {
         XCTAssertEqual(media, TVSerie.mock)
     }
 
-    func test_onTheAirSeries() throws {
+    func test_onTheAirSeries() async throws {
         let sut = MediaListDefaultPresenter(
             interactor,
             section: .onTheAirSeries
@@ -119,13 +103,9 @@ final class MediaListPresenterTests: XCTestCase {
 
         interactor.fetcthOnTheAirPageAsFullListStub = [TVSerie.mock]
 
-        let publisher = sut.$mediaList
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.mediaList
 
         XCTAssertTrue(interactor.fetcthOnTheAirPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
@@ -133,7 +113,7 @@ final class MediaListPresenterTests: XCTestCase {
         XCTAssertEqual(media, TVSerie.mock)
     }
 
-    func test_topRatedSeries() throws {
+    func test_topRatedSeries() async throws {
         let sut = MediaListDefaultPresenter(
             interactor,
             section: .topRatedSeries
@@ -141,17 +121,34 @@ final class MediaListPresenterTests: XCTestCase {
 
         interactor.fetcthTopRatedPageAsFullListStub = [TVSerie.mock]
 
-        let publisher = sut.$mediaList
-            .dropFirst()
-            .first()
+        await sut.fetchMedia()
 
-        sut.fetchMedia()
-
-        let mediaList = try awaitPublisher(publisher)
+        let mediaList = sut.mediaList
 
         XCTAssertTrue(interactor.fetcthTopRatedPageAsFullListWasCalledOnce)
         XCTAssertEqual(mediaList.count, 1)
         let media = try XCTUnwrap(mediaList.first as? TVSerie)
         XCTAssertEqual(media, TVSerie.mock)
+    }
+
+    func test_failureIsVisibleAndLoadingResets() async {
+        let sut = MediaListDefaultPresenter(interactor, section: .popularMovies)
+        interactor.error = NetworkError.invalidServerResponse
+        await sut.fetchMedia()
+        XCTAssertNotNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+
+        interactor.error = nil
+        await sut.fetchMedia()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
+    }
+
+    func test_cancellationDoesNotShowAlert() async {
+        let sut = MediaListDefaultPresenter(interactor, section: .popularMovies)
+        interactor.error = CancellationError()
+        await sut.fetchMedia()
+        XCTAssertNil(sut.fetchError)
+        XCTAssertFalse(sut.isLoading)
     }
 }
