@@ -31,3 +31,13 @@ coverage remain pending: local Xcode package-cache writes and CoreSimulator acce
 are denied by this sandbox. Review the CI artifacts before merging.
 
 API reference: https://developer.themoviedb.org/reference/tv-season-details
+
+Completion review: catalog, season and save errors are kept separate so cached
+season loads cannot hide a failed catalog refresh. Late/cancelled season requests
+cannot publish after selection changes, and cancelled requests can be retried.
+Unsaved shows can be saved as Watching directly from the progress screen. Added
+regression tests exercise these paths and real service decoding/season validation.
+The completion build attempt on Xcode 27.2 again failed during Kingfisher package
+resolution with Operation not permitted for SwiftPM/Clang cache writes, before app
+compilation. Full strict app lint, Swift syntax, project plist and whitespace
+checks passed; CI/simulator tests remain the required execution check.

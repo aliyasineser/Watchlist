@@ -6,13 +6,22 @@ struct EpisodeProgressView: View {
     var body: some View {
         List {
             if !presenter.isSaved {
-                ContentUnavailableView("Save this show first", systemImage: "bookmark")
+                if presenter.isLoadingCatalog {
+                    ProgressView("Loading your library…")
+                } else {
+                    ContentUnavailableView("Save this show first", systemImage: "bookmark")
+                    Button("Save and start tracking") {
+                        Task { await presenter.saveAndStartTracking() }
+                    }
+                    .disabled(!presenter.store.isLoaded || presenter.store.isSaving)
+                }
             } else {
                 summary
                 if !presenter.progress.catalog.isEmpty {
                     Picker("Season", selection: $presenter.selectedSeason) {
                         ForEach(presenter.progress.catalog) { Text($0.name).tag(Int?.some($0.seasonNumber)) }
                     }
+                    .disabled(presenter.isLoadingCatalog)
                 }
                 if let season = presenter.season {
                     Section(season.name) {
@@ -30,26 +39,26 @@ struct EpisodeProgressView: View {
                 if presenter.isLoadingCatalog || presenter.isLoadingSeason {
                     ProgressView("Loading episodes…")
                 }
-                if let error = presenter.error {
-                    Section {
-                        Text(error.localizedDescription).foregroundStyle(.secondary)
-                        Button("Try again") {
-                            Task {
-                                await presenter.loadCatalog(force: presenter.progress.catalog.isEmpty)
-                                await presenter.loadSeason(force: true)
-                            }
-                        }
-                    }
-                } else if presenter.progress.catalog.isEmpty && !presenter.isLoadingCatalog {
+                if presenter.progress.catalog.isEmpty && !presenter.isLoadingCatalog && presenter.error == nil {
                     Text("No seasons announced yet.")
                 }
                 Button("Refresh season details online") {
-                    Task {
-                        await presenter.loadCatalog(force: true)
-                        await presenter.loadSeason(force: true)
-                    }
+                    Task { await presenter.refresh() }
                 }
                 .disabled(presenter.isLoadingCatalog || presenter.isLoadingSeason || presenter.store.isSaving)
+            }
+            if let error = presenter.error {
+                Section {
+                    Text(error.localizedDescription).foregroundStyle(.secondary)
+                    Button("Try again") { Task { await presenter.retry() } }
+                        .disabled(presenter.isLoadingCatalog || presenter.isLoadingSeason)
+                }
+            }
+            if let error = presenter.actionError {
+                Section {
+                    Text(error.localizedDescription).foregroundStyle(.secondary)
+                    Button("Dismiss") { presenter.dismissActionError() }
+                }
             }
         }
         .navigationTitle("Episode progress")

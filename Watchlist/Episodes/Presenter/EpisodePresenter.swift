@@ -15,7 +15,10 @@ final class EpisodePresenterImpl: EpisodePresenter {
     var selectedSeason: Int?
     private(set) var isLoadingCatalog = false
     private(set) var isLoadingSeason = false
-    private(set) var error: Error?
+    private(set) var catalogError: Error?
+    private(set) var seasonError: Error?
+    private(set) var actionError: Error?
+    var error: Error? { catalogError ?? seasonError }
     private(set) var canUndo = false
     private var undoBefore: Set<String> = []
     private var undoAfter: Set<String> = []
@@ -37,33 +40,42 @@ final class EpisodePresenterImpl: EpisodePresenter {
         isLoadingCatalog = true
         defer { isLoadingCatalog = false }
         await store.load()
-        guard isSaved else { error = EpisodeProgressError.unavailable; return }
+        guard isSaved else {
+            catalogError = store.error
+            return
+        }
         if !force && !progress.catalog.isEmpty { selectInitialSeason(); return }
-        error = nil
+        catalogError = nil
         do {
             let catalog = try await service.seasons(seriesID: title.tmdbID)
             try Task.checkCancellation()
             if await store.cacheSeasonCatalog(catalog, for: title) {
                 selectInitialSeason()
-            } else { error = store.error }
-        } catch is CancellationError { } catch { self.error = error }
+            } else { catalogError = store.error }
+        } catch is CancellationError { } catch { catalogError = error }
     }
 
     func loadSeason(force: Bool = false) async {
         generation += 1
         let request = generation
-        guard let number = selectedSeason else { isLoadingSeason = false; return }
-        if !force && season != nil { isLoadingSeason = false; error = nil; return }
+        guard let number = selectedSeason, isSaved else {
+            isLoadingSeason = false
+            seasonError = nil
+            return
+        }
+        if !force && season != nil { isLoadingSeason = false; seasonError = nil; return }
         isLoadingSeason = true
-        error = nil
-        defer { if generation == request { isLoadingSeason = false } }
+        seasonError = nil
+        defer {
+            if generation == request { isLoadingSeason = false }
+        }
         do {
             let season = try await service.season(seriesID: title.tmdbID, number: number)
             try Task.checkCancellation()
-            guard request == generation else { return }
-            if !(await store.cacheSeason(season, for: title)) { error = store.error }
+            guard request == generation, selectedSeason == number else { return }
+            if !(await store.cacheSeason(season, for: title)) { seasonError = store.error }
         } catch is CancellationError { } catch {
-            if request == generation { self.error = error }
+            if request == generation, selectedSeason == number { seasonError = error }
         }
     }
 
@@ -73,16 +85,34 @@ final class EpisodePresenterImpl: EpisodePresenter {
             undoBefore = before
             undoAfter = progress.watchedIDs
             canUndo = undoBefore != undoAfter
-            error = nil
-        } else { error = store.error }
+            actionError = nil
+        } else { actionError = store.error }
     }
 
     func undo() async {
         guard canUndo else { return }
         if await store.restoreEpisodes(for: title, before: undoBefore, expected: undoAfter) {
             canUndo = false
-            error = nil
-        } else { error = store.error }
+            actionError = nil
+        } else { actionError = store.error }
+    }
+
+    func saveAndStartTracking() async {
+        await store.setStatus(.watching, for: title)
+        actionError = store.error
+        if isSaved { await loadCatalog() }
+    }
+
+    func dismissActionError() { actionError = nil }
+
+    func retry() async {
+        if catalogError != nil || progress.catalog.isEmpty { await loadCatalog(force: true) }
+        if seasonError != nil || season == nil { await loadSeason(force: true) }
+    }
+
+    func refresh() async {
+        await loadCatalog(force: true)
+        if catalogError == nil { await loadSeason(force: true) }
     }
 
     private func selectInitialSeason() {

@@ -109,6 +109,91 @@ final class EpisodeProgressTests: XCTestCase {
         XCTAssertNil(season.episodes.first?.airDate)
     }
 
+    func testCatalogFailureSurvivesCachedSeasonAndCanBeRetried() async {
+        let store = await makeStore()
+        _ = await store.cacheSeasonCatalog([EpisodeSeasonSummary(seasonNumber: 1, name: "One")], for: title)
+        _ = await store.cacheSeason(EpisodeSeason(seasonNumber: 1, name: "One", episodes: [episode(1)]), for: title)
+        let service = EpisodeServiceMock()
+        let presenter = EpisodePresenterImpl(title: title, store: store, service: service)
+        await presenter.loadCatalog()
+        service.shouldFail = true
+        await presenter.refresh()
+        XCTAssertNotNil(presenter.catalogError)
+        await presenter.loadSeason()
+        XCTAssertNotNil(presenter.error)
+        XCTAssertEqual(presenter.season?.episodes.count, 1)
+        service.shouldFail = false
+        await presenter.retry()
+        XCTAssertNil(presenter.error)
+    }
+
+    func testLateSeasonResponseCannotReplaceChangedSelection() async {
+        let store = await makeStore()
+        let service = ControlledEpisodeService()
+        let presenter = EpisodePresenterImpl(title: title, store: store, service: service)
+        presenter.selectedSeason = 1
+        let requested = expectation(description: "Season requested")
+        service.onRequest = { requested.fulfill() }
+        let request = Task { await presenter.loadSeason() }
+        await fulfillment(of: [requested], timeout: 2)
+        presenter.selectedSeason = 2
+        service.complete(EpisodeSeason(seasonNumber: 1, name: "One", episodes: [episode(1)]))
+        await request.value
+        XCTAssertNil(presenter.season)
+        XCTAssertTrue(presenter.progress.seasons.isEmpty)
+        XCTAssertFalse(presenter.isLoadingSeason)
+    }
+
+    func testCancelledSeasonDoesNotPublishAndCanReload() async {
+        let store = await makeStore()
+        let service = ControlledEpisodeService()
+        let presenter = EpisodePresenterImpl(title: title, store: store, service: service)
+        presenter.selectedSeason = 1
+        let requested = expectation(description: "Season requested")
+        service.onRequest = { requested.fulfill() }
+        let request = Task { await presenter.loadSeason() }
+        await fulfillment(of: [requested], timeout: 2)
+        request.cancel()
+        service.complete(EpisodeSeason(seasonNumber: 1, name: "One", episodes: [episode(1)]))
+        await request.value
+        XCTAssertNil(presenter.season)
+        XCTAssertNil(presenter.error)
+        XCTAssertFalse(presenter.isLoadingSeason)
+        let retried = expectation(description: "Season requested again")
+        service.onRequest = { retried.fulfill() }
+        let retry = Task { await presenter.loadSeason() }
+        await fulfillment(of: [retried], timeout: 2)
+        service.complete(EpisodeSeason(seasonNumber: 1, name: "One", episodes: [episode(1)]))
+        await retry.value
+        XCTAssertEqual(presenter.season?.episodes.count, 1)
+    }
+
+    func testUnsavedShowCanStartTrackingWithoutLosingMetadata() async {
+        let store = WatchLibraryStoreImpl(repository: EpisodeRepositoryMock(), artwork: EpisodeArtworkMock())
+        await store.load()
+        let presenter = EpisodePresenterImpl(title: title, store: store, service: EpisodeServiceMock())
+        await presenter.loadCatalog()
+        XCTAssertFalse(presenter.isSaved)
+        await presenter.saveAndStartTracking()
+        XCTAssertEqual(store.entry(for: title)?.status, .watching)
+        XCTAssertEqual(presenter.selectedSeason, 1)
+        XCTAssertNil(presenter.actionError)
+    }
+
+    func testServiceRejectsMismatchedSeasonAndDeduplicatesEpisodes() async throws {
+        let invalid = Data(#"{"season_number":2,"name":"Wrong","episodes":[]}"#.utf8)
+        let badService = EpisodeServiceImpl(requestManager: DefaultRequestManager(apiManager: EpisodeAPIStub(data: invalid)))
+        do {
+            _ = try await badService.season(seriesID: 1, number: 1)
+            XCTFail("Mismatched season must fail")
+        } catch { XCTAssertTrue(error is EpisodeProgressError) }
+        let duplicate = Data(#"{"season_number":1,"name":"One","episodes":[{"season_number":1,"episode_number":2,"name":"Second"},{"season_number":1,"episode_number":1,"name":"First"},{"season_number":1,"episode_number":1,"name":"Duplicate"}]}"#.utf8)
+        let service = EpisodeServiceImpl(requestManager: DefaultRequestManager(apiManager: EpisodeAPIStub(data: duplicate)))
+        let result = try await service.season(seriesID: 1, number: 1)
+        XCTAssertEqual(result.episodes.map(\.episodeNumber), [1, 2])
+        XCTAssertEqual(result.episodes.first?.name, "First")
+    }
+
     private func makeStore(repository: WatchLibraryRepository = EpisodeRepositoryMock()) async -> WatchLibraryStoreImpl {
         let store = WatchLibraryStoreImpl(repository: repository, artwork: EpisodeArtworkMock())
         await store.load()
@@ -152,4 +237,26 @@ private final class EpisodeServiceMock: EpisodeService {
         if shouldFail { throw URLError(.notConnectedToInternet) }
         return EpisodeSeason(seasonNumber: number, name: "One", episodes: [])
     }
+}
+
+@MainActor
+private final class ControlledEpisodeService: EpisodeService {
+    var onRequest: (() -> Void)?
+    private var continuation: CheckedContinuation<EpisodeSeason, Error>?
+    func seasons(seriesID: Int) async throws -> [EpisodeSeasonSummary] { [] }
+    func season(seriesID: Int, number: Int) async throws -> EpisodeSeason {
+        try await withCheckedThrowingContinuation {
+            continuation = $0
+            onRequest?()
+        }
+    }
+    func complete(_ season: EpisodeSeason) {
+        continuation?.resume(returning: season)
+        continuation = nil
+    }
+}
+
+private struct EpisodeAPIStub: APIManager {
+    let data: Data
+    func initRequest(with request: NetworkRequest) async throws -> Data { data }
 }
