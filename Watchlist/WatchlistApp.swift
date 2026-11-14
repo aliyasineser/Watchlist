@@ -30,6 +30,7 @@ struct WatchlistApp: App {
         WindowGroup {
             if isUITesting || PersistenceController.shared.loadError == nil {
                 ContentView(dependencies: dependencies)
+                    .modifier(UITestAppearance())
             } else {
                 ContentUnavailableView {
                     Label("Your library couldn’t be opened", systemImage: "externaldrive.badge.exclamationmark")
@@ -41,5 +42,19 @@ struct WatchlistApp: App {
                 }
             }
         }
+    }
+}
+
+private struct UITestAppearance: ViewModifier {
+    func body(content: Content) -> some View {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("--ui-testing-accessibility") {
+            content.environment(\.dynamicTypeSize, .accessibility3).preferredColorScheme(.dark)
+        } else {
+            content
+        }
+        #else
+        content
+        #endif
     }
 }

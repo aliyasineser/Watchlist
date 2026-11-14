@@ -415,3 +415,5 @@ extension OriginalLanguage {
         return nil
     }
 }
+
+// swiftlint:enable all
