@@ -84,14 +84,18 @@ private final class MetadataRequestGate {
         try Task.checkCancellation()
         if available > 0 { available -= 1; return }
         let id = UUID()
-        try await withTaskCancellationHandler {
-            try await withCheckedThrowingContinuation { continuation in
-                if Task.isCancelled { continuation.resume(throwing: CancellationError()) } else {
-                    waiters.append((id, continuation))
-                }
-            }
-        } onCancel: {
+        try await withTaskCancellationHandler(operation: {
+            try await wait(for: id)
+        }, onCancel: {
             Task { @MainActor in self.cancel(id) }
+        })
+    }
+
+    private func wait(for id: UUID) async throws {
+        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+            if Task.isCancelled { continuation.resume(throwing: CancellationError()) } else {
+                waiters.append((id, continuation))
+            }
         }
     }
 
