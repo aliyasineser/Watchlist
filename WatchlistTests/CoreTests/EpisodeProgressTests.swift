@@ -87,7 +87,18 @@ final class EpisodeProgressTests: XCTestCase {
     }
 
     func testLegacyEntryDecodesAndProgressSurvivesDiskRoundTrip() async throws {
-        let data = Data(#"{"title":{"tmdbID":1,"mediaType":"tv","title":"Show"},"status":"watching","addedAt":0,"updatedAt":0}"#.utf8)
+        let data = Data("""
+        {
+            "title": {
+                "tmdbID": 1,
+                "mediaType": "tv",
+                "title": "Show"
+            },
+            "status": "watching",
+            "addedAt": 0,
+            "updatedAt": 0
+        }
+        """.utf8)
         XCTAssertNil(try JSONDecoder().decode(WatchEntry.self, from: data).episodeProgress)
         let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }
@@ -103,7 +114,20 @@ final class EpisodeProgressTests: XCTestCase {
     func testRequestRoutesAndSeasonDecoding() throws {
         XCTAssertEqual(EpisodeRequest(seriesID: 42).path, "/tv/42")
         XCTAssertEqual(EpisodeRequest(seriesID: 42, seasonNumber: 0).path, "/tv/42/season/0")
-        let json = Data(#"{"season_number":1,"name":"One","episodes":[{"season_number":1,"episode_number":2,"name":"Episode","air_date":null}]}"#.utf8)
+        let json = Data("""
+        {
+            "season_number": 1,
+            "name": "One",
+            "episodes": [
+                {
+                    "season_number": 1,
+                    "episode_number": 2,
+                    "name": "Episode",
+                    "air_date": null
+                }
+            ]
+        }
+        """.utf8)
         let season = try JSONDecoder().decode(EpisodeSeason.self, from: json)
         XCTAssertEqual(season.episodes.first?.id, "1-2")
         XCTAssertNil(season.episodes.first?.airDate)
@@ -182,19 +206,35 @@ final class EpisodeProgressTests: XCTestCase {
 
     func testServiceRejectsMismatchedSeasonAndDeduplicatesEpisodes() async throws {
         let invalid = Data(#"{"season_number":2,"name":"Wrong","episodes":[]}"#.utf8)
-        let badService = EpisodeServiceImpl(requestManager: DefaultRequestManager(apiManager: EpisodeAPIStub(data: invalid)))
+        let badService = EpisodeServiceImpl(
+            requestManager: DefaultRequestManager(apiManager: EpisodeAPIStub(data: invalid))
+        )
         do {
             _ = try await badService.season(seriesID: 1, number: 1)
             XCTFail("Mismatched season must fail")
         } catch { XCTAssertTrue(error is EpisodeProgressError) }
-        let duplicate = Data(#"{"season_number":1,"name":"One","episodes":[{"season_number":1,"episode_number":2,"name":"Second"},{"season_number":1,"episode_number":1,"name":"First"},{"season_number":1,"episode_number":1,"name":"Duplicate"}]}"#.utf8)
-        let service = EpisodeServiceImpl(requestManager: DefaultRequestManager(apiManager: EpisodeAPIStub(data: duplicate)))
+        let duplicate = Data("""
+        {
+            "season_number": 1,
+            "name": "One",
+            "episodes": [
+                {"season_number": 1, "episode_number": 2, "name": "Second"},
+                {"season_number": 1, "episode_number": 1, "name": "First"},
+                {"season_number": 1, "episode_number": 1, "name": "Duplicate"}
+            ]
+        }
+        """.utf8)
+        let service = EpisodeServiceImpl(
+            requestManager: DefaultRequestManager(apiManager: EpisodeAPIStub(data: duplicate))
+        )
         let result = try await service.season(seriesID: 1, number: 1)
         XCTAssertEqual(result.episodes.map(\.episodeNumber), [1, 2])
         XCTAssertEqual(result.episodes.first?.name, "First")
     }
 
-    private func makeStore(repository: WatchLibraryRepository = EpisodeRepositoryMock()) async -> WatchLibraryStoreImpl {
+    private func makeStore(
+        repository: WatchLibraryRepository = EpisodeRepositoryMock()
+    ) async -> WatchLibraryStoreImpl {
         let store = WatchLibraryStoreImpl(repository: repository, artwork: EpisodeArtworkMock())
         await store.load()
         await store.setStatus(.watching, for: title)

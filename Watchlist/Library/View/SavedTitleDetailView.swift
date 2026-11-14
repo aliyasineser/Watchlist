@@ -9,9 +9,9 @@ struct SavedTitleDetailView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                PosterArtwork(url: store.artworkURL(for: title))
+                PosterArtwork(url: store.artworkURL(for: currentTitle))
                     .frame(maxWidth: 220).frame(maxWidth: .infinity)
-                Text(title.title).font(.title.bold())
+                Text(currentTitle.title).font(.title.bold())
                 WatchStatusControl(title: currentTitle, store: store)
                 if title.mediaType == .tv {
                     NavigationLink("Episode progress") {

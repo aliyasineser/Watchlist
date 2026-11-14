@@ -41,3 +41,18 @@ The completion build attempt on Xcode 27.2 again failed during Kingfisher packag
 resolution with Operation not permitted for SwiftPM/Clang cache writes, before app
 compilation. Full strict app lint, Swift syntax, project plist and whitespace
 checks passed; CI/simulator tests remain the required execution check.
+
+Navigator and Favorites follow-up: root-relative Swift references were replaced
+with filename references inside matching Xcode groups (Episodes, Library, Search,
+WatchTonight, Common/Views/Catalog and test CoreTests). File locations and target
+membership are preserved; new references should use groups matching their folders.
+
+Favorites now hydrates missing poster metadata as lazy-grid cards appear, with
+at most two detail requests in flight, duplicate suppression and offscreen task
+cancellation. Requests omit appended credits. Successful results are persisted,
+including a timestamp when TMDB has no poster (retry after one day); failed requests
+back off for one minute, with pull-to-refresh clearing that backoff. Completed
+metadata updates serialize with saves, preserve user progress/ratings/dates, and
+never recreate deleted entries or replace newer metadata. Tests cover concurrency,
+retry behavior, persistence, identity and stale snapshots. Offline test fixtures
+keep metadata loading disabled unless explicitly injected.

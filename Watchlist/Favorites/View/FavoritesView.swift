@@ -5,6 +5,7 @@ struct FavoritesView: View {
     @State private var status: WatchStatus?
     @State private var type: MediaType?
     @State private var sort = LibrarySort.dateAdded
+    @State private var metadataRetry = 0
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private var entries: [WatchEntry] { store.filtered(status: status, type: type, sort: sort) }
@@ -46,7 +47,12 @@ struct FavoritesView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Favorites")
             .task { await store.load() }
-            .refreshable { await store.load(); store.retryArtwork() }
+            .refreshable {
+                await store.load()
+                store.resetMetadataFailures()
+                store.retryArtwork()
+                metadataRetry += 1
+            }
         }
     }
 
@@ -90,6 +96,7 @@ struct FavoritesView: View {
                 }
                 .buttonStyle(.plain)
                 .accessibilityIdentifier("library.entry.\(entry.id)")
+                .task(id: metadataRetry) { await store.hydrateMetadata(for: entry.id) }
             }
         }
     }
