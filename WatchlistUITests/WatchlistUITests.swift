@@ -29,6 +29,22 @@ final class WatchlistUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["No saved titles yet"].waitForExistence(timeout: 5))
     }
 
+    func testLibraryToolsNavigateWithoutNetworkOrNotificationPrompts() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing"]
+        app.launch()
+        app.tabBars.buttons["Favorites"].tap()
+        app.buttons["library.backup"].tap()
+        XCTAssertTrue(app.navigationBars["Backup & sync"].waitForExistence(timeout: 5))
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.buttons["library.providers"].tap()
+        XCTAssertTrue(app.navigationBars["My streaming services"].waitForExistence(timeout: 5))
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        app.buttons["library.upcoming"].tap()
+        XCTAssertTrue(app.navigationBars["Upcoming"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.alerts.firstMatch.exists)
+    }
+
     func testWatchTonightPicksAnOfflineSavedTitle() {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]

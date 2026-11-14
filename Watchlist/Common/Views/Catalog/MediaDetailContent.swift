@@ -28,6 +28,7 @@ struct MediaDetailContent: View {
                 .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 24))
 
                 WatchStatusControl(title: SavedTitle(media: media), refreshMetadata: true)
+                ReleaseFollowControl(title: SavedTitle(media: media), store: .shared)
                 NavigationLink("Where to watch") {
                     AvailabilityView(presenter: AvailabilityPresenterImpl(title: SavedTitle(media: media)))
                 }

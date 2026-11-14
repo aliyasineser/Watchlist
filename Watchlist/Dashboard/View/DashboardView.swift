@@ -37,6 +37,7 @@ struct DashboardView: View {
     @State private var artistPresenter: ArtistDefaultPresenter
     @State private var libraryStore: WatchLibraryStoreImpl
     @State private var transfer: LibraryTransferPresenterImpl
+    @State private var upcoming: UpcomingPresenterImpl
     @Environment(\.scenePhase) private var scenePhase
 
     init(dependencies: AppDependencies? = nil) {
@@ -47,6 +48,7 @@ struct DashboardView: View {
         let store = dependencies.makeWatchLibraryStore()
         _libraryStore = State(initialValue: store)
         _transfer = State(initialValue: dependencies.makeTransferPresenter(store: store))
+        _upcoming = State(initialValue: dependencies.makeUpcomingPresenter(store: store))
     }
 
     var body: some View {
@@ -61,19 +63,29 @@ struct DashboardView: View {
                 ArtistsView(presenter: artistPresenter)
             }
             Tab("Favorites", systemImage: Icons.TabBar.favorites.rawValue, value: .favorites) {
-                FavoritesView(store: libraryStore, transfer: transfer)
+                FavoritesView(store: libraryStore, transfer: transfer, upcoming: upcoming)
             }
         }
         .task(id: libraryStore.revision) {
             await libraryStore.load()
+            await reconcileReminders()
             guard transfer.syncEnabled else { return }
             do { try await Task.sleep(for: .seconds(2)) } catch { return }
             await transfer.sync()
         }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active { Task { await transfer.sync() } }
+            if phase == .active {
+                Task { await reconcileReminders(); await transfer.sync() }
+            }
         }
     }
+    private func reconcileReminders() async {
+        #if DEBUG
+        if ProcessInfo.processInfo.arguments.contains("--ui-testing") { return }
+        #endif
+        await ReleaseRemindersImpl.shared.reconcile(store: libraryStore)
+    }
+
 }
 
 struct TabItemView: View {
