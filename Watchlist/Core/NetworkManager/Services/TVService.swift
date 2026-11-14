@@ -15,7 +15,7 @@ final class TVService: MediaService {
     init(requestManager: RequestManager = DefaultRequestManager()) {
         self.requestManager = requestManager
     }
-    
+
     func fetchMedia(request: NetworkRequest) async throws -> [Watchable] {
         let series: TVSerieResponse = try await requestManager.initRequest(with: request)
         return series.results

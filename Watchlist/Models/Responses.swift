@@ -180,7 +180,6 @@ struct Review: Codable, Identifiable, Equatable {
     }
 }
 
-// swiftlint:disable:all line_length
 extension Review {
     static let mock = Review(
         author: "Author",

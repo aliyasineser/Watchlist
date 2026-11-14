@@ -29,6 +29,23 @@ final class WatchlistUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["No saved titles yet"].waitForExistence(timeout: 5))
     }
 
+    func testLibrarySupportsLargeTextAndDarkAppearance() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--ui-testing-favorites", "--ui-testing-accessibility"]
+        app.launch()
+        app.tabBars.buttons["Favorites"].tap()
+        let card = app.buttons["library.entry.movie-1"]
+        for _ in 0..<5 where !card.isHittable { app.swipeUp() }
+        XCTAssertTrue(card.waitForExistence(timeout: 5))
+        XCTAssertGreaterThanOrEqual(card.frame.minX - app.frame.minX, 19)
+        XCTAssertGreaterThanOrEqual(app.frame.maxX - card.frame.maxX, 19)
+        card.tap()
+        XCTAssertTrue(app.navigationBars["Saved title"].waitForExistence(timeout: 5))
+        let screenshot = XCTAttachment(screenshot: app.screenshot())
+        screenshot.lifetime = .keepAlways
+        add(screenshot)
+    }
+
     func test_favoritesCardsHaveSideMarginsAndFiltersWork() {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]

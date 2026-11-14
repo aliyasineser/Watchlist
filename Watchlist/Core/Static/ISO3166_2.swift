@@ -531,3 +531,5 @@ extension OriginCountry {
     }
     
 }
+
+// swiftlint:enable all

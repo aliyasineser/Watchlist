@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 enum AuthPermissionRequest: AuthNetworkRequest {
     case askUserPermission(requestToken: String)
 
