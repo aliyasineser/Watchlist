@@ -6,6 +6,7 @@ import Observation
 final class WatchLibraryStoreImpl {
     static let shared = WatchLibraryStoreImpl(
         repository: WatchLibraryRepositoryImpl(), artwork: ArtworkCacheImpl(),
+        metadataLoader: SavedTitleMetadataLoaderImpl(service: SavedTitleMetadataServiceImpl()),
         importFavorites: {
             let movies = try FavoriteMovieStorage.shared.fetchMovies().map {
                 SavedTitle(tmdbID: Int($0.id), mediaType: .movie, title: $0.name ?? "Untitled")
@@ -24,16 +25,20 @@ final class WatchLibraryStoreImpl {
     private(set) var artworkRevision = 0
     var error: Error?
     private var document = WatchLibraryDocument()
+    @ObservationIgnored private var saveWaiters: [CheckedContinuation<Void, Never>] = []
     private let repository: WatchLibraryRepository
     private let artwork: ArtworkCache
+    private let metadataLoader: SavedTitleMetadataLoaderImpl?
     private let importFavorites: () throws -> [SavedTitle]
 
     init(
         repository: WatchLibraryRepository, artwork: ArtworkCache,
+        metadataLoader: SavedTitleMetadataLoaderImpl? = nil,
         importFavorites: @escaping () throws -> [SavedTitle] = { [] }
     ) {
         self.repository = repository
         self.artwork = artwork
+        self.metadataLoader = metadataLoader
         self.importFavorites = importFavorites
     }
 
@@ -69,7 +74,10 @@ final class WatchLibraryStoreImpl {
         await mutate { entries in
             if let index = entries.firstIndex(where: { $0.id == title.id }) {
                 entries[index].status = status
-                entries[index].title = title
+                if (title.metadataFetchedAt ?? .distantPast) >=
+                    (entries[index].title.metadataFetchedAt ?? .distantPast) {
+                    entries[index].title = title
+                }
                 entries[index].updatedAt = .now
             } else {
                 entries.append(WatchEntry(title: title, status: status, addedAt: .now, updatedAt: .now))
@@ -131,21 +139,53 @@ final class WatchLibraryStoreImpl {
         }
     }
 
-    private func mutate(_ change: (inout [WatchEntry]) throws -> Void) async {
-        guard isLoaded else { error = WatchLibraryError.unavailable; return }
-        guard !isSaving else { error = WatchLibraryError.busy; return }
+    @discardableResult
+    func mutate(
+        reportError: Bool = true, _ change: (inout [WatchEntry]) throws -> Void
+    ) async -> Bool {
+        guard isLoaded else {
+            if reportError { error = WatchLibraryError.unavailable }
+            return false
+        }
+        guard !isSaving else {
+            if reportError { error = WatchLibraryError.busy }
+            return false
+        }
         isSaving = true
-        error = nil
-        defer { isSaving = false }
+        if reportError { error = nil }
+        defer {
+            isSaving = false
+            let waiters = saveWaiters
+            saveWaiters.removeAll()
+            for waiter in waiters { waiter.resume() }
+        }
         do {
             var updated = document
             try change(&updated.entries)
             try await repository.save(updated)
             document = updated
             entries = updated.entries
+            return true
         } catch {
-            self.error = error
+            if reportError { self.error = error }
+            return false
         }
+    }
+
+    func resetMetadataFailures() { metadataLoader?.resetFailures() }
+
+    func hydrateMetadata(for id: String) async {
+        guard let original = entries.first(where: { $0.id == id }), let metadataLoader,
+              let fetched = await metadataLoader.fetchIfNeeded(original.title), !Task.isCancelled else { return }
+        while isSaving { await withCheckedContinuation { saveWaiters.append($0) } }
+        guard !Task.isCancelled, let current = entries.first(where: { $0.id == id }),
+              current.title.metadataFetchedAt == original.title.metadataFetchedAt else { return }
+        let saved = await mutate(reportError: false) { entries in
+            guard let index = entries.firstIndex(where: { $0.id == id }),
+                  entries[index].title.metadataFetchedAt == original.title.metadataFetchedAt else { return }
+            entries[index].title = fetched
+        }
+        if saved, let title = entries.first(where: { $0.id == id })?.title { cacheArtwork(title) }
     }
 
     private func cacheArtwork(_ title: SavedTitle) {

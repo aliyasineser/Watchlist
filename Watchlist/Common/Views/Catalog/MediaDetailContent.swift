@@ -28,6 +28,13 @@ struct MediaDetailContent: View {
                 .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 24))
 
                 WatchStatusControl(title: SavedTitle(media: media), refreshMetadata: true)
+                if media is TvDetail {
+                    NavigationLink("Episode progress") {
+                        EpisodeProgressView(presenter: EpisodePresenterImpl(
+                            title: SavedTitle(media: media), store: .shared
+                        ))
+                    }
+                }
 
                 if let overview = media.overview, !overview.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {

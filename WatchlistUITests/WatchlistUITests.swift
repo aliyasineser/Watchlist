@@ -42,6 +42,27 @@ final class WatchlistUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["Saved title"].waitForExistence(timeout: 5))
     }
 
+    func testEpisodeProgressAndUndoWorkOffline() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]
+        app.launch()
+        app.tabBars.buttons["Favorites"].tap()
+        app.segmentedControls["favorites.category"].buttons["TV"].tap()
+        let series = app.buttons["library.entry.tv-1"]
+        XCTAssertTrue(series.waitForExistence(timeout: 5))
+        series.tap()
+        app.buttons["library.episodes"].tap()
+        let pilot = app.buttons["episode.1-1"]
+        XCTAssertTrue(pilot.waitForExistence(timeout: 5))
+        XCTAssertEqual(pilot.label, "Pilot, not watched")
+        pilot.tap()
+        let watched = expectation(for: NSPredicate(format: "label == %@", "Pilot, watched"), evaluatedWith: pilot)
+        wait(for: [watched], timeout: 5)
+        app.buttons["episodes.undo"].tap()
+        let undone = expectation(for: NSPredicate(format: "label == %@", "Pilot, not watched"), evaluatedWith: pilot)
+        wait(for: [undone], timeout: 5)
+    }
+
     func testLibrarySupportsLargeTextAndDarkAppearance() {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-favorites", "--ui-testing-accessibility"]

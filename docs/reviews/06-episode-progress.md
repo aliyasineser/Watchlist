@@ -1,0 +1,58 @@
+# 06 — TV episode progress
+
+Base: `feature/05-watch-tonight`. Branch: `feature/06-episode-progress`.
+
+TV detail pages and saved TV titles link to Episode progress. Users download a
+season, toggle aired episodes, mark all aired episodes in that season watched,
+and undo the latest action. Progress counts and the next unwatched aired episode
+use downloaded seasons; specials do not enter the next-episode queue. Future,
+unknown and invalid air dates cannot be bulk-marked or suggested. Air dates are
+calendar dates interpreted in UTC, not an exact regional streaming release time.
+
+Season catalogs, episode metadata and watched IDs persist in the same atomic
+library document. The new field is optional, so older saved entries still decode.
+Downloaded seasons open without a network request; refresh is explicit and failed
+requests retain cached data. Refreshing metadata preserves watched flags, ratings
+and overall title status. Overall Want to watch/Watching/Watched remains a manual
+choice; catching up with downloaded episodes does not mark an entire show finished.
+Undo checks the expected state before writing, preventing loss of newer edits.
+Older app builds can read the document but may discard new fields when saving;
+avoid rolling back app versions against your only copy of the library.
+
+Tests cover next-episode ordering, specials/air dates, bulk marking/undo, stale undo,
+refresh preservation, disk round-trip, old JSON, failed writes, offline loading,
+request routes and failed-request retry. UI fixtures include a saved season for
+network-independent check-off/undo testing. No notifications or background polling
+are enabled; release reminders remain a later opt-in enhancement.
+
+Validation: all app sources pass strict SwiftLint; all Swift sources parse; project
+plist, shell syntax and whitespace checks pass. Build/test execution and measured
+coverage remain pending: local Xcode package-cache writes and CoreSimulator access
+are denied by this sandbox. Review the CI artifacts before merging.
+
+API reference: https://developer.themoviedb.org/reference/tv-season-details
+
+Completion review: catalog, season and save errors are kept separate so cached
+season loads cannot hide a failed catalog refresh. Late/cancelled season requests
+cannot publish after selection changes, and cancelled requests can be retried.
+Unsaved shows can be saved as Watching directly from the progress screen. Added
+regression tests exercise these paths and real service decoding/season validation.
+The completion build attempt on Xcode 27.2 again failed during Kingfisher package
+resolution with Operation not permitted for SwiftPM/Clang cache writes, before app
+compilation. Full strict app lint, Swift syntax, project plist and whitespace
+checks passed; CI/simulator tests remain the required execution check.
+
+Navigator and Favorites follow-up: root-relative Swift references were replaced
+with filename references inside matching Xcode groups (Episodes, Library, Search,
+WatchTonight, Common/Views/Catalog and test CoreTests). File locations and target
+membership are preserved; new references should use groups matching their folders.
+
+Favorites now hydrates missing poster metadata as lazy-grid cards appear, with
+at most two detail requests in flight, duplicate suppression and offscreen task
+cancellation. Requests omit appended credits. Successful results are persisted,
+including a timestamp when TMDB has no poster (retry after one day); failed requests
+back off for one minute, with pull-to-refresh clearing that backoff. Completed
+metadata updates serialize with saves, preserve user progress/ratings/dates, and
+never recreate deleted entries or replace newer metadata. Tests cover concurrency,
+retry behavior, persistence, identity and stale snapshots. Offline test fixtures
+keep metadata loading disabled unless explicitly injected.

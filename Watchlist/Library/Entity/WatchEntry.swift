@@ -21,6 +21,7 @@ struct SavedTitle: Codable, Equatable, Sendable {
     var communityRating: Double?
     var genreNames: [String]?
     var runtimeMinutes: Int?
+    var metadataFetchedAt: Date?
     var id: String { "\(mediaType.rawValue)-\(tmdbID)" }
 
     init(tmdbID: Int, mediaType: MediaType, title: String) {
@@ -33,7 +34,8 @@ struct SavedTitle: Codable, Equatable, Sendable {
         tmdbID = media.id
         mediaType = media is MovieDetail ? .movie : .tv
         title = media.title
-        posterURL = media.posterPath == nil ? nil : media.posterUrl
+        posterURL = media.imagePath.isEmpty ? nil : media.posterUrl
+        metadataFetchedAt = .now
         overview = media.overview
         communityRating = media.voteAverage
         genreNames = media.genres.map(\.name)
@@ -49,6 +51,7 @@ struct WatchEntry: Codable, Identifiable, Equatable, Sendable {
     var title: SavedTitle
     var status: WatchStatus
     var personalRating: Int?
+    var episodeProgress: SeriesProgress?
     let addedAt: Date
     var updatedAt: Date
     var id: String { title.id }
