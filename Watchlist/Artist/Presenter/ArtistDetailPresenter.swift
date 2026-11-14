@@ -47,17 +47,22 @@ class ArtistDetailDefaultPresenter: ArtistDetailPresenter {
         isLoading = true
         fetchError = nil
         defer { isLoading = false }
-        let detail = await interactor.fetchArtist(artistId)
-        guard !Task.isCancelled else { return }
-        let images = await interactor.fetchArtistImages(artistId)
-        guard !Task.isCancelled else { return }
-        let movies = await interactor.fetchArtistMovies(artistId)
-        guard !Task.isCancelled else { return }
-        let shows = await interactor.fetchArtistTV(artistId)
-        guard !Task.isCancelled else { return }
-        artistDetail = detail
-        artistImages = images
-        artistMovieCredits = movies
-        artistTVSerieCredits = shows
+        do {
+            let detail = try await interactor.fetchArtist(artistId)
+            guard !Task.isCancelled else { return }
+            let images = try await interactor.fetchArtistImages(artistId)
+            guard !Task.isCancelled else { return }
+            let movies = try await interactor.fetchArtistMovies(artistId)
+            guard !Task.isCancelled else { return }
+            let shows = try await interactor.fetchArtistTV(artistId)
+            guard !Task.isCancelled else { return }
+            artistDetail = detail
+            artistImages = images
+            artistMovieCredits = movies
+            artistTVSerieCredits = shows
+        } catch {
+            guard !Task.isCancelled, !(error is CancellationError) else { return }
+            fetchError = error
+        }
     }
 }

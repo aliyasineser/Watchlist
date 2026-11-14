@@ -14,19 +14,19 @@ struct MovieDetailView: View {
                     mediaService: MovieService.shared,
                     isFavorite: $isFavorite
                 )
-            } else if presenter.fetchError != nil {
-                ContentUnavailableView(
-                    "Title unavailable",
-                    systemImage: "film",
-                    description: Text("Please try again later.")
-                )
             } else {
-                ProgressView("Loading title…")
+                LoadStateView(
+                    isLoading: presenter.isLoading,
+                    hasContent: false,
+                    error: presenter.fetchError,
+                    emptyMessage: "Title unavailable",
+                    retry: { await presenter.getMediaDetail() }
+                )
             }
         }
         .navigationTitle(presenter.hasLoaded ? presenter.media.title : "Details")
         .navigationBarTitleDisplayMode(.inline)
         .task { await presenter.getMediaDetail() }
-        .errorAlert(error: $presenter.fetchError)
+
     }
 }

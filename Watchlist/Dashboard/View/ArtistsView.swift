@@ -30,16 +30,13 @@ struct ArtistsView: View {
                             .buttonStyle(.plain)
                         }
                     }
-                    if presenter.isLoading {
-                        ProgressView("Loading artists…")
-                            .frame(maxWidth: .infinity)
-                    } else {
-                        Button("Load more artists") {
-                            Task { await presenter.loadArtists() }
-                        }
-                        .buttonStyle(.bordered)
-                        .frame(maxWidth: .infinity)
-                    }
+                    LoadStateView(
+                        isLoading: presenter.isLoading,
+                        hasContent: !presenter.artists.isEmpty,
+                        hasMore: presenter.hasMore,
+                        error: presenter.fetchError,
+                        retry: { await presenter.loadArtists() }
+                    )
                 }
                 .padding(20)
             }
@@ -48,7 +45,7 @@ struct ArtistsView: View {
             .task {
                 if presenter.artists.isEmpty { await presenter.loadArtists() }
             }
-            .errorAlert(error: $presenter.fetchError)
+
         }
     }
 }

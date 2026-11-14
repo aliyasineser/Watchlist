@@ -24,15 +24,18 @@ struct MediaListView: View {
                     MediaListItemView(mediaListItem: media)
                         .padding(.horizontal, 20)
                 }
-                Spacer()
-                    .task {
-                        await presenter.fetchMedia()
-                    }
+                LoadStateView(
+                    isLoading: presenter.isLoading,
+                    hasContent: !presenter.mediaList.isEmpty,
+                    hasMore: presenter.hasMore,
+                    error: presenter.fetchError,
+                    retry: { await presenter.fetchMedia() }
+                )
             }
             .padding(.vertical, 20)
         }
         .background(Color(.systemGroupedBackground))
-        .errorAlert(error: $presenter.fetchError)
+        .task { if presenter.mediaList.isEmpty { await presenter.fetchMedia() } }
     }
 }
 

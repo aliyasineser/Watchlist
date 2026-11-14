@@ -47,6 +47,7 @@ final class MediaReviewPresenterTests: XCTestCase {
         XCTAssertFalse(sut.isLoading)
 
         interactor.error = nil
+        interactor.getMovieReviewCallStub = [Review.mock]
         await sut.fetchReviews()
         XCTAssertNil(sut.fetchError)
         XCTAssertFalse(sut.isLoading)
@@ -65,8 +66,17 @@ final class MediaReviewPresenterTests: XCTestCase {
         interactor.error = NetworkError.invalidServerResponse
         await sut.fetchReviews()
         interactor.error = nil
+        interactor.getMovieReviewCallStub = [Review.mock]
         await sut.fetchReviews()
         await sut.fetchReviews()
         XCTAssertEqual(interactor.requestedPages, [1, 1, 2])
+    }
+
+    func test_emptyPageEndsPagination() async {
+        let sut = MediaReviewDefaultPresenter(interactor: interactor, id: 1)
+        await sut.fetchReviews()
+        await sut.fetchReviews()
+        XCTAssertFalse(sut.hasMore)
+        XCTAssertEqual(interactor.requestedPages, [1])
     }
 }

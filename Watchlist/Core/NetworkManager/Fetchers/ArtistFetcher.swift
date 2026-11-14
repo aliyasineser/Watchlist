@@ -11,6 +11,7 @@ class ArtistFetcher {
 
     private var artists: [Artist] = []
     private var pageCounter: Int = 0
+    private var hasMore = true
 
     private let artistService: ArtistService
 
@@ -18,15 +19,20 @@ class ArtistFetcher {
         self.artistService = artistService
     }
 
-    func fetchSinglePage() async -> [Artist] {
+    func fetchSinglePage() async throws -> [Artist] {
+        guard hasMore else { return [] }
         let nextPage = pageCounter + 1
-        guard let artistsPage = await artistService.fetchArtists(page: nextPage), !Task.isCancelled else { return [] }
+        guard let artistsPage = try await artistService.fetchArtists(page: nextPage) else {
+            throw NetworkError.invalidServerResponse
+        }
+        try Task.checkCancellation()
         pageCounter = nextPage
+        hasMore = !(artistsPage.results ?? []).isEmpty
         return artistsPage.results ?? []
     }
 
-    func fetchWithNextPage() async -> [Artist] {
-        let artistsPage = await fetchSinglePage()
+    func fetchWithNextPage() async throws -> [Artist] {
+        let artistsPage = try await fetchSinglePage()
         self.artists.append(contentsOf: artistsPage)
         return self.artists
     }

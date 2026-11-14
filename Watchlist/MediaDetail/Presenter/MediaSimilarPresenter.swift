@@ -21,6 +21,7 @@ protocol MediaSimilarPresenter: AnyObject {
 @Observable
 final class MediaSimilarDefaultPresenter: MediaSimilarPresenter {
     private(set) var isLoading = false
+    private(set) var hasMore = true
     var fetchError: Error?
 
     private(set) var interactor: MediaSimilarInteractor
@@ -35,7 +36,7 @@ final class MediaSimilarDefaultPresenter: MediaSimilarPresenter {
     }
 
     func fetchSimilar() async {
-        guard !isLoading, !Task.isCancelled else { return }
+        guard hasMore, !isLoading, !Task.isCancelled else { return }
         isLoading = true
         fetchError = nil
         defer { isLoading = false }
@@ -44,7 +45,9 @@ final class MediaSimilarDefaultPresenter: MediaSimilarPresenter {
             let similarPage = try await interactor.getSimilarMedia(id, page: nextPage)
             try Task.checkCancellation()
             page = nextPage
-            self.media.append(contentsOf: similarPage)
+            hasMore = !similarPage.isEmpty
+            var identifiers = Set(media.map(\.id))
+            media.append(contentsOf: similarPage.filter { identifiers.insert($0.id).inserted })
         } catch {
             guard !Task.isCancelled, !(error is CancellationError) else { return }
             fetchError = error

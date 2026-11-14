@@ -1,43 +1,32 @@
-//
-//  Persistence.swift
-//  Watchlist
-//
-//  Created by Ali Yasin Eser on 23.03.2021.
-//
-
 import CoreData
+import Observation
 
-struct PersistenceController {
+@MainActor
+@Observable
+final class PersistenceController {
     static let shared = PersistenceController()
-
     let container: NSPersistentContainer
+    private(set) var loadError: Error?
 
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "Watchlist")
         if inMemory {
             let description = NSPersistentStoreDescription()
             description.type = NSInMemoryStoreType
-            description.shouldAddStoreAsynchronously = false
             container.persistentStoreDescriptions = [description]
         }
-        container.loadPersistentStores(completionHandler: { (_, error) in
-            if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate.
-                // You should not use this function in a shipping application,
-                // although it may be useful during development.
+        loadStores()
+    }
 
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions
-                 * or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        })
+    /// Retry the existing store. Never delete user data or silently replace it with an empty store.
+    func loadStores() {
+        guard container.persistentStoreCoordinator.persistentStores.isEmpty else { return }
+        loadError = nil
+        for description in container.persistentStoreDescriptions {
+            description.shouldAddStoreAsynchronously = false
+        }
+        var failure: Error?
+        container.loadPersistentStores { _, error in failure = error }
+        loadError = failure
     }
 }

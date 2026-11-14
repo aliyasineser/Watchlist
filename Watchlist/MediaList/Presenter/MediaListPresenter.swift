@@ -23,6 +23,7 @@ protocol MediaListPresenter: AnyObject {
 final class MediaListDefaultPresenter: MediaListPresenter {
 
     private(set) var isLoading = false
+    private(set) var hasMore = true
     var fetchError: Error?
 
     private(set) var interactor: MediaInteractor
@@ -36,13 +37,14 @@ final class MediaListDefaultPresenter: MediaListPresenter {
     }
 
     func fetchMedia() async {
-        guard !isLoading, !Task.isCancelled else { return }
+        guard hasMore, !isLoading, !Task.isCancelled else { return }
         isLoading = true
         fetchError = nil
         defer { isLoading = false }
         do {
             let media = try await interactor.fetchMedia(in: section)
             try Task.checkCancellation()
+            hasMore = media.count > mediaList.count
             mediaList = media
         } catch {
             guard !Task.isCancelled, !(error is CancellationError) else { return }

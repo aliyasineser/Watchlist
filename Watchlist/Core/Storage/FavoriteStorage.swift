@@ -13,19 +13,19 @@ protocol FavoriteStorage {
 
     var viewContext: NSManagedObjectContext { get }
 
-    func saveContext()
-    func addFavorite(id: Int, name: String)
-    func deleteFavorite(id: Int)
-    func isFavorite(id: Int) -> Bool
+    func saveContext() throws
+    func addFavorite(id: Int, name: String) throws
+    func deleteFavorite(id: Int) throws
+    func isFavorite(id: Int) throws -> Bool
 }
 
 extension FavoriteStorage {
-    func saveContext() {
+    func saveContext() throws {
         do {
             try viewContext.save()
         } catch {
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            viewContext.rollback()
+            throw error
         }
     }
 }
@@ -33,13 +33,19 @@ extension FavoriteStorage {
 final class FavoriteStorageStub: FavoriteStorage {
     var viewContext: NSManagedObjectContext = NSManagedObjectContext(.privateQueue)
 
-    func addFavorite(id: Int, name: String) {}
+    func addFavorite(id: Int, name: String) throws {}
 
-    func deleteFavorite(id: Int) {}
+    func deleteFavorite(id: Int) throws {}
 
     var isFavoriteStub: Bool = false
-    func isFavorite(id: Int) -> Bool {
+    func isFavorite(id: Int) throws -> Bool {
         return isFavoriteStub
     }
 
+}
+
+enum FavoriteStorageError: LocalizedError {
+    case invalidIdentifier
+
+    var errorDescription: String? { "This title has an invalid identifier and could not be saved." }
 }

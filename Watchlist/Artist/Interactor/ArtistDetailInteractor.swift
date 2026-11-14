@@ -8,29 +8,29 @@
 import Foundation
 
 protocol ArtistDetailInteractor {
-    func fetchArtist(_ id: Int) async -> ArtistDetail?
-    func fetchArtistImages (_ id: Int) async -> [Profile]
-    func fetchArtistMovies(_ id: Int) async -> [Cast]
-    func fetchArtistTV(_ id: Int) async -> [Cast]
+    func fetchArtist(_ id: Int) async throws -> ArtistDetail?
+    func fetchArtistImages(_ id: Int) async throws -> [Profile]
+    func fetchArtistMovies(_ id: Int) async throws -> [Cast]
+    func fetchArtistTV(_ id: Int) async throws -> [Cast]
 }
 
 final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
 
     private let artistService: ArtistService = .shared
 
-    func fetchArtist(_ id: Int) async -> ArtistDetail? {
-        let person = await artistService.fetchArtistDetail(id: id)
+    func fetchArtist(_ id: Int) async throws -> ArtistDetail? {
+        let person = try await artistService.fetchArtistDetail(id: id)
         guard let person else { return nil }
         return person
     }
 
-    func fetchArtistImages (_ id: Int) async -> [Profile] {
-        return await artistService.fetchImages(id: id)
+    func fetchArtistImages(_ id: Int) async throws -> [Profile] {
+        return try await artistService.fetchImages(id: id)
     }
 
-    func fetchArtistMovies(_ id: Int) async -> [Cast] {
+    func fetchArtistMovies(_ id: Int) async throws -> [Cast] {
         var artistMovies: [Cast] = [Cast]()
-        let data = await artistService.fetchMovieCredits(id: id)
+        let data = try await artistService.fetchMovieCredits(id: id)
         if let movies = data {
             let allCast = movies.cast + movies.crew
             artistMovies.append(contentsOf: allCast)
@@ -38,10 +38,10 @@ final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
         return artistMovies
     }
 
-    func fetchArtistTV(_ id: Int) async -> [Cast] {
+    func fetchArtistTV(_ id: Int) async throws -> [Cast] {
         var artistShows: [Cast] = [Cast]()
 
-        let data = await artistService.fetchTVCredits(id: id)
+        let data = try await artistService.fetchTVCredits(id: id)
         if let shows = data {
             let allCast = shows.cast + shows.crew
             artistShows.append(contentsOf: allCast)
@@ -52,7 +52,7 @@ final class DefaultArtistDetailInteractor: ArtistDetailInteractor {
 
 final class ArtistDetailInteractorStub: ArtistDetailInteractor {
 
-    func fetchArtist(_ id: Int) async -> ArtistDetail? {
+    func fetchArtist(_ id: Int) async throws -> ArtistDetail? {
         var mediaList: [ArtistDetail] = []
         for _ in 0..<9 {
             mediaList.append(ArtistDetail.mock)
@@ -60,7 +60,7 @@ final class ArtistDetailInteractorStub: ArtistDetailInteractor {
         return ArtistDetail.mock
     }
 
-    func fetchArtistImages (_ id: Int) async -> [Profile] {
+    func fetchArtistImages(_ id: Int) async throws -> [Profile] {
         var imageList: [Profile] = []
         for _ in 0..<9 {
             imageList.append(Profile.mock)
@@ -68,7 +68,7 @@ final class ArtistDetailInteractorStub: ArtistDetailInteractor {
         return imageList
     }
 
-    func fetchArtistMovies(_ id: Int) async -> [Cast] {
+    func fetchArtistMovies(_ id: Int) async throws -> [Cast] {
         var creditList: [Cast] = []
         for _ in 0..<9 {
             creditList.append(Cast.mock)
@@ -76,7 +76,7 @@ final class ArtistDetailInteractorStub: ArtistDetailInteractor {
         return creditList
     }
 
-    func fetchArtistTV(_ id: Int) async -> [Cast] {
+    func fetchArtistTV(_ id: Int) async throws -> [Cast] {
         var creditList: [Cast] = []
         for _ in 0..<9 {
             creditList.append(Cast.mock)

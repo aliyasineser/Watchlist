@@ -13,18 +13,23 @@ struct FavoriteButton: View {
     @Binding var isFavorite: Bool
     var id: Int
     var title: String
+    @State private var storageError: Error?
 
     var body: some View {
         Button {
-            if isFavorite {
-                favoriteStorage.deleteFavorite(id: id)
-            } else {
-                favoriteStorage.addFavorite(
-                    id: id,
-                    name: title
-                )
+            do {
+                if isFavorite {
+                    try favoriteStorage.deleteFavorite(id: id)
+                } else {
+                    try favoriteStorage.addFavorite(
+                        id: id,
+                        name: title
+                    )
+                }
+                isFavorite = try favoriteStorage.isFavorite(id: id)
+            } catch {
+                storageError = error
             }
-            isFavorite = favoriteStorage.isFavorite(id: id)
         } label: {
             Image(
                 systemName: isFavorite ? Icons.Favorite.favorite.rawValue : Icons.Favorite.notFavorite.rawValue
@@ -38,8 +43,9 @@ struct FavoriteButton: View {
         .accessibilityLabel(isFavorite ? "Remove \(title) from favorites" : "Add \(title) to favorites")
         .accessibilityValue(isFavorite ? "Saved" : "Not saved")
         .sensoryFeedback(.selection, trigger: isFavorite)
+        .errorAlert(error: $storageError)
         .onAppear {
-            isFavorite = favoriteStorage.isFavorite(id: id)
+            do { isFavorite = try favoriteStorage.isFavorite(id: id) } catch { storageError = error }
         }
     }
 }

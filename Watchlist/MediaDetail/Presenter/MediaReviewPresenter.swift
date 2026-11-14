@@ -21,6 +21,7 @@ protocol MediaReviewPresenter: AnyObject {
 @Observable
 final class MediaReviewDefaultPresenter: MediaReviewPresenter {
     private(set) var isLoading = false
+    private(set) var hasMore = true
     var fetchError: Error?
 
     private(set) var interactor: MediaReviewInteractor
@@ -35,7 +36,7 @@ final class MediaReviewDefaultPresenter: MediaReviewPresenter {
     }
 
     func fetchReviews() async {
-        guard !isLoading, !Task.isCancelled else { return }
+        guard hasMore, !isLoading, !Task.isCancelled else { return }
         isLoading = true
         fetchError = nil
         defer { isLoading = false }
@@ -44,7 +45,9 @@ final class MediaReviewDefaultPresenter: MediaReviewPresenter {
             let reviewPage = try await interactor.getMovieReview(id, page: nextPage)
             try Task.checkCancellation()
             page = nextPage
-            self.reviews.append(contentsOf: reviewPage)
+            hasMore = !reviewPage.isEmpty
+            var identifiers = Set(reviews.map(\.id))
+            reviews.append(contentsOf: reviewPage.filter { identifiers.insert($0.id).inserted })
         } catch {
             guard !Task.isCancelled, !(error is CancellationError) else { return }
             fetchError = error
