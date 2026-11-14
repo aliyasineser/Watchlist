@@ -178,6 +178,11 @@
 		45B04F629522463E84AC91E0 /* EpisodeProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8BBA64600D4E79B28E4D33 /* EpisodeProgressTests.swift */; };
 		60BA127115E54F5789408CFA /* SavedTitleMetadataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7944EFD33647C8A3BE1EBA /* SavedTitleMetadataLoader.swift */; };
 		59F3194A986947B093AF6168 /* SavedTitleMetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B18AE6988F0451CAC27CEEB /* SavedTitleMetadataTests.swift */; };
+		2D57B42A6071423381BDFFB4 /* LibraryBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1195655B6C4A569BB6CCE7 /* LibraryBackup.swift */; };
+		5266AC86E3124C5E9D600222 /* LibraryCloudService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38214DE68184C1CA264E6CB /* LibraryCloudService.swift */; };
+		8D3AD334B107490DA9EA0202 /* LibraryTransferPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08BA3244A23446AB6487E30 /* LibraryTransferPresenter.swift */; };
+		7945454B8D3248CC82E7B7A2 /* LibraryTransferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361AF5ABA0ED4BEAA55E34BE /* LibraryTransferView.swift */; };
+		234BD7CD82014457B2AD3952 /* LibraryTransferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4B2C3D548B4CEBA586A348 /* LibraryTransferTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -374,6 +379,11 @@
 		ED8BBA64600D4E79B28E4D33 /* EpisodeProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EpisodeProgressTests.swift"; sourceTree = "<group>"; };
 		CE7944EFD33647C8A3BE1EBA /* SavedTitleMetadataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedTitleMetadataLoader.swift"; sourceTree = "<group>"; };
 		3B18AE6988F0451CAC27CEEB /* SavedTitleMetadataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SavedTitleMetadataTests.swift"; sourceTree = "<group>"; };
+		AE1195655B6C4A569BB6CCE7 /* LibraryBackup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryBackup.swift"; sourceTree = "<group>"; };
+		F38214DE68184C1CA264E6CB /* LibraryCloudService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryCloudService.swift"; sourceTree = "<group>"; };
+		F08BA3244A23446AB6487E30 /* LibraryTransferPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryTransferPresenter.swift"; sourceTree = "<group>"; };
+		361AF5ABA0ED4BEAA55E34BE /* LibraryTransferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryTransferView.swift"; sourceTree = "<group>"; };
+		4C4B2C3D548B4CEBA586A348 /* LibraryTransferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryTransferTests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -612,6 +622,7 @@
 				7711BFDDFB764BD697C530B9 /* Search */,
 				8D4DA3C6ACD1483999FD867B /* WatchTonight */,
 				45F7743A3EEA433487D3E882 /* Library */,
+				BE31619C70674FAE92F2653D /* LibraryTransfer */,
 			);
 			path = Watchlist;
 			sourceTree = "<group>";
@@ -999,6 +1010,7 @@
 				3B18AE6988F0451CAC27CEEB /* SavedTitleMetadataTests.swift */,
 				52817FBA363A4CFEA5D98893 /* WatchTonightTests.swift */,
 				FA28837210D84D70BB057384 /* FavoriteStorageTests.swift */,
+				4C4B2C3D548B4CEBA586A348 /* LibraryTransferTests.swift */,
 			);
 			path = "CoreTests";
 			sourceTree = "<group>";
@@ -1126,6 +1138,49 @@
 				9874B8CE36E2475C8C1F9286 /* RecentSearchStore.swift */,
 			);
 			path = "Service";
+			sourceTree = "<group>";
+		};
+		BE31619C70674FAE92F2653D /* LibraryTransfer */ = {
+			isa = PBXGroup;
+			children = (
+				6935D69AFACA4739BE017E08 /* Presenter */,
+				7C16B5374F8D4F7088870D58 /* Service */,
+				8FE7D7C31B7B43279B21DCE6 /* Entity */,
+				7B3D01F9904348C5A4D9EB4D /* View */,
+			);
+			path = "LibraryTransfer";
+			sourceTree = "<group>";
+		};
+		6935D69AFACA4739BE017E08 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				F08BA3244A23446AB6487E30 /* LibraryTransferPresenter.swift */,
+			);
+			path = "Presenter";
+			sourceTree = "<group>";
+		};
+		7C16B5374F8D4F7088870D58 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F38214DE68184C1CA264E6CB /* LibraryCloudService.swift */,
+			);
+			path = "Service";
+			sourceTree = "<group>";
+		};
+		8FE7D7C31B7B43279B21DCE6 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				AE1195655B6C4A569BB6CCE7 /* LibraryBackup.swift */,
+			);
+			path = "Entity";
+			sourceTree = "<group>";
+		};
+		7B3D01F9904348C5A4D9EB4D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				361AF5ABA0ED4BEAA55E34BE /* LibraryTransferView.swift */,
+			);
+			path = "View";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1285,6 +1340,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7945454B8D3248CC82E7B7A2 /* LibraryTransferView.swift in Sources */,
+				8D3AD334B107490DA9EA0202 /* LibraryTransferPresenter.swift in Sources */,
+				5266AC86E3124C5E9D600222 /* LibraryCloudService.swift in Sources */,
+				2D57B42A6071423381BDFFB4 /* LibraryBackup.swift in Sources */,
 				60BA127115E54F5789408CFA /* SavedTitleMetadataLoader.swift in Sources */,
 				9101F154344147E8B6EA714C /* EpisodeProgressView.swift in Sources */,
 				0169AF133DD248CFABA62AE7 /* EpisodePresenter.swift in Sources */,
@@ -1425,6 +1484,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				234BD7CD82014457B2AD3952 /* LibraryTransferTests.swift in Sources */,
 				59F3194A986947B093AF6168 /* SavedTitleMetadataTests.swift in Sources */,
 				45B04F629522463E84AC91E0 /* EpisodeProgressTests.swift in Sources */,
 				CE3E919ABA354416986672BD /* WatchTonightTests.swift in Sources */,
@@ -1602,6 +1662,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Watchlist/Watchlist.entitlements;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Watchlist/Preview Content\"";
@@ -1624,6 +1685,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Watchlist/Watchlist.entitlements;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Watchlist/Preview Content\"";

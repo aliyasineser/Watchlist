@@ -6,11 +6,16 @@ protocol AppDependencies {
     func makeDiscoverPresenter() -> DiscoverDefaultPresenter
     func makeWatchLibraryStore() -> WatchLibraryStoreImpl
     func makeSearchPresenter() -> SearchPresenterImpl
+    func makeTransferPresenter(store: WatchLibraryStoreImpl) -> LibraryTransferPresenterImpl
     func makeArtistPresenter() -> ArtistDefaultPresenter
 }
 
 @MainActor
 struct AppDependenciesImpl: AppDependencies {
+    func makeTransferPresenter(store: WatchLibraryStoreImpl) -> LibraryTransferPresenterImpl {
+        LibraryTransferPresenterImpl(store: store, cloud: LibraryCloudServiceImpl())
+    }
+
     func makeWatchLibraryStore() -> WatchLibraryStoreImpl { .shared }
 
     func makeSearchPresenter() -> SearchPresenterImpl {
@@ -31,6 +36,12 @@ struct AppDependenciesImpl: AppDependencies {
 /// Offline root features keep navigation smoke tests independent of TMDB and local favorites.
 @MainActor
 struct UITestAppDependencies: AppDependencies {
+    func makeTransferPresenter(store: WatchLibraryStoreImpl) -> LibraryTransferPresenterImpl {
+        let preferences = UserDefaults(suiteName: "WatchlistUITests.sync") ?? .standard
+        preferences.removePersistentDomain(forName: "WatchlistUITests.sync")
+        return LibraryTransferPresenterImpl(store: store, cloud: OfflineLibraryCloudService(), preferences: preferences)
+    }
+
     func makeWatchLibraryStore() -> WatchLibraryStoreImpl {
         WatchLibraryStoreImpl(repository: MemoryWatchLibraryRepository(), artwork: EmptyArtworkCache()) {
             guard ProcessInfo.processInfo.arguments.contains("--ui-testing-favorites") else { return [] }
@@ -56,6 +67,10 @@ struct UITestAppDependencies: AppDependencies {
         ArtistDefaultPresenter(EmptyArtistInteractor())
     }
 
+}
+
+private struct OfflineLibraryCloudService: LibraryCloudService {
+    func exchange(_ local: WatchLibraryDocument) async throws -> WatchLibraryDocument { local }
 }
 
 private struct EmptyMediaInteractor: MediaInteractor {

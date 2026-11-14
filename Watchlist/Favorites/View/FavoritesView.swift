@@ -2,6 +2,7 @@ import SwiftUI
 
 struct FavoritesView: View {
     @State var store: WatchLibraryStoreImpl
+    @State var transfer: LibraryTransferPresenterImpl
     @State private var status: WatchStatus?
     @State private var type: MediaType?
     @State private var sort = LibrarySort.dateAdded
@@ -46,6 +47,11 @@ struct FavoritesView: View {
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Favorites")
+            .toolbar {
+                NavigationLink("Backup & sync", systemImage: "icloud") {
+                    LibraryTransferView(presenter: transfer)
+                }
+            }
             .task { await store.load() }
             .refreshable {
                 await store.load()
