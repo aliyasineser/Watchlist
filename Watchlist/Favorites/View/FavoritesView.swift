@@ -18,6 +18,12 @@ struct FavoritesView: View {
                 LazyVStack(alignment: .leading, spacing: 20) {
                     Text("Your next watch. Your favorites. Your ratings.")
                         .font(.subheadline).foregroundStyle(.secondary)
+                    NavigationLink {
+                        WatchTonightView(presenter: WatchTonightPresenterImpl(store: store))
+                    } label: {
+                        Label("Watch tonight", systemImage: "moon.stars.fill")
+                    }
+                    .accessibilityIdentifier("library.tonight")
                     filters
                     NavigationLink("Saved artists") { SavedArtistsView() }
                     if store.isLoaded {

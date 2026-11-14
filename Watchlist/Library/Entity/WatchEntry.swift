@@ -19,6 +19,8 @@ struct SavedTitle: Codable, Equatable, Sendable {
     var posterURL: String?
     var overview: String?
     var communityRating: Double?
+    var genreNames: [String]?
+    var runtimeMinutes: Int?
     var id: String { "\(mediaType.rawValue)-\(tmdbID)" }
 
     init(tmdbID: Int, mediaType: MediaType, title: String) {
@@ -34,6 +36,12 @@ struct SavedTitle: Codable, Equatable, Sendable {
         posterURL = media.posterPath == nil ? nil : media.posterUrl
         overview = media.overview
         communityRating = media.voteAverage
+        genreNames = media.genres.map(\.name)
+        if let movie = media as? MovieDetail {
+            runtimeMinutes = movie.runtime.flatMap { $0 > 0 ? $0 : nil }
+        } else if let series = media as? TvDetail {
+            runtimeMinutes = series.episodeRunTime?.first { $0 > 0 }
+        }
     }
 }
 

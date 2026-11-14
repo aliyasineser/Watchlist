@@ -34,8 +34,10 @@ struct UITestAppDependencies: AppDependencies {
     func makeWatchLibraryStore() -> WatchLibraryStoreImpl {
         WatchLibraryStoreImpl(repository: MemoryWatchLibraryRepository(), artwork: EmptyArtworkCache()) {
             guard ProcessInfo.processInfo.arguments.contains("--ui-testing-favorites") else { return [] }
+            var movie = SavedTitle(media: MovieDetail.mock)
+            movie.posterURL = nil
             return [
-                SavedTitle(tmdbID: 1, mediaType: .movie, title: "Saved movie"),
+                movie,
                 SavedTitle(tmdbID: 2, mediaType: .movie, title: "Another saved movie"),
                 SavedTitle(tmdbID: 1, mediaType: .tv, title: "Saved series")
             ]
