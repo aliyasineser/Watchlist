@@ -170,6 +170,12 @@
 		CC727439DBAC46E18608C823 /* WatchTonightPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 966B624C17BB42A3A2265DDC /* WatchTonightPresenter.swift */; };
 		CA1D62C36D1044B9BC7242D5 /* WatchTonightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A794ACDA71C84CFAA688A5C0 /* WatchTonightView.swift */; };
 		CE3E919ABA354416986672BD /* WatchTonightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52817FBA363A4CFEA5D98893 /* WatchTonightTests.swift */; };
+		D824C807461949B8A1AAEBD2 /* EpisodeProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9C15138E144F79A7FE9C09 /* EpisodeProgress.swift */; };
+		2E55B8FE978E4ADCAA4DCD73 /* EpisodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8A6A104DCB4DCA84DDD7DC /* EpisodeService.swift */; };
+		20086547F4704E27922489E3 /* WatchLibraryStore+Episodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F27DBB230A4D65A682013A /* WatchLibraryStore+Episodes.swift */; };
+		0169AF133DD248CFABA62AE7 /* EpisodePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC3ABB76851340DD9EC61667 /* EpisodePresenter.swift */; };
+		9101F154344147E8B6EA714C /* EpisodeProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2EFDC7D89FC4CA29D722032 /* EpisodeProgressView.swift */; };
+		45B04F629522463E84AC91E0 /* EpisodeProgressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8BBA64600D4E79B28E4D33 /* EpisodeProgressTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -358,6 +364,12 @@
 		966B624C17BB42A3A2265DDC /* WatchTonightPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/WatchTonight/Presenter/WatchTonightPresenter.swift; sourceTree = SOURCE_ROOT; };
 		A794ACDA71C84CFAA688A5C0 /* WatchTonightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/WatchTonight/View/WatchTonightView.swift; sourceTree = SOURCE_ROOT; };
 		52817FBA363A4CFEA5D98893 /* WatchTonightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTests/CoreTests/WatchTonightTests.swift; sourceTree = SOURCE_ROOT; };
+		9A9C15138E144F79A7FE9C09 /* EpisodeProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Episodes/Entity/EpisodeProgress.swift; sourceTree = SOURCE_ROOT; };
+		4D8A6A104DCB4DCA84DDD7DC /* EpisodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Episodes/Service/EpisodeService.swift; sourceTree = SOURCE_ROOT; };
+		60F27DBB230A4D65A682013A /* WatchLibraryStore+Episodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Watchlist/Episodes/Service/WatchLibraryStore+Episodes.swift"; sourceTree = SOURCE_ROOT; };
+		CC3ABB76851340DD9EC61667 /* EpisodePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Episodes/Presenter/EpisodePresenter.swift; sourceTree = SOURCE_ROOT; };
+		E2EFDC7D89FC4CA29D722032 /* EpisodeProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watchlist/Episodes/View/EpisodeProgressView.swift; sourceTree = SOURCE_ROOT; };
+		ED8BBA64600D4E79B28E4D33 /* EpisodeProgressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistTests/CoreTests/EpisodeProgressTests.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -573,6 +585,11 @@
 		DD045470260A171900DFEFE6 /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
+				E2EFDC7D89FC4CA29D722032 /* EpisodeProgressView.swift */,
+				CC3ABB76851340DD9EC61667 /* EpisodePresenter.swift */,
+				60F27DBB230A4D65A682013A /* WatchLibraryStore+Episodes.swift */,
+				4D8A6A104DCB4DCA84DDD7DC /* EpisodeService.swift */,
+				9A9C15138E144F79A7FE9C09 /* EpisodeProgress.swift */,
 				A794ACDA71C84CFAA688A5C0 /* WatchTonightView.swift */,
 				966B624C17BB42A3A2265DDC /* WatchTonightPresenter.swift */,
 				D9746829FD494C69941A8D8C /* WatchSuggestionStrategy.swift */,
@@ -624,6 +641,7 @@
 		DD045487260A171D00DFEFE6 /* WatchlistTests */ = {
 			isa = PBXGroup;
 			children = (
+				ED8BBA64600D4E79B28E4D33 /* EpisodeProgressTests.swift */,
 				52817FBA363A4CFEA5D98893 /* WatchTonightTests.swift */,
 				8BE28DE3AEDB4BA183EE5369 /* WatchLibraryTests.swift */,
 				45AEEC85B5E34C108046882D /* SearchTests.swift */,
@@ -1093,6 +1111,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9101F154344147E8B6EA714C /* EpisodeProgressView.swift in Sources */,
+				0169AF133DD248CFABA62AE7 /* EpisodePresenter.swift in Sources */,
+				20086547F4704E27922489E3 /* WatchLibraryStore+Episodes.swift in Sources */,
+				2E55B8FE978E4ADCAA4DCD73 /* EpisodeService.swift in Sources */,
+				D824C807461949B8A1AAEBD2 /* EpisodeProgress.swift in Sources */,
 				CA1D62C36D1044B9BC7242D5 /* WatchTonightView.swift in Sources */,
 				CC727439DBAC46E18608C823 /* WatchTonightPresenter.swift in Sources */,
 				415F506F06AD4F2686C2326A /* WatchSuggestionStrategy.swift in Sources */,
@@ -1227,6 +1250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45B04F629522463E84AC91E0 /* EpisodeProgressTests.swift in Sources */,
 				CE3E919ABA354416986672BD /* WatchTonightTests.swift in Sources */,
 				9DBB18516B2F40D1938AD30D /* WatchLibraryTests.swift in Sources */,
 				9603DCFD1F2B4F22BDA8D7A9 /* SearchTests.swift in Sources */,

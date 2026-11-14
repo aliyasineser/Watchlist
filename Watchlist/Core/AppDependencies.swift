@@ -84,6 +84,22 @@ private final class EmptyRecentSearchStore: RecentSearchStore {
 }
 private actor MemoryWatchLibraryRepository: WatchLibraryRepository {
     private var document = WatchLibraryDocument()
+    init() {
+        if ProcessInfo.processInfo.arguments.contains("--ui-testing-favorites") {
+            let episodes = [
+                EpisodeRecord(seasonNumber: 1, episodeNumber: 1, name: "Pilot", airDate: "2020-01-01"),
+                EpisodeRecord(seasonNumber: 1, episodeNumber: 2, name: "The next chapter", airDate: "2020-01-08")
+            ]
+            let progress = SeriesProgress(
+                catalog: [EpisodeSeasonSummary(seasonNumber: 1, name: "Season 1")],
+                seasons: [EpisodeSeason(seasonNumber: 1, name: "Season 1", episodes: episodes)]
+            )
+            document.entries = [WatchEntry(
+                title: SavedTitle(tmdbID: 1, mediaType: .tv, title: "Saved series"), status: .watching,
+                episodeProgress: progress, addedAt: .now, updatedAt: .now
+            )]
+        }
+    }
     func load() async throws -> WatchLibraryDocument { document }
     func save(_ document: WatchLibraryDocument) async throws { self.document = document }
 }

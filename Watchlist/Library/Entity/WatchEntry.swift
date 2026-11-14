@@ -49,6 +49,7 @@ struct WatchEntry: Codable, Identifiable, Equatable, Sendable {
     var title: SavedTitle
     var status: WatchStatus
     var personalRating: Int?
+    var episodeProgress: SeriesProgress?
     let addedAt: Date
     var updatedAt: Date
     var id: String { title.id }

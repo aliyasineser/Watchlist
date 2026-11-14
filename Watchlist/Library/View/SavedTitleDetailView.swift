@@ -13,6 +13,12 @@ struct SavedTitleDetailView: View {
                     .frame(maxWidth: 220).frame(maxWidth: .infinity)
                 Text(title.title).font(.title.bold())
                 WatchStatusControl(title: currentTitle, store: store)
+                if title.mediaType == .tv {
+                    NavigationLink("Episode progress") {
+                        EpisodeProgressView(presenter: EpisodePresenterImpl(title: currentTitle, store: store))
+                    }
+                    .accessibilityIdentifier("library.episodes")
+                }
                 if let overview = currentTitle.overview, !overview.isEmpty {
                     Text(overview).textSelection(.enabled)
                 } else {

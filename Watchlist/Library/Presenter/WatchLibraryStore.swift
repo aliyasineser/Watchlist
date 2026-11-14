@@ -131,9 +131,10 @@ final class WatchLibraryStoreImpl {
         }
     }
 
-    private func mutate(_ change: (inout [WatchEntry]) throws -> Void) async {
-        guard isLoaded else { error = WatchLibraryError.unavailable; return }
-        guard !isSaving else { error = WatchLibraryError.busy; return }
+    @discardableResult
+    func mutate(_ change: (inout [WatchEntry]) throws -> Void) async -> Bool {
+        guard isLoaded else { error = WatchLibraryError.unavailable; return false }
+        guard !isSaving else { error = WatchLibraryError.busy; return false }
         isSaving = true
         error = nil
         defer { isSaving = false }
@@ -143,8 +144,10 @@ final class WatchLibraryStoreImpl {
             try await repository.save(updated)
             document = updated
             entries = updated.entries
+            return true
         } catch {
             self.error = error
+            return false
         }
     }
 
