@@ -1,132 +1,89 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @State private var presenter: FavoritesDefaultPresenter
-    @State private var selectedCategory = Category.all
+    @State var store: WatchLibraryStoreImpl
+    @State private var status: WatchStatus?
+    @State private var type: MediaType?
+    @State private var sort = LibrarySort.dateAdded
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-    private enum Category: String, CaseIterable, Identifiable {
-        case all = "All"
-        case movies = "Movies"
-        case series = "TV"
-        case artists = "Artists"
-
-        var id: Self { self }
-    }
-
-    init(presenter: FavoritesDefaultPresenter) {
-        self.presenter = presenter
-    }
-
+    private var entries: [WatchEntry] { store.filtered(status: status, type: type, sort: sort) }
     private var columns: [GridItem] {
         [GridItem(.adaptive(minimum: dynamicTypeSize.isAccessibilitySize ? 240 : 140), spacing: 16)]
-    }
-
-    private var totalCount: Int {
-        presenter.movies.count + presenter.tvSeries.count + presenter.artists.count
-    }
-
-    private var visibleCount: Int {
-        switch selectedCategory {
-        case .all: totalCount
-        case .movies: presenter.movies.count
-        case .series: presenter.tvSeries.count
-        case .artists: presenter.artists.count
-        }
     }
 
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: 24) {
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text("Your collection, ready when you are.")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                        Picker("Favorite category", selection: $selectedCategory) {
-                            ForEach(Category.allCases) { category in
-                                Text(category.rawValue).tag(category)
-                            }
+                LazyVStack(alignment: .leading, spacing: 20) {
+                    Text("Your next watch. Your favorites. Your ratings.")
+                        .font(.subheadline).foregroundStyle(.secondary)
+                    filters
+                    NavigationLink("Saved artists") { SavedArtistsView() }
+                    if store.isLoaded {
+                        if entries.isEmpty {
+                            ContentUnavailableView(
+                                "No saved titles yet", systemImage: "bookmark",
+                                description: Text("Save a title from its detail page, or change your filters.")
+                            )
                         }
-                        .pickerStyle(.segmented)
-                        .accessibilityIdentifier("favorites.category")
-                    }
-
-                    if presenter.isLoading && totalCount == 0 {
-                        ProgressView("Loading your favorites…")
-                            .frame(maxWidth: .infinity, minHeight: 160)
-                    } else if visibleCount == 0 {
-                        ContentUnavailableView(
-                            "No favorites yet",
-                            systemImage: "heart",
-                            description: Text("Tap the heart on a movie, TV show, or artist to save it here.")
-                        )
-                        .accessibilityIdentifier("favorites.empty")
+                        titleGrid
                     } else {
-                        if selectedCategory == .all || selectedCategory == .movies, !presenter.movies.isEmpty {
-                            mediaSection("Movies", items: presenter.movies)
-                        }
-                        if selectedCategory == .all || selectedCategory == .series, !presenter.tvSeries.isEmpty {
-                            mediaSection("TV series", items: presenter.tvSeries)
-                        }
-                        if selectedCategory == .all || selectedCategory == .artists, !presenter.artists.isEmpty {
-                            artistSection
-                        }
+                        LoadStateView(
+                            isLoading: store.isLoading, hasContent: false, error: store.error,
+                            retry: { await store.load() }
+                        )
                     }
                 }
-                // A single shared inset applies to every category, grid and empty state.
-                .padding(.horizontal, 20)
-                .padding(.vertical, 20)
+                .padding(20)
             }
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Favorites")
-            .refreshable { await presenter.fetchFavorites() }
-            .task { await presenter.fetchFavorites() }
-            .errorAlert(error: $presenter.fetchError)
+            .task { await store.load() }
+            .refreshable { await store.load(); store.retryArtwork() }
         }
     }
 
-    private func mediaSection(_ title: String, items: [Watchable]) -> some View {
-        VStack(alignment: .leading, spacing: 16) {
-            CatalogSectionHeader(title: title, count: items.count)
-            LazyVGrid(columns: columns, alignment: .leading, spacing: 24) {
-                ForEach(items, id: \.id) { item in
-                    NavigationLink {
-                        MediaDestinationView(item: item)
-                    } label: {
-                        MediaPosterCard(item: item)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityIdentifier("favorites.media.\(title).\(item.id)")
+    private var filters: some View {
+        VStack(alignment: .leading) {
+            Picker("Title type", selection: $type) {
+                Text("All").tag(MediaType?.none)
+                Text("Movies").tag(MediaType?.some(.movie))
+                Text("TV").tag(MediaType?.some(.tv))
+            }
+            .pickerStyle(.segmented)
+            .accessibilityIdentifier("favorites.category")
+            HStack {
+                Picker("Status", selection: $status) {
+                    Text("All statuses").tag(WatchStatus?.none)
+                    ForEach(WatchStatus.allCases) { Text($0.title).tag(WatchStatus?.some($0)) }
+                }
+                Spacer()
+                Picker("Sort", selection: $sort) {
+                    ForEach(LibrarySort.allCases) { Text($0.rawValue).tag($0) }
                 }
             }
         }
     }
 
-    private var artistSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            CatalogSectionHeader(title: "Artists", count: presenter.artists.count)
-            LazyVGrid(columns: columns, alignment: .leading, spacing: 24) {
-                ForEach(presenter.artists) { artist in
-                    NavigationLink {
-                        ArtistDetailView(
-                            artistId: artist.id,
-                            presenter: ArtistDetailDefaultPresenter(interactor: DefaultArtistDetailInteractor())
-                        )
-                    } label: {
-                        VStack(alignment: .leading, spacing: 10) {
-                            PosterArtwork(
-                                url: artist.getPosterUrl(), aspectRatio: 4 / 5, symbol: "person.crop.rectangle"
-                            )
-                            Text(artist.name)
-                                .font(.subheadline.weight(.semibold))
-                                .foregroundStyle(.primary)
-                                .lineLimit(2, reservesSpace: true)
+    private var titleGrid: some View {
+        LazyVGrid(columns: columns, alignment: .leading, spacing: 24) {
+            ForEach(entries) { entry in
+                NavigationLink {
+                    SavedTitleDetailView(title: entry.title, store: store)
+                } label: {
+                    VStack(alignment: .leading, spacing: 8) {
+                        PosterArtwork(url: store.artworkURL(for: entry.title))
+                        Text(entry.title.title).font(.headline).lineLimit(2, reservesSpace: true)
+                        Text(entry.status.title).font(.caption).foregroundStyle(.secondary)
+                        if let rating = entry.personalRating {
+                            Label("\(rating) / 10", systemImage: "star.fill").font(.caption)
                         }
                     }
-                    .buttonStyle(.plain)
-                    .accessibilityIdentifier("favorites.artist.\(artist.id)")
+                    .foregroundStyle(.primary)
                 }
+                .buttonStyle(.plain)
+                .accessibilityIdentifier("library.entry.\(entry.id)")
             }
         }
     }

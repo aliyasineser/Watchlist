@@ -4,13 +4,15 @@ import Foundation
 @MainActor
 protocol AppDependencies {
     func makeDiscoverPresenter() -> DiscoverDefaultPresenter
+    func makeWatchLibraryStore() -> WatchLibraryStoreImpl
     func makeSearchPresenter() -> SearchPresenterImpl
     func makeArtistPresenter() -> ArtistDefaultPresenter
-    func makeFavoritesPresenter() -> FavoritesDefaultPresenter
 }
 
 @MainActor
 struct AppDependenciesImpl: AppDependencies {
+    func makeWatchLibraryStore() -> WatchLibraryStoreImpl { .shared }
+
     func makeSearchPresenter() -> SearchPresenterImpl {
         SearchPresenterImpl(service: SearchServiceImpl(), history: RecentSearchStoreImpl())
     }
@@ -23,15 +25,23 @@ struct AppDependenciesImpl: AppDependencies {
         ArtistDefaultPresenter(DefaultArtistInteractor())
     }
 
-    func makeFavoritesPresenter() -> FavoritesDefaultPresenter {
-        FavoritesDefaultPresenter(DefaultFavoritesInteractor())
-    }
 }
 
 #if DEBUG
 /// Offline root features keep navigation smoke tests independent of TMDB and local favorites.
 @MainActor
 struct UITestAppDependencies: AppDependencies {
+    func makeWatchLibraryStore() -> WatchLibraryStoreImpl {
+        WatchLibraryStoreImpl(repository: MemoryWatchLibraryRepository(), artwork: EmptyArtworkCache()) {
+            guard ProcessInfo.processInfo.arguments.contains("--ui-testing-favorites") else { return [] }
+            return [
+                SavedTitle(tmdbID: 1, mediaType: .movie, title: "Saved movie"),
+                SavedTitle(tmdbID: 2, mediaType: .movie, title: "Another saved movie"),
+                SavedTitle(tmdbID: 1, mediaType: .tv, title: "Saved series")
+            ]
+        }
+    }
+
     func makeSearchPresenter() -> SearchPresenterImpl {
         SearchPresenterImpl(service: EmptySearchService(), history: EmptyRecentSearchStore())
     }
@@ -44,12 +54,6 @@ struct UITestAppDependencies: AppDependencies {
         ArtistDefaultPresenter(EmptyArtistInteractor())
     }
 
-    func makeFavoritesPresenter() -> FavoritesDefaultPresenter {
-        if ProcessInfo.processInfo.arguments.contains("--ui-testing-favorites") {
-            return FavoritesDefaultPresenter(SeededFavoritesInteractor())
-        }
-        return FavoritesDefaultPresenter(EmptyFavoritesInteractor())
-    }
 }
 
 private struct EmptyMediaInteractor: MediaInteractor {
@@ -65,21 +69,6 @@ private struct EmptyArtistInteractor: ArtistInteractor {
     func fetchArtists() async -> [Artist] { [] }
 }
 
-private struct EmptyFavoritesInteractor: FavoritesInteractor {
-    func getFavoriteArtists() async throws -> [ArtistDetail] { [] }
-    func getFavoriteMovies() async throws -> [Watchable] { [] }
-    func getFavoriteSeries() async throws -> [Watchable] { [] }
-}
-private struct SeededFavoritesInteractor: FavoritesInteractor {
-    func getFavoriteArtists() async throws -> [ArtistDetail] { [ArtistDetail.mock] }
-    func getFavoriteMovies() async throws -> [Watchable] {
-        [
-            MovieDetail.mock,
-            Movie(id: 2, title: "Another saved movie", genreIDS: [], popularity: 1, video: false)
-        ]
-    }
-    func getFavoriteSeries() async throws -> [Watchable] { [TvDetail.mock] }
-}
 private struct EmptySearchService: SearchService {
     func search(query: String, category: SearchCategory, page: Int) async throws -> SearchPage {
         SearchPage(results: [], page: page, totalPages: 0)
@@ -90,5 +79,16 @@ private final class EmptyRecentSearchStore: RecentSearchStore {
     var queries: [String] = []
     func remember(_ query: String) { queries = [query] }
     func clear() { queries = [] }
+}
+private actor MemoryWatchLibraryRepository: WatchLibraryRepository {
+    private var document = WatchLibraryDocument()
+    func load() async throws -> WatchLibraryDocument { document }
+    func save(_ document: WatchLibraryDocument) async throws { self.document = document }
+}
+
+private struct EmptyArtworkCache: ArtworkCache {
+    func localURL(for id: String) -> URL? { nil }
+    func cache(remoteURL: URL, id: String) async throws { }
+    func remove(id: String) async { }
 }
 #endif

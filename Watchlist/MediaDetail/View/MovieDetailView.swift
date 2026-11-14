@@ -2,7 +2,6 @@ import SwiftUI
 
 struct MovieDetailView: View {
     @State var presenter: MovieDetailDefaultPresenter
-    @State private var isFavorite = false
 
     var body: some View {
         Group {
@@ -10,9 +9,7 @@ struct MovieDetailView: View {
                 MediaDetailContent(
                     media: presenter.media,
                     date: presenter.media.releaseDate,
-                    favoriteStorage: presenter.favoriteStorage,
-                    mediaService: MovieService.shared,
-                    isFavorite: $isFavorite
+                    mediaService: MovieService.shared
                 )
             } else {
                 LoadStateView(

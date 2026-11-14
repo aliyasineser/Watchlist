@@ -3,9 +3,7 @@ import SwiftUI
 struct MediaDetailContent: View {
     let media: WatchableDetail
     let date: Date?
-    let favoriteStorage: FavoriteStorage
     let mediaService: MediaService
-    @Binding var isFavorite: Bool
 
     var body: some View {
         ScrollView {
@@ -24,16 +22,12 @@ struct MediaDetailContent: View {
                             time: nil
                         )
                         Spacer(minLength: 0)
-                        FavoriteButton(
-                            favoriteStorage: favoriteStorage,
-                            isFavorite: $isFavorite,
-                            id: media.id,
-                            title: media.title
-                        )
                     }
                 }
                 .padding(20)
                 .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 24))
+
+                WatchStatusControl(title: SavedTitle(media: media), refreshMetadata: true)
 
                 if let overview = media.overview, !overview.isEmpty {
                     VStack(alignment: .leading, spacing: 12) {

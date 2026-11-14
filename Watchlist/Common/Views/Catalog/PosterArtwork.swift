@@ -13,7 +13,7 @@ struct PosterArtwork: View {
             .aspectRatio(aspectRatio, contentMode: .fit)
             .overlay {
                 GeometryReader { geometry in
-                    KFImage(URL(string: url))
+                    KFImage(source: imageSource)
                         .placeholder {
                             Image(systemName: symbol)
                                 .font(.largeTitle)
@@ -28,5 +28,11 @@ struct PosterArtwork: View {
             }
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .accessibilityHidden(true)
+    }
+
+    private var imageSource: Source? {
+        guard let url = URL(string: url) else { return nil }
+        if url.isFileURL { return .provider(LocalFileImageDataProvider(fileURL: url)) }
+        return .network(ImageResource(downloadURL: url))
     }
 }
