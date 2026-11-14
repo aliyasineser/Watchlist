@@ -183,6 +183,13 @@
 		8D3AD334B107490DA9EA0202 /* LibraryTransferPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F08BA3244A23446AB6487E30 /* LibraryTransferPresenter.swift */; };
 		7945454B8D3248CC82E7B7A2 /* LibraryTransferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361AF5ABA0ED4BEAA55E34BE /* LibraryTransferView.swift */; };
 		234BD7CD82014457B2AD3952 /* LibraryTransferTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4B2C3D548B4CEBA586A348 /* LibraryTransferTests.swift */; };
+		795ABDF1DF0447F88B70E6F2 /* WatchAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E1B1F24386640068C9EF598 /* WatchAvailability.swift */; };
+		3E65F748BF60423FB1ACD34F /* WatchProviderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3637950F6E804D27B276FD79 /* WatchProviderService.swift */; };
+		51921E1FCE6643C8BA1500F6 /* ProviderPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982550CCF93748D69BBD0EB0 /* ProviderPreferences.swift */; };
+		DAFA7FE355114466B21E3B83 /* ProviderLibraryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72FAE7D40954B818A9F6FC0 /* ProviderLibraryPresenter.swift */; };
+		1ACB55A617434703A523772E /* AvailabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341F171ACCEB4FAAA1B1633E /* AvailabilityView.swift */; };
+		9281233D023B4E8F9BD0BC89 /* ProviderLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A9C6EA353D476189E49FCC /* ProviderLibraryView.swift */; };
+		8BFB66710253454680667061 /* WatchProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181FF519B8704AD3811EAB67 /* WatchProviderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -384,6 +391,13 @@
 		F08BA3244A23446AB6487E30 /* LibraryTransferPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryTransferPresenter.swift"; sourceTree = "<group>"; };
 		361AF5ABA0ED4BEAA55E34BE /* LibraryTransferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryTransferView.swift"; sourceTree = "<group>"; };
 		4C4B2C3D548B4CEBA586A348 /* LibraryTransferTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryTransferTests.swift"; sourceTree = "<group>"; };
+		0E1B1F24386640068C9EF598 /* WatchAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchAvailability.swift"; sourceTree = "<group>"; };
+		3637950F6E804D27B276FD79 /* WatchProviderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchProviderService.swift"; sourceTree = "<group>"; };
+		982550CCF93748D69BBD0EB0 /* ProviderPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProviderPreferences.swift"; sourceTree = "<group>"; };
+		A72FAE7D40954B818A9F6FC0 /* ProviderLibraryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProviderLibraryPresenter.swift"; sourceTree = "<group>"; };
+		341F171ACCEB4FAAA1B1633E /* AvailabilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AvailabilityView.swift"; sourceTree = "<group>"; };
+		A7A9C6EA353D476189E49FCC /* ProviderLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProviderLibraryView.swift"; sourceTree = "<group>"; };
+		181FF519B8704AD3811EAB67 /* WatchProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchProviderTests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -623,6 +637,7 @@
 				8D4DA3C6ACD1483999FD867B /* WatchTonight */,
 				45F7743A3EEA433487D3E882 /* Library */,
 				BE31619C70674FAE92F2653D /* LibraryTransfer */,
+				11F220E64D1F426999FB1001 /* WatchProviders */,
 			);
 			path = Watchlist;
 			sourceTree = "<group>";
@@ -1011,6 +1026,7 @@
 				52817FBA363A4CFEA5D98893 /* WatchTonightTests.swift */,
 				FA28837210D84D70BB057384 /* FavoriteStorageTests.swift */,
 				4C4B2C3D548B4CEBA586A348 /* LibraryTransferTests.swift */,
+				181FF519B8704AD3811EAB67 /* WatchProviderTests.swift */,
 			);
 			path = "CoreTests";
 			sourceTree = "<group>";
@@ -1183,6 +1199,51 @@
 			path = "View";
 			sourceTree = "<group>";
 		};
+		11F220E64D1F426999FB1001 /* WatchProviders */ = {
+			isa = PBXGroup;
+			children = (
+				B8E3300C40AD412DA22A557E /* View */,
+				B0DEAC8E3CB94AB19A0F9DD5 /* Service */,
+				01CF910B44AA497FA5860AB9 /* Entity */,
+				D419A9EB66E24F1C8825A521 /* Presenter */,
+			);
+			path = "WatchProviders";
+			sourceTree = "<group>";
+		};
+		B8E3300C40AD412DA22A557E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A7A9C6EA353D476189E49FCC /* ProviderLibraryView.swift */,
+				341F171ACCEB4FAAA1B1633E /* AvailabilityView.swift */,
+			);
+			path = "View";
+			sourceTree = "<group>";
+		};
+		B0DEAC8E3CB94AB19A0F9DD5 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3637950F6E804D27B276FD79 /* WatchProviderService.swift */,
+			);
+			path = "Service";
+			sourceTree = "<group>";
+		};
+		01CF910B44AA497FA5860AB9 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				0E1B1F24386640068C9EF598 /* WatchAvailability.swift */,
+			);
+			path = "Entity";
+			sourceTree = "<group>";
+		};
+		D419A9EB66E24F1C8825A521 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				A72FAE7D40954B818A9F6FC0 /* ProviderLibraryPresenter.swift */,
+				982550CCF93748D69BBD0EB0 /* ProviderPreferences.swift */,
+			);
+			path = "Presenter";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1340,6 +1401,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9281233D023B4E8F9BD0BC89 /* ProviderLibraryView.swift in Sources */,
+				1ACB55A617434703A523772E /* AvailabilityView.swift in Sources */,
+				DAFA7FE355114466B21E3B83 /* ProviderLibraryPresenter.swift in Sources */,
+				51921E1FCE6643C8BA1500F6 /* ProviderPreferences.swift in Sources */,
+				3E65F748BF60423FB1ACD34F /* WatchProviderService.swift in Sources */,
+				795ABDF1DF0447F88B70E6F2 /* WatchAvailability.swift in Sources */,
 				7945454B8D3248CC82E7B7A2 /* LibraryTransferView.swift in Sources */,
 				8D3AD334B107490DA9EA0202 /* LibraryTransferPresenter.swift in Sources */,
 				5266AC86E3124C5E9D600222 /* LibraryCloudService.swift in Sources */,
@@ -1484,6 +1551,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BFB66710253454680667061 /* WatchProviderTests.swift in Sources */,
 				234BD7CD82014457B2AD3952 /* LibraryTransferTests.swift in Sources */,
 				59F3194A986947B093AF6168 /* SavedTitleMetadataTests.swift in Sources */,
 				45B04F629522463E84AC91E0 /* EpisodeProgressTests.swift in Sources */,

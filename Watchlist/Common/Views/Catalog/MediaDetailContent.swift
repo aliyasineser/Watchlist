@@ -28,6 +28,9 @@ struct MediaDetailContent: View {
                 .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 24))
 
                 WatchStatusControl(title: SavedTitle(media: media), refreshMetadata: true)
+                NavigationLink("Where to watch") {
+                    AvailabilityView(presenter: AvailabilityPresenterImpl(title: SavedTitle(media: media)))
+                }
                 if media is TvDetail {
                     NavigationLink("Episode progress") {
                         EpisodeProgressView(presenter: EpisodePresenterImpl(

@@ -26,6 +26,9 @@ struct FavoritesView: View {
                         Label("Watch tonight", systemImage: "moon.stars.fill")
                     }
                     .accessibilityIdentifier("library.tonight")
+                    NavigationLink("My streaming services") {
+                        ProviderLibraryView(presenter: ProviderLibraryPresenterImpl(store: store))
+                    }
                     filters
                     NavigationLink("Saved artists") { SavedArtistsView() }
                     if store.isLoaded {

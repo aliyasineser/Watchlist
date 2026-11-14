@@ -13,6 +13,9 @@ struct SavedTitleDetailView: View {
                     .frame(maxWidth: 220).frame(maxWidth: .infinity)
                 Text(currentTitle.title).font(.title.bold())
                 WatchStatusControl(title: currentTitle, store: store)
+                NavigationLink("Where to watch") {
+                    AvailabilityView(presenter: AvailabilityPresenterImpl(title: currentTitle))
+                }
                 if title.mediaType == .tv {
                     NavigationLink("Episode progress") {
                         EpisodeProgressView(presenter: EpisodePresenterImpl(title: currentTitle, store: store))
