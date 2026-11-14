@@ -42,6 +42,12 @@ final class WatchlistUITests: XCTestCase {
         app.navigationBars.buttons.element(boundBy: 0).tap()
         app.buttons["library.upcoming"].tap()
         XCTAssertTrue(app.navigationBars["Upcoming"].waitForExistence(timeout: 5))
+        let hideTitles = app.switches["Hide titles in notifications"]
+        XCTAssertTrue(hideTitles.waitForExistence(timeout: 5))
+        hideTitles.tap()
+        XCTAssertEqual(hideTitles.value as? String, "0")
+        app.buttons["Manage followed titles"].tap()
+        XCTAssertTrue(app.navigationBars["Followed titles"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.alerts.firstMatch.exists)
     }
 

@@ -70,7 +70,10 @@ struct UpcomingView: View {
                 set: { value in Task { await presenter.reminders.setEnabled(value, store: presenter.store) } }
             ))
             .disabled(presenter.reminders.isUpdating)
-            Toggle("Hide titles in notifications", isOn: $presenter.reminders.hideTitles)
+            Toggle("Hide titles in notifications", isOn: Binding(
+                get: { presenter.reminders.hideTitles },
+                set: { presenter.reminders.hideTitles = $0 }
+            ))
                 .onChange(of: presenter.reminders.hideTitles) { _, _ in
                     Task { await presenter.reminders.reconcile(store: presenter.store) }
                 }
@@ -88,6 +91,9 @@ struct UpcomingView: View {
             }
         }
         .navigationTitle("Followed titles")
-        .errorAlert(error: $presenter.store.error)
+        .errorAlert(error: Binding(
+            get: { presenter.store.error },
+            set: { presenter.store.error = $0 }
+        ))
     }
 }
