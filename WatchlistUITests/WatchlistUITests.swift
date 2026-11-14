@@ -29,6 +29,19 @@ final class WatchlistUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["No saved titles yet"].waitForExistence(timeout: 5))
     }
 
+    func testWatchTonightPicksAnOfflineSavedTitle() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]
+        app.launch()
+        app.tabBars.buttons["Favorites"].tap()
+        app.buttons["library.tonight"].tap()
+        XCTAssertTrue(app.navigationBars["Watch tonight"].waitForExistence(timeout: 5))
+        app.buttons["tonight.shuffle"].tap()
+        XCTAssertTrue(app.buttons["tonight.pick"].waitForExistence(timeout: 5))
+        app.buttons["tonight.pick"].tap()
+        XCTAssertTrue(app.navigationBars["Saved title"].waitForExistence(timeout: 5))
+    }
+
     func testLibrarySupportsLargeTextAndDarkAppearance() {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-favorites", "--ui-testing-accessibility"]
