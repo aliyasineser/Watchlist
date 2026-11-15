@@ -142,3 +142,45 @@ extension NetworkTests {
         XCTAssertFalse(fetcher.hasMore)
     }
 }
+
+extension NetworkTests {
+    func test_apiKeyConfigurationRejectsEmptyMalformedAndMissingKeys() {
+        XCTAssertNil(APIConstants.decodeAPIKey(from: Data(#"{"apiKey":""}"#.utf8)))
+        XCTAssertNil(APIConstants.decodeAPIKey(from: Data(#"{"apiKey":"  \n "}"#.utf8)))
+        XCTAssertNil(APIConstants.decodeAPIKey(from: Data(#"{}"#.utf8)))
+        XCTAssertNil(APIConstants.decodeAPIKey(from: Data(#"{"apiKey":123}"#.utf8)))
+        XCTAssertNil(APIConstants.decodeAPIKey(from: Data("invalid".utf8)))
+        XCTAssertEqual(APIConstants.decodeAPIKey(from: Data(#"{"apiKey":" sample-key "}"#.utf8)), "sample-key")
+    }
+
+    func test_credentialsValidationAcceptsAPIKeysOrBearerAndRejectsBlankCredentials() throws {
+        let url = try XCTUnwrap(URL(string: "https://api.themoviedb.org/3/movie/popular"))
+        var request = URLRequest(url: url)
+        XCTAssertThrowsError(try DefaultAPIManager.validateCredentials(for: request)) {
+            XCTAssertEqual($0 as? NetworkError, .missingAPIKey)
+        }
+        request.url = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=%20")
+        XCTAssertThrowsError(try DefaultAPIManager.validateCredentials(for: request))
+        request.url = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=sample-key")
+        XCTAssertNoThrow(try DefaultAPIManager.validateCredentials(for: request))
+        request.url = url
+        request.setValue("Bearer sample-token", forHTTPHeaderField: "Authorization")
+        XCTAssertNoThrow(try DefaultAPIManager.validateCredentials(for: request))
+        request.setValue("Bearer ", forHTTPHeaderField: "Authorization")
+        XCTAssertThrowsError(try DefaultAPIManager.validateCredentials(for: request))
+    }
+
+    func test_httpErrorsPreserveStatusForAuthenticationRateLimitAndServerFailures() async throws {
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.protocolClasses = [HTTPStatusURLProtocol.self]
+        let session = URLSession(configuration: configuration)
+        defer { session.invalidateAndCancel() }
+        let manager = DefaultAPIManager(urlSession: session)
+        for status in [401, 403, 404, 429, 503] {
+            do {
+                _ = try await manager.initRequest(with: HTTPStatusRequest(status: status))
+                XCTFail("Expected HTTP status failure")
+            } catch { XCTAssertEqual(error as? NetworkError, .httpError(status: status)) }
+        }
+    }
+}

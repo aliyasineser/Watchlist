@@ -3,6 +3,7 @@ import SwiftUI
 struct FavoritesView: View {
     @State var store: WatchLibraryStoreImpl
     @State var transfer: LibraryTransferPresenterImpl
+    @State var upcoming: UpcomingPresenterImpl
     @State private var status: WatchStatus?
     @State private var type: MediaType?
     @State private var sort = LibrarySort.dateAdded
@@ -29,6 +30,11 @@ struct FavoritesView: View {
                     NavigationLink("My streaming services") {
                         ProviderLibraryView(presenter: ProviderLibraryPresenterImpl(store: store))
                     }
+                    .accessibilityIdentifier("library.providers")
+                    NavigationLink("Upcoming releases") {
+                        UpcomingView(presenter: upcoming)
+                    }
+                    .accessibilityIdentifier("library.upcoming")
                     filters
                     NavigationLink("Saved artists") { SavedArtistsView() }
                     if store.isLoaded {
@@ -51,8 +57,13 @@ struct FavoritesView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Favorites")
             .toolbar {
-                NavigationLink("Backup & sync", systemImage: "icloud") {
-                    LibraryTransferView(presenter: transfer)
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        LibraryTransferView(presenter: transfer)
+                    } label: {
+                        Label("Backup & sync", systemImage: "icloud")
+                    }
+                    .accessibilityIdentifier("library.backup")
                 }
             }
             .task { await store.load() }

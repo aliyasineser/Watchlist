@@ -190,6 +190,14 @@
 		1ACB55A617434703A523772E /* AvailabilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341F171ACCEB4FAAA1B1633E /* AvailabilityView.swift */; };
 		9281233D023B4E8F9BD0BC89 /* ProviderLibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A9C6EA353D476189E49FCC /* ProviderLibraryView.swift */; };
 		8BFB66710253454680667061 /* WatchProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181FF519B8704AD3811EAB67 /* WatchProviderTests.swift */; };
+		2A824633D3DF4A23ACC05934 /* ReleaseEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7690CAAC1004A4ABF27158A /* ReleaseEvent.swift */; };
+		82D863E689B544B090997176 /* ReleaseCalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292567D1C0D4690895EBB8C /* ReleaseCalendarService.swift */; };
+		E212828C84204410A727C341 /* ReleaseNotificationScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE9822FBE9546C3AFA14391 /* ReleaseNotificationScheduler.swift */; };
+		7CF2C521A53A43478CE32F7C /* WatchLibraryStore+Releases.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCDF1D940FA2473B9AC283BF /* WatchLibraryStore+Releases.swift */; };
+		D05E47A68D754A2281A65F14 /* ReleaseReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5720C5E45CF844438AEA7D67 /* ReleaseReminders.swift */; };
+		94B9A94F12B849DEA151D7A2 /* UpcomingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7C6190CC9BA4E2B91086C2D /* UpcomingPresenter.swift */; };
+		058A5165BA7C4687A783C5C1 /* UpcomingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21A4F94D0CFB419293CEAFA0 /* UpcomingView.swift */; };
+		115A543023A448FFBBC68CBF /* UpcomingReleaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E039EFA6EF884E64AACB38E7 /* UpcomingReleaseTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -398,6 +406,15 @@
 		341F171ACCEB4FAAA1B1633E /* AvailabilityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AvailabilityView.swift"; sourceTree = "<group>"; };
 		A7A9C6EA353D476189E49FCC /* ProviderLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProviderLibraryView.swift"; sourceTree = "<group>"; };
 		181FF519B8704AD3811EAB67 /* WatchProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchProviderTests.swift"; sourceTree = "<group>"; };
+		E7690CAAC1004A4ABF27158A /* ReleaseEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReleaseEvent.swift"; sourceTree = "<group>"; };
+		D292567D1C0D4690895EBB8C /* ReleaseCalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReleaseCalendarService.swift"; sourceTree = "<group>"; };
+		1BE9822FBE9546C3AFA14391 /* ReleaseNotificationScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReleaseNotificationScheduler.swift"; sourceTree = "<group>"; };
+		BCDF1D940FA2473B9AC283BF /* WatchLibraryStore+Releases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WatchLibraryStore+Releases.swift"; sourceTree = "<group>"; };
+		5720C5E45CF844438AEA7D67 /* ReleaseReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReleaseReminders.swift"; sourceTree = "<group>"; };
+		F7C6190CC9BA4E2B91086C2D /* UpcomingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UpcomingPresenter.swift"; sourceTree = "<group>"; };
+		21A4F94D0CFB419293CEAFA0 /* UpcomingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UpcomingView.swift"; sourceTree = "<group>"; };
+		E039EFA6EF884E64AACB38E7 /* UpcomingReleaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UpcomingReleaseTests.swift"; sourceTree = "<group>"; };
+		E7B871C17861487A879FD6E0 /* Watchlist.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Watchlist.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -613,6 +630,7 @@
 		DD045470260A171900DFEFE6 /* Watchlist */ = {
 			isa = PBXGroup;
 			children = (
+				E7B871C17861487A879FD6E0 /* Watchlist.entitlements */,
 				DD1CD3FC29072AB500A0D1E8 /* Resources */,
 				DD4B3A6B28E0FB0A007308F5 /* Common */,
 				DD02ECC828DF9C3000D230F9 /* Favorites */,
@@ -638,6 +656,7 @@
 				45F7743A3EEA433487D3E882 /* Library */,
 				BE31619C70674FAE92F2653D /* LibraryTransfer */,
 				11F220E64D1F426999FB1001 /* WatchProviders */,
+				457845FFCE064C2F9F5E80CD /* Upcoming */,
 			);
 			path = Watchlist;
 			sourceTree = "<group>";
@@ -1027,6 +1046,7 @@
 				FA28837210D84D70BB057384 /* FavoriteStorageTests.swift */,
 				4C4B2C3D548B4CEBA586A348 /* LibraryTransferTests.swift */,
 				181FF519B8704AD3811EAB67 /* WatchProviderTests.swift */,
+				E039EFA6EF884E64AACB38E7 /* UpcomingReleaseTests.swift */,
 			);
 			path = "CoreTests";
 			sourceTree = "<group>";
@@ -1244,6 +1264,52 @@
 			path = "Presenter";
 			sourceTree = "<group>";
 		};
+		457845FFCE064C2F9F5E80CD /* Upcoming */ = {
+			isa = PBXGroup;
+			children = (
+				82156C036AD64BCFA0BAC670 /* Service */,
+				E99C409323124E16A6331073 /* Presenter */,
+				9A98E65E836A4ED2832ADDAD /* View */,
+				D68B6EA3A6444F189B44CDD6 /* Entity */,
+			);
+			path = "Upcoming";
+			sourceTree = "<group>";
+		};
+		82156C036AD64BCFA0BAC670 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				D292567D1C0D4690895EBB8C /* ReleaseCalendarService.swift */,
+				1BE9822FBE9546C3AFA14391 /* ReleaseNotificationScheduler.swift */,
+				BCDF1D940FA2473B9AC283BF /* WatchLibraryStore+Releases.swift */,
+			);
+			path = "Service";
+			sourceTree = "<group>";
+		};
+		E99C409323124E16A6331073 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				F7C6190CC9BA4E2B91086C2D /* UpcomingPresenter.swift */,
+				5720C5E45CF844438AEA7D67 /* ReleaseReminders.swift */,
+			);
+			path = "Presenter";
+			sourceTree = "<group>";
+		};
+		9A98E65E836A4ED2832ADDAD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				21A4F94D0CFB419293CEAFA0 /* UpcomingView.swift */,
+			);
+			path = "View";
+			sourceTree = "<group>";
+		};
+		D68B6EA3A6444F189B44CDD6 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				E7690CAAC1004A4ABF27158A /* ReleaseEvent.swift */,
+			);
+			path = "Entity";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1401,6 +1467,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				058A5165BA7C4687A783C5C1 /* UpcomingView.swift in Sources */,
+				94B9A94F12B849DEA151D7A2 /* UpcomingPresenter.swift in Sources */,
+				D05E47A68D754A2281A65F14 /* ReleaseReminders.swift in Sources */,
+				7CF2C521A53A43478CE32F7C /* WatchLibraryStore+Releases.swift in Sources */,
+				E212828C84204410A727C341 /* ReleaseNotificationScheduler.swift in Sources */,
+				82D863E689B544B090997176 /* ReleaseCalendarService.swift in Sources */,
+				2A824633D3DF4A23ACC05934 /* ReleaseEvent.swift in Sources */,
 				9281233D023B4E8F9BD0BC89 /* ProviderLibraryView.swift in Sources */,
 				1ACB55A617434703A523772E /* AvailabilityView.swift in Sources */,
 				DAFA7FE355114466B21E3B83 /* ProviderLibraryPresenter.swift in Sources */,
@@ -1551,6 +1624,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				115A543023A448FFBBC68CBF /* UpcomingReleaseTests.swift in Sources */,
 				8BFB66710253454680667061 /* WatchProviderTests.swift in Sources */,
 				234BD7CD82014457B2AD3952 /* LibraryTransferTests.swift in Sources */,
 				59F3194A986947B093AF6168 /* SavedTitleMetadataTests.swift in Sources */,

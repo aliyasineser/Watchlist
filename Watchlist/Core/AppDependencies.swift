@@ -7,11 +7,16 @@ protocol AppDependencies {
     func makeWatchLibraryStore() -> WatchLibraryStoreImpl
     func makeSearchPresenter() -> SearchPresenterImpl
     func makeTransferPresenter(store: WatchLibraryStoreImpl) -> LibraryTransferPresenterImpl
+    func makeUpcomingPresenter(store: WatchLibraryStoreImpl) -> UpcomingPresenterImpl
     func makeArtistPresenter() -> ArtistDefaultPresenter
 }
 
 @MainActor
 struct AppDependenciesImpl: AppDependencies {
+    func makeUpcomingPresenter(store: WatchLibraryStoreImpl) -> UpcomingPresenterImpl {
+        UpcomingPresenterImpl(store: store)
+    }
+
     func makeTransferPresenter(store: WatchLibraryStoreImpl) -> LibraryTransferPresenterImpl {
         LibraryTransferPresenterImpl(store: store, cloud: LibraryCloudServiceImpl())
     }
@@ -36,6 +41,13 @@ struct AppDependenciesImpl: AppDependencies {
 /// Offline root features keep navigation smoke tests independent of TMDB and local favorites.
 @MainActor
 struct UITestAppDependencies: AppDependencies {
+    func makeUpcomingPresenter(store: WatchLibraryStoreImpl) -> UpcomingPresenterImpl {
+        let preferences = UserDefaults(suiteName: "WatchlistUITests.reminders") ?? .standard
+        preferences.removePersistentDomain(forName: "WatchlistUITests.reminders")
+        let reminders = ReleaseRemindersImpl(scheduler: OfflineReleaseScheduler(), defaults: preferences)
+        return UpcomingPresenterImpl(store: store, service: OfflineReleaseCalendar(), reminders: reminders)
+    }
+
     func makeTransferPresenter(store: WatchLibraryStoreImpl) -> LibraryTransferPresenterImpl {
         let preferences = UserDefaults(suiteName: "WatchlistUITests.sync") ?? .standard
         preferences.removePersistentDomain(forName: "WatchlistUITests.sync")
@@ -71,6 +83,16 @@ struct UITestAppDependencies: AppDependencies {
 
 private struct OfflineLibraryCloudService: LibraryCloudService {
     func exchange(_ local: WatchLibraryDocument) async throws -> WatchLibraryDocument { local }
+}
+
+private struct OfflineReleaseScheduler: ReleaseNotificationScheduler {
+    func authorize() async throws -> Bool { false }
+    func replace(events: [ReleaseEvent], hideTitles: Bool) async throws { }
+    func cancel() async { }
+}
+
+private struct OfflineReleaseCalendar: ReleaseCalendarService {
+    func events(for title: SavedTitle) async throws -> [ReleaseEvent] { [] }
 }
 
 private struct EmptyMediaInteractor: MediaInteractor {

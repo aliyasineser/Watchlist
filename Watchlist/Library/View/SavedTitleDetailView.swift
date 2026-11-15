@@ -13,6 +13,7 @@ struct SavedTitleDetailView: View {
                     .frame(maxWidth: 220).frame(maxWidth: .infinity)
                 Text(currentTitle.title).font(.title.bold())
                 WatchStatusControl(title: currentTitle, store: store)
+                ReleaseFollowControl(title: currentTitle, store: store)
                 NavigationLink("Where to watch") {
                     AvailabilityView(presenter: AvailabilityPresenterImpl(title: currentTitle))
                 }
