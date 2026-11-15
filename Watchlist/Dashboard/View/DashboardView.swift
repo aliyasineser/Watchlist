@@ -38,6 +38,7 @@ struct DashboardView: View {
     @State private var libraryStore: WatchLibraryStoreImpl
     @State private var transfer: LibraryTransferPresenterImpl
     @State private var upcoming: UpcomingPresenterImpl
+    @State private var continueWatching: ContinueWatchingPresenterImpl
     @Environment(\.scenePhase) private var scenePhase
 
     init(dependencies: AppDependencies? = nil) {
@@ -49,12 +50,13 @@ struct DashboardView: View {
         _libraryStore = State(initialValue: store)
         _transfer = State(initialValue: dependencies.makeTransferPresenter(store: store))
         _upcoming = State(initialValue: dependencies.makeUpcomingPresenter(store: store))
+        _continueWatching = State(initialValue: ContinueWatchingPresenterImpl(store: store))
     }
 
     var body: some View {
         TabView(selection: $selectedTab) {
             Tab("Discover", systemImage: Icons.TabBar.discover.rawValue, value: .discover) {
-                DiscoverView(presenter: discoverPresenter)
+                DiscoverView(presenter: discoverPresenter, continueWatching: continueWatching)
             }
             Tab("Search", systemImage: "magnifyingglass", value: .search) {
                 SearchView(presenter: searchPresenter)
