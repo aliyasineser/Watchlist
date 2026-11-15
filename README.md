@@ -2,6 +2,24 @@
 
 Watchlist is a Movie/Series Listing app. Will be used as a workspace for learning swiftUI. TMDB will be used as Backend. 
 
+## TMDB setup
+
+Before running the app, add your own **TMDB API key (v3 auth)** to the ignored
+local file `Watchlist/Resources/secret.json`:
+
+```json
+{
+  "apiKey": "YOUR_TMDB_API_KEY"
+}
+```
+
+Replace the placeholder locally; do not commit the key. The file is already in the
+app's Copy Bundle Resources build phase. Rebuild after editing it. A blank or
+missing key now produces a configuration error before a request is sent; rejected
+credentials report HTTP 401/403 rather than a generic server error. The API Read
+Access Token is a different credential and should not be pasted into `apiKey`.
+Get the API key from https://www.themoviedb.org/settings/api.
+
 # Features
 
 - SwiftUI

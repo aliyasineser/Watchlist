@@ -22,20 +22,20 @@ enum APIConstants {
     static let apiKey = loadAPIKey()
     static let language = "en-US"
 
-    static private func loadAPIKey(jsonFileName: String = "secret") -> String? {
-        if let path = Bundle.main.path(forResource: jsonFileName, ofType: "json") {
-            if let jsonData = try? NSData(contentsOfFile: path, options: .mappedIfSafe) {
-                if let jsonResult: NSDictionary =
-                    try? JSONSerialization.jsonObject(
-                        with: jsonData as Data,
-                        options: .mutableContainers
-                    ) as? NSDictionary {
-                    if let apiKey: NSString = jsonResult["apiKey"] as? NSString {
-                        return String(apiKey)
-                    }
-                }
-            }
-        }
-        return nil
+    private static func loadAPIKey(bundle: Bundle = .main) -> String? {
+        guard let url = bundle.url(forResource: "secret", withExtension: "json"),
+              let data = try? Data(contentsOf: url) else { return nil }
+        return decodeAPIKey(from: data)
+    }
+
+    static func decodeAPIKey(from data: Data) -> String? {
+        guard let configuration = try? JSONDecoder().decode(APIConfiguration.self, from: data),
+              let key = configuration.apiKey?.trimmingCharacters(in: .whitespacesAndNewlines),
+              !key.isEmpty else { return nil }
+        return key
+    }
+
+    private struct APIConfiguration: Decodable {
+        let apiKey: String?
     }
 }
