@@ -21,6 +21,18 @@ final class WatchlistUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["Discover"].exists)
     }
 
+    func testContinueWatchingCheckOffAndUndoOffline() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]
+        app.launch()
+        let mark = app.buttons["continue.mark.tv-1"]
+        XCTAssertTrue(mark.waitForExistence(timeout: 5))
+        mark.tap()
+        XCTAssertTrue(app.staticTexts["Next: S1 E2"].waitForExistence(timeout: 5))
+        app.buttons["continue.undo"].tap()
+        XCTAssertTrue(app.staticTexts["Next: S1 E1"].waitForExistence(timeout: 5))
+    }
+
     func test_favoritesHasEmptyState() {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing"]

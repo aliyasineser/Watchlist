@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DiscoverView: View {
     @State var presenter: DiscoverDefaultPresenter
+    var continueWatching: ContinueWatchingPresenterImpl?
 
     var body: some View {
         NavigationStack {
@@ -11,6 +12,9 @@ struct DiscoverView: View {
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .padding(.horizontal, 20)
+                    if let continueWatching {
+                        ContinueWatchingView(presenter: continueWatching)
+                    }
                     if let featured = presenter.popularMovies.first {
                         featuredCard(featured)
                             .padding(.horizontal, 20)
@@ -60,7 +64,7 @@ struct DiscoverView: View {
                     if presenter.isLoading {
                         ProgressView("Finding something great…")
                             .frame(maxWidth: .infinity)
-                    } else if isEmpty {
+                    } else if isEmpty && continueWatching?.items.isEmpty != false {
                         ContentUnavailableView {
                             Label("Nothing to discover yet", systemImage: "film")
                         } description: {
