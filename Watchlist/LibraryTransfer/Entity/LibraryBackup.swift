@@ -12,7 +12,7 @@ struct LibraryBackupCodec {
     static func decode(_ data: Data) throws -> WatchLibraryDocument {
         guard data.count <= 20_000_000 else { throw LibraryTransferError.tooLarge }
         var document = try JSONDecoder().decode(WatchLibraryDocument.self, from: data)
-        guard document.version == 1 else { throw WatchLibraryError.unsupportedVersion }
+        guard (1...2).contains(document.version) else { throw WatchLibraryError.unsupportedVersion }
         var ids = Set<String>()
         for entry in document.entries {
             guard entry.title.tmdbID > 0, !entry.title.title.isEmpty,
@@ -21,6 +21,8 @@ struct LibraryBackupCodec {
                 throw LibraryTransferError.invalidBackup
             }
         }
+        try CustomListStrategy().validate(document.lists ?? [], titleIDs: ids)
+        if document.lists != nil || document.deletedLists != nil { document.version = 2 }
         document.importedFavorites = true
         return document
     }
@@ -51,6 +53,14 @@ struct LibraryMergeStrategyImpl: LibraryMergeStrategy {
         }
         result.entries = entries.values.filter { (deleted[$0.id] ?? .distantPast) < $0.updatedAt }
             .sorted { $0.id < $1.id }
+        result.version = max(local.version, remote.version)
+        if local.lists != nil || remote.lists != nil || local.deletedLists != nil || remote.deletedLists != nil {
+            let deletedLists = (local.deletedLists ?? [:]).merging(remote.deletedLists ?? [:], uniquingKeysWith: max)
+            result.deletedLists = deletedLists
+            result.lists = CustomListStrategy().merged(local.lists ?? [], remote.lists ?? [], deleted: deletedLists,
+                                                       titles: Set(result.entries.map(\.id)), deletedTitles: deleted)
+            result.version = 2
+        }
         return result
     }
 

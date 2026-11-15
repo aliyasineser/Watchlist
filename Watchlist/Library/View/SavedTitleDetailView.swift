@@ -14,6 +14,8 @@ struct SavedTitleDetailView: View {
                 Text(currentTitle.title).font(.title.bold())
                 WatchStatusControl(title: currentTitle, store: store)
                 ReleaseFollowControl(title: currentTitle, store: store)
+                NavigationLink("Add to lists") { TitleListsView(title: currentTitle, store: store) }
+                    .disabled(store.entry(for: currentTitle) == nil)
                 NavigationLink("Where to watch") {
                     AvailabilityView(presenter: AvailabilityPresenterImpl(title: currentTitle))
                 }

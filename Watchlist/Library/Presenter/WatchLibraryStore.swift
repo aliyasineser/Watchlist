@@ -142,8 +142,13 @@ final class WatchLibraryStoreImpl {
     }
 
     @discardableResult
-    func mutate(
-        reportError: Bool = true, _ change: (inout [WatchEntry]) throws -> Void
+    func mutate(reportError: Bool = true, _ change: (inout [WatchEntry]) throws -> Void) async -> Bool {
+        await mutateDocument(reportError: reportError) { try change(&$0.entries) }
+    }
+
+    @discardableResult
+    func mutateDocument(
+        reportError: Bool = true, _ change: (inout WatchLibraryDocument) throws -> Void
     ) async -> Bool {
         guard isLoaded else {
             if reportError { error = WatchLibraryError.unavailable }
@@ -163,12 +168,8 @@ final class WatchLibraryStoreImpl {
         }
         do {
             var updated = document
-            try change(&updated.entries)
-            let remaining = Set(updated.entries.map(\.id))
-            var deleted = updated.deletedTitles ?? [:]
-            for entry in document.entries where !remaining.contains(entry.id) { deleted[entry.id] = .now }
-            for entry in updated.entries { deleted[entry.id] = nil }
-            updated.deletedTitles = deleted
+            try change(&updated)
+            updated.prepareForSave(previous: document)
             try await repository.save(updated)
             document = updated
             entries = updated.entries
