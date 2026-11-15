@@ -56,6 +56,35 @@ final class WatchlistUITests: XCTestCase {
         XCTAssertTrue(app.descendants(matching: .any)["list.member.movie-1"].waitForExistence(timeout: 5))
     }
 
+    func testChooseTogetherCompletesOfflineRound() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]
+        app.launch()
+        app.tabBars.buttons["Favorites"].tap()
+        let together = app.buttons["library.together"]
+        if !together.isHittable { app.swipeUp() }
+        together.tap()
+        app.buttons["together.select.movie-1"].tap()
+        let show = app.buttons["together.select.tv-1"]
+        if !show.isHittable { app.swipeUp() }
+        show.tap()
+        let start = app.buttons["together.start"]
+        if !start.isHittable { app.swipeUp() }
+        start.tap()
+        app.buttons["together.interested"].tap()
+        app.buttons["together.skip"].tap()
+        let next = app.buttons["together.nextViewer"]
+        XCTAssertTrue(next.waitForExistence(timeout: 5))
+        XCTAssertFalse(app.staticTexts["Your mutual matches"].exists)
+        next.tap()
+        app.buttons["together.interested"].tap()
+        XCTAssertTrue(app.staticTexts["Title 2 of 2"].waitForExistence(timeout: 5))
+        app.buttons["together.interested"].tap()
+        XCTAssertTrue(app.staticTexts["Your mutual matches"].waitForExistence(timeout: 5))
+        app.buttons["together.shuffle"].tap()
+        XCTAssertTrue(app.buttons["together.pick"].waitForExistence(timeout: 5))
+    }
+
     func test_favoritesHasEmptyState() {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing"]

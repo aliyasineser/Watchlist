@@ -210,6 +210,12 @@
 		47EC8F41E1C04EC1AA4E159B /* TitleListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299C8FC25FA640E59F2C483A /* TitleListsView.swift */; };
 		AEE54C2CBF094F19886A9EF8 /* LibraryDocument+Lists.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0771387B6C114DB58D8018CA /* LibraryDocument+Lists.swift */; };
 		EFD0F72F1A434C3CBED99977 /* CustomListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F415B8528FFF4A71B8E8F5E7 /* CustomListTests.swift */; };
+		E5CD4A34A2904C4FA6998039 /* GroupChoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451E0DE13B134EAF9A893E74 /* GroupChoice.swift */; };
+		EB1492A530814950921F6E0F /* GroupChoicePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8CFE52D9C54D5686965F5D /* GroupChoicePresenter.swift */; };
+		3F3C1B71DBAB4F3A874A7D3A /* ChooseTogetherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123CA18390B44F54A7A06725 /* ChooseTogetherView.swift */; };
+		1F16D9B162314B8BABBF37D3 /* GroupChoiceSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD36B35DC614EF38FEC683F /* GroupChoiceSetupView.swift */; };
+		C59329C1B6C548CFB8E3DF8B /* GroupChoiceResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110DC77C61664AE58E3675BF /* GroupChoiceResultsView.swift */; };
+		72CCA26F62D447DA98E95632 /* GroupChoiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84878E8FAF84B9FA050D889 /* GroupChoiceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -439,6 +445,12 @@
 		299C8FC25FA640E59F2C483A /* TitleListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TitleListsView.swift"; sourceTree = "<group>"; };
 		0771387B6C114DB58D8018CA /* LibraryDocument+Lists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LibraryDocument+Lists.swift"; sourceTree = "<group>"; };
 		F415B8528FFF4A71B8E8F5E7 /* CustomListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomListTests.swift"; sourceTree = "<group>"; };
+		451E0DE13B134EAF9A893E74 /* GroupChoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupChoice.swift"; sourceTree = "<group>"; };
+		0A8CFE52D9C54D5686965F5D /* GroupChoicePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupChoicePresenter.swift"; sourceTree = "<group>"; };
+		123CA18390B44F54A7A06725 /* ChooseTogetherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChooseTogetherView.swift"; sourceTree = "<group>"; };
+		1AD36B35DC614EF38FEC683F /* GroupChoiceSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupChoiceSetupView.swift"; sourceTree = "<group>"; };
+		110DC77C61664AE58E3675BF /* GroupChoiceResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupChoiceResultsView.swift"; sourceTree = "<group>"; };
+		A84878E8FAF84B9FA050D889 /* GroupChoiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupChoiceTests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -683,6 +695,7 @@
 				457845FFCE064C2F9F5E80CD /* Upcoming */,
 				5B37CBD0C24749A7944AE68C /* ContinueWatching */,
 				FD89A0BDA6174D73999B0D24 /* CustomLists */,
+				815EAD32B6234B87BBADC680 /* ChooseTogether */,
 			);
 			path = Watchlist;
 			sourceTree = "<group>";
@@ -1075,6 +1088,7 @@
 				E039EFA6EF884E64AACB38E7 /* UpcomingReleaseTests.swift */,
 				F1AD31234FBB4F5BAD5504DA /* ContinueWatchingTests.swift */,
 				F415B8528FFF4A71B8E8F5E7 /* CustomListTests.swift */,
+				A84878E8FAF84B9FA050D889 /* GroupChoiceTests.swift */,
 			);
 			path = "CoreTests";
 			sourceTree = "<group>";
@@ -1418,6 +1432,42 @@
 			path = "Entity";
 			sourceTree = "<group>";
 		};
+		815EAD32B6234B87BBADC680 /* ChooseTogether */ = {
+			isa = PBXGroup;
+			children = (
+				76EE5BA7F67243B7B4A8AEDF /* View */,
+				DD53135D68964727A672B52E /* Entity */,
+				277C74752D4447188379968B /* Presenter */,
+			);
+			path = "ChooseTogether";
+			sourceTree = "<group>";
+		};
+		76EE5BA7F67243B7B4A8AEDF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1AD36B35DC614EF38FEC683F /* GroupChoiceSetupView.swift */,
+				110DC77C61664AE58E3675BF /* GroupChoiceResultsView.swift */,
+				123CA18390B44F54A7A06725 /* ChooseTogetherView.swift */,
+			);
+			path = "View";
+			sourceTree = "<group>";
+		};
+		DD53135D68964727A672B52E /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				451E0DE13B134EAF9A893E74 /* GroupChoice.swift */,
+			);
+			path = "Entity";
+			sourceTree = "<group>";
+		};
+		277C74752D4447188379968B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				0A8CFE52D9C54D5686965F5D /* GroupChoicePresenter.swift */,
+			);
+			path = "Presenter";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1575,6 +1625,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C59329C1B6C548CFB8E3DF8B /* GroupChoiceResultsView.swift in Sources */,
+				1F16D9B162314B8BABBF37D3 /* GroupChoiceSetupView.swift in Sources */,
+				3F3C1B71DBAB4F3A874A7D3A /* ChooseTogetherView.swift in Sources */,
+				EB1492A530814950921F6E0F /* GroupChoicePresenter.swift in Sources */,
+				E5CD4A34A2904C4FA6998039 /* GroupChoice.swift in Sources */,
 				AEE54C2CBF094F19886A9EF8 /* LibraryDocument+Lists.swift in Sources */,
 				47EC8F41E1C04EC1AA4E159B /* TitleListsView.swift in Sources */,
 				7CE24C1769DA41D8A925CF01 /* CustomListDetailView.swift in Sources */,
@@ -1742,6 +1797,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72CCA26F62D447DA98E95632 /* GroupChoiceTests.swift in Sources */,
 				EFD0F72F1A434C3CBED99977 /* CustomListTests.swift in Sources */,
 				2405EB0D18BD4B0696538635 /* ContinueWatchingTests.swift in Sources */,
 				115A543023A448FFBBC68CBF /* UpcomingReleaseTests.swift in Sources */,
