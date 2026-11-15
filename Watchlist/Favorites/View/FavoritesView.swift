@@ -57,10 +57,14 @@ struct FavoritesView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Favorites")
             .toolbar {
-                NavigationLink("Backup & sync", systemImage: "icloud") {
-                    LibraryTransferView(presenter: transfer)
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        LibraryTransferView(presenter: transfer)
+                    } label: {
+                        Label("Backup & sync", systemImage: "icloud")
+                    }
+                    .accessibilityIdentifier("library.backup")
                 }
-                .accessibilityIdentifier("library.backup")
             }
             .task { await store.load() }
             .refreshable {
