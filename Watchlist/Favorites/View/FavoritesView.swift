@@ -39,6 +39,10 @@ struct FavoritesView: View {
                         CustomListsView(presenter: CustomListsPresenterImpl(store: store))
                     }
                     .accessibilityIdentifier("library.lists")
+                    NavigationLink("Choose together") {
+                        ChooseTogetherView(presenter: GroupChoicePresenterImpl(store: store))
+                    }
+                    .accessibilityIdentifier("library.together")
                     filters
                     NavigationLink("Saved artists") { SavedArtistsView() }
                     if store.isLoaded {
