@@ -4,6 +4,7 @@ struct WatchStatusControl: View {
     let title: SavedTitle
     private let refreshMetadata: Bool
     @State private var store: WatchLibraryStoreImpl
+    @State private var confirmRemoval = false
 
     init(title: SavedTitle, store: WatchLibraryStoreImpl? = nil, refreshMetadata: Bool = false) {
         self.title = title
@@ -19,7 +20,7 @@ struct WatchStatusControl: View {
                         Button(status.title) { Task { await store.setStatus(status, for: title) } }
                     }
                     Button("Remove from library", role: .destructive) {
-                        Task { await store.remove(title) }
+                        confirmRemoval = true
                     }
                 } label: {
                     Label(entry.status.title, systemImage: "checkmark.circle.fill")
@@ -49,6 +50,10 @@ struct WatchStatusControl: View {
         .task {
             await store.load()
             if refreshMetadata { await store.refreshMetadata(title) }
+        }
+        .confirmationDialog("Remove this title from your library and all custom lists?",
+                            isPresented: $confirmRemoval, titleVisibility: .visible) {
+            Button("Remove title and its list notes", role: .destructive) { Task { await store.remove(title) } }
         }
         .errorAlert(error: $store.error)
     }

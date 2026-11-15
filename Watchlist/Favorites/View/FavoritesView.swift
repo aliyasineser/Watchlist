@@ -35,6 +35,10 @@ struct FavoritesView: View {
                         UpcomingView(presenter: upcoming)
                     }
                     .accessibilityIdentifier("library.upcoming")
+                    NavigationLink("Custom lists") {
+                        CustomListsView(presenter: CustomListsPresenterImpl(store: store))
+                    }
+                    .accessibilityIdentifier("library.lists")
                     filters
                     NavigationLink("Saved artists") { SavedArtistsView() }
                     if store.isLoaded {

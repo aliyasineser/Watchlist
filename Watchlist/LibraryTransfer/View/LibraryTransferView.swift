@@ -25,9 +25,10 @@ struct LibraryTransferView: View {
         Form {
             Section("iCloud sync") {
                 Toggle("Sync this library with iCloud", isOn: $presenter.syncEnabled)
-                Text("Movies, shows, ratings and episode progress sync through your private iCloud account.")
+                Text("Saved titles, custom lists, ratings and episode progress "
+                     + "sync through your private iCloud account.")
                     .font(.footnote).foregroundStyle(.secondary)
-                Text("If the same title changes on two devices, its latest edit wins. "
+                Text("If the same title or list changes on two devices, its latest edit wins. "
                      + "Keep device clocks accurate.")
                     .font(.footnote).foregroundStyle(.secondary)
                 if let last = presenter.lastSync { Text("Last synced: \(last.formatted())").font(.footnote) }
@@ -35,7 +36,7 @@ struct LibraryTransferView: View {
                     .disabled(!presenter.syncEnabled || presenter.isSyncing || !presenter.store.isLoaded)
             }
             Section("Library backup") {
-                Text("Export includes saved titles, ratings and episode progress. "
+                Text("Export includes saved titles, lists, ratings and episode progress. "
                      + "Artist favorites stay on this device.")
                     .font(.footnote).foregroundStyle(.secondary)
                 Button("Export backup") {
@@ -65,14 +66,15 @@ struct LibraryTransferView: View {
             get: { presenter.importPreview != nil },
             set: { if !$0 { presenter.importPreview = nil } }
         ), titleVisibility: .visible) {
-            Button("Merge \(presenter.importPreview?.entries.count ?? 0) saved titles") {
+            Button("Merge backup: \(presenter.importPreview?.entries.count ?? 0) titles, "
+                   + "\(presenter.importPreview?.lists?.count ?? 0) lists") {
                 if let incoming = presenter.importPreview {
                     Task { await presenter.mergeImport(incoming) }
                 }
             }
             Button("Cancel", role: .cancel) { presenter.importPreview = nil }
         } message: {
-            Text("Latest title edits and deletions win. Existing titles absent from the backup are kept.")
+            Text("Latest title/list edits and deletions win. Existing items absent from the backup are kept.")
         }
         .errorAlert(error: $presenter.error)
         .onChange(of: presenter.syncEnabled) { _, enabled in

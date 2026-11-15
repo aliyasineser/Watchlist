@@ -33,6 +33,29 @@ final class WatchlistUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Next: S1 E1"].waitForExistence(timeout: 5))
     }
 
+    func testCreateCustomListAndAddSavedTitleOffline() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]
+        app.launch()
+        app.tabBars.buttons["Favorites"].tap()
+        app.buttons["library.lists"].tap()
+        app.buttons["lists.create"].tap()
+        let name = app.textFields["lists.name"]
+        XCTAssertTrue(name.waitForExistence(timeout: 5))
+        name.tap()
+        name.typeText("Movie night")
+        app.buttons["lists.save"].tap()
+        let list = app.staticTexts["Movie night"]
+        XCTAssertTrue(list.waitForExistence(timeout: 5))
+        list.tap()
+        app.buttons["lists.addTitles"].tap()
+        let selected = app.switches["list.select.movie-1"]
+        XCTAssertTrue(selected.waitForExistence(timeout: 5))
+        selected.tap()
+        app.buttons["Done"].tap()
+        XCTAssertTrue(app.descendants(matching: .any)["list.member.movie-1"].waitForExistence(timeout: 5))
+    }
+
     func test_favoritesHasEmptyState() {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing"]

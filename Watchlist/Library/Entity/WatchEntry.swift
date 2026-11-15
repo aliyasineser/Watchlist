@@ -63,6 +63,8 @@ struct WatchLibraryDocument: Codable, Equatable, Sendable {
     var importedFavorites = false
     var entries: [WatchEntry] = []
     var deletedTitles: [String: Date]?
+    var lists: [CustomWatchList]?
+    var deletedLists: [String: Date]?
 }
 
 enum LibrarySort: String, CaseIterable, Identifiable {

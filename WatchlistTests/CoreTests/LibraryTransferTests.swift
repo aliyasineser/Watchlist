@@ -38,7 +38,7 @@ final class LibraryTransferTests: XCTestCase {
         duplicate.entries.append(duplicate.entries[0])
         XCTAssertThrowsError(try LibraryBackupCodec.decode(LibraryBackupCodec.encode(duplicate)))
         var future = document
-        future.version = 2
+        future.version = 99
         XCTAssertThrowsError(try LibraryBackupCodec.decode(LibraryBackupCodec.encode(future)))
         XCTAssertThrowsError(try LibraryBackupCodec.decode(Data("invalid".utf8)))
     }

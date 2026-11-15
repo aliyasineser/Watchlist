@@ -17,7 +17,7 @@ actor WatchLibraryRepositoryImpl: WatchLibraryRepository {
     func load() async throws -> WatchLibraryDocument {
         guard FileManager.default.fileExists(atPath: fileURL.path) else { return WatchLibraryDocument() }
         let document = try JSONDecoder().decode(WatchLibraryDocument.self, from: Data(contentsOf: fileURL))
-        guard document.version == 1 else { throw WatchLibraryError.unsupportedVersion }
+        guard (1...2).contains(document.version) else { throw WatchLibraryError.unsupportedVersion }
         return document
     }
 
