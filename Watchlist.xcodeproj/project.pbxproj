@@ -47,7 +47,7 @@
 		DD00E61928FEC82D00286E63 /* TVSerieDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00E61828FEC82D00286E63 /* TVSerieDetailPresenterTests.swift */; };
 		DD00E61B28FECF8B00286E63 /* MovieDetailPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00E61A28FECF8B00286E63 /* MovieDetailPresenterTests.swift */; };
 		DD00E61D28FED02900286E63 /* MediaReviewPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD00E61C28FED02900286E63 /* MediaReviewPresenterTests.swift */; };
-		DD02ECCD28DF9C7400D230F9 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02ECCC28DF9C7400D230F9 /* FavoritesView.swift */; };
+		DD02ECCD28DF9C7400D230F9 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02ECCC28DF9C7400D230F9 /* LibraryView.swift */; };
 		DD02ECCF28DF9C9D00D230F9 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02ECCE28DF9C9D00D230F9 /* FavoritesPresenter.swift */; };
 		DD02ECD128DF9CE100D230F9 /* FavoritesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD02ECD028DF9CE100D230F9 /* FavoritesInteractor.swift */; };
 		DD045472260A171900DFEFE6 /* WatchlistApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD045471260A171900DFEFE6 /* WatchlistApp.swift */; };
@@ -216,6 +216,17 @@
 		1F16D9B162314B8BABBF37D3 /* GroupChoiceSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD36B35DC614EF38FEC683F /* GroupChoiceSetupView.swift */; };
 		C59329C1B6C548CFB8E3DF8B /* GroupChoiceResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 110DC77C61664AE58E3675BF /* GroupChoiceResultsView.swift */; };
 		72CCA26F62D447DA98E95632 /* GroupChoiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84878E8FAF84B9FA050D889 /* GroupChoiceTests.swift */; };
+		A094A2AFAECA4EEF85CDEAA6 /* ICloudAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C0149D48BD4BBC9CEE46EB /* ICloudAccount.swift */; };
+		12E3ED9F2BA54336A4C491F8 /* ICloudAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F090C99E4B4949999FD51CBD /* ICloudAccountService.swift */; };
+		C4A50C07574F4E6784F05AE1 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3B605B53AC4618AD6338F3 /* AccountPresenter.swift */; };
+		18FE7D0F553F4CA9A0A35D0C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B311287445454F96A70185 /* AccountView.swift */; };
+		43575B3780B749EA97A2722B /* ProviderCatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2061CB2759246E793FFD9A9 /* ProviderCatalogService.swift */; };
+		602339DB0B784B528C0BC706 /* SubscriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1C78BB24E4060BE24E069 /* SubscriptionPresenter.swift */; };
+		216F16D4C87E40B0A3587CCB /* SubscriptionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E04E8A2BF447399404E467 /* SubscriptionSettingsView.swift */; };
+		21207F81241B42588B739614 /* DiscoveryActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70E79EA68BD461397279F2E /* DiscoveryActionsView.swift */; };
+		22408DC1178C4DFEA296C346 /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720FAC593304613BE5723D0 /* AccountTests.swift */; };
+		B882403F522D485EAFBBB1E1 /* SubscriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C129D990F85B48C1AE7C187E /* SubscriptionTests.swift */; };
+		0FDC522F7A6A4E9FA5C338C9 /* AppRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51DC69BFEC84A7D82786C00 /* AppRuntime.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -276,7 +287,7 @@
 		DD00E61828FEC82D00286E63 /* TVSerieDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVSerieDetailPresenterTests.swift; sourceTree = "<group>"; };
 		DD00E61A28FECF8B00286E63 /* MovieDetailPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailPresenterTests.swift; sourceTree = "<group>"; };
 		DD00E61C28FED02900286E63 /* MediaReviewPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaReviewPresenterTests.swift; sourceTree = "<group>"; };
-		DD02ECCC28DF9C7400D230F9 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
+		DD02ECCC28DF9C7400D230F9 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		DD02ECCE28DF9C9D00D230F9 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
 		DD02ECD028DF9CE100D230F9 /* FavoritesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesInteractor.swift; sourceTree = "<group>"; };
 		DD04546E260A171900DFEFE6 /* Watchlist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watchlist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -451,6 +462,17 @@
 		1AD36B35DC614EF38FEC683F /* GroupChoiceSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupChoiceSetupView.swift"; sourceTree = "<group>"; };
 		110DC77C61664AE58E3675BF /* GroupChoiceResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupChoiceResultsView.swift"; sourceTree = "<group>"; };
 		A84878E8FAF84B9FA050D889 /* GroupChoiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GroupChoiceTests.swift"; sourceTree = "<group>"; };
+		86C0149D48BD4BBC9CEE46EB /* ICloudAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICloudAccount.swift"; sourceTree = "<group>"; };
+		F090C99E4B4949999FD51CBD /* ICloudAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICloudAccountService.swift"; sourceTree = "<group>"; };
+		1A3B605B53AC4618AD6338F3 /* AccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountPresenter.swift"; sourceTree = "<group>"; };
+		73B311287445454F96A70185 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountView.swift"; sourceTree = "<group>"; };
+		C2061CB2759246E793FFD9A9 /* ProviderCatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProviderCatalogService.swift"; sourceTree = "<group>"; };
+		93F1C78BB24E4060BE24E069 /* SubscriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubscriptionPresenter.swift"; sourceTree = "<group>"; };
+		F2E04E8A2BF447399404E467 /* SubscriptionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubscriptionSettingsView.swift"; sourceTree = "<group>"; };
+		E70E79EA68BD461397279F2E /* DiscoveryActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscoveryActionsView.swift"; sourceTree = "<group>"; };
+		A720FAC593304613BE5723D0 /* AccountTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountTests.swift"; sourceTree = "<group>"; };
+		C129D990F85B48C1AE7C187E /* SubscriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubscriptionTests.swift"; sourceTree = "<group>"; };
+		E51DC69BFEC84A7D82786C00 /* AppRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppRuntime.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -612,7 +634,6 @@
 		DD02ECC828DF9C3000D230F9 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
-				DD02ECCB28DF9C5800D230F9 /* View */,
 				DD02ECCA28DF9C4600D230F9 /* Interactor */,
 				DD02ECC928DF9C3E00D230F9 /* Presenter */,
 			);
@@ -633,14 +654,6 @@
 				DD02ECD028DF9CE100D230F9 /* FavoritesInteractor.swift */,
 			);
 			path = Interactor;
-			sourceTree = "<group>";
-		};
-		DD02ECCB28DF9C5800D230F9 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				DD02ECCC28DF9C7400D230F9 /* FavoritesView.swift */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		DD045465260A171900DFEFE6 = {
@@ -696,6 +709,7 @@
 				5B37CBD0C24749A7944AE68C /* ContinueWatching */,
 				FD89A0BDA6174D73999B0D24 /* CustomLists */,
 				815EAD32B6234B87BBADC680 /* ChooseTogether */,
+				21DC0DD0F1C74F2983DE0FA5 /* Account */,
 			);
 			path = Watchlist;
 			sourceTree = "<group>";
@@ -742,6 +756,7 @@
 				DDD9513D278123AA009695C2 /* ConstantTexts.swift */,
 				DDB8B9922899BE4500E7F569 /* APIError.swift */,
 				B20F5D4D2AA0406D9E5CF081 /* AppDependencies.swift */,
+				E51DC69BFEC84A7D82786C00 /* AppRuntime.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -850,6 +865,7 @@
 				DD5DE042265D96D500E06B4B /* DiscoverSliceItem.swift */,
 				1E8C1B072665AED900622665 /* DiscoverSlice.swift */,
 				1EB545CB2673DF4B008BDE2A /* ArtistItemView.swift */,
+				E70E79EA68BD461397279F2E /* DiscoveryActionsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1089,6 +1105,8 @@
 				F1AD31234FBB4F5BAD5504DA /* ContinueWatchingTests.swift */,
 				F415B8528FFF4A71B8E8F5E7 /* CustomListTests.swift */,
 				A84878E8FAF84B9FA050D889 /* GroupChoiceTests.swift */,
+				A720FAC593304613BE5723D0 /* AccountTests.swift */,
+				C129D990F85B48C1AE7C187E /* SubscriptionTests.swift */,
 			);
 			path = "CoreTests";
 			sourceTree = "<group>";
@@ -1205,6 +1223,7 @@
 				64F2D2535B574072AB312831 /* SavedArtistsView.swift */,
 				92FDE3D5D269458E9BF5DD76 /* SavedTitleDetailView.swift */,
 				BD78067FF789443F81C8E507 /* WatchStatusControl.swift */,
+				DD02ECCC28DF9C7400D230F9 /* LibraryView.swift */,
 			);
 			path = "View";
 			sourceTree = "<group>";
@@ -1277,6 +1296,7 @@
 			children = (
 				A7A9C6EA353D476189E49FCC /* ProviderLibraryView.swift */,
 				341F171ACCEB4FAAA1B1633E /* AvailabilityView.swift */,
+				F2E04E8A2BF447399404E467 /* SubscriptionSettingsView.swift */,
 			);
 			path = "View";
 			sourceTree = "<group>";
@@ -1285,6 +1305,7 @@
 			isa = PBXGroup;
 			children = (
 				3637950F6E804D27B276FD79 /* WatchProviderService.swift */,
+				C2061CB2759246E793FFD9A9 /* ProviderCatalogService.swift */,
 			);
 			path = "Service";
 			sourceTree = "<group>";
@@ -1302,6 +1323,7 @@
 			children = (
 				A72FAE7D40954B818A9F6FC0 /* ProviderLibraryPresenter.swift */,
 				982550CCF93748D69BBD0EB0 /* ProviderPreferences.swift */,
+				93F1C78BB24E4060BE24E069 /* SubscriptionPresenter.swift */,
 			);
 			path = "Presenter";
 			sourceTree = "<group>";
@@ -1468,6 +1490,49 @@
 			path = "Presenter";
 			sourceTree = "<group>";
 		};
+		21DC0DD0F1C74F2983DE0FA5 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				83AD30C4BC2B4CA5A11DB50F /* Presenter */,
+				0AA086336A5C43D0940D13C5 /* Entity */,
+				9523ABAADB584EF1AD9B5277 /* View */,
+				6268A6702C9D4B8A9DD4B033 /* Service */,
+			);
+			path = "Account";
+			sourceTree = "<group>";
+		};
+		83AD30C4BC2B4CA5A11DB50F /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				1A3B605B53AC4618AD6338F3 /* AccountPresenter.swift */,
+			);
+			path = "Presenter";
+			sourceTree = "<group>";
+		};
+		0AA086336A5C43D0940D13C5 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				86C0149D48BD4BBC9CEE46EB /* ICloudAccount.swift */,
+			);
+			path = "Entity";
+			sourceTree = "<group>";
+		};
+		9523ABAADB584EF1AD9B5277 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				73B311287445454F96A70185 /* AccountView.swift */,
+			);
+			path = "View";
+			sourceTree = "<group>";
+		};
+		6268A6702C9D4B8A9DD4B033 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F090C99E4B4949999FD51CBD /* ICloudAccountService.swift */,
+			);
+			path = "Service";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1625,6 +1690,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FDC522F7A6A4E9FA5C338C9 /* AppRuntime.swift in Sources */,
+				21207F81241B42588B739614 /* DiscoveryActionsView.swift in Sources */,
+				216F16D4C87E40B0A3587CCB /* SubscriptionSettingsView.swift in Sources */,
+				602339DB0B784B528C0BC706 /* SubscriptionPresenter.swift in Sources */,
+				43575B3780B749EA97A2722B /* ProviderCatalogService.swift in Sources */,
+				18FE7D0F553F4CA9A0A35D0C /* AccountView.swift in Sources */,
+				C4A50C07574F4E6784F05AE1 /* AccountPresenter.swift in Sources */,
+				12E3ED9F2BA54336A4C491F8 /* ICloudAccountService.swift in Sources */,
+				A094A2AFAECA4EEF85CDEAA6 /* ICloudAccount.swift in Sources */,
 				C59329C1B6C548CFB8E3DF8B /* GroupChoiceResultsView.swift in Sources */,
 				1F16D9B162314B8BABBF37D3 /* GroupChoiceSetupView.swift in Sources */,
 				3F3C1B71DBAB4F3A874A7D3A /* ChooseTogetherView.swift in Sources */,
@@ -1715,7 +1789,7 @@
 				DDB8B9832896E01800E7F569 /* Watchable.swift in Sources */,
 				DD1B3EBB28E9B2BD001F0C91 /* TVSerieCommon.swift in Sources */,
 				DD4B3A7428E11431007308F5 /* MediaHeaderView.swift in Sources */,
-				DD02ECCD28DF9C7400D230F9 /* FavoritesView.swift in Sources */,
+				DD02ECCD28DF9C7400D230F9 /* LibraryView.swift in Sources */,
 				1E0AA5A726C41DDD00B3C7F5 /* MediaCastView.swift in Sources */,
 				DD1B3EC128E9C1EA001F0C91 /* MediaSimilarPresenter.swift in Sources */,
 				DD04547B260A171C00DFEFE6 /* Persistence.swift in Sources */,
@@ -1797,6 +1871,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B882403F522D485EAFBBB1E1 /* SubscriptionTests.swift in Sources */,
+				22408DC1178C4DFEA296C346 /* AccountTests.swift in Sources */,
 				72CCA26F62D447DA98E95632 /* GroupChoiceTests.swift in Sources */,
 				EFD0F72F1A434C3CBED99977 /* CustomListTests.swift in Sources */,
 				2405EB0D18BD4B0696538635 /* ContinueWatchingTests.swift in Sources */,

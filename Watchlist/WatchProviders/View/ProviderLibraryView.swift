@@ -10,7 +10,7 @@ struct ProviderLibraryView: View {
                 Text("Unwatched titles included in your saved subscriptions. Checked in batches of 20.")
                     .font(.footnote).foregroundStyle(.secondary)
                 if presenter.preferences.subscriptions.isEmpty {
-                    Text("Open Where to watch on a title and star your subscription services first.")
+                    Text("Choose your services in Account → My streaming services first.")
                 }
                 if presenter.hasStaleData { Text("Some results use saved availability. Pull to check again.") }
                 if presenter.failures > 0 {
@@ -33,7 +33,7 @@ struct ProviderLibraryView: View {
             Text("\(presenter.checked) titles checked · Streaming data by JustWatch")
                 .font(.footnote).foregroundStyle(.secondary)
         }
-        .navigationTitle("My streaming services")
+        .navigationTitle("Available to watch")
         .navigationBarTitleDisplayMode(.inline)
         .task(id: presenter.taskID) { await presenter.reset() }
         .refreshable { await presenter.reset(force: true) }

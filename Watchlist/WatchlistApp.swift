@@ -11,7 +11,7 @@ import SwiftUI
 struct WatchlistApp: App {
     private var dependencies: AppDependencies {
         #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("--ui-testing") {
+        if AppRuntime.usesTestDependencies {
             return UITestAppDependencies()
         }
         #endif
@@ -20,7 +20,7 @@ struct WatchlistApp: App {
 
     private var isUITesting: Bool {
         #if DEBUG
-        ProcessInfo.processInfo.arguments.contains("--ui-testing")
+        AppRuntime.usesTestDependencies
         #else
         false
         #endif

@@ -37,7 +37,15 @@ final class LibraryTransferPresenterImpl {
             }
             lastSync = .now
             preferences.set(lastSync, forKey: "library.lastSync")
-        } catch is CancellationError { } catch { self.error = error }
+        } catch is CancellationError { } catch {
+            self.error = error
+            if let accountError = error as? ICloudAccountError {
+                switch accountError {
+                case .changed, .confirmationRequired: syncEnabled = false
+                case .unavailable: break
+                }
+            }
+        }
     }
 
     func previewImport(_ url: URL) async {

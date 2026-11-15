@@ -7,17 +7,24 @@ final class ProviderPreferencesImpl {
     static let shared = ProviderPreferencesImpl()
     var region: String { didSet { defaults.set(region, forKey: "providers.region") } }
     var subscriptions: Set<Int> { didSet { defaults.set(subscriptions.sorted(), forKey: "providers.subscriptions") } }
+    private(set) var providerNames: [String: String]
     private let defaults: UserDefaults
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         region = defaults.string(forKey: "providers.region") ?? Locale.current.region?.identifier ?? "US"
         subscriptions = Set(defaults.array(forKey: "providers.subscriptions") as? [Int] ?? [])
+        providerNames = defaults.dictionary(forKey: "providers.names") as? [String: String] ?? [:]
     }
     var taskID: String { region + subscriptions.sorted().map(String.init).joined(separator: ",") }
     var countryName: String { Locale.current.localizedString(forRegionCode: region) ?? region }
-    func toggle(_ id: Int) {
+    func toggle(_ id: Int, name: String? = nil) {
+        if let name { providerNames[String(id)] = name; defaults.set(providerNames, forKey: "providers.names") }
         if !subscriptions.insert(id).inserted { subscriptions.remove(id) }
+    }
+    func remember(_ providers: [WatchProvider]) {
+        for provider in providers { providerNames[String(provider.id)] = provider.name }
+        defaults.set(providerNames, forKey: "providers.names")
     }
 }
 
