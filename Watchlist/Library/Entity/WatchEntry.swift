@@ -57,10 +57,11 @@ struct WatchEntry: Codable, Identifiable, Equatable, Sendable {
     var id: String { title.id }
 }
 
-struct WatchLibraryDocument: Codable, Sendable {
+struct WatchLibraryDocument: Codable, Equatable, Sendable {
     var version = 1
     var importedFavorites = false
     var entries: [WatchEntry] = []
+    var deletedTitles: [String: Date]?
 }
 
 enum LibrarySort: String, CaseIterable, Identifiable {

@@ -36,13 +36,17 @@ struct DashboardView: View {
     @State private var discoverPresenter: DiscoverDefaultPresenter
     @State private var artistPresenter: ArtistDefaultPresenter
     @State private var libraryStore: WatchLibraryStoreImpl
+    @State private var transfer: LibraryTransferPresenterImpl
+    @Environment(\.scenePhase) private var scenePhase
 
     init(dependencies: AppDependencies? = nil) {
         let dependencies = dependencies ?? AppDependenciesImpl()
         _searchPresenter = State(initialValue: dependencies.makeSearchPresenter())
         _discoverPresenter = State(initialValue: dependencies.makeDiscoverPresenter())
         _artistPresenter = State(initialValue: dependencies.makeArtistPresenter())
-        _libraryStore = State(initialValue: dependencies.makeWatchLibraryStore())
+        let store = dependencies.makeWatchLibraryStore()
+        _libraryStore = State(initialValue: store)
+        _transfer = State(initialValue: dependencies.makeTransferPresenter(store: store))
     }
 
     var body: some View {
@@ -57,8 +61,17 @@ struct DashboardView: View {
                 ArtistsView(presenter: artistPresenter)
             }
             Tab("Favorites", systemImage: Icons.TabBar.favorites.rawValue, value: .favorites) {
-                FavoritesView(store: libraryStore)
+                FavoritesView(store: libraryStore, transfer: transfer)
             }
+        }
+        .task(id: libraryStore.revision) {
+            await libraryStore.load()
+            guard transfer.syncEnabled else { return }
+            do { try await Task.sleep(for: .seconds(2)) } catch { return }
+            await transfer.sync()
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { Task { await transfer.sync() } }
         }
     }
 }

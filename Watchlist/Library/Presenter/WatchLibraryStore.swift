@@ -24,7 +24,8 @@ final class WatchLibraryStoreImpl {
     private(set) var isSaving = false
     private(set) var artworkRevision = 0
     var error: Error?
-    private var document = WatchLibraryDocument()
+    private(set) var document = WatchLibraryDocument()
+    private(set) var revision = 0
     @ObservationIgnored private var saveWaiters: [CheckedContinuation<Void, Never>] = []
     private let repository: WatchLibraryRepository
     private let artwork: ArtworkCache
@@ -61,6 +62,7 @@ final class WatchLibraryStoreImpl {
             }
             document = loaded
             entries = loaded.entries
+            revision += 1
             isLoaded = true
             retryArtwork()
         } catch {
@@ -162,14 +164,42 @@ final class WatchLibraryStoreImpl {
         do {
             var updated = document
             try change(&updated.entries)
+            let remaining = Set(updated.entries.map(\.id))
+            var deleted = updated.deletedTitles ?? [:]
+            for entry in document.entries where !remaining.contains(entry.id) { deleted[entry.id] = .now }
+            for entry in updated.entries { deleted[entry.id] = nil }
+            updated.deletedTitles = deleted
             try await repository.save(updated)
             document = updated
             entries = updated.entries
+            revision += 1
             return true
         } catch {
             if reportError { self.error = error }
             return false
         }
+    }
+
+    func installDocument(_ incoming: WatchLibraryDocument, expected: WatchLibraryDocument) async -> Bool {
+        guard isLoaded, !isSaving, document == expected else {
+            error = LibraryTransferError.changedDuringSync
+            return false
+        }
+        if incoming == document { return true }
+        isSaving = true
+        defer {
+            isSaving = false
+            let waiters = saveWaiters
+            saveWaiters.removeAll()
+            for waiter in waiters { waiter.resume() }
+        }
+        do {
+            try await repository.save(incoming)
+            document = incoming
+            entries = incoming.entries
+            revision += 1
+            return true
+        } catch { self.error = error; return false }
     }
 
     func resetMetadataFailures() { metadataLoader?.resetFailures() }

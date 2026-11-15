@@ -53,6 +53,15 @@ struct SeriesProgress: Codable, Equatable, Sendable {
     var seasons: [EpisodeSeason] = []
     var watchedIDs: Set<String> = []
 
+    enum CodingKeys: String, CodingKey { case catalog, seasons, watchedIDs }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(catalog.sorted { $0.seasonNumber < $1.seasonNumber }, forKey: .catalog)
+        try container.encode(seasons.sorted { $0.seasonNumber < $1.seasonNumber }, forKey: .seasons)
+        try container.encode(watchedIDs.sorted(), forKey: .watchedIDs)
+    }
+
     func nextEpisode(on date: Date) -> EpisodeRecord? {
         seasons.flatMap(\.episodes)
             .filter { $0.seasonNumber > 0 && $0.hasAired(on: date) && !watchedIDs.contains($0.id) }
