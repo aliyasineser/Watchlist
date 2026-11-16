@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SearchView: View {
     @State var presenter: SearchPresenterImpl
+    var artistPresenter: ArtistDefaultPresenter?
 
     var body: some View {
         NavigationStack {
@@ -14,6 +15,16 @@ struct SearchView: View {
                     }
                     .pickerStyle(.segmented)
                     if presenter.normalizedQuery.isEmpty {
+                        if let artistPresenter {
+                            NavigationLink {
+                                ArtistsView(presenter: artistPresenter)
+                            } label: {
+                                Label("Browse popular artists", systemImage: "person.2")
+                                    .font(.subheadline.weight(.semibold))
+                                    .frame(maxWidth: .infinity, minHeight: 48, alignment: .leading)
+                            }
+                            .accessibilityIdentifier("search.browseArtists")
+                        }
                         recentSearches
                     } else {
                         ForEach(presenter.results) { result in

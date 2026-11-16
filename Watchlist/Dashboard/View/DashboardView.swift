@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import CloudKit
+import Combine
 
 enum TabViewSection: Hashable {
     case discover
@@ -13,6 +15,8 @@ enum TabViewSection: Hashable {
     case favorites
     case auth
     case search
+    case upcoming
+    case account
 
     var tag: Int {
         switch self {
@@ -26,6 +30,10 @@ enum TabViewSection: Hashable {
             return 3
         case .search:
             return 4
+        case .upcoming:
+            return 5
+        case .account:
+            return 6
         }
     }
 }
@@ -39,6 +47,8 @@ struct DashboardView: View {
     @State private var transfer: LibraryTransferPresenterImpl
     @State private var upcoming: UpcomingPresenterImpl
     @State private var continueWatching: ContinueWatchingPresenterImpl
+    @State private var accountPresenter: AccountPresenterImpl
+    @State private var providers: ProviderLibraryPresenterImpl
     @Environment(\.scenePhase) private var scenePhase
 
     init(dependencies: AppDependencies? = nil) {
@@ -48,7 +58,13 @@ struct DashboardView: View {
         _artistPresenter = State(initialValue: dependencies.makeArtistPresenter())
         let store = dependencies.makeWatchLibraryStore()
         _libraryStore = State(initialValue: store)
-        _transfer = State(initialValue: dependencies.makeTransferPresenter(store: store))
+        let transfer = dependencies.makeTransferPresenter(store: store)
+        let account = dependencies.makeAccountPresenter(transfer: transfer)
+        _transfer = State(initialValue: transfer)
+        _accountPresenter = State(initialValue: account)
+        _providers = State(initialValue: dependencies.makeProviderLibraryPresenter(
+            store: store, preferences: account.providerPreferences
+        ))
         _upcoming = State(initialValue: dependencies.makeUpcomingPresenter(store: store))
         _continueWatching = State(initialValue: ContinueWatchingPresenterImpl(store: store))
     }
@@ -59,13 +75,16 @@ struct DashboardView: View {
                 DiscoverView(presenter: discoverPresenter, continueWatching: continueWatching)
             }
             Tab("Search", systemImage: "magnifyingglass", value: .search) {
-                SearchView(presenter: searchPresenter)
+                SearchView(presenter: searchPresenter, artistPresenter: artistPresenter)
             }
-            Tab("Artists", systemImage: Icons.TabBar.artist.rawValue, value: .artists) {
-                ArtistsView(presenter: artistPresenter)
+            Tab("Library", systemImage: "rectangle.stack.fill", value: .favorites) {
+                LibraryView(store: libraryStore, providers: providers)
             }
-            Tab("Favorites", systemImage: Icons.TabBar.favorites.rawValue, value: .favorites) {
-                FavoritesView(store: libraryStore, transfer: transfer, upcoming: upcoming)
+            Tab("Upcoming", systemImage: "calendar", value: .upcoming) {
+                NavigationStack { UpcomingView(presenter: upcoming) }
+            }
+            Tab("Settings", systemImage: "gearshape.fill", value: .account) {
+                NavigationStack { SettingsView(presenter: accountPresenter) }
             }
         }
         .task(id: libraryStore.revision) {
@@ -75,15 +94,22 @@ struct DashboardView: View {
             do { try await Task.sleep(for: .seconds(2)) } catch { return }
             await transfer.sync()
         }
+        .onReceive(NotificationCenter.default.publisher(for: .CKAccountChanged)) { _ in
+            if transfer.syncEnabled || selectedTab == .account { Task { await accountPresenter.refresh() } }
+        }
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {
-                Task { await reconcileReminders(); await transfer.sync() }
+                Task {
+                    if transfer.syncEnabled || selectedTab == .account { await accountPresenter.refresh() }
+                    await reconcileReminders()
+                    await transfer.sync()
+                }
             }
         }
     }
     private func reconcileReminders() async {
         #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("--ui-testing") { return }
+        if AppRuntime.usesTestDependencies { return }
         #endif
         await ReleaseRemindersImpl.shared.reconcile(store: libraryStore)
     }

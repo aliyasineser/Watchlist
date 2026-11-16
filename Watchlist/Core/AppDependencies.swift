@@ -9,10 +9,26 @@ protocol AppDependencies {
     func makeTransferPresenter(store: WatchLibraryStoreImpl) -> LibraryTransferPresenterImpl
     func makeUpcomingPresenter(store: WatchLibraryStoreImpl) -> UpcomingPresenterImpl
     func makeArtistPresenter() -> ArtistDefaultPresenter
+    func makeAccountPresenter(transfer: LibraryTransferPresenterImpl) -> AccountPresenterImpl
+    func makeProviderLibraryPresenter(
+        store: WatchLibraryStoreImpl, preferences: ProviderPreferencesImpl
+    ) -> ProviderLibraryPresenterImpl
 }
 
 @MainActor
 struct AppDependenciesImpl: AppDependencies {
+    func makeAccountPresenter(transfer: LibraryTransferPresenterImpl) -> AccountPresenterImpl {
+        let preferences = ProviderPreferencesImpl.shared
+        let subscriptions = SubscriptionPresenterImpl(preferences: preferences, service: ProviderCatalogServiceImpl())
+        return AccountPresenterImpl(transfer: transfer, service: ICloudAccountServiceImpl.shared,
+                                    providerPreferences: preferences, subscriptions: subscriptions)
+    }
+    func makeProviderLibraryPresenter(
+        store: WatchLibraryStoreImpl, preferences: ProviderPreferencesImpl
+    ) -> ProviderLibraryPresenterImpl {
+        ProviderLibraryPresenterImpl(store: store, preferences: preferences)
+    }
+
     func makeUpcomingPresenter(store: WatchLibraryStoreImpl) -> UpcomingPresenterImpl {
         UpcomingPresenterImpl(store: store)
     }
@@ -41,6 +57,21 @@ struct AppDependenciesImpl: AppDependencies {
 /// Offline root features keep navigation smoke tests independent of TMDB and local favorites.
 @MainActor
 struct UITestAppDependencies: AppDependencies {
+    func makeAccountPresenter(transfer: LibraryTransferPresenterImpl) -> AccountPresenterImpl {
+        let defaults = UserDefaults(suiteName: "WatchlistUITests.account") ?? .standard
+        defaults.removePersistentDomain(forName: "WatchlistUITests.account")
+        let preferences = ProviderPreferencesImpl(defaults: defaults)
+        preferences.region = "DE"
+        let subscriptions = SubscriptionPresenterImpl(preferences: preferences, service: OfflineProviderCatalog())
+        return AccountPresenterImpl(transfer: transfer, service: OfflineICloudAccount(),
+                                    providerPreferences: preferences, subscriptions: subscriptions)
+    }
+    func makeProviderLibraryPresenter(
+        store: WatchLibraryStoreImpl, preferences: ProviderPreferencesImpl
+    ) -> ProviderLibraryPresenterImpl {
+        ProviderLibraryPresenterImpl(store: store, preferences: preferences, service: OfflineProviderAvailability())
+    }
+
     func makeUpcomingPresenter(store: WatchLibraryStoreImpl) -> UpcomingPresenterImpl {
         let preferences = UserDefaults(suiteName: "WatchlistUITests.reminders") ?? .standard
         preferences.removePersistentDomain(forName: "WatchlistUITests.reminders")
@@ -79,6 +110,31 @@ struct UITestAppDependencies: AppDependencies {
         ArtistDefaultPresenter(EmptyArtistInteractor())
     }
 
+}
+
+private actor OfflineICloudAccount: ICloudAccountService {
+    private var confirmed = !ProcessInfo.processInfo.arguments.contains("--ui-testing-icloud-confirm")
+    func snapshot() async throws -> ICloudAccountSnapshot {
+        if ProcessInfo.processInfo.arguments.contains("--ui-testing-icloud-signed-out") {
+            return ICloudAccountSnapshot(connection: .signedOut, identifier: nil, needsConfirmation: false)
+        }
+        return ICloudAccountSnapshot(connection: .available, identifier: "fixture-account",
+                                     needsConfirmation: !confirmed)
+    }
+    func confirmAccount(_ expectedIdentifier: String) async throws { confirmed = true }
+    func validatedIdentifier() async throws -> String { "fixture-account" }
+}
+
+private struct OfflineProviderCatalog: ProviderCatalogService {
+    func providers(region: String, force: Bool) async throws -> ProviderCatalog {
+        ProviderCatalog(providers: [WatchProvider(id: 8, name: "Example service", logoPath: nil)], isStale: false)
+    }
+}
+
+private struct OfflineProviderAvailability: WatchProviderService {
+    func availability(for title: SavedTitle, force: Bool) async throws -> WatchAvailability {
+        WatchAvailability(response: ProviderResponse(results: [:]), fetchedAt: .now, isStale: false)
+    }
 }
 
 private struct OfflineLibraryCloudService: LibraryCloudService {

@@ -23,18 +23,6 @@ struct LibraryTransferView: View {
 
     var body: some View {
         Form {
-            Section("iCloud sync") {
-                Toggle("Sync this library with iCloud", isOn: $presenter.syncEnabled)
-                Text("Saved titles, custom lists, ratings and episode progress "
-                     + "sync through your private iCloud account.")
-                    .font(.footnote).foregroundStyle(.secondary)
-                Text("If the same title or list changes on two devices, its latest edit wins. "
-                     + "Keep device clocks accurate.")
-                    .font(.footnote).foregroundStyle(.secondary)
-                if let last = presenter.lastSync { Text("Last synced: \(last.formatted())").font(.footnote) }
-                Button(presenter.isSyncing ? "Syncing…" : "Sync now") { Task { await presenter.sync() } }
-                    .disabled(!presenter.syncEnabled || presenter.isSyncing || !presenter.store.isLoaded)
-            }
             Section("Library backup") {
                 Text("Export includes saved titles, lists, ratings and episode progress. "
                      + "Artist favorites stay on this device.")
@@ -49,7 +37,7 @@ struct LibraryTransferView: View {
             }
             .disabled(!presenter.store.isLoaded || presenter.store.isSaving)
         }
-        .navigationTitle("Backup & sync")
+        .navigationTitle("Backup")
         .navigationBarTitleDisplayMode(.inline)
         .fileExporter(
             isPresented: $exporting, document: export, contentType: .json, defaultFilename: "Watchlist-backup"
@@ -77,9 +65,6 @@ struct LibraryTransferView: View {
             Text("Latest title/list edits and deletions win. Existing items absent from the backup are kept.")
         }
         .errorAlert(error: $presenter.error)
-        .onChange(of: presenter.syncEnabled) { _, enabled in
-            if enabled { Task { await presenter.sync() } }
-        }
         .task { await presenter.store.load() }
     }
 }

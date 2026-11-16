@@ -78,7 +78,7 @@ struct AvailabilityView: View {
                         Text(provider.name)
                         Spacer()
                         Button {
-                            presenter.preferences.toggle(provider.id)
+                            presenter.preferences.toggle(provider.id, name: provider.name)
                         } label: {
                             Image(systemName: presenter.preferences.subscriptions.contains(provider.id)
                                   ? "star.fill" : "star")

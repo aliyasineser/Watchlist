@@ -31,7 +31,7 @@ struct SavedArtistsView: View {
 
     private func load() {
         #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains("--ui-testing") { return }
+        if AppRuntime.usesTestDependencies { return }
         #endif
         do {
             artists = try FavoriteArtistStorage.shared.fetchArtists().map {

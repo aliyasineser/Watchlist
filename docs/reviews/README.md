@@ -1,36 +1,27 @@
-# Stacked feature review
+# Current review
 
-Main at `a1cb59f` includes features 01–09 and their fixes. The new stack starts from
-that merged commit. Compare each branch against its listed base to review one
-feature at a time, then merge in this order.
+Main at 8008307 includes features 01–12. The active review is
+`feature/13-navigation-and-icloud-account`, based on that commit:
+[Navigation and iCloud Account review](13-navigation-and-icloud-account.md).
 
-| Order | Branch | Base | Review notes |
-| --- | --- | --- | --- |
-| 1 | `feature/10-continue-watching` | `main` | [Continue watching](10-continue-watching.md) |
-| 2 | `feature/11-custom-lists` | `feature/10-continue-watching` | [Custom lists](11-custom-lists.md) |
-| 3 | `feature/12-choose-together` | `feature/11-custom-lists` | [Choose together](12-choose-together.md) |
+The user chose system iCloud account persistence rather than a separate app login.
+Discover, Search, Library, Upcoming and Settings now have distinct responsibilities.
+Existing sync requires a one-time iCloud identity confirmation after this upgrade;
+new/different accounts require confirmation before merging local data. Existing
+CloudKit provisioning still applies. Local data is retained if sync is unavailable. Settings explains local-only use,
+optional sync, retry/recovery and backup without registration. Backend accounts
+are deliberately deferred.
 
-These new branches are local and unmerged. Preserve commits using fast-forward or
-merge commits; squash merging requires rebasing subsequent branches. Retarget the
-next PR after merging its base. No dependencies, signing settings or entitlements
-changed in this stack. Xcode groups match the folders on disk.
+Run `Scripts/test.sh` or PR CI before merging. Review the five-tab navigation, all
+moved tools, card spacing, dark/large-text screenshot attachments, offline flows
+and signed-device account changes. Local static checks are not full compilation,
+runtime execution or visual approval. Xcode/SwiftPM cache permissions and
+CoreSimulator remain blocked in the editing sandbox.
 
-Review offline Continue watching check-off/undo first, then list membership/notes/
-order, and finally a complete pass-the-phone round including no-match outcomes.
-List creation upgrades the library to schema 2; new builds accept schema 1 and 2.
-Older builds reject schema 2 instead of stripping list data. Back up before testing
-migrations or downgrading. Lists join the existing export/import/iCloud flow; votes
-do not. The existing iCloud provisioning requirements still apply.
-
-Run `Scripts/test.sh` on each branch, or open PRs for the existing GitHub Actions
-workflow. Inspect xcresult, logs and coverage artifacts. Local static checks cover
-all Swift syntax, strict app lint, new test line lengths, project paths and git
-whitespace. Supplemental model/service typechecks exclude macro expansion and
-Core Data composition. Full Xcode build and simulator tests remain blocked by
-sandbox cache/CoreSimulator restrictions; no runtime pass or coverage is claimed.
-
-Previous reviews: [Reliability](01-reliability.md), [Search](02-search.md),
-[Watch library](03-watch-tracking.md), [Release checks](04-release-checks.md),
-[Watch tonight](05-watch-tonight.md), [Episode progress](06-episode-progress.md),
-[Backup/sync](07-library-backup-sync.md), [Providers](08-where-to-watch.md),
-[Upcoming](09-upcoming-reminders.md).
+Prior reviews:
+- [Continue watching](10-continue-watching.md)
+- [Custom lists](11-custom-lists.md)
+- [Choose together](12-choose-together.md)
+- [Backup and sync](07-library-backup-sync.md)
+- [Where to watch](08-where-to-watch.md)
+- [Upcoming](09-upcoming-reminders.md)

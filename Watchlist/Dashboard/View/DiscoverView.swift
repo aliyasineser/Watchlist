@@ -14,6 +14,7 @@ struct DiscoverView: View {
                         .padding(.horizontal, 20)
                     if let continueWatching {
                         ContinueWatchingView(presenter: continueWatching)
+                        DiscoveryActionsView(store: continueWatching.store)
                     }
                     if let featured = presenter.popularMovies.first {
                         featuredCard(featured)
@@ -61,7 +62,11 @@ struct DiscoverView: View {
                             section: .topRatedSeries
                         )
                     }
-                    if presenter.isLoading {
+                    if let error = presenter.fetchError, !presenter.isLoading {
+                        LoadStateView(isLoading: false, hasContent: !isEmpty, error: error,
+                                      retry: { await presenter.fetchMedia() })
+                            .padding(.horizontal, 20)
+                    } else if presenter.isLoading {
                         ProgressView("Finding something great…")
                             .frame(maxWidth: .infinity)
                     } else if isEmpty && continueWatching?.items.isEmpty != false {
@@ -80,7 +85,6 @@ struct DiscoverView: View {
             .background(Color(.systemGroupedBackground))
             .navigationTitle("Discover")
             .task { if isEmpty { await presenter.fetchMedia() } }
-            .errorAlert(error: $presenter.fetchError)
         }
     }
 

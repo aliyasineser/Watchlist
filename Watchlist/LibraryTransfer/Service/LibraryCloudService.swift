@@ -6,13 +6,14 @@ protocol LibraryCloudService: Sendable {
 }
 
 actor LibraryCloudServiceImpl: LibraryCloudService {
-    private let container = CKContainer(identifier: "iCloud.com.yeser.Watchlist")
+    private let container = CKContainer(identifier: ICloudAccountServiceImpl.containerIdentifier)
+    private let account: ICloudAccountService
+
+    init(account: ICloudAccountService = ICloudAccountServiceImpl.shared) { self.account = account }
     private let recordID = CKRecord.ID(recordName: "personal-library")
 
     func exchange(_ local: WatchLibraryDocument) async throws -> WatchLibraryDocument {
-        guard try await container.accountStatus() == .available else {
-            throw LibraryTransferError.accountUnavailable
-        }
+        let identity = try await account.validatedIdentifier()
         let database = container.privateCloudDatabase
         for _ in 0..<3 {
             try Task.checkCancellation()
@@ -29,6 +30,7 @@ actor LibraryCloudServiceImpl: LibraryCloudService {
             defer { try? FileManager.default.removeItem(at: url) }
             record["library"] = CKAsset(fileURL: url)
             do {
+                guard try await account.validatedIdentifier() == identity else { throw ICloudAccountError.changed }
                 _ = try await database.save(record)
                 return merged
             } catch let error as CKError where error.code == .serverRecordChanged {

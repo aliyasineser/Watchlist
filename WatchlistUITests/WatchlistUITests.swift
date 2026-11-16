@@ -13,10 +13,10 @@ final class WatchlistUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["Discover"].waitForExistence(timeout: 5))
         app.tabBars.buttons["Search"].tap()
         XCTAssertTrue(app.navigationBars["Search"].waitForExistence(timeout: 5))
-        app.tabBars.buttons["Artists"].tap()
+        app.buttons["search.browseArtists"].tap()
         XCTAssertTrue(app.navigationBars["Artists"].waitForExistence(timeout: 5))
-        app.tabBars.buttons["Favorites"].tap()
-        XCTAssertTrue(app.navigationBars["Favorites"].waitForExistence(timeout: 5))
+        app.tabBars.buttons["Library"].tap()
+        XCTAssertTrue(app.navigationBars["Library"].waitForExistence(timeout: 5))
         app.tabBars.buttons["Discover"].tap()
         XCTAssertTrue(app.navigationBars["Discover"].exists)
     }
@@ -37,8 +37,8 @@ final class WatchlistUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]
         app.launch()
-        app.tabBars.buttons["Favorites"].tap()
-        app.buttons["library.lists"].tap()
+        app.tabBars.buttons["Library"].tap()
+        app.segmentedControls["library.section"].buttons["Lists"].tap()
         app.buttons["lists.create"].tap()
         let name = app.textFields["lists.name"]
         XCTAssertTrue(name.waitForExistence(timeout: 5))
@@ -60,7 +60,7 @@ final class WatchlistUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]
         app.launch()
-        app.tabBars.buttons["Favorites"].tap()
+        app.tabBars.buttons["Discover"].tap()
         let together = app.buttons["library.together"]
         if !together.isHittable { app.swipeUp() }
         together.tap()
@@ -89,22 +89,30 @@ final class WatchlistUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing"]
         app.launch()
-        app.tabBars.buttons["Favorites"].tap()
+        app.tabBars.buttons["Library"].tap()
         XCTAssertTrue(app.staticTexts["No saved titles yet"].waitForExistence(timeout: 5))
     }
 
-    func testLibraryToolsNavigateWithoutNetworkOrNotificationPrompts() {
+    func testToolsLiveInTheirNewHomesWithoutNetworkOrPermissionPrompts() {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing"]
         app.launch()
-        app.tabBars.buttons["Favorites"].tap()
-        app.buttons["library.backup"].tap()
-        XCTAssertTrue(app.navigationBars["Backup & sync"].waitForExistence(timeout: 5))
+        app.tabBars.buttons["Settings"].tap()
+        let backup = app.buttons["library.backup"]
+        for _ in 0..<5 where !backup.isHittable { app.swipeUp() }
+        backup.tap()
+        XCTAssertTrue(app.navigationBars["Backup"].waitForExistence(timeout: 5))
         app.navigationBars.buttons.element(boundBy: 0).tap()
-        app.buttons["library.providers"].tap()
+        let services = app.buttons["account.services"]
+        for _ in 0..<5 where !services.isHittable { app.swipeUp() }
+        services.tap()
         XCTAssertTrue(app.navigationBars["My streaming services"].waitForExistence(timeout: 5))
-        app.navigationBars.buttons.element(boundBy: 0).tap()
-        app.buttons["library.upcoming"].tap()
+        app.tabBars.buttons["Library"].tap()
+        XCTAssertFalse(app.buttons["library.tonight"].exists)
+        XCTAssertFalse(app.buttons["library.together"].exists)
+        app.buttons["library.providers"].tap()
+        XCTAssertTrue(app.navigationBars["Available to watch"].waitForExistence(timeout: 5))
+        app.tabBars.buttons["Upcoming"].tap()
         XCTAssertTrue(app.navigationBars["Upcoming"].waitForExistence(timeout: 5))
         let hideTitles = app.switches["Hide titles in notifications"]
         XCTAssertTrue(hideTitles.waitForExistence(timeout: 5))
@@ -115,11 +123,86 @@ final class WatchlistUITests: XCTestCase {
         XCTAssertFalse(app.alerts.firstMatch.exists)
     }
 
+    func testICloudRequiresExplicitConfirmationBeforeSync() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--ui-testing-icloud-confirm"]
+        app.launch()
+        app.tabBars.buttons["Settings"].tap()
+        XCTAssertTrue(app.staticTexts["Saved on this device"].waitForExistence(timeout: 5))
+        let sync = app.switches["account.sync"]
+        let ready = expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: sync)
+        wait(for: [ready], timeout: 5)
+        sync.tap()
+        let confirm = app.buttons["Merge my library with this iCloud account"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
+        confirm.tap()
+        let enabled = expectation(for: NSPredicate(format: "value == %@", "1"), evaluatedWith: sync)
+        wait(for: [enabled], timeout: 5)
+    }
+
+    func testSignedOutICloudShowsSystemAccountGuidance() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--ui-testing-icloud-signed-out"]
+        app.launch()
+        app.tabBars.buttons["Settings"].tap()
+        XCTAssertTrue(app.staticTexts["Saved on this device"].waitForExistence(timeout: 5))
+        app.buttons["How iCloud sync works"].tap()
+        XCTAssertTrue(app.staticTexts["Sign in to iCloud"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.switches["account.sync"].value as? String, "0")
+    }
+
+    func testSettingsExplainsLocalUseAndCanTurnSyncOffAfterConfirmation() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--ui-testing-icloud-confirm"]
+        app.launch()
+        app.tabBars.buttons["Settings"].tap()
+        XCTAssertTrue(app.staticTexts["Saved on this device"].waitForExistence(timeout: 5))
+        let status = app.descendants(matching: .any).matching(identifier: "settings.syncStatus").firstMatch
+        let off = expectation(for: NSPredicate(format: "label CONTAINS %@", "Off"), evaluatedWith: status)
+        wait(for: [off], timeout: 5)
+        let sync = app.switches["account.sync"]
+        let ready = expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: sync)
+        wait(for: [ready], timeout: 5)
+        sync.tap()
+        let confirm = app.buttons["Merge my library with this iCloud account"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
+        confirm.tap()
+        let updated = expectation(for: NSPredicate(format: "label CONTAINS %@", "Up to date"), evaluatedWith: status)
+        wait(for: [updated], timeout: 5)
+        sync.tap()
+        let disabled = expectation(for: NSPredicate(format: "value == %@", "0"), evaluatedWith: sync)
+        wait(for: [disabled], timeout: 5)
+        XCTAssertTrue(app.staticTexts["Saved on this device"].exists)
+        XCTAssertFalse(app.alerts.firstMatch.exists)
+    }
+
+    func testRootScreensInLightAppearance() {
+        captureRootScreens(arguments: ["--ui-testing", "--ui-testing-favorites"])
+    }
+
+    func testRootScreensWithLargeTextAndDarkAppearance() {
+        captureRootScreens(arguments: ["--ui-testing", "--ui-testing-favorites", "--ui-testing-accessibility"])
+    }
+
+    private func captureRootScreens(arguments: [String]) {
+        let app = XCUIApplication()
+        app.launchArguments = arguments
+        app.launch()
+        for tab in ["Discover", "Library", "Upcoming", "Settings"] {
+            app.tabBars.buttons[tab].tap()
+            XCTAssertTrue(app.navigationBars[tab].waitForExistence(timeout: 5))
+            let screenshot = XCTAttachment(screenshot: app.screenshot())
+            screenshot.name = tab
+            screenshot.lifetime = .keepAlways
+            add(screenshot)
+        }
+    }
+
     func testWatchTonightPicksAnOfflineSavedTitle() {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]
         app.launch()
-        app.tabBars.buttons["Favorites"].tap()
+        app.tabBars.buttons["Discover"].tap()
         app.buttons["library.tonight"].tap()
         XCTAssertTrue(app.navigationBars["Watch tonight"].waitForExistence(timeout: 5))
         app.buttons["tonight.shuffle"].tap()
@@ -132,7 +215,7 @@ final class WatchlistUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]
         app.launch()
-        app.tabBars.buttons["Favorites"].tap()
+        app.tabBars.buttons["Library"].tap()
         app.segmentedControls["favorites.category"].buttons["TV"].tap()
         let series = app.buttons["library.entry.tv-1"]
         XCTAssertTrue(series.waitForExistence(timeout: 5))
@@ -153,7 +236,7 @@ final class WatchlistUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-favorites", "--ui-testing-accessibility"]
         app.launch()
-        app.tabBars.buttons["Favorites"].tap()
+        app.tabBars.buttons["Library"].tap()
         let card = app.buttons["library.entry.movie-1"]
         for _ in 0..<5 where !card.isHittable { app.swipeUp() }
         XCTAssertTrue(card.waitForExistence(timeout: 5))
@@ -170,7 +253,7 @@ final class WatchlistUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-favorites"]
         app.launch()
-        app.tabBars.buttons["Favorites"].tap()
+        app.tabBars.buttons["Library"].tap()
         let movie = app.buttons["library.entry.movie-1"]
         XCTAssertTrue(movie.waitForExistence(timeout: 5))
         XCTAssertGreaterThanOrEqual(movie.frame.minX - app.frame.minX, 19)
