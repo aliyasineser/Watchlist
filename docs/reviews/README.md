@@ -5,10 +5,12 @@ Main at 8008307 includes features 01–12. The active review is
 [Navigation and iCloud Account review](13-navigation-and-icloud-account.md).
 
 The user chose system iCloud account persistence rather than a separate app login.
-Discover, Search, Library, Upcoming and Account now have distinct responsibilities.
+Discover, Search, Library, Upcoming and Settings now have distinct responsibilities.
 Existing sync requires a one-time iCloud identity confirmation after this upgrade;
 new/different accounts require confirmation before merging local data. Existing
-CloudKit provisioning still applies. Local data is retained if sync is unavailable.
+CloudKit provisioning still applies. Local data is retained if sync is unavailable. Settings explains local-only use,
+optional sync, retry/recovery and backup without registration. Backend accounts
+are deliberately deferred.
 
 Run `Scripts/test.sh` or PR CI before merging. Review the five-tab navigation, all
 moved tools, card spacing, dark/large-text screenshot attachments, offline flows

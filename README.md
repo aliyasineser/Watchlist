@@ -20,19 +20,22 @@ credentials report HTTP 401/403 rather than a generic server error. The API Read
 Access Token is a different credential and should not be pasted into `apiKey`.
 Get the API key from https://www.themoviedb.org/settings/api.
 
-## App navigation and account
+## App navigation and settings
 
 - **Discover:** browsing, Continue watching, Watch tonight and Choose together.
 - **Search:** movies, TV and artist search, plus popular artist browsing.
 - **Library:** saved titles, custom lists and saved artists; filter titles by your services.
 - **Upcoming:** release calendar, followed titles and optional reminders.
-- **Account:** iCloud connection/sync, backup/restore, country and streaming services.
+- **Settings:** optional iCloud sync, backup/restore, country and streaming services.
 
 Watchlist uses the device’s existing **iCloud Apple Account**, with no separate
-registration. Open Account and confirm the current iCloud account before enabling
-sync. A different account requires confirmation before merging local data. Your
+registration. Open Settings and enable Sync with iCloud, then confirm the account
+before syncing. A different account requires confirmation before merging local data. Your
 local library remains available when signed out/offline. Country and service
-preferences stay local. See [account/navigation review](docs/reviews/13-navigation-and-icloud-account.md)
+preferences and artist favorites stay local. Sync shows Off, Checking, Syncing,
+Waiting to sync, Up to date or Needs attention, with an explicit retry when needed.
+A previous session’s timestamp does not imply the current library has synced.
+Backup/export works without iCloud. See [account/navigation review](docs/reviews/13-navigation-and-icloud-account.md)
 for provisioning and verification details.
 
 # Features

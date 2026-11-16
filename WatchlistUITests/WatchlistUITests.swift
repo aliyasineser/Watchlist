@@ -97,11 +97,15 @@ final class WatchlistUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing"]
         app.launch()
-        app.tabBars.buttons["Account"].tap()
-        app.buttons["library.backup"].tap()
+        app.tabBars.buttons["Settings"].tap()
+        let backup = app.buttons["library.backup"]
+        for _ in 0..<5 where !backup.isHittable { app.swipeUp() }
+        backup.tap()
         XCTAssertTrue(app.navigationBars["Backup"].waitForExistence(timeout: 5))
         app.navigationBars.buttons.element(boundBy: 0).tap()
-        app.buttons["account.services"].tap()
+        let services = app.buttons["account.services"]
+        for _ in 0..<5 where !services.isHittable { app.swipeUp() }
+        services.tap()
         XCTAssertTrue(app.navigationBars["My streaming services"].waitForExistence(timeout: 5))
         app.tabBars.buttons["Library"].tap()
         XCTAssertFalse(app.buttons["library.tonight"].exists)
@@ -123,9 +127,11 @@ final class WatchlistUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-icloud-confirm"]
         app.launch()
-        app.tabBars.buttons["Account"].tap()
-        XCTAssertTrue(app.staticTexts["iCloud connected"].waitForExistence(timeout: 5))
+        app.tabBars.buttons["Settings"].tap()
+        XCTAssertTrue(app.staticTexts["Saved on this device"].waitForExistence(timeout: 5))
         let sync = app.switches["account.sync"]
+        let ready = expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: sync)
+        wait(for: [ready], timeout: 5)
         sync.tap()
         let confirm = app.buttons["Merge my library with this iCloud account"]
         XCTAssertTrue(confirm.waitForExistence(timeout: 5))
@@ -138,9 +144,36 @@ final class WatchlistUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--ui-testing", "--ui-testing-icloud-signed-out"]
         app.launch()
-        app.tabBars.buttons["Account"].tap()
+        app.tabBars.buttons["Settings"].tap()
+        XCTAssertTrue(app.staticTexts["Saved on this device"].waitForExistence(timeout: 5))
+        app.buttons["How iCloud sync works"].tap()
         XCTAssertTrue(app.staticTexts["Sign in to iCloud"].waitForExistence(timeout: 5))
         XCTAssertEqual(app.switches["account.sync"].value as? String, "0")
+    }
+
+    func testSettingsExplainsLocalUseAndCanTurnSyncOffAfterConfirmation() {
+        let app = XCUIApplication()
+        app.launchArguments = ["--ui-testing", "--ui-testing-icloud-confirm"]
+        app.launch()
+        app.tabBars.buttons["Settings"].tap()
+        XCTAssertTrue(app.staticTexts["Saved on this device"].waitForExistence(timeout: 5))
+        let status = app.descendants(matching: .any).matching(identifier: "settings.syncStatus").firstMatch
+        let off = expectation(for: NSPredicate(format: "label CONTAINS %@", "Off"), evaluatedWith: status)
+        wait(for: [off], timeout: 5)
+        let sync = app.switches["account.sync"]
+        let ready = expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: sync)
+        wait(for: [ready], timeout: 5)
+        sync.tap()
+        let confirm = app.buttons["Merge my library with this iCloud account"]
+        XCTAssertTrue(confirm.waitForExistence(timeout: 5))
+        confirm.tap()
+        let updated = expectation(for: NSPredicate(format: "label CONTAINS %@", "Up to date"), evaluatedWith: status)
+        wait(for: [updated], timeout: 5)
+        sync.tap()
+        let disabled = expectation(for: NSPredicate(format: "value == %@", "0"), evaluatedWith: sync)
+        wait(for: [disabled], timeout: 5)
+        XCTAssertTrue(app.staticTexts["Saved on this device"].exists)
+        XCTAssertFalse(app.alerts.firstMatch.exists)
     }
 
     func testRootScreensInLightAppearance() {
@@ -155,7 +188,7 @@ final class WatchlistUITests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = arguments
         app.launch()
-        for tab in ["Discover", "Library", "Upcoming", "Account"] {
+        for tab in ["Discover", "Library", "Upcoming", "Settings"] {
             app.tabBars.buttons[tab].tap()
             XCTAssertTrue(app.navigationBars[tab].waitForExistence(timeout: 5))
             let screenshot = XCTAttachment(screenshot: app.screenshot())

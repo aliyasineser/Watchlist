@@ -83,8 +83,8 @@ struct DashboardView: View {
             Tab("Upcoming", systemImage: "calendar", value: .upcoming) {
                 NavigationStack { UpcomingView(presenter: upcoming) }
             }
-            Tab("Account", systemImage: "person.crop.circle", value: .account) {
-                NavigationStack { AccountView(presenter: accountPresenter) }
+            Tab("Settings", systemImage: "gearshape.fill", value: .account) {
+                NavigationStack { SettingsView(presenter: accountPresenter) }
             }
         }
         .task(id: libraryStore.revision) {

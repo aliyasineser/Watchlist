@@ -32,7 +32,7 @@ enum ICloudAccountError: LocalizedError {
         switch self {
         case .unavailable: "iCloud is unavailable. Check your Apple Account in iOS Settings and try again."
         case .confirmationRequired:
-            "Sync is paused. Confirm the current iCloud account in the Account tab before syncing."
+            "Sync is paused. Confirm the current iCloud account in the Settings tab before syncing."
         case .changed: "The iCloud account changed. Review the current account in Settings, then confirm it again."
         }
     }
@@ -46,5 +46,24 @@ struct ICloudIdentityPolicy {
         }
         guard !snapshot.needsConfirmation else { throw ICloudAccountError.confirmationRequired }
         return identifier
+    }
+}
+
+/// Sync health is separate from the device’s iCloud connection.
+enum LibrarySyncStatus: String, Equatable {
+    case off = "Off"
+    case checking = "Checking iCloud…"
+    case syncing = "Syncing…"
+    case waiting = "Waiting to sync"
+    case upToDate = "Up to date"
+    case needsAttention = "Needs attention"
+
+    var symbol: String {
+        switch self {
+        case .off: "internaldrive"
+        case .checking, .syncing, .waiting: "arrow.triangle.2.circlepath"
+        case .upToDate: "checkmark.icloud"
+        case .needsAttention: "exclamationmark.icloud"
+        }
     }
 }

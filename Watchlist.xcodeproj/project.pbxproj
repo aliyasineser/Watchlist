@@ -219,7 +219,7 @@
 		A094A2AFAECA4EEF85CDEAA6 /* ICloudAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C0149D48BD4BBC9CEE46EB /* ICloudAccount.swift */; };
 		12E3ED9F2BA54336A4C491F8 /* ICloudAccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F090C99E4B4949999FD51CBD /* ICloudAccountService.swift */; };
 		C4A50C07574F4E6784F05AE1 /* AccountPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3B605B53AC4618AD6338F3 /* AccountPresenter.swift */; };
-		18FE7D0F553F4CA9A0A35D0C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B311287445454F96A70185 /* AccountView.swift */; };
+		18FE7D0F553F4CA9A0A35D0C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B311287445454F96A70185 /* SettingsView.swift */; };
 		43575B3780B749EA97A2722B /* ProviderCatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2061CB2759246E793FFD9A9 /* ProviderCatalogService.swift */; };
 		602339DB0B784B528C0BC706 /* SubscriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F1C78BB24E4060BE24E069 /* SubscriptionPresenter.swift */; };
 		216F16D4C87E40B0A3587CCB /* SubscriptionSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E04E8A2BF447399404E467 /* SubscriptionSettingsView.swift */; };
@@ -465,7 +465,7 @@
 		86C0149D48BD4BBC9CEE46EB /* ICloudAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICloudAccount.swift"; sourceTree = "<group>"; };
 		F090C99E4B4949999FD51CBD /* ICloudAccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ICloudAccountService.swift"; sourceTree = "<group>"; };
 		1A3B605B53AC4618AD6338F3 /* AccountPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountPresenter.swift"; sourceTree = "<group>"; };
-		73B311287445454F96A70185 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountView.swift"; sourceTree = "<group>"; };
+		73B311287445454F96A70185 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SettingsView.swift"; sourceTree = "<group>"; };
 		C2061CB2759246E793FFD9A9 /* ProviderCatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProviderCatalogService.swift"; sourceTree = "<group>"; };
 		93F1C78BB24E4060BE24E069 /* SubscriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubscriptionPresenter.swift"; sourceTree = "<group>"; };
 		F2E04E8A2BF447399404E467 /* SubscriptionSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubscriptionSettingsView.swift"; sourceTree = "<group>"; };
@@ -1520,7 +1520,7 @@
 		9523ABAADB584EF1AD9B5277 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				73B311287445454F96A70185 /* AccountView.swift */,
+				73B311287445454F96A70185 /* SettingsView.swift */,
 			);
 			path = "View";
 			sourceTree = "<group>";
@@ -1695,7 +1695,7 @@
 				216F16D4C87E40B0A3587CCB /* SubscriptionSettingsView.swift in Sources */,
 				602339DB0B784B528C0BC706 /* SubscriptionPresenter.swift in Sources */,
 				43575B3780B749EA97A2722B /* ProviderCatalogService.swift in Sources */,
-				18FE7D0F553F4CA9A0A35D0C /* AccountView.swift in Sources */,
+				18FE7D0F553F4CA9A0A35D0C /* SettingsView.swift in Sources */,
 				C4A50C07574F4E6784F05AE1 /* AccountPresenter.swift in Sources */,
 				12E3ED9F2BA54336A4C491F8 /* ICloudAccountService.swift in Sources */,
 				A094A2AFAECA4EEF85CDEAA6 /* ICloudAccount.swift in Sources */,

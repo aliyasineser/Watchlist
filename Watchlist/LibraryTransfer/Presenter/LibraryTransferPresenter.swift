@@ -8,6 +8,7 @@ final class LibraryTransferPresenterImpl {
     var syncEnabled: Bool { didSet { preferences.set(syncEnabled, forKey: "library.syncEnabled") } }
     private(set) var isSyncing = false
     private(set) var lastSync: Date?
+    private(set) var lastSyncedRevision: Int?
     var error: Error?
     var importPreview: WatchLibraryDocument?
     private let cloud: LibraryCloudService
@@ -35,6 +36,7 @@ final class LibraryTransferPresenterImpl {
             guard await store.installDocument(merged, expected: original) else {
                 throw store.error ?? LibraryTransferError.changedDuringSync
             }
+            lastSyncedRevision = store.revision
             lastSync = .now
             preferences.set(lastSync, forKey: "library.lastSync")
         } catch is CancellationError { } catch {

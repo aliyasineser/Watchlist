@@ -20,6 +20,19 @@ final class AccountPresenterImpl {
         self.providerPreferences = providerPreferences
         self.subscriptions = subscriptions
     }
+    var syncStatus: LibrarySyncStatus {
+        if isChecking { return .checking }
+        if transfer.isSyncing { return .syncing }
+        if error != nil || transfer.error != nil { return .needsAttention }
+        guard transfer.syncEnabled else { return .off }
+        guard account?.connection == .available, account?.needsConfirmation == false else { return .needsAttention }
+        return transfer.lastSyncedRevision == transfer.store.revision ? .upToDate : .waiting
+    }
+
+    func retrySync() async {
+        await setSyncEnabled(true)
+    }
+
     func refresh() async {
         guard !isChecking else { return }
         isChecking = true
@@ -35,7 +48,13 @@ final class AccountPresenterImpl {
         }
     }
     func setSyncEnabled(_ enabled: Bool) async {
-        if !enabled { transfer.syncEnabled = false; return }
+        if !enabled {
+            transfer.syncEnabled = false
+            confirmationIdentifier = nil
+            error = nil
+            transfer.error = nil
+            return
+        }
         guard !isChecking, !transfer.isSyncing else { return }
         await refresh()
         guard let account, account.connection == .available, let identifier = account.identifier else {

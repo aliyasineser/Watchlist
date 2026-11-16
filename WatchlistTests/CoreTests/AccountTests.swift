@@ -72,6 +72,68 @@ final class AccountTests: XCTestCase {
         XCTAssertEqual(store.entries.count, 1)
     }
 
+    func testLocalOnlyModeAndTurningSyncOffPreserveLibrary() async {
+        let context = await context()
+        await context.presenter.refresh()
+        XCTAssertEqual(context.presenter.syncStatus, .off)
+        await context.presenter.setSyncEnabled(true)
+        await context.presenter.confirmAndSync("A")
+        XCTAssertEqual(context.presenter.syncStatus, .upToDate)
+        let original = context.transfer.store.document
+        await context.presenter.setSyncEnabled(false)
+        XCTAssertEqual(context.presenter.syncStatus, .off)
+        XCTAssertEqual(context.transfer.store.document, original)
+        let calls = await context.cloud.calls
+        XCTAssertEqual(calls, 1)
+    }
+
+    func testLocalEditsWaitForNextSuccessfulSync() async {
+        let context = await context()
+        await context.presenter.setSyncEnabled(true)
+        await context.presenter.confirmAndSync("A")
+        XCTAssertEqual(context.presenter.syncStatus, .upToDate)
+        guard let title = context.transfer.store.entries.first?.title else { return XCTFail("Missing fixture") }
+        await context.transfer.store.setRating(8, for: title)
+        XCTAssertEqual(context.presenter.syncStatus, .waiting)
+        await context.presenter.retrySync()
+        XCTAssertEqual(context.presenter.syncStatus, .upToDate)
+        XCTAssertEqual(context.transfer.store.entries.first?.personalRating, 8)
+    }
+
+    func testTransientSyncFailureCanBeRetriedWithoutLosingLocalData() async {
+        let context = await context()
+        await context.cloud.setUnavailable(true)
+        await context.presenter.setSyncEnabled(true)
+        await context.presenter.confirmAndSync("A")
+        XCTAssertEqual(context.presenter.syncStatus, .needsAttention)
+        XCTAssertTrue(context.transfer.syncEnabled)
+        XCTAssertNil(context.transfer.lastSyncedRevision)
+        let original = context.transfer.store.document
+        await context.cloud.setUnavailable(false)
+        await context.presenter.retrySync()
+        XCTAssertEqual(context.presenter.syncStatus, .upToDate)
+        XCTAssertNil(context.transfer.error)
+        XCTAssertEqual(context.transfer.store.document, original)
+    }
+
+    func testPreviousSessionTimestampDoesNotClaimCurrentLibraryIsUpToDate() async {
+        let context = await context()
+        await context.presenter.setSyncEnabled(true)
+        await context.presenter.confirmAndSync("A")
+        let defaults = defaults("AccountPreviousSession")
+        defaults.set(true, forKey: "library.syncEnabled")
+        defaults.set(Date.now, forKey: "library.lastSync")
+        let transfer = LibraryTransferPresenterImpl(store: context.transfer.store, cloud: context.cloud, preferences: defaults)
+        let preferences = ProviderPreferencesImpl(defaults: defaults)
+        let presenter = AccountPresenterImpl(
+            transfer: transfer, service: context.account, providerPreferences: preferences,
+            subscriptions: SubscriptionPresenterImpl(preferences: preferences, service: AccountCatalogMock())
+        )
+        await presenter.refresh()
+        XCTAssertNotNil(transfer.lastSync)
+        XCTAssertEqual(presenter.syncStatus, .waiting)
+    }
+
     private func context() async -> AccountTestContext {
         let defaults = defaults("AccountTests")
         let store = WatchLibraryStoreImpl(repository: AccountRepository(), artwork: AccountArtwork())
@@ -119,11 +181,14 @@ private actor AccountServiceMock: ICloudAccountService {
 
 private actor AccountCloudMock: LibraryCloudService {
     private(set) var calls = 0
+    private var unavailable = false
+    func setUnavailable(_ value: Bool) { unavailable = value }
     private let blocked: Bool
     init(blocked: Bool = false) { self.blocked = blocked }
     func exchange(_ local: WatchLibraryDocument) async throws -> WatchLibraryDocument {
         calls += 1
         if blocked { throw ICloudAccountError.confirmationRequired }
+        if unavailable { throw ICloudAccountError.unavailable }
         return local
     }
 }
